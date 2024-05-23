@@ -1,0 +1,19 @@
+version: "2.4"
+
+services:
+
+  # Administrator: http://127.0.0.1:8080/CFIDE/administrator/index.cfm
+  cfml:
+    image: "ortussolutions/commandbox:latest"
+    ports:
+      - "80:8080"
+      - "8080:8080"
+    volumes:
+      - "./app:/app"
+    environment:
+      BOX_SERVER_APP_CFENGINE: "adobe@2021.0.13+330286"
+      BOX_SERVER_PROFILE: "development"
+      CFPM_INSTALL: "debugger,mail"
+      APP_DIR: "/app/wwwroot"
+    healthcheck:
+      test: "echo hello"

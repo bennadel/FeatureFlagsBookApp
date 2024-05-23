@@ -1,0 +1,27 @@
+{
+	"initPassword": "1",
+	"isLive": false,
+	"site": {
+		"name": "Feature Flags Playground",
+		"url": "http://app.local.featureflagsbook.com",
+		"cookieDomain": "app.local.featureflagsbook.com"
+	},
+	"bugsnag": {
+		"server": {
+			"apiKey": "",
+			"releaseStage": "Development"
+		},
+		"client": {
+			"apiKey": "",
+			"releaseStage": "Development"
+		}
+	},
+	"turnstile": {
+		"server": {
+			"apiKey": ""
+		},
+		"client": {
+			"apiKey": "0x4AAAAAAAazgvxjR89T_EyV"
+		}
+	}
+}
