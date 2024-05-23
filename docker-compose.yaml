@@ -13,7 +13,7 @@ services:
     environment:
       BOX_SERVER_APP_CFENGINE: "adobe@2021.0.13+330286"
       BOX_SERVER_PROFILE: "development"
-      CFPM_INSTALL: "debugger,mail"
+      CFPM_INSTALL: "debugger"
       APP_DIR: "/app/wwwroot"
     healthcheck:
       test: "echo hello"
