@@ -15,7 +15,7 @@ The following JSON payload represents the feature flags configuration for a give
 
 This is a **work in progress**&mdash;I'm thinking out loud about what I want the configuration to look like:
 
-```json
+```json5
 {
 	"username": "ben@bennadel.com",
 	"schema": 1,
