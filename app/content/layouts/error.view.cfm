@@ -7,6 +7,7 @@
 		<cfmodule template="./shared/title.cfm">
 		<cfmodule template="./shared/favicon.cfm">
 		<cfmodule template="./shared/bugsnag.cfm">
+		<cfmodule template="./shared/css.cfm">
 	</head>
 	<body>
 
