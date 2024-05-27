@@ -22,7 +22,8 @@ This is a **work in progress**&mdash;I'm thinking out loud about what I want the
     version: 13,
     createdAt: "2024-05-27T00:00:00",
     updatedAt: "2024-05-27T00:00:00",
-    // Each feature has environment-specific rules.
+    // The set of feature flags is shared across all environments. However,
+    // each feature will its own unique set of targeting rules.
     environments: [
         {
             id: "production",
@@ -37,27 +38,31 @@ This is a **work in progress**&mdash;I'm thinking out loud about what I want the
         "product-TICKET-13-feature-x": {
             type: "boolean",
             description: "I determine if Feature X is enabled.",
+            // The set of values that can be allocated by a given distribution.
             variants: [ false, true ],
-            // Used when creating the environment entries.
+            // The default distribution (of variants) to be used when creating
+            // the environment entries.
             defaultDistribution: [ 100, 0 ],
             environments: {
                 production: {
                     distribution: [ 100, 0 ],
-                    // If rules aren't enabled, above distribution is used.
+                    // If rules aren't enabled, the distribution above is used.
                     rulesEnabled: true,
                     rules: [
                         {
                             operator: "IsOneOf",
                             input: "userID",
-                            values: [ 1 ],
-                            // A rule can override the above distribution.
+                            values: [ 1, 34, 99, 104 ],
+                            // When a rule matches, it will override the above
+                            // distribution.
                             distribution: [ 0, 100 ]
                         },
                         {
                             operator: "IsOneOf",
                             input: "companySubdomain",
-                            values: [ "example" ],
-                            // Or, a rule can override the actual variant.
+                            values: [ "example", "acme" ],
+                            // Or, a rule can override the actual variant (as
+                            // long as the value is of the same type).
                             variant: true
                         }
                     ]
@@ -78,6 +83,7 @@ This is a **work in progress**&mdash;I'm thinking out loud about what I want the
 
 ## Change Log
 
+* **2024, May 27**: Starting to consider data-structure of feature flag.
 * **2024, May 27**: Added a light-weight authentication workflow.
 * **2024, May 23**: Created repository.
 
