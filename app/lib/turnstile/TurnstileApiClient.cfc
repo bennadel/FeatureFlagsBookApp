@@ -51,7 +51,7 @@ component
 		if ( ! statusCode.ok ) {
 
 			throw(
-				type = "TurnstileApiClient.ApiFailure",
+				type = "Turnstile.ApiClient.ApiFailure",
 				message = "Cloudflare Turnstile API error.",
 				detail = "Returned with status code: #statusCode.original#",
 				extendedInfo = fileContent
@@ -73,7 +73,7 @@ component
 		} catch ( any error ) {
 
 			throw(
-				type = "TurnstileApiClient.PayloadError",
+				type = "Turnstile.ApiClient.PayloadError",
 				message = "Cloudflare Turnstile API response consumption error.",
 				detail = "Returned with status code: #statusCode.original#",
 				extendedInfo = fileContent

@@ -17,8 +17,9 @@ component
 	// Define the per-application path mappings. This is used for component paths and
 	// expandPath() resolution.
 	this.mappings = {
-		"/lib": "#this.wwwroot#../lib",
-		"/data": "#this.wwwroot#data"
+		"/content": "#this.wwwroot#../content",
+		"/data": "#this.wwwroot#data",
+		"/lib": "#this.wwwroot#../lib"
 	};
 
 	// As a security best practice, we DO NOT WANT to search for unscoped variables in any
@@ -65,6 +66,9 @@ component
 		;
 
 		request.logger = ioc.get( "lib.Logger" );
+
+		// This is used to cache-bust some of the static assets.
+		ioc.provide( "staticAssetVersion", "2024.05.24.07.33" );
 
 		// As the very last step in the initialization process, we want to flag that the
 		// application has been fully bootstrapped. This way, we can test the state of the

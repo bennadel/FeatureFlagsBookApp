@@ -23,7 +23,7 @@ component
 		if ( ! verifyToken( argumentCollection = arguments ) ) {
 
 			throw(
-				type = "Turnstile.VerificationFailure",
+				type = "App.Turnstile.VerificationFailure",
 				message = "Cloudflare Turnstile verification failure.",
 				detail = "Challenge did not pass, user might be a bot."
 			);
@@ -47,7 +47,7 @@ component
 		if ( ! token.len() ) {
 
 			throw(
-				type = "Turnstile.InvalidToken",
+				type = "App.Turnstile.InvalidToken",
 				message = "Cloudflare Turnstile token is empty."
 			);
 

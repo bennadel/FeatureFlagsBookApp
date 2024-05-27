@@ -17,26 +17,72 @@ component
 	public struct function getResponse( required any error ) {
 
 		switch ( error.type ) {
+			case "App.Model.User.Email.Empty":
+				return as422({
+					type: error.type,
+					message: "Your email address is empty. Please provide a valid email address."
+				});
+			break;
+			case "App.Model.User.Email.Example":
+				return as422({
+					type: error.type,
+					message: "Your email address is using an unsupported domain. Please choose another email address."
+				});
+			break;
+			case "App.Model.User.Email.InvalidFormat":
+				return as422({
+					type: error.type,
+					message: "Your email address is in an unexpected format. Please double-check your email address."
+				});
+			break;
+			case "App.Model.User.Email.Plus":
+				return as422({
+					type: error.type,
+					message: "Your email address is using plus (+) mechanics. You don't have to do that - I'm not recording your email nor will I attempt to send you any communications. This site is for illustrative purposes only. Just pick an email address that you can easily remember."
+				});
+			break;
+			case "App.Model.User.Email.SuspiciousEncoding":
+				return as422({
+					type: error.type,
+					message: "Your email address contains characters with an unsupported encoding format. Please make sure that you are only using plain-text characters."
+				});
+			break;
+			case "App.Model.User.Email.TooLong":
+				return as422({
+					type: error.type,
+					message: "Your email address is too long. Please use an email address that is less than 75-characters long."
+				});
+			break;
+			case "App.Routing.Auth.InvalidEvent":
+			case "App.Routing.Home.InvalidEvent":
+				return as404({
+					type: error.type
+				});
+			break;
+			case "App.Turnstile.InvalidToken":
+			case "App.Turnstile.VerificationFailure":
+				return as400({
+					type: error.type,
+					message: "Your form has expired. Please try submitting your request again."
+				});
+			break;
 			case "InternalOnly":
 				return as403({
 					type: error.type,
 					message: "Sorry, you've attempted to use a feature that is currently in private beta. I'm hoping to start opening this up to a wider audience soon. But, I still have some kinks and rough edges to figure out."
 				});
 			break;
-			case "ReCaptchaClient.InvalidToken":
-			case "ReCaptchaClient.VerificationFailure":
-				return as400();
-			break;
 			// Anything not handled by an explicit case becomes a generic 500 response.
 			default:
 				// If this is a domain error, it should have been handled by an explicit
-				// case. Let's log it so that we can fix the error handling.
+				// switch-case above. Let's log it so that we can fix the error handling
+				// in a future update.
 				// --
 				// NOTE: Using toString() in order to fix an edge-case in which Adobe
 				// ColdFusion throws some errors as objects.
 				if ( toString( error.type ).listFirst( "." ) == "App" ) {
 
-					logger.info( "Error not handled by case in errorService.", error );
+					logger.info( "Error not handled by case in ErrorService.", error );
 
 				}
 

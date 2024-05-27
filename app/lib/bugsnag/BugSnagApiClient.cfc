@@ -83,7 +83,7 @@ component
 		if ( ! statusCode.ok ) {
 
 			throw(
-				type = "BugSnagApiClient.ApiFailure",
+				type = "BugSnag.ApiClient.ApiFailure",
 				message = "BugSnag notify API failure.",
 				detail = "Returned with status code: #statusCode.original#",
 				extendedInfo = httpUtilities.getFileContentAsString( httpResponse )

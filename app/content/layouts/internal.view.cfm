@@ -1,0 +1,20 @@
+<cfoutput>
+
+	<!doctype html>
+	<html lang="en">
+	<head>
+		<cfmodule template="./shared/meta.cfm">
+		<cfmodule template="./shared/title.cfm">
+		<cfmodule template="./shared/favicon.cfm">
+		<cfmodule template="./shared/bugsnag.cfm">
+	</head>
+	<body>
+
+		#request.template.primaryContent#
+
+		<cfmodule template="./shared/local_debugging.cfm">
+
+	</body>
+	</html>
+
+</cfoutput>
