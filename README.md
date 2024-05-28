@@ -7,13 +7,15 @@ by [Ben Nadel][ben-nadel]
 
 As a fun experiment, I wanted to build a small playground companion to my [Feature Flags Book][book]. This is a place where readers can log into a system and try creating feature flags and updating targeting rules to get a sense of how a feature flags / feature toggles system can be used.
 
+[Log into the playground][app] &rarr;
+
 ## Feature Flags Data Structure
 
-A feature flags system is really just a rules engine that takes application-provided inputs (such as `userID` or `userEmail`), compares them to a set of filters, and then returns a predictable and repeatable value. Meaning, the same inputs will always yield the same output as long as the configured filters do not change.
+A feature flags system is really just a rules engine that takes application-provided inputs (such as `userID` or `userEmail`), funnels them through a set of rules, and then returns a predictable and repeatable result. Meaning, the same inputs will always yield the same result as long as the configured rules have not changed.
 
-The following JSON payload represents the feature flags configuration for a given user.
+When you log into [the feature flags playground][app], your user will be allocated a unique collection of feature flags to be persisted in a JSON file. The following JavaScript represents the structure of said file.
 
-This is a **work in progress**&mdash;I'm thinking out loud about what I want the configuration to look like:
+Note: This is a **work in progress**:
 
 ```js
 {
@@ -22,18 +24,20 @@ This is a **work in progress**&mdash;I'm thinking out loud about what I want the
     version: 13,
     createdAt: "2024-05-27T00:00:00",
     updatedAt: "2024-05-27T00:00:00",
+
     // The set of feature flags is shared across all environments. However,
-    // each feature will its own unique set of targeting rules.
-    environments: [
-        {
-            id: "production",
-            name: "Production"
+    // each feature will have its own unique set of targeting rules.
+    environments: {
+        production: {
+            name: "Production",
+            description: ""
         },
-        {
-            id: "development",
-            name: "Development"
+        development: {
+            name: "Development",
+            description: ""
         }
-    ],
+    },
+
     features: {
         "product-TICKET-13-feature-x": {
             type: "boolean",
@@ -43,6 +47,7 @@ This is a **work in progress**&mdash;I'm thinking out loud about what I want the
             // The default distribution (of variants) to be used when creating
             // the environment entries.
             defaultDistribution: [ 100, 0 ],
+
             environments: {
                 production: {
                     distribution: [ 100, 0 ],
@@ -87,6 +92,8 @@ This is a **work in progress**&mdash;I'm thinking out loud about what I want the
 * **2024, May 27**: Added a light-weight authentication workflow.
 * **2024, May 23**: Created repository.
 
+
+[app]: https://app.featureflagsbook.com/
 
 [ben-nadel]: https://www.bennadel.com/
 
