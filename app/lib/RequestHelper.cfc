@@ -18,15 +18,15 @@ component
 	*/
 	public struct function ensureAuthenticatedUser() {
 
-		var user = authWorkflow.getRequestUser();
+		var maybeUser = authWorkflow.maybeGetRequestUser();
 
-		if ( ! user.exists ) {
+		if ( ! maybeUser.exists ) {
 
 			redirectToLogin();
 
 		}
 
-		return user;
+		return maybeUser.value;
 
 	}
 

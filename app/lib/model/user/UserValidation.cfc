@@ -6,8 +6,9 @@ component
 	// Define properties for dependency-injection.
 	property name="validationUtilities" ioc:type="lib.ValidationUtilities";
 
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
+	// ---
+	// PUBLIC METHODS.
+	// ---
 
 	/**
 	* I validate and return the normalized email value.

@@ -7,3 +7,10 @@ body {
 a {
 	color: red ;
 }
+
+input,
+button {
+	font-family: inherit;
+	font-size: inherit ;
+	line-height: inherit ;
+}
