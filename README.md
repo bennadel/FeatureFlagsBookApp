@@ -19,7 +19,7 @@ The majority of feature flags that I use are Boolean types that conditionally en
 
 For some types of _operational_ feature flags, however, dealing with a finite set of variants and a percent-based allocation feels unnatural. In those cases, a little more flexibility creates better developer ergonomics.
 
-To enable this kind of flexibility, each feature flag (and rule) will have a `resolutionMode`. This `resolutionMode` can be one of three values:
+To enable this kind of flexibility, each feature flag (and rule) will have a `resolution` type. This `resolution` type can be one of three flavors:
 
 * `selection` - defines the index of the variant to be returned.
 
@@ -35,43 +35,49 @@ To demonstrate, consider the set of log-level variants:
 }
 ```
 
-In a production environment, we might want all users to receive the `error` variant. And, since this is the first element in the `variants` array, we could use a `selection` resolution mode with value, `1`:
+In a production environment, we might want all users to receive the `error` variant. And, since this is the first element in the `variants` array, we could use a `selection` resolution type with value, `1`:
 
 ```js
 {
     variants: [ "error", "warn", "info" ],
     environments: {
         production: {
-            resolutionMode: "selection",
-            selection: 1 // Returns `error` for all users.
+            resolution: {
+                type: "selection",
+                selection: 1 // Returns `error` for all users.
+            }
         }
     }
 }
 ```
 
-However, in the middle of an incident, we might need to move to a lower-level of logging in order to debug the problem. However, so as to not overwhelm the log aggregation mechanism, maybe we only want 10% of users to start emitting `warn` logs. In that case, we could use a `distribution` resolution mode that allocates `error` to 90% of users, `warn` to 10% of users, and `info` to 0% of users:
+However, in the middle of an incident, we might need to move to a lower-level of logging in order to debug the problem. However, so as to not overwhelm the log aggregation mechanism, perhaps we only want 10% of users to start emitting `warn` logs. In that case, we could use a `distribution` resolution type that allocates `error` to 90% of users, `warn` to 10% of users, and `info` to 0% of users:
 
 ```js
 {
     variants: [ "error", "warn", "info" ],
     environments: {
         production: {
-            resolutionMode: "distribution",
-            distribution: [ 90, 10, 0 ] // 10% of users get `warn`.
+            resolution: {
+                type: "distribution",
+                distribution: [ 90, 10, 0 ] // 10% of users get `warn`.
+            }
         }
     }
 }
 ```
 
-Now, imagine that the defined log-level aren't enough to give us the information that we need to debug the problem. We could, in desperation, move every user to a `trace` log-level. And, since `trace` isn't in the set of predefined variants, we would use the `variant` resolution mode to provide an override value:
+Now, imagine that the defined log-level aren't enough to give us the information that we need to debug the problem. We could, in desperation, move every user to a `trace` log-level. And, since `trace` isn't in the set of predefined variants, we would use the `variant` resolution type to provide an override value:
 
 ```js
 {
     variants: [ "error", "warn", "info" ],
     environments: {
         production: {
-            resolutionMode: "variant",
-            variant: "trace" // An override value.
+            resolution: {
+                type: "variant",
+                variant: "trace" // An override value.
+            }
         }
     }
 }
@@ -117,8 +123,10 @@ Note: This is a **work in progress**:
 
             environments: {
                 production: {
-                    resolutionMode: "distribution",
-                    distribution: [ 50, 50 ],
+                    resolution: {
+                        type: "distribution",
+                        distribution: [ 50, 50 ],
+                    },
                     // If rules aren't enabled, the resolution above is used.
                     rulesEnabled: true,
                     rules: [
@@ -128,8 +136,10 @@ Note: This is a **work in progress**:
                             values: [ "beta-testers" ],
                             // When a rule matches, it will override the above
                             // resolution.
-                            resolutionMode: "selection"
-                            selection: 2 // The `true` variant.
+                            resolution: {
+                                type: "selection",
+                                selection: 2 // The `true` variant.
+                            }
                         },
                         {
                             operator: "IsOneOf",
@@ -137,14 +147,18 @@ Note: This is a **work in progress**:
                             values: [ "example", "acme" ],
                             // Or, a rule can override the actual variant (as
                             // long as the value is of the same type).
-                            resolutionMode: "variant",
-                            variant: false // Never enable for these matches.
+                            resolution: {
+                                type: "variant",
+                                variant: false // Never enable for matches.
+                            }
                         }
                     ]
                 },
                 development: {
-                    resolutionMode: "selection",
-                    selection: 2,
+                    resolution: {
+                        type: "selection",
+                        selection: 2
+                    },
                     rulesEnabled: false,
                     rules: []
                 }
