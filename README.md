@@ -31,7 +31,7 @@ To demonstrate, consider the set of log-level variants:
 
 ```js
 {
-	variants: [ "error", "warn", "info" ]
+    variants: [ "error", "warn", "info" ]
 }
 ```
 
@@ -39,13 +39,13 @@ In a production environment, we might want all users to receive the `error` vari
 
 ```js
 {
-	variants: [ "error", "warn", "info" ],
-	environments: {
-		production: {
-			resolutionMode: "selection",
-			selection: 1 // Returns `error` for all users.
-		}
-	}
+    variants: [ "error", "warn", "info" ],
+    environments: {
+        production: {
+            resolutionMode: "selection",
+            selection: 1 // Returns `error` for all users.
+        }
+    }
 }
 ```
 
@@ -53,13 +53,13 @@ However, in the middle of an incident, we might need to move to a lower-level of
 
 ```js
 {
-	variants: [ "error", "warn", "info" ],
-	environments: {
-		production: {
-			resolutionMode: "distribution",
-			distribution: [ 90, 10, 0 ] // 10% of users get `warn`.
-		}
-	}
+    variants: [ "error", "warn", "info" ],
+    environments: {
+        production: {
+            resolutionMode: "distribution",
+            distribution: [ 90, 10, 0 ] // 10% of users get `warn`.
+        }
+    }
 }
 ```
 
@@ -67,13 +67,13 @@ Now, imagine that the defined log-level aren't enough to give us the information
 
 ```js
 {
-	variants: [ "error", "warn", "info" ],
-	environments: {
-		production: {
-			resolutionMode: "variant",
-			variant: "trace" // An override value.
-		}
-	}
+    variants: [ "error", "warn", "info" ],
+    environments: {
+        production: {
+            resolutionMode: "variant",
+            variant: "trace" // An override value.
+        }
+    }
 }
 ```
 
@@ -117,7 +117,7 @@ Note: This is a **work in progress**:
 
             environments: {
                 production: {
-                	resolutionMode: "distribution",
+                    resolutionMode: "distribution",
                     distribution: [ 50, 50 ],
                     // If rules aren't enabled, the resolution above is used.
                     rulesEnabled: true,
@@ -143,7 +143,7 @@ Note: This is a **work in progress**:
                     ]
                 },
                 development: {
-                	resolutionMode: "selection",
+                    resolutionMode: "selection",
                     selection: 2,
                     rulesEnabled: false,
                     rules: []
