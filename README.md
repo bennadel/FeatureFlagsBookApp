@@ -173,6 +173,7 @@ Note: This is a **work in progress**:
 
 ## Change Log
 
+* **2024, June 4**: Defining some demo data that will be used to create a default experience. This includes a set of sample users against which the feature flags can be evaluated.
 * **2024, June 2**: Considering the use of a `resolutionMode` in the data structure to create flexibility in which variants are returned to the user.
 * **2024, May 27**: Starting to consider data-structure of feature flag.
 * **2024, May 27**: Added a light-weight authentication workflow.
