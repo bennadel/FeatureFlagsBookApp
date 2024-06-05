@@ -173,9 +173,9 @@ Note: This is a **work in progress**:
 
 ## Change Log
 
-* **2024, June 5**: I've started working on the client / consumer / evaluator portion of the playground. This would normally be an external project (in your language of choice); but, in this case, it's all part of the playground.
+* **2024, June 5**: I've started working on [the client / consumer / evaluator](./app/lib/client/) portion of the playground. This would normally be an external project (in your language of choice); but, in this case, it's all part of the playground.
 
-* **2024, June 4**: Defining some demo data that will be used to create a default experience. This includes a set of sample users against which the feature flags can be evaluated.
+* **2024, June 4**: Defining some [demo data](./app/lib/demo/) that will be used to create a default experience. This includes a set of sample users against which the feature flags can be evaluated.
 
 * **2024, June 2**: Considering the use of a `resolutionMode` in the data structure to create flexibility in which variants are returned to the user.
 
