@@ -14,6 +14,9 @@
 	param name="request.event[ 2 ]" type="string" default="welcome";
 
 	switch ( request.event[ 2 ] ) {
+		case "evaluate":
+			cfmodule( template = "./evaluate.cfm" );
+		break;
 		case "welcome":
 			cfmodule( template = "./welcome.cfm" );
 		break;
