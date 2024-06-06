@@ -173,6 +173,8 @@ Note: This is a **work in progress**:
 
 ## Change Log
 
+* **2024, June 6**: I was trying to get ChatGPT to generate demo data for me. But, it ended up being an uphill battle. In the end, I had it given me lists of first/last names. And then, I [created a script](./app/wwwroot/fake-users.cfm) to generate a large set of demo data using `randRange()`.
+
 * **2024, June 5**: I've started working on [the client / consumer / evaluator](./app/lib/client/) portion of the playground. This would normally be an external project (in your language of choice); but, in this case, it's all part of the playground.
 
 * **2024, June 4**: Defining some [demo data](./app/lib/demo/) that will be used to create a default experience. This includes a set of sample users against which the feature flags can be evaluated.
