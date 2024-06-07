@@ -1,68 +1,12 @@
 <cfscript>
 
-	companies = [
-		[
-			id: 12301,
-			subdomain: "techgenius",
-			fortune100: true,
-			fortune500: false
-		],
-		[
-			id: 12302,
-			subdomain: "starcorp",
-			fortune100: true,
-			fortune500: false
-		],
-		[
-			id: 12303,
-			subdomain: "fusionworks",
-			fortune100: false,
-			fortune500: true
-		],
-		[
-			id: 12304,
-			subdomain: "nexsol",
-			fortune100: false,
-			fortune500: true
-		],
-		[
-			id: 12305,
-			subdomain: "primetech",
-			fortune100: false,
-			fortune500: true
-		],
-		[
-			id: 12306,
-			subdomain: "innovaplex",
-			fortune100: false,
-			fortune500: false
-		],
-		[
-			id: 12307,
-			subdomain: "quantumsoft",
-			fortune100: false,
-			fortune500: false
-		],
-		[
-			id: 12308,
-			subdomain: "megacorp",
-			fortune100: false,
-			fortune500: false
-		],
-		[
-			id: 12309,
-			subdomain: "ultralink",
-			fortune100: false,
-			fortune500: false
-		],
-		[
-			id: 12310,
-			subdomain: "futuretech",
-			fortune100: false,
-			fortune500: false
-		]
+	subdomains = [
+		"bytech", "cybercore", "cybernetics", "datalynk", "datasync", "digitalsys",
+		"fusionworks", "futuretech", "infocorp", "infologic", "infotech", "infowave",
+		"innovaplex", "megacorp", "netfusion", "nexsol", "nextbyte", "nextech",
+		"primetech", "quantumsoft", "softgen", "starcorp", "sysmax", "sysnova",
+		"techgenius", "techhub", "techlink", "techtide", "techwave", "ultralink"
 	];
-
 	firstNames = [
 		"Abigail", "Addison", "Aiden", "Alexander", "Amelia", "Anthony", "Aria", "Asher",
 		"Aubrey", "Audrey", "Aurora", "Ava", "Avery", "Bella", "Benjamin", "Camila",
@@ -87,20 +31,60 @@
 		"Taylor", "Thomas", "Thompson", "Torres", "Walker", "White", "Williams", "Wilson",
 		"Wright", "Young"
 	];
-
 	roles = [ "admin", "manager", "engineer", "support", "analyst" ];
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	companyID = 1000;
+	companies = [];
+
+	// We need the companies to be unique. As such, we're not going to simply pull random
+	// values from the subdomains list. Instead, we're going to shuffle the subdomains
+	// collection and then just read items off the head.
+	shuffleValues( subdomains );
+
+	// 10 companies.
+	for ( i = 1 ; i <= 10 ; i++ ) {
+
+		// The first company should be fortune 100.
+		if ( i == 1 ) {
+
+			fortune100 = true;
+			fortune500 = false;
+
+		// Every other company should be randomly in fortune 500.
+		} else {
+
+			fortune100 = false;
+			fortune500 = randomTrue( 3 );
+
+		}
+
+		companies.append([
+			id: ++companyID,
+			subdomain: subdomains[ i ],
+			fortune100: fortune100,
+			fortune500: fortune500
+		]);
+
+	}
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
 
 	userID = 0;
 	users = [];
 
 	for ( company in companies ) {
 
+		// For each of 10 companies, 10 users (100 demo users in total).
 		for ( i = 1 ; i <= 10 ; i++ ) {
 
 			firstName = randomValue( firstNames );
 			lastName = randomValue( lastNames );
 
-			// First role is Admin, all others are random.
+			// First user role should always be Admin, all other roles are random.
 			role = ( i == 1 )
 				? roles[ 1 ]
 				: randomValue( roles )
@@ -140,6 +124,19 @@
 	public boolean function randomTrue( required numeric chance ) {
 
 		return ( randRange( 0, chance, "sha1prng" ) == chance );
+
+	}
+
+	/**
+	* I shuffle the given array (in place) and return the reference.
+	*/
+	public array function shuffleValues( required array values ) {
+
+		createObject( "java", "java.util.Collections" )
+			.shuffle( values )
+		;
+
+		return values;
 
 	}
 
