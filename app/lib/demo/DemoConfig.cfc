@@ -9,7 +9,7 @@ component
 	public struct function getConfig() {
 
 		return {
-			environments: {
+			environments: [
 				development: {
 					name: "Development",
 					description: "Development environment."
@@ -22,7 +22,7 @@ component
 					name: "Production",
 					description: "Production environment."
 				}
-			},
+			],
 			features: {
 				"product-TICKET-111-reporting": buildFeature(
 					type = "boolean",

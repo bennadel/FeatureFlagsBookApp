@@ -67,15 +67,15 @@
 		.mapper td.variant-5 { background-color: #fc8d62 ; }
 		.mapper td.variant-6 { background-color: #66c2a5 ; }
 
-		.feature-name {
-			margin: 0 0 10px 0 ;
-		}
-
 		.feature-description {
 			color: #999999 ;
 			font-size: 16px ;
-			margin: 0 ;
+			margin: 0 0 10px 0 ;
 			white-space: wrap ;
+		}
+
+		.feature-name {
+			margin: 0 ;
 		}
 
 		.user-name {
@@ -183,12 +183,12 @@
 			<cfloop array="#features#" item="feature">
 
 				<th scope="col" valign="bottom">
-					<p class="feature-name">
-						#encodeForHtml( feature.key )#
-					</p>
-
 					<p class="feature-description">
 						#encodeForHtml( feature.description )#
+					</p>
+
+					<p class="feature-name">
+						#encodeForHtml( feature.key )#
 					</p>
 				</th>
 

@@ -66,9 +66,12 @@
 
 	// The environments are stored by-key. Let's convert them to an array to make it
 	// easier to render in the evaluator.
+	// --
+	// Note: I'm depending on the fact that the environments are stored as an ordered-
+	// struct; and therefore, the keys are returned in the same order in which they were
+	// defined (which maps the logical progression of code through a deployment).
 	environments = config.environments
 		.keyArray()
-		.sort( "textnocase" )
 		.map(
 			( key ) => {
 
