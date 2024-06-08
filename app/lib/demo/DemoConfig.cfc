@@ -44,6 +44,11 @@ component
 					description = "I determine if an alternate SQL query should be used on the homepage.",
 					variants = [ false, true ]
 				),
+				"product-TICKET-555-discount-pricing": buildFeature(
+					type = "boolean",
+					description = "I determine if the discount pricing should be applied during upgrade.",
+					variants = [ false, true ]
+				),
 				"operations-request-rate-limit": buildFeature(
 					type = "number",
 					description = "I determine rate-limiting at the request-level (0 means unlimited).",

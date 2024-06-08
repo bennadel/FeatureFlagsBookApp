@@ -40,6 +40,163 @@ component
 	// ---
 
 	/**
+	* I get the variant that resolves against the given context properties. However,
+	* instead of returning the variant alone, I return both the variant and the details
+	* about why the given variant was ultimately selected.
+	*/
+	public struct function debugEvaluation(
+		required string feature,
+		required string environment,
+		required struct context,
+		required any fallbackVariant
+		) {
+
+		// Note: The key check is not in the try/catch because a missing key represents a
+		// Bad Request, not a mismatch between the context and the configuration.
+		if (
+			! context.keyExists( "key" ) ||
+			! isSimpleValue( context.key )
+			) {
+
+			throw(
+				type = "ContextKeyMissing",
+				message = "The context struct must contain a simple [key] that is unique to the targeted entity."
+			);
+
+		}
+
+		var result = {
+			arguments: {
+				feature: feature,
+				environment: environment,
+				context: context,
+				fallbackVariant: fallbackVariant
+			},
+			reason: "Unknown",
+			errorMessage: "",
+			feature: "Unknown",
+			evaluatedRules: "Unknown",
+			skippedRules: "Unknown",
+			resolution: "Unknown",
+			variant: fallbackVariant,
+			variantIndex: 0
+		};
+
+		try {
+
+			if ( ! config.keyExists( "features" ) ) {
+
+				result.reason = "EmptyConfig";
+				return result;
+
+			}
+
+			if ( ! config.features.keyExists( feature ) ) {
+
+				result.reason = "MissingFeature";
+				return result;
+
+			}
+
+			// Note: If the "features" key exists (above condition), we're going to assume
+			// that the nested "environments" key exists as well since there will be some
+			// validation applied to the config structure (at least in theory).
+			if ( ! config.features[ feature ].environments.keyExists( environment ) ) {
+
+				result.reason = "MissingEnvironment";
+				return result;
+
+			}
+
+			var featureSettings = config.features[ feature ];
+			var environmentSettings = featureSettings.environments[ environment ];
+			var variants = featureSettings.variants;
+			// This is the default resolution associated with the targeted environment.
+			// The rule evaluations below may override this resolution (using the first
+			// matching rule as the override source). But, if none of the rules match,
+			// this is the resolution strategy that we'll use when selecting the variant.
+			var resolution = environmentSettings.resolution;
+
+			result.reason = "DefaultResolution";
+			result.feature = featureSettings;
+			result.evaluatedRules = [];
+			result.skippedRules = [];
+			result.resolution = resolution;
+
+			if ( environmentSettings.rulesEnabled ) {
+
+				for ( var rule in environmentSettings.rules ) {
+
+					if ( ! context.keyExists( rule.input ) ) {
+
+						result.skippedRules.append({
+							reason: "NoMatchingInput",
+							rule: rule
+						});
+						continue;
+
+					}
+
+					// In order for the operators within this simplified demo to work,
+					// they all assume that the context input is a simple value. This way,
+					// they can rely on equality comparisons (and auto type-casting)
+					// without complex inspection logic.
+					if ( ! isSimpleValue( context[ rule.input ] ) ) {
+
+						result.skippedRules.append({
+							reason: "NonSimpleInput",
+							rule: rule
+						});
+						continue;
+
+					}
+
+					result.evaluatedRules.append( rule );
+
+					var operator = operatorStrategies[ rule.operator ];
+					var contextValue = context[ rule.input ];
+					var values = rule.values;
+
+					if ( operator.test( contextValue, values ) ) {
+
+						// If this rule matches the provided context value, then use the
+						// rule to override the default resolution of the environment.
+						result.reason = "MatchingRule";
+						result.resolution = resolution = rule.resolution;
+						// First matching rule wins - no need to keep checking rules.
+						break;
+
+					}
+
+				}
+
+			}
+
+			result.variant = resolutionStrategies[ resolution.type ].getVariant(
+				key = context.key,
+				variants = variants,
+				resolution = resolution
+			);
+			result.variantIndex = arrayFind( variants, result.variant );
+
+			return result;
+
+		} catch ( any error ) {
+
+			logger.logException( error );
+
+			result.reason = "Error";
+			result.errorMessage = "[#error.type#] #error.message#";
+			result.variant = fallbackVariant;
+			result.variantIndex = 0;
+			return result;
+
+		}
+
+	}
+
+
+	/**
 	* I get the variant that resolves against the given context properties. The fallback
 	* variant is used to decrease the chances that a client-side error will occur if an
 	* invalid request is made against the current configuration. Basically, the fallback
@@ -52,94 +209,13 @@ component
 		required any fallbackVariant
 		) {
 
-		// Note: The key check is not in the try/catch because a missing key represents an
-		// Bad Request, not a mismatch between the context and the configuration.
-		if (
-			! context.keyExists( "key" ) ||
-			! isSimpleValue( context.key )
-			) {
+		// Note: Since this is a "learning app", I'm not worried about performance. As
+		// such, I'm funneling all evaluations through the debug method and then plucking
+		// out the resultant variant. This way, I don't have to duplicate the logic in
+		// two different method.
+		var result = debugEvaluation( argumentCollection = arguments );
 
-			throw(
-				type = "ContextKeyMissing",
-				message = "The context struct must contain a simple [key] that is unique to targeted entity."
-			);
-
-		}
-
-		try {
-
-			// Note: If the "features" key exists, we're going to assume that the nested
-			// "environments" key exists as well since there will be some validation
-			// applied to the config structure (at least in theory).
-			if (
-				! config.keyExists( "features" ) ||
-				! config.features.keyExists( feature ) ||
-				! config.features[ feature ].environments.keyExists( environment )
-				) {
-
-				return fallbackVariant;
-
-			}
-
-			var featureSettings = config.features[ feature ];
-			var environmentSettings = featureSettings.environments[ environment ];
-			var variants = featureSettings.variants;
-			// This is the default resolution associated with the targeted environment.
-			// The rule evaluations below may override this resolution (using the first
-			// matching rule as the override source).
-			var resolution = environmentSettings.resolution;
-
-			if ( environmentSettings.rulesEnabled ) {
-
-				for ( var rule in environmentSettings.rules ) {
-
-					if ( ! context.keyExists( rule.input ) ) {
-
-						continue;
-
-					}
-
-					// In order for the operators within this simplified demo to work,
-					// they all assume that the context input is a simple value. This way,
-					// they can rely on equality comparisons (and auto type-casting)
-					// without complex inspection logic.
-					if ( ! isSimpleValue( context[ rule.input ] ) ) {
-
-						continue;
-
-					}
-
-					var operator = operatorStrategies[ rule.operator ];
-					var contextValue = context[ rule.input ];
-					var values = rule.values;
-
-					if ( operator.test( contextValue, values ) ) {
-
-						// If this rule matches the provided context value, then use the
-						// rule to override the default resolution of the environment.
-						resolution = rule.resolution;
-						// First matching rule wins - no need to keep checking rules.
-						break;
-
-					}
-
-				}
-
-			}
-
-			return resolutionStrategies[ resolution.type ].getVariant(
-				key = context.key,
-				variants = variants,
-				resolution = resolution
-			);
-
-		} catch ( any error ) {
-
-			logger.logException( error );
-
-			return fallbackVariant;
-
-		}
+		return result.variant;
 
 	}
 

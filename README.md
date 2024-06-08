@@ -173,6 +173,8 @@ Note: This is a **work in progress**:
 
 ## Change Log
 
+* **2024, June 8**: I created a `debugEvaluation()` method in the client feature flag evaluation. This way, I'll be able to report to the user _why_ a given variant was selected (this is not yet implemented). I'm also continuing to iterate on the evaluation UI / experience. I think I will need to bring in [Alpine.js][alpine] to drive the event-bindings; and, possibly [Turbo CFML][turbo-cfml] to create some frame-based loading.
+
 * **2024, June 6**: I was trying to get ChatGPT to generate demo data for me. But, it ended up being an uphill battle. In the end, I had it given me lists of first/last names. And then, I [created a script](./app/wwwroot/fake-users.cfm) to generate a large set of demo data using `randRange()`.
 
 * **2024, June 5**: I've started working on [the client / consumer / evaluator](./app/lib/client/) portion of the playground. This would normally be an external project (in your language of choice); but, in this case, it's all part of the playground.
@@ -190,6 +192,10 @@ Note: This is a **work in progress**:
 
 [app]: https://app.featureflagsbook.com/
 
+[alpine]: https://alpinejs.dev/
+
 [ben-nadel]: https://www.bennadel.com/
 
 [book]: https://featureflagsbook.com/
+
+[turbo-cfml]: https://github.com/bennadel/turbo-cfml
