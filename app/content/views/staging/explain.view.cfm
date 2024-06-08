@@ -41,6 +41,11 @@
 			</cfif>
 		</p>
 
+		<p>
+			<strong>Reason:</strong>
+			<mark>#encodeForHtml( result.reason )#</mark>
+		</p>
+
 		<hr />
 
 		<h2>
