@@ -1,13 +1,16 @@
 <cfscript>
 
 	demoLogger = request.ioc.get( "lib.Logger" );
+	utilities = request.ioc.get( "lib.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="url.environmentName" type="string" default="development";
+	param name="url.userID" type="numeric";
+	param name="url.featureName" type="string";
+	param name="url.environmentName" type="string";
 
-	request.template.title = "Feature Flag Evaluation";
+	request.template.title = "Explain Evaluation";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -18,6 +21,17 @@
 		config: request.ioc.get( "lib.demo.DemoConfig" ).getConfig(),
 		users: request.ioc.get( "lib.demo.DemoUsers" ).getUsers()
 	};
+
+	userIndex = utilities.indexBy( demoData.users, "id" );
+
+	if ( ! userIndex.keyExists( url.userID ) ) {
+
+		location(
+			url = "/index.cfm",
+			addToken = false
+		);
+
+	}
 
 	// Eventually, this will be replaced with the user's configuration. But, for the
 	// meantime, having the demo data will help me figure out the layout of the view.
@@ -64,61 +78,33 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	// The environments are stored by-key. Let's convert them to an array to make it
-	// easier to render in the evaluator.
-	// --
-	// Note: I'm depending on the fact that the environments are stored as an ordered-
-	// struct; and therefore, the keys are returned in the same order in which they were
-	// defined (which maps the logical progression of code through a deployment).
-	environments = config.environments
-		.keyArray()
-		.map(
-			( key ) => {
-
-				return {
-					key: key,
-					name:  config.environments[ key ].name,
-					description:  config.environments[ key ].description
-				};
-
-			}
-		)
-	;
-
-	// The features are stored by-key. Let's convert them to an array to make it easier to
-	// render in the evaluator.
-	features = config.features
-		.keyArray()
-		.sort( "textnocase" )
-		.map(
-			( key ) => {
-
-				return {
-					key: key,
-					type: config.features[ key ].type,
-					description: config.features[ key ].description,
-					variants: config.features[ key ].variants
-				};
-
-			}
-		)
-	;
-
 	featureFlags = new lib.client.FeatureFlags()
 		.withConfig( config )
 		.withLogger( demoLogger )
 	;
 
+	demoUser = userIndex[ url.userID ];
 
-	if ( ! config.environments.keyExists( url.environmentName ) ) {
+	userContext = [
+		"key": demoUser.id,
+		"user.id": demoUser.id,
+		"user.email": demoUser.email,
+		"user.role": demoUser.role,
+		"user.company.id": demoUser.company.id,
+		"user.company.subdomain": demoUser.company.subdomain,
+		"user.company.fortune100": demoUser.company.fortune100,
+		"user.company.fortune500": demoUser.company.fortune500,
+		"user.groups.betaTester": demoUser.groups.betaTester,
+		"user.groups.influencer": demoUser.groups.influencer
+	];
 
-		url.environmentName = environments
-			.first()
-			.key
-		;
+	result = featureFlags.debugEvaluation(
+		feature = url.featureName,
+		environment = url.environmentName,
+		context = userContext,
+		fallbackVariant = "FALLBACK"
+	);
 
-	}
-
-	include "./overview.view.cfm";
+	include "./explain.view.cfm";
 
 </cfscript>

@@ -43,11 +43,21 @@
 			border: 1px solid #ffffff ;
 			border-width: 0px 1px 1px 0px ;
 			padding: 8px 20px ;
+			position: relative ;
 			white-space: nowrap ;
 		}
 		.state td.target {
 			outline: 4px solid red ;
 			outline-offset: -5px ;
+		}
+		.state .explain {
+			color: inherit ;
+		}
+		/* Take up the entire cell surface area. */
+		.state .explain:after {
+			content: "" ;
+			inset: 0 ;
+			position: absolute ;
 		}
 
 		/* Colors from : https://colorbrewer2.org/#type=qualitative&scheme=Set2&n=6 */
@@ -309,7 +319,14 @@
 							align="center"
 							valign="center"
 							class="variant-#variantIndex#">
-							#encodeForHtml( serializeJson( variant ) )#
+
+							<a
+								href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureName=#encodeForUrl( feature.key )#&environmentName=#encodeForUrl( url.environmentName )#"
+								target="_blank"
+								class="explain">
+								#encodeForHtml( serializeJson( variant ) )#
+							</a>
+
 						</td>
 
 					</cfloop>
