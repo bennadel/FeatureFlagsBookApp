@@ -24,6 +24,9 @@
 			case "home":
 				cfmodule( template = "./views/home/index.cfm" );
 			break;
+			case "staging":
+				cfmodule( template = "./views/staging/index.cfm" );
+			break;
 			default:
 				throw(
 					type = "App.Routing.InvalidEvent",

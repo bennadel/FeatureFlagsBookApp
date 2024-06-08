@@ -7,7 +7,7 @@
 
 		<p>
 			Feature flag stuff will happen soon.
-			<a href="/index.cfm?event=home.evaluate">See evaluations</a>.
+			<a href="/index.cfm?event=staging">See evaluations</a>.
 		</p>
 
 		<cfdump var="#request.user#" />

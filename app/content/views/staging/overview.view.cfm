@@ -159,11 +159,11 @@
 
 				<cfif ( environment.key == url.environmentName )>
 
-					<a href="/index.cfm?event=home.evaluate&environmentName=#encodeForHtml( environment.key )#"><strong>#encodeForHtml( environment.name )#</strong></a>
+					<a href="/index.cfm?event=staging.overview&environmentName=#encodeForHtml( environment.key )#"><strong>#encodeForHtml( environment.name )#</strong></a>
 
 				<cfelse>
 
-					<a href="/index.cfm?event=home.evaluate&environmentName=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
+					<a href="/index.cfm?event=staging.overview&environmentName=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
 
 				</cfif>
 

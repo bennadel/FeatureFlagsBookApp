@@ -53,8 +53,10 @@ component
 					message: "Your email address is too long. Please use an email address that is less than 75-characters long."
 				});
 			break;
+			case "App.Routing.InvalidEvent":
 			case "App.Routing.Auth.InvalidEvent":
 			case "App.Routing.Home.InvalidEvent":
+			case "App.Routing.Staging.InvalidEvent":
 				return as404({
 					type: error.type
 				});
