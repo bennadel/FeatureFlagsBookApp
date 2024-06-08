@@ -173,6 +173,8 @@ Note: This is a **work in progress**:
 
 ## Change Log
 
+* **2024, June 8**: I removed the `Staging` environment in the config. First, I think it's unnecessary given that there's still a `Development` and `Production` environment (having a 3rd environment just dilutes the experience). And second, I moved the "evaluator" to its own subsystem called "staging"; and, I didn't like having two different concepts in the same app with the same name.
+
 * **2024, June 8**: I created a `debugEvaluation()` method in the client feature flag evaluation. This way, I'll be able to report to the user _why_ a given variant was selected (this is not yet implemented). I'm also continuing to iterate on the evaluation UI / experience. I think I will need to bring in [Alpine.js][alpine] to drive the event-bindings; and, possibly [Turbo CFML][turbo-cfml] to create some frame-based loading.
 
 * **2024, June 6**: I was trying to get ChatGPT to generate demo data for me. But, it ended up being an uphill battle. In the end, I had it given me lists of first/last names. And then, I [created a script](./app/wwwroot/fake-users.cfm) to generate a large set of demo data using `randRange()`.

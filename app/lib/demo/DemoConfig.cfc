@@ -14,10 +14,6 @@ component
 					name: "Development",
 					description: "Development environment."
 				},
-				staging: {
-					name: "Staging",
-					description: "Pre-release integration and testing environment."
-				},
 				production: {
 					name: "Production",
 					description: "Production environment."
@@ -90,14 +86,6 @@ component
 			defaultSelection: 1,
 			environments: {
 				development: {
-					resolution: {
-						type: "selection",
-						selection: 1
-					},
-					rulesEnabled: false,
-					rules: []
-				},
-				staging: {
 					resolution: {
 						type: "selection",
 						selection: 1
