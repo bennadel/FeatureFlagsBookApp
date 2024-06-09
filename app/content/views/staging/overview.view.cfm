@@ -304,7 +304,7 @@
 						<cfset result = featureFlags.debugEvaluation(
 							feature = feature.key,
 							environment = url.environmentName,
-							context = demoUsers.getContext( demoUser ),
+							context = demoTargeting.getContext( demoUser ),
 							fallbackVariant = "FALLBACK"
 						) />
 
