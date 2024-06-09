@@ -37,13 +37,23 @@ component
 				),
 				"product-TICKET-444-homepage-sql-performance": buildFeature(
 					type = "boolean",
-					description = "I determine if an alternate SQL query should be used on the homepage.",
+					description = "I determine if an optimized SQL query should be used on the homepage.",
 					variants = [ false, true ]
 				),
 				"product-TICKET-555-discount-pricing": buildFeature(
 					type = "boolean",
-					description = "I determine if the discount pricing should be applied during upgrade.",
+					description = "I determine if the discount pricing should be applied during subscription upgrades.",
 					variants = [ false, true ]
+				),
+				"product-TICKET-666-request-proxy": buildFeature(
+					type = "boolean",
+					description = "I determine if a request-proxy should be used for companies with strict Firewall rules.",
+					variants = [ false, true ]
+				),
+				"product-TICKET-777-max-team-size": buildFeature(
+					type = "number",
+					description = "I determine the max number of users that can be added to a team (0 means unlimited).",
+					variants = [ 0, 10, 50, 100, 1000, 10000 ]
 				),
 				"operations-request-rate-limit": buildFeature(
 					type = "number",
