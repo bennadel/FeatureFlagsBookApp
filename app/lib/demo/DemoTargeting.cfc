@@ -31,42 +31,42 @@ component
 	public struct function injectRules( required struct config ) {
 
 		// Flip some flags on to vary the rendering.
-		config.features[ "operations-request-rate-limit" ].environments.development.resolution = {
+		config.features[ "operations-request-rate-limit" ].environments.development.resolution = [
 			type: "variant",
 			variant: 100
-		};
-		config.features[ "product-TICKET-111-reporting" ].environments.development.resolution = {
+		];
+		config.features[ "product-TICKET-111-reporting" ].environments.development.resolution = [
 			type: "Distribution",
 			distribution: [ 50, 50 ]
-		};
-		config.features[ "product-TICKET-222-2fa" ].environments.production.resolution = {
+		];
+		config.features[ "product-TICKET-222-2fa" ].environments.production.resolution = [
 			type: "Selection",
 			selection: 2
-		};
-		config.features[ "product-TICKET-444-homepage-sql-performance" ].environments.production.resolution = {
+		];
+		config.features[ "product-TICKET-444-homepage-sql-performance" ].environments.production.resolution = [
 			type: "Distribution",
 			distribution: [ 95, 5 ]
-		};
+		];
 		config.features[ "product-TICKET-444-homepage-sql-performance" ].environments.development.rulesEnabled = true;
-		config.features[ "product-TICKET-444-homepage-sql-performance" ].environments.development.rules.append({
+		config.features[ "product-TICKET-444-homepage-sql-performance" ].environments.development.rules.append([
 			operator: "IsOneOf",
 			input: "user.company.subdomain",
 			values: [ "innovatek", "starcorp" ],
-			resolution: {
+			resolution: [
 				type: "Selection",
 				selection: 2
-			}
-		});
+			]
+		]);
 		config.features[ "product-TICKET-555-discount-pricing" ].environments.production.rulesEnabled = true;
-		config.features[ "product-TICKET-555-discount-pricing" ].environments.production.rules.append({
+		config.features[ "product-TICKET-555-discount-pricing" ].environments.production.rules.append([
 			operator: "IsOneOf",
 			input: "user.groups.influencer",
 			values: [ true ],
-			resolution: {
+			resolution: [
 				type: "Selection",
 				selection: 2
-			}
-		});
+			]
+		]);
 
 		return config;
 

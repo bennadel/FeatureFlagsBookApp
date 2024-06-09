@@ -10,14 +10,14 @@ component
 
 		return {
 			environments: [
-				development: {
+				development: [
 					name: "Development",
 					description: "Development environment."
-				},
-				production: {
+				],
+				production: [
 					name: "Production",
 					description: "Production environment."
-				}
+				]
 			],
 			features: {
 				"product-TICKET-111-reporting": buildFeature(
@@ -79,30 +79,30 @@ component
 		required array variants
 		) {
 
-		return {
+		return [
 			type: type,
 			description: description,
 			variants: variants,
 			defaultSelection: 1,
-			environments: {
-				development: {
-					resolution: {
+			environments: [
+				development: [
+					resolution: [
 						type: "selection",
 						selection: 1
-					},
+					],
 					rulesEnabled: false,
 					rules: []
-				},
-				production: {
-					resolution: {
+				],
+				production: [
+					resolution: [
 						type: "selection",
 						selection: 1
-					},
+					],
 					rulesEnabled: false,
 					rules: []
-				}
-			}
-		};
+				]
+			]
+		];
 
 	}
 
