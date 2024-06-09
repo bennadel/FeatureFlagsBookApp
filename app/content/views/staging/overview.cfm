@@ -1,6 +1,8 @@
 <cfscript>
 
+	demoConfig = request.ioc.get( "lib.demo.DemoConfig" );
 	demoLogger = request.ioc.get( "lib.Logger" );
+	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -15,8 +17,8 @@
 	// TODO: Move all of this logic into a Partial component.
 
 	demoData = {
-		config: request.ioc.get( "lib.demo.DemoConfig" ).getConfig(),
-		users: request.ioc.get( "lib.demo.DemoUsers" ).getUsers()
+		config: demoConfig.getConfig(),
+		users: demoUsers.getUsers()
 	};
 
 	// Eventually, this will be replaced with the user's configuration. But, for the

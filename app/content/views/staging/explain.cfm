@@ -1,6 +1,8 @@
 <cfscript>
 
+	demoConfig = request.ioc.get( "lib.demo.DemoConfig" );
 	demoLogger = request.ioc.get( "lib.Logger" );
+	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	utilities = request.ioc.get( "lib.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
@@ -18,8 +20,8 @@
 	// TODO: Move all of this logic into a Partial component.
 
 	demoData = {
-		config: request.ioc.get( "lib.demo.DemoConfig" ).getConfig(),
-		users: request.ioc.get( "lib.demo.DemoUsers" ).getUsers()
+		config: demoConfig.getConfig(),
+		users: demoUsers.getUsers()
 	};
 
 	userIndex = utilities.indexBy( demoData.users, "id" );
@@ -85,23 +87,10 @@
 
 	demoUser = userIndex[ url.userID ];
 
-	userContext = [
-		"key": demoUser.id,
-		"user.id": demoUser.id,
-		"user.email": demoUser.email,
-		"user.role": demoUser.role,
-		"user.company.id": demoUser.company.id,
-		"user.company.subdomain": demoUser.company.subdomain,
-		"user.company.fortune100": demoUser.company.fortune100,
-		"user.company.fortune500": demoUser.company.fortune500,
-		"user.groups.betaTester": demoUser.groups.betaTester,
-		"user.groups.influencer": demoUser.groups.influencer
-	];
-
 	result = featureFlags.debugEvaluation(
 		feature = url.featureName,
 		environment = url.environmentName,
-		context = userContext,
+		context = demoUsers.getContext( demoUser ),
 		fallbackVariant = "FALLBACK"
 	);
 

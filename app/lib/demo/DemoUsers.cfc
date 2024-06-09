@@ -4,6 +4,27 @@ component
 	{
 
 	/**
+	* I provide a targeting context for the given user.
+	*/
+	public struct function getContext( required struct user ) {
+
+		return [
+			"key": user.id,
+			"user.id": user.id,
+			"user.email": user.email,
+			"user.role": user.role,
+			"user.company.id": user.company.id,
+			"user.company.subdomain": user.company.subdomain,
+			"user.company.fortune100": user.company.fortune100,
+			"user.company.fortune500": user.company.fortune500,
+			"user.groups.betaTester": user.groups.betaTester,
+			"user.groups.influencer": user.groups.influencer
+		];
+
+	}
+
+
+	/**
 	* I provide a set of users against which to evaluate feature flags.
 	* 
 	* Note: These user names and company subdomains were randomly generated via ChatGPT.

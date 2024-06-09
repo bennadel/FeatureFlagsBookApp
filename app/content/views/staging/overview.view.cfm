@@ -275,33 +275,36 @@
 						<cfset mapperColumnIndex++ />
 
 						<!---
-							A feature flag has to be evaluated against a context. The only
-							required property is "key", which is used to differentiate
-							unique "clients" and to provide predictable percent-based
-							allocations. This property, as well as any other custom
-							property, can be used within the rule evaluation.
+							A feature flag has to be evaluated against a "context". The
+							only required context property is "key", which is used to
+							differentiate unique, targetable "clients" and to provide
+							predictable percent-based allocations (by applying a modulo
+							operation to a checksum of the "key"). This property, as well
+							as any other custom properties, can be used within a feature
+							flag's rule evaluation.
+
+							This is the context object being provided to the targeting
+							workflow:
+							--
+							> "key": ................... user.id,
+							> "user.id": ............... user.id,
+							> "user.email": ............ user.email,
+							> "user.role": ............. user.role,
+							> "user.company.id": ....... user.company.id,
+							> "user.company.subdomain":  user.company.subdomain,
+							> "user.company.fortune100": user.company.fortune100,
+							> "user.company.fortune500": user.company.fortune500,
+							> "user.groups.betaTester":  user.groups.betaTester,
+							> "user.groups.influencer":  user.groups.influencer
 							--
 							Note: The dot-delimited key isn't a requirement - it's just a
 							convention that I'm using to convert complex objects into
 							predictable simple values.
 						--->
-						<cfset userContext = [
-							"key": demoUser.id,
-							"user.id": demoUser.id,
-							"user.email": demoUser.email,
-							"user.role": demoUser.role,
-							"user.company.id": demoUser.company.id,
-							"user.company.subdomain": demoUser.company.subdomain,
-							"user.company.fortune100": demoUser.company.fortune100,
-							"user.company.fortune500": demoUser.company.fortune500,
-							"user.groups.betaTester": demoUser.groups.betaTester,
-							"user.groups.influencer": demoUser.groups.influencer
-						] />
-
 						<cfset result = featureFlags.debugEvaluation(
 							feature = feature.key,
 							environment = url.environmentName,
-							context = userContext,
+							context = demoUsers.getContext( demoUser ),
 							fallbackVariant = "FALLBACK"
 						) />
 
