@@ -51,20 +51,6 @@ component
 		required any fallbackVariant
 		) {
 
-		// Note: The key check is not in the try/catch because a missing key represents a
-		// Bad Request, not a mismatch between the context and the configuration.
-		if (
-			! context.keyExists( "key" ) ||
-			! isSimpleValue( context.key )
-			) {
-
-			throw(
-				type = "ContextKeyMissing",
-				message = "The context struct must contain a simple [key] that is unique to the targeted entity."
-			);
-
-		}
-
 		var result = {
 			arguments: {
 				feature: feature,
@@ -83,6 +69,27 @@ component
 		};
 
 		try {
+
+			// The context key is what associates the current request with a targetable
+			// entity. It is also used to drive percent-based distributions and other
+			// custom rule logic.
+			if ( ! context.keyExists( "key" ) ) {
+
+				result.reason = "MissingContextKey";
+				return result;
+
+			}
+
+			// Since the context key is used to drive percent-based distributions, it
+			// needs to be a simple value such that it can be cast to a string and then
+			// subsequently used to drive a CRC-32 checksum which can then be used in a
+			// modulo operation (see lib.client.resolution.Distribution.cfc).
+			if ( ! isSimpleValue( context.key ) ) {
+
+				result.reason = "ComplexContextKey";
+				return result;
+
+			}
 
 			if ( ! config.keyExists( "features" ) ) {
 
@@ -212,7 +219,7 @@ component
 		// Note: Since this is a "learning app", I'm not worried about performance. As
 		// such, I'm funneling all evaluations through the debug method and then plucking
 		// out the resultant variant. This way, I don't have to duplicate the logic in
-		// two different method.
+		// two different methods.
 		var result = debugEvaluation( argumentCollection = arguments );
 
 		return result.variant;

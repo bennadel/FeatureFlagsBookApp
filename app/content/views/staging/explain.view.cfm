@@ -8,6 +8,7 @@
 		.dump-wrapper td {
 			font-family: monospace ! important ;
 			font-size: 20px ! important ;
+			padding: 7px 10px ! important ;
 		}
 
 	</style>
@@ -37,7 +38,7 @@
 			#result.variantIndex#
 
 			<cfif ! result.variantIndex>
-				&mdash; "0" means either custom override or fallback.
+				&mdash; "0" means either a custom override or a fallback value was used.
 			</cfif>
 		</p>
 
@@ -67,6 +68,20 @@
 			<mark>#encodeForHtml( result.reason )#</mark> &mdash;
 
 			<cfswitch expression="#result.reason#">
+				<!---
+					Note: The two key-related cases aren't actually possible in this
+					application (since the context objects are all being hard-coded in the
+					application logic). But, I'm including them here for anyone that might
+					view the source code and wants to better understand the targeting
+					requirements for feature flag state evaluation.
+				--->
+				<cfcase value="MissingContextKey">
+					your context struct must contain a `key` that associates the current request with a targetable entity (such as a user, machine host, ip address, application name, etc). Since you aren't providing a `key`, the fallback variant is being used.
+				</cfcase>
+				<cfcase value="ComplexContextKey">
+					the context `key` property associated with the current request is a complex object and must be a simple value (string). This simple value is used to drive percent-based variant allocations and other targeting rules. Since you aren't providing a proper `key`, the fallback variant is being used.
+				</cfcase>
+				<!--- End: Cases that never happen in this app. --->
 				<cfcase value="EmptyConfig">
 					your configuration is empty (it has no feature flags). As such, the fallback variant is being used.
 				</cfcase>
@@ -77,22 +92,22 @@
 					your configuration does not contain the given environment key. As such, the fallback variant is being used.
 				</cfcase>
 				<cfcase value="DefaultResolution">
-					the variant was chosen using the feature's default resolution strategy
+					the variant was chosen using the feature's default resolution strategy.
 
 					<cfif result.feature.environments[ url.environmentName ].rulesEnabled>
-						(this is because no rules matched against the given context).
+						This is because no rules matched against the given context.
 					<cfelse>
-						(this is because rules are not enabled).
+						This is because rules are not enabled.
 					</cfif>
 				</cfcase>
 				<cfcase value="MatchingRule">
-					a rule matched against the given context and provided an alternative resolution.
+					a rule matched against the given context and provided an alternative resolution. The variant was chosen using this alternative resolution strategy.
 				</cfcase>
 				<cfcase value="Error">
 					an error occurred. As such, the fallback variant is being used.
 				</cfcase>
 				<cfdefaultcase>
-					Something unexpected happened.
+					Something unexpected happened. This state should not be possible.
 				</cfdefaultcase>
 			</cfswitch>
 		</p>
@@ -159,7 +174,7 @@
 			</h2>
 
 			<p>
-				<strong>Name:</strong>
+				<strong>Key:</strong>
 				#encodeForHtml( url.featureName )#
 			</p>
 
