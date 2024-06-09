@@ -173,6 +173,8 @@ Note: This is a **work in progress**:
 
 ## Change Log
 
+* **2024, June 9**: I collocated all of the demo targeting logic in a `DemoTargeting.cfc`. This includes both the demo rule injection and the user-context creation. This should make it a bit easier to update the demo experience in one place.
+
 * **2024, June 8**: The evaluation grid values now link to a View that provides detailed information about why a given variant has been returned by the evaluation process.
 
 * **2024, June 8**: I removed the `Staging` environment in the config. First, I think it's unnecessary given that there's still a `Development` and `Production` environment (having a 3rd environment just dilutes the experience). And second, I moved the "evaluator" to its own subsystem called "staging"; and, I didn't like having two different concepts in the same app with the same name.
