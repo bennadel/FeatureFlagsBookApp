@@ -68,7 +68,7 @@ component
 				"operations-min-log-level": buildFeature(
 					type = "string",
 					description = "I determine the minimum log-level to be emitted by the application.",
-					variants = [ "error", "warn", "info", "debug", "trace" ]
+					variants = [ "error", "warn", "info", "debug" ]
 				)
 			}
 		};

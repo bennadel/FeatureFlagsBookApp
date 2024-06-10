@@ -14,3 +14,47 @@ button {
 	font-size: inherit ;
 	line-height: inherit ;
 }
+
+.variant-1 {
+	background-color: #82ede8 ;
+	color: #3220ff ;
+}
+.variant-2 {
+	background-color: #65b752 ;
+	color: #f8ff4f ;
+}
+.variant-3 {
+	background-color: #f3c677 ;
+	color: #000cb4 ;
+}
+.variant-4 {
+	background-color: #ff4d80 ;
+	color: #0a03b1 ;
+}
+.variant-5 {
+	background-color: #274c77 ;
+	color: #dfecff ;
+}
+.variant-6 {
+	background-color: #6a5d7b ;
+	color: #ffe42a ;
+}
+.variant-7 {
+	background-color: #f7aef8 ;
+	color: #a4005f ;
+}
+.variant-8 {
+	background-color: #b9ff47 ;
+	color: #11323b ;
+}
+.variant-9,
+.variant-10,
+.variant-11,
+.variant-12,
+.variant-13,
+.variant-14,
+.variant-15,
+.variant-0 {
+	background-color: #841b1b ;
+	color: #ffd5d5 ;
+}

@@ -60,23 +60,6 @@
 			position: absolute ;
 		}
 
-		/* Colors from : https://colorbrewer2.org/#type=qualitative&scheme=Set2&n=6 */
-		.state td.variant-0 { background-color: #66c2a5 ; }
-		.state td.variant-1 { background-color: #ffd92f ; }
-		.state td.variant-2 { background-color: #a6d854 ; }
-		.state td.variant-3 { background-color: #e78ac3 ; }
-		.state td.variant-4 { background-color: #8da0cb ; }
-		.state td.variant-5 { background-color: #fc8d62 ; }
-		.state td.variant-6 { background-color: #66c2a5 ; }
-
-		.mapper td.variant-0 { background-color: #66c2a5 ; }
-		.mapper td.variant-1 { background-color: #ffd92f ; }
-		.mapper td.variant-2 { background-color: #a6d854 ; }
-		.mapper td.variant-3 { background-color: #e78ac3 ; }
-		.mapper td.variant-4 { background-color: #8da0cb ; }
-		.mapper td.variant-5 { background-color: #fc8d62 ; }
-		.mapper td.variant-6 { background-color: #66c2a5 ; }
-
 		.feature-description {
 			color: #999999 ;
 			font-size: 16px ;
