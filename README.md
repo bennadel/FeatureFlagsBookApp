@@ -173,6 +173,8 @@ Note: This is a **work in progress**:
 
 ## Change Log
 
+* **2024, June 10**: I starting working on the list of feature flags. The great thing about having a set of demo-users against which to evaluate the feature flags is that I can show a preview breakdown of the variant allocations. It's a bit of a brute-force&mdash;for each feature, for each environment, for all users, evaluate the variant result&mdash;but, since it's such a small number of users (in the grand scheme of things), it should be fine.
+
 * **2024, June 9**: I collocated all of the demo targeting logic in a `DemoTargeting.cfc`. This includes both the demo rule injection and the user-context creation. This should make it a bit easier to update the demo experience in one place.
 
 * **2024, June 8**: The evaluation grid values now link to a View that provides detailed information about why a given variant has been returned by the evaluation process.
