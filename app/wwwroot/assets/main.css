@@ -1,3 +1,14 @@
+
+html {
+	box-sizing: border-box ;
+}
+
+html *,
+html *:before,
+html *:after {
+	box-sizing: inherit ;
+}
+
 body {
 	font-family: monospace ;
 	font-size: 20px ;

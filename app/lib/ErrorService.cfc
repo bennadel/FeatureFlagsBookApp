@@ -21,6 +21,24 @@ component
 		var metadata = getErrorMetadata( error );
 
 		switch ( error.type ) {
+			case "App.Model.Config.CreatedAt.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your created at must be provided as a date. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.DeserializationFailure":
+				return as400({
+					type: error.type,
+					message: "Your configuration data couldn't be parsed as JSON."
+				});
+			break;
+			case "App.Model.Config.Email.Conflict":
+				return as422({
+					type: error.type,
+					message: "You cannot change the email address embedded within settings file. The email address must match the email that you used to log into the application."
+				});
+			break;
 			case "App.Model.Config.Email.Invalid":
 				return as422({
 					type: error.type,
@@ -154,7 +172,7 @@ component
 			case "App.Model.Config.Feature.Targeting.Entry.OutOfBounds":
 				return as422({
 					type: error.type,
-					message: "Your feature targeting entries must all correspond to the list of environments. Validating property: [#metadata.validationPath#]."
+					message: "Your feature targeting entries must all correspond to the list of defined environments. Validating property: [#metadata.validationPath#]."
 				});
 			break;
 			case "App.Model.Config.Feature.Targeting.Invalid":
@@ -307,6 +325,12 @@ component
 					message: "Your rules values must be provided as an array. Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.SerializationFailure":
+				return as400({
+					type: error.type,
+					message: "Your configuration data couldn't be serialized as JSON."
+				});
+			break;
 			case "App.Model.Config.Targeting.Invalid":
 			case "App.Model.Config.Targeting.Missing":
 				return as422({
@@ -328,11 +352,29 @@ component
 					message: "Your targeting rules enabled must be provided as a Boolean. Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.UpdatedAt.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your updated at must be provided as a date. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.UpdatedAt.OutOfBounds":
+				return as422({
+					type: error.type,
+					message: "Your updated at date must come at or after your created at date. Validating property: [#metadata.validationPath#]."
+				});
+			break;
 			case "App.Model.Config.Variant.Invalid":
 			case "App.Model.Config.Variant.Missing":
 				return as422({
 					type: error.type,
 					message: "Your variant must match the designated feature type (#metadata.featureType#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Version.Conflict":
+				return as422({
+					type: error.type,
+					message: "You cannot change the version embedded within settings file. This property is managed by the application."
 				});
 			break;
 			case "App.Model.Config.Version.Invalid":
@@ -379,6 +421,7 @@ component
 			break;
 			case "App.Routing.InvalidEvent":
 			case "App.Routing.Auth.InvalidEvent":
+			case "App.Routing.Features.InvalidEvent":
 			case "App.Routing.Home.InvalidEvent":
 			case "App.Routing.Staging.InvalidEvent":
 				return as404({

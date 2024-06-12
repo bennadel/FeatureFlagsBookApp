@@ -3,12 +3,28 @@ component
 	hint = "I provide feature flag configuration data for the demo (default data for new users)."
 	{
 
-	/**
-	* I provide a default subset of configuration settings.
-	*/
-	public struct function getConfig() {
+	// Define properties for dependency-injection.
+	property name="clock" ioc:type="lib.Clock";
 
-		return {
+	// ---
+	// PUBLIC METHODS.
+	// ---
+
+	/**
+	* I provide a default configuration for the given user.
+	*/
+	public struct function getConfig(
+		required string email,
+		numeric version = 1
+		) {
+
+		var createdAt = clock.utcNow();
+
+		return [
+			email: email,
+			version: version,
+			createdAt: createdAt,
+			updatedAt: createdAt,
 			environments: [
 				development: [
 					name: "Development",
@@ -19,7 +35,7 @@ component
 					description: "Production environment."
 				]
 			],
-			features: {
+			features: [
 				"product-TICKET-111-reporting": buildFeature(
 					type = "boolean",
 					description = "I determine if the reporting module is available.",
@@ -70,8 +86,8 @@ component
 					description = "I determine the minimum log-level to be emitted by the application.",
 					variants = [ "error", "warn", "info", "debug" ]
 				)
-			}
-		};
+			]
+		];
 
 	}
 

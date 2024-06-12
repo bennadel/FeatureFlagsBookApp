@@ -21,6 +21,9 @@
 			case "auth":
 				cfmodule( template = "./views/auth/index.cfm" );
 			break;
+			case "features":
+				cfmodule( template = "./views/features/index.cfm" );
+			break;
 			case "home":
 				cfmodule( template = "./views/home/index.cfm" );
 			break;

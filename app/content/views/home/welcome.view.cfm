@@ -52,6 +52,7 @@
 		<p>
 			Feature flag stuff will happen soon.
 			<a href="/index.cfm?event=staging">See evaluations</a>.
+			<a href="/index.cfm?event=features.raw">Edit raw config</a>.
 		</p>
 
 		<cfdump var="#request.user#" />

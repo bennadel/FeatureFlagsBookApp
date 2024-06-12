@@ -21,4 +21,29 @@ component
 
 	}
 
+
+	/**
+	* I serialize the given error for embedding within another error.
+	*/
+	public string function serializeRootCauseError( required any rootCause ) {
+
+		var safeCopy = [:];
+
+		for ( var key in [ "type", "message", "detail", "extendedInfo", "code" ] ) {
+
+			if (
+				structKeyExists( rootCause, key ) &&
+				isSimpleValue( rootCause[ key ] )
+				) {
+
+				safeCopy[ key ] = toString( rootCause[ key ] );
+
+			}
+
+		}
+
+		return serializeJson( safeCopy );
+
+	}
+
 }

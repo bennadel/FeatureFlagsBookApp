@@ -3,6 +3,13 @@ component
 	hint = "I provide data gateway methods for the config entity."
 	{
 
+	// Define properties for dependency-injection.
+	property name="serializer" ioc:type="lib.model.config.ConfigSerializer";
+
+	// ---
+	// PUBLIC METHODS.
+	// ---
+
 	/**
 	* I initialize the gateway.
 	*/
@@ -11,6 +18,8 @@ component
 		// Since checking for physical JSON data files is relatively slow, I'm going to
 		// keep a limited set of data cached in memory. Since this app won't have a
 		// traffic, the churn of data won't be an issue.
+		// --
+		// Note: The cache duplicates the value on both SET and GET.
 		variables.cache = new FixedCache( 30 );
 
 	}
@@ -41,13 +50,9 @@ component
 
 		}
 
-		var result = deserializeJson( fileRead( dataFilepath, "utf-8" ) );
+		var config = serializer.deserializeConfig( fileRead( dataFilepath, "utf-8" ) );
 
-		// Date/time values don't serialize well. Convert them back into proper dates.
-		result.createdAt = parseDateTime( result.createdAt );
-		result.updatedAt = parseDateTime( result.updatedAt );
-
-		return cache.set( dataFilename, result );
+		return cache.set( dataFilename, config );
 
 	}
 
@@ -60,17 +65,9 @@ component
 		required struct config
 		) {
 
-		// Caution: We're duplicating the config object so that we can detach it from the
-		// calling context. We're going to be normalizing the data and preparing it for
-		// serialization. As such, we don't want to corrupt any references that may still
-		// be in use within the calling context.
-		config = cache.set( dataFilename, duplicate( config ) );
+		config = cache.set( dataFilename, config );
 
-		// Date/time values don't serialize well. Let's convert them to ISO strings.
-		config.createdAt = config.createdAt.dateTimeFormat( "iso" );
-		config.updatedAt = config.updatedAt.dateTimeFormat( "iso" );
-
-		fileWrite( getDataFilepath( dataFilename ), serializeJson( config ) );
+		fileWrite( getDataFilepath( dataFilename ), serializer.serializeConfig( config ) );
 
 	}
 

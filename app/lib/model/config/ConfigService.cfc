@@ -4,12 +4,38 @@ component
 	{
 
 	// Define properties for dependency-injection.
+	property name="fusionCode" ioc:type="lib.util.FusionCode";
 	property name="gateway" ioc:type="lib.model.config.ConfigGateway";
+	property name="serializer" ioc:type="lib.model.config.ConfigSerializer";
 	property name="validation" ioc:type="lib.model.config.ConfigValidation";
 
 	// ---
 	// PUBLIC METHODS.
 	// ---
+
+	/**
+	* I compare the two different config objects and see if they represent different sets
+	* of "environments" and "features" data. This does NOT compare the metadata, only the
+	* core configuration settings.
+	*/
+	public boolean function compareConfigs(
+		required struct configA,
+		required struct configB
+		) {
+
+		return ! fusionCode.deepEquals(
+			[
+				configA.environments,
+				configA.features
+			],
+			[
+				configB.environments,
+				configB.features
+			]
+		);
+
+	}
+
 
 	/**
 	* I return a Maybe result for the given config filename.

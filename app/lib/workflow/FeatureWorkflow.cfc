@@ -5,9 +5,11 @@ component
 
 	// Define properties for dependency-injection.
 	property name="configService" ioc:type="lib.model.config.ConfigService";
+	property name="configValidation" ioc:type="lib.model.config.ConfigValidation";
 	property name="demoConfig" ioc:type="lib.demo.DemoConfig";
 	property name="demoTargeting" ioc:type="lib.demo.DemoTargeting";
 	property name="userService" ioc:type="lib.model.user.UserService";
+	property name="utilities" ioc:type="lib.Utilities";
 
 	// ---
 	// PUBLIC METHODS.
@@ -19,6 +21,58 @@ component
 	public struct function getConfig( required string email ) {
 
 		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		return config;
+
+	}
+
+
+	/**
+	* I update the features config for the given user.
+	*/
+	public void function updateConfig(
+		required string email,
+		required struct config
+		) {
+
+		var user = userService.getUser( email );
+		var existingConfig = getConfigForUser( user );
+
+		config = configValidation.testConfig( config );
+
+		if ( config.email != user.email ) {
+
+			configValidation.throwEmailConflictError();
+
+		}
+
+		if ( config.version != existingConfig.version ) {
+
+			configValidation.throwVersionConflictError();
+
+		}
+
+		// We only wanted to update the version if something has actually changed.
+		if ( configService.compareConfigs( config, existingConfig ) ) {
+
+			config.version++;
+			configService.saveConfig( user.dataFilename, config );
+
+		}
+
+	}
+
+	// ---
+	// PRIVATE METHODS.
+	// ---
+
+	/**
+	* I get the config for the given user (falling back to the demo config if no persisted
+	* config exists yet).
+	*/
+	private function getConfigForUser( required struct user ) {
+
 		var maybeConfig = configService.maybeGetConfig( user.dataFilename );
 
 		if ( maybeConfig.exists ) {
@@ -31,9 +85,6 @@ component
 
 	}
 
-	// ---
-	// PRIVATE METHODS.
-	// ---
 
 	/**
 	* When the user is starting out, they won't have any existing configuration object. In
@@ -42,11 +93,7 @@ component
 	*/
 	private struct function getDefaultConfigForUser( required struct user ) {
 
-		var config = demoConfig.getConfig();
-		config.email = user.email;
-		config.version = 1;
-
-		return demoTargeting.injectRules( config );
+		return demoTargeting.injectRules( demoConfig.getConfig( user.email ) );
 
 	}
 

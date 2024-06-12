@@ -29,6 +29,14 @@
 		padding: 20px 20px 20px 20px ;
 	}
 
+	#local-debugging.top {
+		background-color: #ffffffee ;
+		inset: 0 ;
+		overflow: auto ;
+		position: fixed ;
+		z-index: 9999 ;
+	}
+
 	#local-debugging > *:first-child {
 		margin-top: 0px ;
 	}

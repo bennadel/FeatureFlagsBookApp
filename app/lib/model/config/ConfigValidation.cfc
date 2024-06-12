@@ -4,6 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
+	property name="clock" ioc:type="lib.Clock";
 	property name="validationUtilities" ioc:type="lib.ValidationUtilities";
 
 	// ---
@@ -48,6 +49,15 @@ component
 			validationPath = "#validationPath#.version",
 			version = config?.version
 		);
+		var createdAt = testConfigCreatedAt(
+			validationPath = "#validationPath#.createdAt",
+			createdAt = config?.createdAt
+		);
+		var updatedAt = testConfigUpdatedAt(
+			validationPath = "#validationPath#.updatedAt",
+			createdAt = createdAt,
+			updatedAt = config?.updatedAt
+		);
 		var environments = testConfigEnvironments(
 			validationPath = "#validationPath#.environments",
 			environments = config?.environments
@@ -61,15 +71,89 @@ component
 		return [
 			email: email,
 			version: version,
+			createdAt: createdAt,
+			updatedAt: updatedAt,
 			environments: environments,
 			features: features
 		];
 
 	}
 
+
+	/**
+	* I throw a deserialization error for the config data.
+	*/
+	public void function throwDeserializationError( required any rootCause ) {
+
+		throw(
+			type = "App.Model.Config.DeserializationFailure",
+			extendedInfo = validationUtilities.serializeRootCauseError( rootCause )
+		);
+
+	}
+
+
+	/**
+	* I throw an email conflict error.
+	*/
+	public void function throwEmailConflictError() {
+
+		throw( type = "App.Model.Config.Email.Conflict" );
+
+	}
+
+
+	/**
+	* I throw a serialization error for the config data.
+	*/
+	public void function throwSerializationError( required any rootCause ) {
+
+		throw(
+			type = "App.Model.Config.SerializationFailure",
+			extendedInfo = validationUtilities.serializeRootCauseError( rootCause )
+		);
+
+	}
+
+
+	/**
+	* I throw an version conflict error.
+	*/
+	public void function throwVersionConflictError() {
+
+		throw( type = "App.Model.Config.Version.Conflict" );
+
+	}
+
 	// ---
 	// PRIVATE CONFIG METHODS.
 	// ---
+
+	/**
+	* I test the top-level created at.
+	*/
+	private date function testConfigCreatedAt(
+		required string validationPath,
+		any createdAt = clock.utcNow()
+		) {
+
+		if ( ! isDate( createdAt ) ) {
+
+			throw(
+				type = "App.Model.Config.CreatedAt.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		createdAt = dateAdd( "d", 0, createdAt );
+
+		return createdAt;
+
+	}
+
 
 	/**
 	* I test the top-level email.
@@ -178,6 +262,44 @@ component
 		);
 
 		return features;
+
+	}
+
+
+	/**
+	* I test the top-level updated at.
+	*/
+	private date function testConfigUpdatedAt(
+		required string validationPath,
+		required date createdAt,
+		any updatedAt = clock.utcNow()
+		) {
+
+		if ( ! isDate( updatedAt ) ) {
+
+			throw(
+				type = "App.Model.Config.UpdatedAt.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( updatedAt < createdAt ) {
+
+			throw(
+				type = "App.Model.Config.UpdatedAt.OutOfBounds",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		updatedAt = dateAdd( "d", 0, updatedAt );
+
+		return updatedAt;
 
 	}
 
@@ -478,6 +600,7 @@ component
 			],
 			defaultSelection = settings?.defaultSelection
 		);
+
 		var targeting = testFeatureTargeting(
 			validationPath = "#validationPath#.targeting",
 			environments = environments,
@@ -493,7 +616,7 @@ component
 			description: description,
 			variants: variants,
 			defaultSelection: defaultSelection,
-			environments: targeting
+			targeting: targeting
 		];
 
 	}
