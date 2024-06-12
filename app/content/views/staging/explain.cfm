@@ -1,9 +1,9 @@
 <cfscript>
 
-	demoConfig = request.ioc.get( "lib.demo.DemoConfig" );
 	demoLogger = request.ioc.get( "lib.Logger" );
 	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
+	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
 	utilities = request.ioc.get( "lib.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
@@ -21,7 +21,6 @@
 	// TODO: Move all of this logic into a Partial component.
 
 	demoData = {
-		config: demoConfig.getConfig(),
 		users: demoUsers.getUsers()
 	};
 
@@ -36,9 +35,7 @@
 
 	}
 
-	// Eventually, this will be replaced with the user's configuration. But, for the
-	// meantime, having the demo data will help me figure out the layout of the view.
-	config = demoTargeting.injectRules( demoData.config );
+	config = featureWorkflow.getConfig( request.user.email );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
