@@ -42,11 +42,7 @@ component
 		required struct config
 		) {
 
-		// Caution: We're duplicating the config object so that we can detach it from the
-		// calling context. We're going to be normalizing the data and preparing it for
-		// serialization. As such, we don't want to corrupt any references that may still
-		// be in use within the calling context.
-		config = validation.testConfig( duplicate( config ) );
+		config = validation.testConfig( config );
 
 		gateway.saveConfig( dataFilename, config );
 
