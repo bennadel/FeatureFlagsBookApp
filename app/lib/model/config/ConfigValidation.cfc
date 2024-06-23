@@ -4,45 +4,51 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="environmentValidation" ioc:type="lib.demo.validation.EnvironmentValidation";
-	property name="variantValidation" ioc:type="lib.demo.validation.VariantValidation";
+	property name="validationUtilities" ioc:type="lib.ValidationUtilities";
 
 	// ---
 	// PUBLIC METHODS.
 	// ---
 
 	/**
-	* I validate and return the normalized config value.
+	* I validate and return the normalized config value. This performs a DEEP COPY of the
+	* given value and ensures that all the proper type-casing and key-casing is used.
 	*/
-	public struct function testConfig( required struct config ) {
+	public struct function testConfig( any config ) {
 
-		if ( ! config.keyExists( "environments" ) ) {
+		var validationPath = "config";
 
-			throw( type = "App.Model.Config.Environments.Missing" );
+		if ( isNull( config ) ) {
 
-		}
-
-		if ( ! isStruct( config.environments ) ) {
-
-			throw( type = "App.Model.Config.Environments.Invalid" );
-
-		}
-
-		var environments = environmentValidation.testEnvironments( config.environments );
-
-		if ( ! config.keyExists( "features" ) ) {
-
-			throw( type = "App.Model.Config.Features.Missing" );
+			throw(
+				type = "App.Model.Config.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
 
-		if ( ! isStruct( config.features ) ) {
+		if ( ! isStruct( config ) ) {
 
-			throw( type = "App.Model.Config.Features.Invalid" );
+			throw(
+				type = "App.Model.Config.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
 
-		var features = testFeatures( environments, config.features );
+		var environments = testConfigEnvironments(
+			validationPath = "#validationPath#.environments",
+			environments = config?.environments
+		);
+		var features = testConfigFeatures(
+			validationPath = "#validationPath#.features",
+			environments = environments,
+			features = config?.features
+		);
 
 		return [
 			environments: environments,
@@ -51,88 +57,37 @@ component
 
 	}
 
+	// ---
+	// PRIVATE CONFIG METHODS.
+	// ---
 
-	public struct function testEnvironment(
-		required string key,
-		required struct settings
+	/**
+	* I test the top-level environments.
+	*/
+	private struct function testConfigEnvironments(
+		required string validationPath,
+		any environments = [:]
 		) {
 
-		if ( ! key.len() ) {
+		if ( ! isStruct( environments ) ) {
 
-			throw( type = "App.Model.Config.Environment.Key.Empty" );
-
-		}
-
-		if ( key.len() > 50 ) {
-
-			throw( type = "App.Model.Config.Environment.Key.TooLong" );
-
-		}
-
-		if ( key.reFindNoCase( "[^a-z0-9_.-]" ) ) {
-
-			throw( type = "App.Model.Config.Environment.Key.Invalid" );
+			throw(
+				type = "App.Model.Config.Environments.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
-
-		var name = settings.keyExists( "name" )
-			? settings.name
-			: key
-		;
-
-		if ( ! isSimpleValue( name ) ) {
-
-			throw( type = "App.Model.Config.Environment.Name.Invalid" );
-
-		}
-
-		name = toString( settings.name ).trim();
-
-		if ( ! name.len() ) {
-
-			name = key;
-
-		}
-
-		if ( name.len() > 50 ) {
-
-			throw( type = "App.Model.Config.Environment.Name.TooLong" );
-
-		}
-
-		var description = settings.keyExists( "description" )
-			? settings.description
-			: ""
-		;
-
-		if ( ! isSimpleValue( description ) ) {
-
-			throw( type = "App.Model.Config.Environment.Description.Invalid" );
-
-		}
-
-		description = toString( description ).trim();
-
-		if ( description.len() > 255 ) {
-
-			throw( type = "App.Model.Config.Environment.Description.TooLong" );
-
-		}
-
-		return [
-			name: name,
-			description: description
-		];
-
-	}
-
-
-	public struct function testEnvironments( required struct environments ) {
 
 		environments = environments.map(
 			( key, value ) => {
 
-				return testEnvironment( key, value );
+				return testEnvironment(
+					validationPath = "#validationPath#.#key#",
+					key = key,
+					settings = arguments?.value
+				);
 
 			}
 		);
@@ -142,191 +97,35 @@ component
 	}
 
 
-	public struct function testFeature(
-		required struct allEnvironments,
-		required string key,
-		required struct settings
+	/**
+	* I test the top-level features.
+	*/
+	private struct function testConfigFeatures(
+		required string validationPath,
+		required struct environments,
+		any features = [:]
 		) {
 
-		if ( ! key.len() ) {
+		if ( ! isStruct( features ) ) {
 
-			throw( type = "App.Model.Config.Feature.Key.Empty" );
-
-		}
-
-		if ( key.len() > 50 ) {
-
-			throw( type = "App.Model.Config.Feature.Key.TooLong" );
-
-		}
-
-		if ( key.reFindNoCase( "[^a-z0-9_.-]" ) ) {
-
-			throw( type = "App.Model.Config.Feature.Key.Invalid" );
+			throw(
+				type = "App.Model.Config.Features.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
-
-		if ( ! settings.keyExists( "type" ) ) {
-
-			throw( type = "App.Model.Config.Feature.Type.Missing" );
-
-		}
-
-		if ( ! isSimpleValue( settings.type ) ) {
-
-			throw( type = "App.Model.Config.Feature.Type.Invalid" );
-
-		}
-
-		switch ( settings.type ) {
-			case "boolean":
-			case "number":
-			case "string":
-			case "any":
-				var type = settings.type.lcase();
-			break;
-			default:
-				throw( type = "App.Model.Config.Feature.Type.Invalid" );
-			break;
-		}
-
-		var description = settings.keyExists( "description" )
-			? settings.description
-			: ""
-		;
-
-		if ( ! isSimpleValue( description ) ) {
-
-			throw( type = "App.Model.Config.Feature.Description.Invalid" );
-
-		}
-
-		description = toString( description ).trim();
-
-		if ( description.len() > 255 ) {
-
-			throw( type = "App.Model.Config.Feature.Description.TooLong" );
-
-		}
-
-		if ( ! settings.keyExists( "variants" ) ) {
-
-			throw( type = "App.Model.Config.Feature.Variants.Missing" );
-
-		}
-
-		if ( ! isArray( settings.variants ) ) {
-
-			throw( type = "App.Model.Config.Feature.Variants.Invalid" );
-
-		}
-
-		if ( ! settings.variants.len() ) {
-
-			throw( type = "App.Model.Config.Feature.Variants.Empty" );
-
-		}
-
-		var variants = settings.variants.map(
-			( variantValue ) => {
-
-				return testVariant( type, variantValue );
-
-			}
-		);
-
-		var defaultSelection = settings.keyExists( "defaultSelection" )
-			? settings.defaultSelection
-			: 1
-		;
-
-		if ( ! isSimpleValue( defaultSelection ) ) {
-
-			throw( type = "App.Model.Config.Feature.DefaultSelection.Invalid" );
-
-		}
-
-		defaultSelection = val( defaultSelection );
-
-		if ( ! variants.isDefined( defaultSelection ) ) {
-
-			throw( type = "App.Model.Config.Feature.DefaultSelection.OutOfBounds" );
-
-		}
-
-		if ( ! settings.keyExists( "environments" ) ) {
-
-			throw( type = "App.Model.Config.Feature.Environments.Missing" );
-
-		}
-
-		var environments = testEnvironmentSettings( accumulator, settings.environments );
-
-		return [
-			type: type,
-			description: description,
-			variants: variants
-			defaultSelection: defaultSelection
-			environments: environments
-		];
-
-	}
-
-
-	public struct function testEnvironmentSetting(
-		required struct accumulator,
-		required string key,
-		required struct settings
-		) {
-
-		if ( ! accumulator.environments.keyExists( key ) ) {
-
-			throw( type = "App.Model.Config.Feature.Environment.Mismatch" );
-
-		}
-
-		var resolution = testResolution(variantType, variantValues, resolution)
-
-
-		resolution: [
-			type: "selection",
-			selection: 1
-		],
-		rulesEnabled: false,
-		rules: []
-
-
-	}
-
-
-	public struct function testEnvironmentSettings(
-		required struct accumulator,
-		required string key,
-		required struct environments
-		) {
-
-		var result = environments.map(
-			( key, value ) => {
-
-				return testEnvironmentSetting( accumulator, key, value );
-
-			}
-		);
-
-		return result;
-
-	}
-
-
-	public struct function testFeatures(
-		required struct allEnvironments,
-		required struct features
-		) {
 
 		features = features.map(
 			( key, value ) => {
 
-				return testFeature( allEnvironments, key, value );
+				return testFeature(
+					validationPath = "#validationPath#.#key#",
+					environments = environments,
+					key = key,
+					settings = arguments?.value
+				);
 
 			}
 		);
@@ -335,187 +134,699 @@ component
 
 	}
 
+	// ----
+	// PRIVATE ENVIRONMENT METHODS.
+	// ----
 
-
-
-
-
-
-
-
-
-	public struct function testResolution(
-		required string variantType,
-		required array variantValues,
-		required struct resolution
+	/**
+	* I test the given environment settings.
+	*/
+	public struct function testEnvironment(
+		required string validationPath,
+		required string key,
+		any settings
 		) {
 
-		if ( ! resolution.keyExists( "type" ) ) {
+		key = testEnvironmentKey(
+			validationPath = "#validationPath#.key",
+			key = key
+		);
 
-			throw( type = "App.Model.Config.Resolution.Type.Missing" );
+		if ( isNull( settings ) ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
 
-		if ( ! isSimpleValue( resolution.type ) ) {
+		if ( ! isStruct( settings ) ) {
 
-			throw( type = "App.Model.Config.Resolution.Type.Invalid" );
+			throw(
+				type = "App.Model.Config.Environment.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
 
-		switch ( resolution.type ) {
-			case "selection":
+		var name = testEnvironmentName(
+			validationPath = "#validationPath#.name",
+			key = key,
+			name = ( settings.name ?: key )
+		);
+		var description = testEnvironmentDescription(
+			validationPath = "#validationPath#.description",
+			description = ( settings.description ?: "" )
+		);
 
-				return testResolutionAsSelection( variantValues, resolution );
-
-			break;
-			case "distribution":
-
-				return testResolutionAsDistribution( variantType, variantValues, resolution );
-
-			break;
-			case "variant":
-
-				return testResolutionAsVariant( variantType, resolution );
-
-			break;
-			default:
-
-				throw( type = "App.Model.Config.Resolution.Type.NotSupported" );
-
-			break;
-		}
+		return [
+			name: name,
+			description: description
+		];
 
 	}
 
 
-	public struct function testResolutionAsDistribution(
-		required string variantType,
-		required array variantValues,
-		required struct resolution
+	/**
+	* I test the given environment description.
+	*/
+	private string function testEnvironmentDescription(
+		required string validationPath,
+		required any description
 		) {
 
-		if ( ! resolution.keyExists( "distribution" ) ) {
+		if ( ! isSimpleValue( description ) ) {
 
-			throw( type = "App.Model.Config.Resolution.Distribution.Missing" );
-
-		}
-
-		if ( ! isArray( resolution.distribution ) ) {
-
-			throw( type = "App.Model.Config.Resolution.Distribution.Invalid" );
-
-		}
-
-		if ( variantValues.len() != resolution.distribution.len() ) {
-
-			throw( type = "App.Model.Config.Resolution.Distribution.Mismatch" );
+			throw(
+				type = "App.Model.Config.Environment.Description.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
 
-		var distribution = resolution.distribution.map(
-			( value ) => {
+		description = toString( description ).trim();
 
-				if ( ! isValid( "integer", value ) ) {
+		if ( description.len() > 255 ) {
 
-					throw( type = "App.Model.Config.Resolution.Distribution.InvalidAllocation" );
+			throw(
+				type = "App.Model.Config.Environment.Description.TooLong",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					maxLength: 255
+				})
+			);
+
+		}
+
+		if ( description != validationUtilities.canonicalizeInput( description ) ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Description.SuspiciousEncoding",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return description;
+
+	}
+
+
+	/**
+	* I test the given environment key.
+	*/
+	private string function testEnvironmentKey(
+		required string validationPath,
+		required string key
+		) {
+
+		if ( ! key.len() ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Key.Empty",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( key.len() > 50 ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Key.TooLong",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					maxLength: 50
+				})
+			);
+
+		}
+
+		if ( key.reFindNoCase( "[^a-z0-9_.-]" ) ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Key.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return key;
+
+	}
+
+
+	/**
+	* I test the given environment name.
+	*/
+	private string function testEnvironmentName(
+		required string validationPath,
+		required string key,
+		required any name
+		) {
+
+		if ( ! isSimpleValue( name ) ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Name.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		name = toString( name ).trim();
+
+		if ( ! name.len() ) {
+
+			name = key;
+
+		}
+
+		if ( name.len() > 50 ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Name.TooLong",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					maxLength: 50
+				})
+			);
+
+		}
+
+		if ( name != validationUtilities.canonicalizeInput( name ) ) {
+
+			throw(
+				type = "App.Model.Config.Environment.Name.SuspiciousEncoding",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return name;
+
+	}
+
+	// ----
+	// PRIVATE FEATURE METHODS.
+	// ----
+
+	/**
+	* I test the given feature settings.
+	*/
+	private struct function testFeature(
+		required string validationPath,
+		required struct environments,
+		required string key,
+		any settings
+		) {
+
+		key = testFeatureKey(
+			validationPath = "#validationPath#.key",
+			key = key
+		);
+
+		if ( isNull( settings ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isStruct( settings ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		var type = testFeatureType(
+			validationPath = "#validationPath#.type",
+			type = settings?.type
+		);
+		var description = testFeatureDescription(
+			validationPath = "#validationPath#.description",
+			description = settings?.description
+		);
+		var variants = testFeatureVariants(
+			validationPath = "#validationPath#.variants",
+			feature = [
+				type: type
+			],
+			variants = settings?.variants
+		);
+		var defaultSelection = testFeatureDefaultSelection(
+			validationPath = "#validationPath#.defaultSelection",
+			feature = [
+				type: type,
+				variants: variants
+			],
+			defaultSelection = settings?.defaultSelection
+		);
+		// TODO: I think I want to rename "environments" to "targeting".
+		var targeting = testFeatureTargeting(
+			validationPath = "#validationPath#.environments",
+			environments = environments,
+			feature = [
+				type: type,
+				variants: variants
+			],
+			settings = settings?.environments
+		);
+
+		return [
+			type: type,
+			description: description,
+			variants: variants,
+			defaultSelection: defaultSelection,
+			environments: targeting
+		];
+
+	}
+
+
+	/**
+	* I test the given feature default selection.
+	*/
+	private numeric function testFeatureDefaultSelection(
+		required string validationPath,
+		required struct feature,
+		any defaultSelection = 1
+		) {
+
+		if ( ! isValid( "integer", defaultSelection ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.DefaultSelection.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		defaultSelection = val( defaultSelection );
+
+		if ( ! feature.variants.isDefined( defaultSelection ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.DefaultSelection.OutOfBounds",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					variantCount: feature.variants.len()
+				})
+			);
+
+		}
+
+		return defaultSelection;
+
+	}
+
+
+	/**
+	* I test the given feature description.
+	*/
+	private string function testFeatureDescription(
+		required string validationPath,
+		any description = ""
+		) {
+
+		if ( ! isSimpleValue( description ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Description.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		description = toString( description ).trim();
+
+		if ( description.len() > 255 ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Description.TooLong",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					maxLength: 255
+				})
+			);
+
+		}
+
+		if ( description != validationUtilities.canonicalizeInput( description ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Description.SuspiciousEncoding",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return description;
+
+	}
+
+
+	/**
+	* I test the given feature key.
+	*/
+	private string function testFeatureKey(
+		required string validationPath,
+		required string key
+		) {
+
+		if ( ! key.len() ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Key.Empty",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( key.len() > 50 ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Key.TooLong",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					maxLength: 50
+				})
+			);
+
+		}
+
+		if ( key.reFindNoCase( "[^a-z0-9_-]" ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Key.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return key;
+
+	}
+
+
+	/**
+	* I test the given feature targeting.
+	*/
+	private struct function testFeatureTargeting(
+		required string validationPath,
+		required struct environments,
+		required struct feature,
+		any settings
+		) {
+
+		if ( isNull( settings ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Environments.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isStruct( settings ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Environments.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		// First, we need to make sure that every environment in the configuration is also
+		// represented in this collection of targeting contexts.
+		// --
+		// Note: Using .map() instead of .each() because there's a ColdFusion bug in which
+		// errors aren't properly surfaced within a .each().
+		environments.map(
+			( key ) => {
+
+				if ( ! settings.keyExists( key ) ) {
+
+					throw(
+						type = "App.Model.Config.Feature.Environment.Missing",
+						extendedInfo = serializeJson({
+							validationPath: "#validationPath#.#key#"
+						})
+					);
 
 				}
-
-				return val( value );
 
 			}
 		);
 
-		if ( distribution.sum() != 100 ) {
+		// Second, we need to make sure that all of the targeting contexts in this feature
+		// are represented in the collection of configuration environments.
+		// --
+		// Note: Using .map() instead of .each() because there's a ColdFusion bug in which
+		// errors aren't properly surfaced within a .each().
+		settings.map(
+			( key ) => {
 
-			throw( type = "App.Model.Config.Resolution.Distribution.InvalidTotal" );
+				if ( ! environments.keyExists( key ) ) {
 
-		}
+					throw(
+						type = "App.Model.Config.Feature.Environment.OutOfBounds",
+						extendedInfo = serializeJson({
+							validationPath: "#validationPath#.#key#"
+						})
+					);
 
-		return [
-			type: "distribution",
-			distribution: distribution
-		];
+				}
 
-	}
+			}
+		);
 
+		settings = settings.map(
+			( key, value ) => {
 
-	public struct function testResolutionAsSelection(
-		required array variantValues,
-		required struct resolution
-		) {
+				return testTargeting(
+					validationPath = "#validationPath#.#key#",
+					feature = feature,
+					settings = arguments?.value
+				);
 
-		if ( ! resolution.keyExists( "selection" ) ) {
+			}
+		);
 
-			throw( type = "App.Model.Config.Resolution.Selection.Missing" );
-
-		}
-
-		if ( ! isNumeric( resolution.selection ) ) {
-
-			throw( type = "App.Model.Config.Resolution.Selection.Invalid" );
-
-		}
-
-		if ( ! variantValues.isDefined( resolution.selection ) ) {
-
-			throw( type = "App.Model.Config.Resolution.Selection.OutOfBounds" );
-
-		}
-
-		return [
-			type: "selection",
-			selection: val( resolution.selection )
-		];
+		return settings;
 
 	}
 
 
-	public struct function testResolutionAsVariant(
-		required string variantType,
-		required struct resolution
+	/**
+	* I test the given feature type.
+	*/
+	private string function testFeatureType(
+		required string validationPath,
+		any type
 		) {
 
-		if ( ! resolution.keyExists( "variant" ) ) {
+		if ( isNull( type ) ) {
 
-			throw( type = "App.Model.Config.Resolution.Variant.Missing" );
+			throw(
+				type = "App.Model.Config.Feature.Type.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
 		}
 
-		var variant = testVariant( variantType, resolution.variant );
+		if ( ! isSimpleValue( type ) ) {
 
-		return [
-			type: "variant",
-			variant: variant
-		];
+			throw(
+				type = "App.Model.Config.Feature.Type.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
 
-	}
+		}
 
-
-	public any function testVariant(
-		required string variantType,
-		required any variant
-		) {
-
-		switch ( variantType ) {
+		switch ( type ) {
 			case "boolean":
-				return testVariantAsBoolean( variant );
+			case "number":
+			case "string":
+			case "any":
+				return type.lcase();
+			break;
+		}
+
+		throw(
+			type = "App.Model.Config.Feature.Type.Unsupported",
+			extendedInfo = serializeJson({
+				validationPath: validationPath
+			})
+		);
+
+	}
+
+
+	/**
+	* I test the given feature variants.
+	*/
+	private array function testFeatureVariants(
+		required string validationPath,
+		required struct feature,
+		any variants
+		) {
+
+		if ( isNull( variants ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Variants.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isArray( variants ) ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Variants.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! variants.len() ) {
+
+			throw(
+				type = "App.Model.Config.Feature.Variants.Empty",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		variants = variants.map(
+			( element, i ) => {
+
+				return testVariant(
+					validationPath = "#validationPath#.#i#",
+					feature = feature,
+					variant = arguments?.element
+				);
+
+			}
+		);
+
+		return variants;
+
+	}
+
+	// ---
+	// PRIVATE VARIANT METHODS.
+	// ---
+
+	/**
+	* I test the given variant.
+	*/
+	private any function testVariant(
+		required string validationPath,
+		required struct feature,
+		any variant
+		) {
+
+		if ( isNull( variant ) ) {
+
+			throw(
+				type = "App.Model.Config.Variant.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		switch ( feature.type ) {
+			case "boolean":
+				return testVariantAsBoolean(
+					validationPath = validationPath,
+					variant = variant
+				);
 			break;
 			case "number":
-				return testVariantAsNumber( variant );
+				return testVariantAsNumber(
+					validationPath = validationPath,
+					variant = variant
+				);
 			break;
 			case "string":
-				return testVariantAsString( variant );
+				return testVariantAsString(
+					validationPath = validationPath,
+					variant = variant
+				);
 			break;
-			default:
-				return testVariantAsAny( variant );
+			case "any":
+				return testVariantAsAny(
+					validationPath = validationPath,
+					variant = variant
+				);
 			break;
+			// Note: Since the type has already been validated, we don't need to worry
+			// about having a default case.
 		}
 
 	}
 
 
-	public any function testVariantAsAny( required any variant ) {
+	/**
+	* I test the given variant as type: any.
+	*/
+	private any function testVariantAsAny(
+		required string validationPath,
+		required any variant
+		) {
 
 		// For "any" variants, the only requirement is that they can be serialized.
 		try {
@@ -524,7 +835,13 @@ component
 
 		} catch ( any error ) {
 
-			throw( type = "App.Model.Config.Variant.Any.Invalid" );
+			throw(
+				type = "App.Model.Config.Variant.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					featureType: "any"
+				})
+			);
 
 		}
 
@@ -533,11 +850,23 @@ component
 	}
 
 
-	public boolean function testVariantAsBoolean( required any variant ) {
+	/**
+	* I test the given variant as type: Boolean.
+	*/
+	private boolean function testVariantAsBoolean(
+		required string validationPath,
+		required any variant
+		) {
 
 		if ( ! isBoolean( variant ) ) {
 
-			throw( type = "App.Model.Config.Variant.Boolean.Invalid" );
+			throw(
+				type = "App.Model.Config.Variant.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					featureType: "boolean"
+				})
+			);
 
 		}
 
@@ -546,11 +875,23 @@ component
 	}
 
 
-	public numeric function testVariantAsNumber( required any variant ) {
+	/**
+	* I test the given variant as type: number.
+	*/
+	private numeric function testVariantAsNumber(
+		required string validationPath,
+		required any variant
+		) {
 
 		if ( ! isNumeric( variant ) ) {
 
-			throw( type = "App.Model.Config.Variant.Number.Invalid" );
+			throw(
+				type = "App.Model.Config.Variant.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					featureType: "number"
+				})
+			);
 
 		}
 
@@ -559,11 +900,23 @@ component
 	}
 
 
-	public string function testVariantAsString( required any variant ) {
+	/**
+	* I test the given variant as type: string.
+	*/
+	private string function testVariantAsString(
+		required string validationPath,
+		required any variant
+		) {
 
 		if ( ! isSimpleValue( variant ) ) {
 
-			throw( type = "App.Model.Config.Variant.String.Invalid" );
+			throw(
+				type = "App.Model.Config.Variant.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					featureType: "string"
+				})
+			);
 
 		}
 
@@ -571,16 +924,739 @@ component
 
 	}
 
+	// ---
+	// PRIVATE TARGETING METHODS.
+	// ---
 
 	/**
-	* I throw a version conflict error.
+	* I test the given targeting.
 	*/
-	public void function throwVersionConflictError() {
+	private struct function testTargeting(
+		required string validationPath,
+		required struct feature,
+		any settings
+		) {
+
+		if ( isNull( settings ) ) {
+
+			throw(
+				type = "App.Model.Config.Targeting.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isStruct( settings ) ) {
+
+			throw(
+				type = "App.Model.Config.Targeting.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		var resolution = testTargetingResolution(
+			validationPath = "#validationPath#.resolution",
+			feature = feature,
+			resolution = settings?.resolution
+		);
+		var rulesEnabled = testTargetingRulesEnabled(
+			validationPath = "#validationPath#.rulesEnabled",
+			rulesEnabled = settings?.rulesEnabled
+		);
+		var rules = testTargetingRules(
+			validationPath = "#validationPath#.rules",
+			feature = feature,
+			rules = settings?.rules
+		);
+
+		return [
+			resolution: resolution,
+			rulesEnabled: rulesEnabled,
+			rules: rules
+		];
+
+	}
+
+
+	/**
+	* I test the given targeting resolution.
+	*/
+	private struct function testTargetingResolution(
+		required string validationPath,
+		required struct feature,
+		any resolution
+		) {
+
+		return testResolution( argumentCollection = arguments );
+
+	}
+
+
+	/**
+	* I test the given targeting rules.
+	*/
+	private array function testTargetingRules(
+		required string validationPath,
+		required struct feature,
+		any rules
+		) {
+
+		if ( isNull( rules ) ) {
+
+			throw(
+				type = "App.Model.Config.Targeting.Rules.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isArray( rules ) ) {
+
+			throw(
+				type = "App.Model.Config.Targeting.Rules.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		rules = rules.map(
+			( element, i ) => {
+
+				return testRule(
+					validationPath = "#validationPath#.#i#",
+					feature = feature,
+					rule = arguments?.element
+				);
+
+			}
+		);
+
+		return rules;
+
+	}
+
+
+	/**
+	* I test the given targeting rules enabled.
+	*/
+	private boolean function testTargetingRulesEnabled(
+		required string validationPath,
+		any rulesEnabled
+		) {
+
+		if ( isNull( rulesEnabled ) ) {
+
+			throw(
+				type = "App.Model.Config.Targeting.RulesEnabled.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isBoolean( rulesEnabled ) ) {
+
+			throw(
+				type = "App.Model.Config.Targeting.RulesEnabled.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return !! rulesEnabled;
+
+	}
+
+	// ---
+	// PRIVATE RESOLUTION METHODS.
+	// ---
+
+	/**
+	* I test the given resolution.
+	*/
+	public struct function testResolution(
+		required string validationPath,
+		required struct feature,
+		any resolution
+		) {
+
+		if ( isNull( resolution ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isStruct( resolution ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		var type = testResolutionType(
+			validationPath = "#validationPath#.type",
+			type = resolution?.type
+		);
+
+		switch ( type ) {
+			case "selection":
+
+				return testResolutionAsSelection(
+					validationPath = validationPath,
+					feature = feature,
+					resolution = resolution
+				);
+
+			break;
+			case "distribution":
+
+				return testResolutionAsDistribution(
+					validationPath = validationPath,
+					feature = feature,
+					resolution = resolution
+				);
+
+			break;
+			case "variant":
+
+				return testResolutionAsVariant(
+					validationPath = validationPath,
+					feature = feature,
+					resolution = resolution
+				);
+
+			break;
+			// Note: Since the type has already been validated, we don't need to worry
+			// about having a default case.
+		}
+
+	}
+
+
+	/**
+	* I test the given resolution as type: distribution.
+	*/
+	private struct function testResolutionAsDistribution(
+		required string validationPath,
+		required struct feature,
+		required struct resolution
+		) {
+
+		var distribution = testResolutionDistribution(
+			validationPath = "#validationPath#.distribution",
+			feature = feature,
+			distribution = resolution?.distribution
+		);
+
+		return [
+			type: resolution.type,
+			distribution: distribution
+		];
+
+	}
+
+
+	/**
+	* I test the given resolution as type: selection.
+	*/
+	private struct function testResolutionAsSelection(
+		required string validationPath,
+		required struct feature,
+		required struct resolution
+		) {
+
+		var selection = testResolutionSelection(
+			validationPath = "#validationPath#.selection",
+			feature = feature,
+			selection = resolution?.selection
+		);
+
+		return [
+			type: resolution.type,
+			selection: selection
+		];
+
+	}
+
+
+	/**
+	* I test the given resolution as type: variant.
+	*/
+	private struct function testResolutionAsVariant(
+		required string validationPath,
+		required struct feature,
+		required struct resolution
+		) {
+
+		var variant = testResolutionVariant(
+			validationPath = "#validationPath#.variant",
+			feature = feature,
+			variant = resolution?.variant
+		);
+
+		return [
+			type: resolution.type,
+			variant: variant
+		];
+
+	}
+
+
+	/**
+	* I test the given resolution distribution.
+	*/
+	private array function testResolutionDistribution(
+		required string validationPath,
+		required struct feature,
+		any distribution
+		) {
+
+		if ( isNull( distribution ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Distribution.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isArray( distribution ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Distribution.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( feature.variants.len() != distribution.len() ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Distribution.Mismatch",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					variantCount: feature.variants.len()
+				})
+			);
+
+		}
+
+		distribution = distribution.map(
+			( element, i ) => {
+
+				if ( ! isValid( "integer", element ) ) {
+
+					throw(
+						type = "App.Model.Config.Resolution.Distribution.Entry.Invalid",
+						extendedInfo = serializeJson({
+							validationPath: "#validationPath#.#i#"
+						})
+					);
+
+				}
+
+				return val( element );
+
+			}
+		);
+
+		if ( distribution.sum() != 100 ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Distribution.InvalidTotal",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return distribution;
+
+	}
+
+
+	/**
+	* I test the given resolution selection.
+	*/
+	private numeric function testResolutionSelection(
+		required string validationPath,
+		required struct feature,
+		any selection
+		) {
+
+		if ( isNull( selection ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Selection.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isValid( "integer", selection ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Selection.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					variantCount: feature.variants.len()
+				})
+			);
+
+		}
+
+		selection = val( selection );
+
+		if ( ! feature.variants.isDefined( selection ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Selection.OutOfBounds",
+				extendedInfo = serializeJson({
+					validationPath: validationPath,
+					variantCount: feature.variants.len()
+				})
+			);
+
+		}
+
+		return selection;
+
+	}
+
+
+	/**
+	* I test the given resolution type.
+	*/
+	private string function testResolutionType(
+		required string validationPath,
+		any type
+		) {
+
+		if ( isNull( type ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Type.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isSimpleValue( type ) ) {
+
+			throw(
+				type = "App.Model.Config.Resolution.Type.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		switch ( type ) {
+			case "selection":
+			case "distribution":
+			case "variant":
+				return type.lcase();
+			break;
+		}
 
 		throw(
-			type = "App.Model.Config.Version.Conflict",
-			message = "Submitted config data is expired."
+			type = "App.Model.Config.Resolution.Type.Invalid",
+			extendedInfo = serializeJson({
+				validationPath: validationPath
+			})
 		);
+
+	}
+
+
+	/**
+	* I test the given resolution variant.
+	*/
+	private any function testResolutionVariant(
+		required string validationPath,
+		required struct feature,
+		any variant
+		) {
+
+		return testVariant( argumentCollection = arguments );
+
+	}
+
+	// ---
+	// PRIVATE RULE METHODS.
+	// ---
+
+	/**
+	* I test the given rule.
+	*/
+	private struct function testRule(
+		required string validationPath,
+		required struct feature,
+		any rule
+		) {
+
+		if ( isNull( rule ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isStruct( rule ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		var operator = testRuleOperator(
+			validationPath = "#validationPath#.operator",
+			feature = feature,
+			operator = rule?.operator
+		);
+		var input = testRuleInput(
+			validationPath = "#validationPath#.input",
+			feature = feature,
+			input = rule?.input
+		);
+		var values = testRuleValues(
+			validationPath = "#validationPath#.values",
+			feature = feature,
+			values = rule?.values
+		);
+		var resolution = testRuleResolution(
+			validationPath = "#validationPath#.resolution",
+			feature = feature,
+			resolution = rule?.resolution
+		);
+
+		return [
+			operator: operator,
+			input: input,
+			values: values,
+			resolution: resolution
+		];
+
+	}
+
+
+	/**
+	* I test the given rule input.
+	*/
+	private string function testRuleInput(
+		required string validationPath,
+		required struct feature,
+		any input
+		) {
+
+		if ( isNull( input ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Input.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isSimpleValue( input ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Input.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		input = toString( input ).trim();
+
+		if ( ! input.len() ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Input.Empty",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return input;
+
+	}
+
+
+	/**
+	* I test the given rule operator.
+	*/
+	private string function testRuleOperator(
+		required string validationPath,
+		required struct feature,
+		any operator
+		) {
+
+		if ( isNull( operator ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Operator.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isSimpleValue( operator ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Operator.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		var knownOperators = [
+			"Contains",
+			"EndsWith",
+			"IsOneOf",
+			"MatchesPattern",
+			"NotContains",
+			"NotEndsWith",
+			"NotIsOneOf",
+			"NotMatchesPattern",
+			"NotStartsWith",
+			"StartsWith"
+		];
+
+		for ( var knownOperator in knownOperators ) {
+
+			if ( operator == knownOperator ) {
+
+				return knownOperator;
+
+			}
+
+		}
+
+		throw(
+			type = "App.Model.Config.Rule.Operator.Unsupported",
+			extendedInfo = serializeJson({
+				validationPath: validationPath
+			})
+		);
+
+	}
+
+
+	/**
+	* I test the given rule resolution.
+	*/
+	private struct function testRuleResolution(
+		required string validationPath,
+		required struct feature,
+		any resolution
+		) {
+
+		return testResolution( argumentCollection = arguments );
+
+	}
+
+
+	/**
+	* I test the given rule values.
+	*/
+	private array function testRuleValues(
+		required string validationPath,
+		required struct feature,
+		any values
+		) {
+
+		if ( isNull( values ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Values.Missing",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		if ( ! isArray( values ) ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Values.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		values = values.map(
+			( element, i ) => {
+
+				if ( ! isSimpleValue( element ) ) {
+
+					throw(
+						type = "App.Model.Config.Rule.Values.Entry.Invalid",
+						extendedInfo = serializeJson({
+							validationPath: "#validationPath#.#i#"
+						})
+					);
+
+				}
+
+				return element;
+
+			}
+		);
+
+		return values;
 
 	}
 
