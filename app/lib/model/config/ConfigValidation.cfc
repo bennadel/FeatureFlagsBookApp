@@ -407,15 +407,14 @@ component
 			],
 			defaultSelection = settings?.defaultSelection
 		);
-		// TODO: I think I want to rename "environments" to "targeting".
 		var targeting = testFeatureTargeting(
-			validationPath = "#validationPath#.environments",
+			validationPath = "#validationPath#.targeting",
 			environments = environments,
 			feature = [
 				type: type,
 				variants: variants
 			],
-			settings = settings?.environments
+			settings = settings?.targeting
 		);
 
 		return [
@@ -577,7 +576,7 @@ component
 		if ( isNull( settings ) ) {
 
 			throw(
-				type = "App.Model.Config.Feature.Environments.Missing",
+				type = "App.Model.Config.Feature.Targeting.Missing",
 				extendedInfo = serializeJson({
 					validationPath: validationPath
 				})
@@ -588,7 +587,7 @@ component
 		if ( ! isStruct( settings ) ) {
 
 			throw(
-				type = "App.Model.Config.Feature.Environments.Invalid",
+				type = "App.Model.Config.Feature.Targeting.Invalid",
 				extendedInfo = serializeJson({
 					validationPath: validationPath
 				})
@@ -607,7 +606,7 @@ component
 				if ( ! settings.keyExists( key ) ) {
 
 					throw(
-						type = "App.Model.Config.Feature.Environment.Missing",
+						type = "App.Model.Config.Feature.Targeting.Entry.Missing",
 						extendedInfo = serializeJson({
 							validationPath: "#validationPath#.#key#"
 						})
@@ -629,7 +628,7 @@ component
 				if ( ! environments.keyExists( key ) ) {
 
 					throw(
-						type = "App.Model.Config.Feature.Environment.OutOfBounds",
+						type = "App.Model.Config.Feature.Targeting.Entry.OutOfBounds",
 						extendedInfo = serializeJson({
 							validationPath: "#validationPath#.#key#"
 						})

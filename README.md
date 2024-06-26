@@ -40,7 +40,7 @@ In a production environment, we might want all users to receive the `error` vari
 ```js
 {
     variants: [ "error", "warn", "info" ],
-    environments: {
+    targeting: {
         production: {
             resolution: {
                 type: "selection",
@@ -56,7 +56,7 @@ However, in the middle of an incident, we might need to move to a lower-level of
 ```js
 {
     variants: [ "error", "warn", "info" ],
-    environments: {
+    targeting: {
         production: {
             resolution: {
                 type: "distribution",
@@ -72,7 +72,7 @@ Now, imagine that the defined log-level aren't enough to give us the information
 ```js
 {
     variants: [ "error", "warn", "info" ],
-    environments: {
+    targeting: {
         production: {
             resolution: {
                 type: "variant",
@@ -121,7 +121,7 @@ Note: This is a **work in progress**:
             // the environment entries.
             defaultSelection: 1,
 
-            environments: {
+            targeting: {
                 production: {
                     resolution: {
                         type: "distribution",

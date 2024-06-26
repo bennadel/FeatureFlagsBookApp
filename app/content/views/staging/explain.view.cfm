@@ -94,7 +94,7 @@
 				<cfcase value="DefaultResolution">
 					the variant was chosen using the feature's default resolution strategy.
 
-					<cfif result.feature.environments[ url.environmentName ].rulesEnabled>
+					<cfif result.feature.targeting[ url.environmentName ].rulesEnabled>
 						This is because no rules matched against the given context.
 					<cfelse>
 						This is because rules are not enabled.
@@ -197,11 +197,11 @@
 			</div>
 
 			<p>
-				<strong>Environment Settings:</strong>
+				<strong>Targeting Settings:</strong>
 			</p>
 
 			<div class="dump-wrapper">
-				<cfdump var="#result.feature.environments#" />
+				<cfdump var="#result.feature.targeting#" />
 			</div>
 
 		</cfif>

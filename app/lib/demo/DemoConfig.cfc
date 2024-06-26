@@ -94,7 +94,7 @@ component
 			description: description,
 			variants: variants,
 			defaultSelection: 1,
-			environments: [
+			targeting: [
 				development: [
 					resolution: [
 						type: "selection",

@@ -142,7 +142,7 @@
 						</cfloop>
 
 						<td align="center" class="env-left">
-							<cfif feature.environments[ environment.key ].rulesEnabled>
+							<cfif feature.targeting[ environment.key ].rulesEnabled>
 								Enabled
 							<cfelse>
 								<span class="disabled">Disabled</span>

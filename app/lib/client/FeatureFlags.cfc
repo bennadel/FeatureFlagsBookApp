@@ -106,9 +106,9 @@ component
 			}
 
 			// Note: If the "features" key exists (above condition), we're going to assume
-			// that the nested "environments" key exists as well since there will be some
+			// that the nested "targeting" key exists as well since there will be some
 			// validation applied to the config structure (at least in theory).
-			if ( ! config.features[ feature ].environments.keyExists( environment ) ) {
+			if ( ! config.features[ feature ].targeting.keyExists( environment ) ) {
 
 				result.reason = "MissingEnvironment";
 				return result;
@@ -116,13 +116,13 @@ component
 			}
 
 			var featureSettings = config.features[ feature ];
-			var environmentSettings = featureSettings.environments[ environment ];
+			var targeting = featureSettings.targeting[ environment ];
 			var variants = featureSettings.variants;
 			// This is the default resolution associated with the targeted environment.
 			// The rule evaluations below may override this resolution (using the first
 			// matching rule as the override source). But, if none of the rules match,
 			// this is the resolution strategy that we'll use when selecting the variant.
-			var resolution = environmentSettings.resolution;
+			var resolution = targeting.resolution;
 
 			result.reason = "DefaultResolution";
 			result.feature = featureSettings;
@@ -130,9 +130,9 @@ component
 			result.skippedRules = [];
 			result.resolution = resolution;
 
-			if ( environmentSettings.rulesEnabled ) {
+			if ( targeting.rulesEnabled ) {
 
-				for ( var rule in environmentSettings.rules ) {
+				for ( var rule in targeting.rules ) {
 
 					if ( ! context.keyExists( rule.input ) ) {
 

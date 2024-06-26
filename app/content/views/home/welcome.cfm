@@ -53,7 +53,7 @@
 					type: config.features[ key ].type,
 					description: config.features[ key ].description,
 					variants: config.features[ key ].variants,
-					environments: config.features[ key ].environments
+					targeting: config.features[ key ].targeting
 				};
 
 			}
