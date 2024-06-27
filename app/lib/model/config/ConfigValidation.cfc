@@ -842,9 +842,12 @@ component
 		) {
 
 		// For "any" variants, the only requirement is that they can be serialized.
+		// --
+		// Note: We're passing it through the serialization life-cycle in order to make
+		// sure we create a deep-copy of the given value.
 		try {
 
-			serializeJson( variant );
+			return deserializeJson( serializeJson( variant ) );
 
 		} catch ( any error ) {
 
@@ -857,8 +860,6 @@ component
 			);
 
 		}
-
-		return variant;
 
 	}
 
@@ -1474,6 +1475,7 @@ component
 		var values = testRuleValues(
 			validationPath = "#validationPath#.values",
 			feature = feature,
+			operator = operator,
 			values = rule?.values
 		);
 		var resolution = testRuleResolution(
@@ -1626,6 +1628,7 @@ component
 	private array function testRuleValues(
 		required string validationPath,
 		required struct feature,
+		required string operator,
 		any values
 		) {
 
@@ -1663,6 +1666,43 @@ component
 						})
 					);
 
+				}
+
+				switch ( operator ) {
+					case "Contains":
+					case "EndsWith":
+					case "MatchesPattern":
+					case "NotContains":
+					case "NotEndsWith":
+					case "NotMatchesPattern":
+					case "NotStartsWith":
+					case "StartsWith":
+						element = toString( element );
+					break;
+				}
+
+				switch ( operator ) {
+					case "MatchesPattern":
+					case "NotMatchesPattern":
+
+						// For RegEx-based operators, we need to make sure that the given
+						// value can actually be parsed as a RegEx pattern.
+						try {
+
+							var result = reFind( element, "" );
+
+						} catch ( any operatorError ) {
+
+							throw(
+								type = "App.Model.Config.Rule.Values.Entry.BadPattern",
+								extendedInfo = serializeJson({
+									validationPath: "#validationPath#.#i#"
+								})
+							);
+
+						}
+
+					break;
 				}
 
 				return element;

@@ -276,6 +276,12 @@ component
 					message: "Your rule operator must be one of (#metadata.operatorList#). Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Rule.Values.Entry.BadPattern":
+				return as422({
+					type: error.type,
+					message: "Your rule values entry cannot be parsed as a Regular Expression. Validating property: [#metadata.validationPath#]."
+				});
+			break;
 			case "App.Model.Config.Rule.Values.Entry.Invalid":
 				return as422({
 					type: error.type,
