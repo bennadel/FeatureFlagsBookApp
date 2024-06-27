@@ -316,11 +316,29 @@ component
 					message: "Your targeting rules enabled must be provided as a Boolean. Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Username.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your username must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Username.Empty":
+				return as422({
+					type: error.type,
+					message: "Your username is empty. Validating property: [#metadata.validationPath#]."
+				});
+			break;
 			case "App.Model.Config.Variant.Invalid":
 			case "App.Model.Config.Variant.Missing":
 				return as422({
 					type: error.type,
 					message: "Your variant must match the designated feature type (#metadata.featureType#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Version.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your version must be provided as an integer. Validating property: [#metadata.validationPath#]."
 				});
 			break;
 			case "App.Model.User.Email.Empty":

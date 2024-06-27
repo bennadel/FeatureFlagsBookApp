@@ -40,6 +40,14 @@ component
 
 		}
 
+		var username = testConfigUsername(
+			validationPath = "#validationPath#.username",
+			username = config?.username
+		);
+		var version = testConfigVersion(
+			validationPath = "#validationPath#.version",
+			version = config?.version
+		);
 		var environments = testConfigEnvironments(
 			validationPath = "#validationPath#.environments",
 			environments = config?.environments
@@ -51,6 +59,8 @@ component
 		);
 
 		return [
+			username: username,
+			version: version,
 			environments: environments,
 			features: features
 		];
@@ -134,6 +144,67 @@ component
 
 	}
 
+
+	/**
+	* I test the top-level username.
+	*/
+	private string function testConfigUsername(
+		required string validationPath,
+		any username = ""
+		) {
+
+		if ( ! isSimpleValue( username ) ) {
+
+			throw(
+				type = "App.Model.Config.Username.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		username = toString( username ).lcase().trim();
+
+		if ( ! username.len() ) {
+
+			throw(
+				type = "App.Model.Config.Username.Empty",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return username;
+
+	}
+
+
+	/**
+	* I test the top-level version.
+	*/
+	private numeric function testConfigVersion(
+		required string validationPath,
+		any version = 1
+		) {
+
+		if ( ! isValid( "integer", version ) ) {
+
+			throw(
+				type = "App.Model.Config.Version.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return val( version );
+
+	}
+
 	// ----
 	// PRIVATE ENVIRONMENT METHODS.
 	// ----
@@ -141,7 +212,7 @@ component
 	/**
 	* I test the given environment settings.
 	*/
-	public struct function testEnvironment(
+	private struct function testEnvironment(
 		required string validationPath,
 		required string key,
 		any settings
@@ -1100,7 +1171,7 @@ component
 	/**
 	* I test the given resolution.
 	*/
-	public struct function testResolution(
+	private struct function testResolution(
 		required string validationPath,
 		required struct feature,
 		any resolution

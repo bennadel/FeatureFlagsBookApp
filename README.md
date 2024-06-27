@@ -92,10 +92,7 @@ Note: This is a **work in progress**:
 ```js
 {
     username: "ben@bennadel.com",
-    schema: 1,
     version: 13,
-    createdAt: "2024-05-27T00:00:00",
-    updatedAt: "2024-05-27T00:00:00",
 
     // The set of feature flags is shared across all environments. However,
     // each feature will have its own unique set of targeting rules.
@@ -125,7 +122,7 @@ Note: This is a **work in progress**:
                 production: {
                     resolution: {
                         type: "distribution",
-                        distribution: [ 50, 50 ],
+                        distribution: [ 50, 50 ]
                     },
                     // If rules aren't enabled, the resolution above is used.
                     rulesEnabled: true,
@@ -171,7 +168,11 @@ Note: This is a **work in progress**:
 }
 ```
 
+You may notice that the `environments`, `features`, and `targeting` properties all reference structs. I've chosen to use structs here, instead of arrays, because they make look-ups _much easier_. For example, when checking to see if a given environment or feature exists, it's comparatively simple to perform a `keyExists(featureKey)` check rather than looping over an array and comparing element properties.
+
 ## Change Log
+
+* **2024, June 27**: I've added all the configuration validation methods. At this point, I should be able to start creating the UI that allows a user to actually edit their config file.
 
 * **2024, June 10**: I starting working on the list of feature flags. The great thing about having a set of demo-users against which to evaluate the feature flags is that I can show a preview breakdown of the variant allocations. It's a bit of a brute-force&mdash;for each feature, for each environment, for all users, evaluate the variant result&mdash;but, since it's such a small number of users (in the grand scheme of things), it should be fine.
 

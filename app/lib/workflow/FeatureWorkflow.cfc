@@ -27,9 +27,26 @@ component
 
 		}
 
-		// If there's no persisted config data file for the user, let's give them a copy
-		// of the demo config with the demo targeting applied.
-		return demoTargeting.injectRules( demoConfig.getConfig() );
+		return getDefaultConfigForUser( user );
+
+	}
+
+	// ---
+	// PRIVATE METHODS.
+	// ---
+
+	/**
+	* When the user is starting out, they won't have any existing configuration object. In
+	* order to not create a lot of duplicate config files, we're just going to provide a
+	* default config on-the-fly as needed. Files will only be persisted upon change.
+	*/
+	private struct function getDefaultConfigForUser( required struct user ) {
+
+		var config = demoConfig.getConfig();
+		config.username = user.email;
+		config.version = 1;
+
+		return demoTargeting.injectRules( config );
 
 	}
 
