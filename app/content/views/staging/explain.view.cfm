@@ -20,12 +20,12 @@
 
 		<p>
 			<strong>Feature:</strong>
-			#encodeForHtml( url.featureName )#
+			#encodeForHtml( url.featureKey )#
 		</p>
 
 		<p>
 			<strong>Environment:</strong>
-			#encodeForHtml( url.environmentName )#
+			#encodeForHtml( url.environmentKey )#
 		</p>
 
 		<p>
@@ -94,7 +94,7 @@
 				<cfcase value="DefaultResolution">
 					the variant was chosen using the feature's default resolution strategy.
 
-					<cfif result.feature.targeting[ url.environmentName ].rulesEnabled>
+					<cfif result.feature.targeting[ url.environmentKey ].rulesEnabled>
 						This is because no rules matched against the given context.
 					<cfelse>
 						This is because rules are not enabled.
@@ -175,7 +175,7 @@
 
 			<p>
 				<strong>Key:</strong>
-				#encodeForHtml( url.featureName )#
+				#encodeForHtml( url.featureKey )#
 			</p>
 
 			<p>

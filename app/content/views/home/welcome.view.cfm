@@ -131,8 +131,8 @@
 						<cfloop array="#demoData.users#" index="demoUser">
 
 							<cfset result = featureFlags.debugEvaluation(
-								feature = feature.key,
-								environment = environment.key,
+								featureKey = feature.key,
+								environmentKey = environment.key,
 								context = demoTargeting.getContext( demoUser ),
 								fallbackVariant = "FALLBACK"
 							) />
@@ -150,7 +150,7 @@
 						</td>
 						<td class="env-right">
 							<a
-								href="/index.cfm?event=staging&environmentName=#encodeForUrl( environment.key )#"
+								href="/index.cfm?event=staging&environmentKey=#encodeForUrl( environment.key )#"
 								target="_blank"
 								class="breakdown">
 								<cfloop collection="#breakdown#" item="i">

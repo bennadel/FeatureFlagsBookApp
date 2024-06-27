@@ -8,7 +8,7 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="url.environmentName" type="string" default="development";
+	param name="url.environmentKey" type="string" default="development";
 
 	request.template.title = "Feature Flag Evaluation";
 
@@ -72,9 +72,9 @@
 	;
 
 
-	if ( ! config.environments.keyExists( url.environmentName ) ) {
+	if ( ! config.environments.keyExists( url.environmentKey ) ) {
 
-		url.environmentName = environments
+		url.environmentKey = environments
 			.first()
 			.key
 		;

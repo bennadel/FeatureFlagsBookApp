@@ -150,13 +150,13 @@
 
 			<cfloop array="#environments#" index="environment">
 
-				<cfif ( environment.key == url.environmentName )>
+				<cfif ( environment.key == url.environmentKey )>
 
-					<a href="/index.cfm?event=staging.overview&environmentName=#encodeForHtml( environment.key )#"><strong>#encodeForHtml( environment.name )#</strong></a>
+					<a href="/index.cfm?event=staging.overview&environmentKey=#encodeForHtml( environment.key )#"><strong>#encodeForHtml( environment.name )#</strong></a>
 
 				<cfelse>
 
-					<a href="/index.cfm?event=staging.overview&environmentName=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
+					<a href="/index.cfm?event=staging.overview&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
 
 				</cfif>
 
@@ -165,7 +165,7 @@
 
 		<p>
 			<strong>Description:</strong>
-			#encodeForHtml( config.environments[ url.environmentName ].description )#
+			#encodeForHtml( config.environments[ url.environmentKey ].description )#
 		</p>
 
 		<table class="state">
@@ -285,8 +285,8 @@
 							predictable simple values.
 						--->
 						<cfset result = featureFlags.debugEvaluation(
-							feature = feature.key,
-							environment = url.environmentName,
+							featureKey = feature.key,
+							environmentKey = url.environmentKey,
 							context = demoTargeting.getContext( demoUser ),
 							fallbackVariant = "FALLBACK"
 						) />
@@ -307,7 +307,7 @@
 							class="variant-#variantIndex#">
 
 							<a
-								href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureName=#encodeForUrl( feature.key )#&environmentName=#encodeForUrl( url.environmentName )#"
+								href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( url.environmentKey )#"
 								target="_blank"
 								class="explain">
 								#encodeForHtml( serializeJson( variant ) )#

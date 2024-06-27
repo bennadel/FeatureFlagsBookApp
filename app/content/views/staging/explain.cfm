@@ -10,8 +10,8 @@
 	// ------------------------------------------------------------------------------- //
 
 	param name="url.userID" type="numeric";
-	param name="url.featureName" type="string";
-	param name="url.environmentName" type="string";
+	param name="url.featureKey" type="string";
+	param name="url.environmentKey" type="string";
 
 	request.template.title = "Explain Evaluation";
 
@@ -48,8 +48,8 @@
 	demoUser = userIndex[ url.userID ];
 
 	result = featureFlags.debugEvaluation(
-		feature = url.featureName,
-		environment = url.environmentName,
+		featureKey = url.featureKey,
+		environmentKey = url.environmentKey,
 		context = demoTargeting.getContext( demoUser ),
 		fallbackVariant = "FALLBACK"
 	);

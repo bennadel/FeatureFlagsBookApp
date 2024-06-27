@@ -45,16 +45,16 @@ component
 	* about why the given variant was ultimately selected.
 	*/
 	public struct function debugEvaluation(
-		required string feature,
-		required string environment,
+		required string featureKey,
+		required string environmentKey,
 		required struct context,
 		required any fallbackVariant
 		) {
 
 		var result = {
 			arguments: {
-				feature: feature,
-				environment: environment,
+				featureKey: featureKey,
+				environmentKey: environmentKey,
 				context: context,
 				fallbackVariant: fallbackVariant
 			},
@@ -98,7 +98,7 @@ component
 
 			}
 
-			if ( ! config.features.keyExists( feature ) ) {
+			if ( ! config.features.keyExists( featureKey ) ) {
 
 				result.reason = "MissingFeature";
 				return result;
@@ -108,16 +108,16 @@ component
 			// Note: If the "features" key exists (above condition), we're going to assume
 			// that the nested "targeting" key exists as well since there will be some
 			// validation applied to the config structure (at least in theory).
-			if ( ! config.features[ feature ].targeting.keyExists( environment ) ) {
+			if ( ! config.features[ featureKey ].targeting.keyExists( environmentKey ) ) {
 
 				result.reason = "MissingEnvironment";
 				return result;
 
 			}
 
-			var featureSettings = config.features[ feature ];
-			var targeting = featureSettings.targeting[ environment ];
-			var variants = featureSettings.variants;
+			var feature = config.features[ featureKey ];
+			var targeting = feature.targeting[ environmentKey ];
+			var variants = feature.variants;
 			// This is the default resolution associated with the targeted environment.
 			// The rule evaluations below may override this resolution (using the first
 			// matching rule as the override source). But, if none of the rules match,
@@ -125,7 +125,7 @@ component
 			var resolution = targeting.resolution;
 
 			result.reason = "DefaultResolution";
-			result.feature = featureSettings;
+			result.feature = feature;
 			result.evaluatedRules = [];
 			result.skippedRules = [];
 			result.resolution = resolution;
@@ -210,8 +210,8 @@ component
 	* variant is returned anytime something goes "wrong" in the feature flag evaluation.
 	*/
 	public any function getVariant(
-		required string feature,
-		required string environment,
+		required string featureKey,
+		required string environmentKey,
 		required struct context,
 		required any fallbackVariant
 		) {
