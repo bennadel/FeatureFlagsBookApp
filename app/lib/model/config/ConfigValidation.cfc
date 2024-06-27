@@ -272,7 +272,7 @@ component
 
 		}
 
-		if ( key.reFindNoCase( "[^a-z0-9_.-]" ) ) {
+		if ( key.reFindNoCase( "[^a-z0-9_-]" ) ) {
 
 			throw(
 				type = "App.Model.Config.Environment.Key.Invalid",
@@ -442,7 +442,8 @@ component
 			throw(
 				type = "App.Model.Config.Feature.DefaultSelection.Invalid",
 				extendedInfo = serializeJson({
-					validationPath: validationPath
+					validationPath: validationPath,
+					variantCount: feature.variants.len()
 				})
 			);
 
@@ -686,19 +687,28 @@ component
 
 		}
 
-		switch ( type ) {
-			case "boolean":
-			case "number":
-			case "string":
-			case "any":
-				return type.lcase();
-			break;
+		var knownTypes = [
+			"boolean",
+			"number",
+			"string",
+			"any"
+		];
+
+		for ( var knownType in knownTypes ) {
+
+			if ( knownType == type ) {
+
+				return knownType;
+
+			}
+
 		}
 
 		throw(
 			type = "App.Model.Config.Feature.Type.Unsupported",
 			extendedInfo = serializeJson({
-				validationPath: validationPath
+				validationPath: validationPath,
+				typeList: knownTypes.toList( ", " )
 			})
 		);
 
@@ -719,7 +729,8 @@ component
 			throw(
 				type = "App.Model.Config.Feature.Variants.Missing",
 				extendedInfo = serializeJson({
-					validationPath: validationPath
+					validationPath: validationPath,
+					featureType: feature.type
 				})
 			);
 
@@ -730,7 +741,8 @@ component
 			throw(
 				type = "App.Model.Config.Feature.Variants.Invalid",
 				extendedInfo = serializeJson({
-					validationPath: validationPath
+					validationPath: validationPath,
+					featureType: feature.type
 				})
 			);
 
@@ -741,7 +753,8 @@ component
 			throw(
 				type = "App.Model.Config.Feature.Variants.Empty",
 				extendedInfo = serializeJson({
-					validationPath: validationPath
+					validationPath: validationPath,
+					featureType: feature.type
 				})
 			);
 
@@ -781,7 +794,8 @@ component
 			throw(
 				type = "App.Model.Config.Variant.Missing",
 				extendedInfo = serializeJson({
-					validationPath: validationPath
+					validationPath: validationPath,
+					featureType: feature.type
 				})
 			);
 
@@ -1584,7 +1598,8 @@ component
 		throw(
 			type = "App.Model.Config.Rule.Operator.Unsupported",
 			extendedInfo = serializeJson({
-				validationPath: validationPath
+				validationPath: validationPath,
+				operatorList: knownOperators.toList( ", " )
 			})
 		);
 

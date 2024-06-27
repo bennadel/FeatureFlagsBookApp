@@ -16,7 +16,307 @@ component
 	*/
 	public struct function getResponse( required any error ) {
 
+		// Some errors include metadata about why the error was thrown. These data-points
+		// can be used to generate a more insightful message for the user.
+		var metadata = getErrorMetadata( error );
+
 		switch ( error.type ) {
+			case "App.Model.Config.Environment.Description.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your environment description must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Description.SuspiciousEncoding":
+				return as422({
+					type: error.type,
+					message: "Your environment description contains characters with an unsupported encoding format. Please make sure that you're only using plain-text characters. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Description.TooLong":
+				return as422({
+					type: error.type,
+					message: "Your environment description is too long. Descriptions can be up to #metadata.maxLength#-characters long. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Invalid":
+			case "App.Model.Config.Environment.Missing":
+				return as422({
+					type: error.type,
+					message: "Your environment must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Key.Empty":
+				return as422({
+					type: error.type,
+					message: "Your environment key is empty. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Key.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your environment key must be provided as a string (and can only contain alpha-numeric characters, dashes, and underscores). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Key.TooLong":
+				return as422({
+					type: error.type,
+					message: "Your environment key is too long. Keys can be up to #metadata.maxLength#-characters long. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Name.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your environment name must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Name.SuspiciousEncoding":
+				return as422({
+					type: error.type,
+					message: "Your environment name contains characters with an unsupported encoding format. Please make sure that you're only using plain-text characters. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environment.Name.TooLong":
+				return as422({
+					type: error.type,
+					message: "Your environment name is too long. Names can be up to #metadata.maxLength#-characters long. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Environments.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your environments must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.DefaultSelection.Invalid":
+			case "App.Model.Config.Feature.DefaultSelection.OutOfBounds":
+				return as422({
+					type: error.type,
+					message: "Your feature default selection must be provided as an integer that references one of the variant indices (1..#metadata.variantCount#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Description.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your feature description must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Description.SuspiciousEncoding":
+				return as422({
+					type: error.type,
+					message: "Your feature description contains characters with an unsupported encoding format. Please make sure that you're only using plain-text characters. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Description.TooLong":
+				return as422({
+					type: error.type,
+					message: "Your feature description is too long. Descriptions can be up to #metadata.maxLength#-characters long. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Invalid":
+			case "App.Model.Config.Feature.Missing":
+				return as422({
+					type: error.type,
+					message: "Your feature must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Key.Empty":
+				return as422({
+					type: error.type,
+					message: "Your feature key is empty. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Key.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your feature key must be provided as a string (and can only contain alpha-numeric characters, dashes, and underscores). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Key.TooLong":
+				return as422({
+					type: error.type,
+					message: "Your feature key is too long. Keys can be up to #metadata.maxLength#-characters long. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Targeting.Entry.Missing":
+			case "App.Model.Config.Feature.Targeting.Entry.OutOfBounds":
+				return as422({
+					type: error.type,
+					message: "Your feature targeting entries must all correspond to the list of environments. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Targeting.Invalid":
+			case "App.Model.Config.Feature.Targeting.Missing":
+				return as422({
+					type: error.type,
+					message: "Your feature targeting must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Type.Invalid":
+			case "App.Model.Config.Feature.Type.Missing":
+				return as422({
+					type: error.type,
+					message: "Your feature type must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Type.Unsupported":
+				return as422({
+					type: error.type,
+					message: "Your feature type must be one of (#metadata.typeList#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Variants.Empty":
+				return as422({
+					type: error.type,
+					message: "Your feature variants must be provided as an array with at least one entry of type (#metadata.featureType#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Feature.Variants.Invalid":
+			case "App.Model.Config.Feature.Variants.Missing":
+				return as422({
+					type: error.type,
+					message: "Your feature variants must be provided as an array. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Features.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your features must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Invalid":
+			case "App.Model.Config.Missing":
+				return as422({
+					type: error.type,
+					message: "Your config must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Distribution.Entry.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your resolution distribution entry must be provided as an integer. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Distribution.Invalid":
+			case "App.Model.Config.Resolution.Distribution.Missing":
+				return as422({
+					type: error.type,
+					message: "Your resolution distribution must be provided as an array. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Distribution.InvalidTotal":
+				return as422({
+					type: error.type,
+					message: "Your resolution distribution entries must sum to a total of 100. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Distribution.Mismatch":
+				return as422({
+					type: error.type,
+					message: "Your resolution distribution array length must match the length of the variants (#metadata.variantCount#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Invalid":
+			case "App.Model.Config.Resolution.Missing":
+				return as422({
+					type: error.type,
+					message: "Your resolution must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Selection.Invalid":
+			case "App.Model.Config.Resolution.Selection.Missing":
+				return as422({
+					type: error.type,
+					message: "Your resolution selection must be provided as an integer. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Selection.OutOfBounds":
+				return as422({
+					type: error.type,
+					message: "Your resolution selection must point to a variant index (1..#metadata.variantCount#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Resolution.Type.Invalid":
+			case "App.Model.Config.Resolution.Type.Missing":
+				return as422({
+					type: error.type,
+					message: "Your resolution type must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Rule.Input.Empty":
+				return as422({
+					type: error.type,
+					message: "Your rule input is empty. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Rule.Input.Invalid":
+			case "App.Model.Config.Rule.Input.Missing":
+				return as422({
+					type: error.type,
+					message: "Your rule input must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Rule.Invalid":
+			case "App.Model.Config.Rule.Missing":
+				return as422({
+					type: error.type,
+					message: "Your rule must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Rule.Operator.Invalid":
+			case "App.Model.Config.Rule.Operator.Missing":
+				return as422({
+					type: error.type,
+					message: "Your rule operator must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Rule.Operator.Unsupported":
+				return as422({
+					type: error.type,
+					message: "Your rule operator must be one of (#metadata.operatorList#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Rule.Values.Entry.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your rule values entry must be provided as a simple value (such as a string, number, boolean). Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Rule.Values.Invalid":
+			case "App.Model.Config.Rule.Values.Missing":
+				return as422({
+					type: error.type,
+					message: "Your rules values must be provided as an array. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Targeting.Invalid":
+			case "App.Model.Config.Targeting.Missing":
+				return as422({
+					type: error.type,
+					message: "Your targeting must be provided as a struct. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Targeting.Rules.Invalid":
+			case "App.Model.Config.Targeting.Rules.Missing":
+				return as422({
+					type: error.type,
+					message: "Your targeting rules must be provided as an array. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Targeting.RulesEnabled.Invalid":
+			case "App.Model.Config.Targeting.RulesEnabled.Missing":
+				return as422({
+					type: error.type,
+					message: "Your targeting rules enabled must be provided as a Boolean. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Variant.Invalid":
+			case "App.Model.Config.Variant.Missing":
+				return as422({
+					type: error.type,
+					message: "Your variant must match the designated feature type (#metadata.featureType#). Validating property: [#metadata.validationPath#]."
+				});
+			break;
 			case "App.Model.User.Email.Empty":
 				return as422({
 					type: error.type,
@@ -44,7 +344,7 @@ component
 			case "App.Model.User.Email.SuspiciousEncoding":
 				return as422({
 					type: error.type,
-					message: "Your email address contains characters with an unsupported encoding format. Please make sure that you are only using plain-text characters."
+					message: "Your email address contains characters with an unsupported encoding format. Please make sure that you're only using plain-text characters."
 				});
 			break;
 			case "App.Model.User.Email.TooLong":
@@ -154,6 +454,34 @@ component
 	private struct function as500( struct errorAttributes = {} ) {
 
 		return getGeneric500Response().append( errorAttributes );
+
+	}
+
+
+	/**
+	* Some throw() commands OVERLOAD the "extendedInfo" property of an event to transmit
+	* meta-data about why the error occurred up to the centralized error handler (ie, this
+	* component). This methods attempts to deserialize the extendedInfo payload and return
+	* the given structure. If the meta-data cannot be deserialized an empty struct is
+	* returned.
+	*/
+	private struct function getErrorMetadata( required any error ) {
+
+		try {
+
+			if ( isJson( error.extendedInfo ) ) {
+
+				return deserializeJson( error.extendedInfo );
+
+			}
+
+		} catch ( any deserializationError ) {
+
+			// ... swallow any deserialization errors for now.
+
+		}
+
+		return {};
 
 	}
 
