@@ -40,9 +40,9 @@ component
 
 		}
 
-		var username = testConfigUsername(
-			validationPath = "#validationPath#.username",
-			username = config?.username
+		var email = testConfigEmail(
+			validationPath = "#validationPath#.email",
+			email = config?.email
 		);
 		var version = testConfigVersion(
 			validationPath = "#validationPath#.version",
@@ -59,7 +59,7 @@ component
 		);
 
 		return [
-			username: username,
+			email: email,
 			version: version,
 			environments: environments,
 			features: features
@@ -70,6 +70,43 @@ component
 	// ---
 	// PRIVATE CONFIG METHODS.
 	// ---
+
+	/**
+	* I test the top-level email.
+	*/
+	private string function testConfigEmail(
+		required string validationPath,
+		any email = ""
+		) {
+
+		if ( ! isSimpleValue( email ) ) {
+
+			throw(
+				type = "App.Model.Config.Email.Invalid",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		email = toString( email ).lcase().trim();
+
+		if ( ! email.len() ) {
+
+			throw(
+				type = "App.Model.Config.Email.Empty",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
+		return email;
+
+	}
+
 
 	/**
 	* I test the top-level environments.
@@ -141,43 +178,6 @@ component
 		);
 
 		return features;
-
-	}
-
-
-	/**
-	* I test the top-level username.
-	*/
-	private string function testConfigUsername(
-		required string validationPath,
-		any username = ""
-		) {
-
-		if ( ! isSimpleValue( username ) ) {
-
-			throw(
-				type = "App.Model.Config.Username.Invalid",
-				extendedInfo = serializeJson({
-					validationPath: validationPath
-				})
-			);
-
-		}
-
-		username = toString( username ).lcase().trim();
-
-		if ( ! username.len() ) {
-
-			throw(
-				type = "App.Model.Config.Username.Empty",
-				extendedInfo = serializeJson({
-					validationPath: validationPath
-				})
-			);
-
-		}
-
-		return username;
 
 	}
 

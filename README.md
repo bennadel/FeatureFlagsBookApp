@@ -91,7 +91,7 @@ Note: This is a **work in progress**:
 
 ```js
 {
-    username: "ben@bennadel.com",
+    email: "ben@bennadel.com",
     version: 13,
 
     // The set of feature flags is shared across all environments. However,

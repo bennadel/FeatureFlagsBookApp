@@ -43,7 +43,7 @@ component
 	private struct function getDefaultConfigForUser( required struct user ) {
 
 		var config = demoConfig.getConfig();
-		config.username = user.email;
+		config.email = user.email;
 		config.version = 1;
 
 		return demoTargeting.injectRules( config );

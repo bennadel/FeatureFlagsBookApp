@@ -21,6 +21,18 @@ component
 		var metadata = getErrorMetadata( error );
 
 		switch ( error.type ) {
+			case "App.Model.Config.Email.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your email must be provided as a string. Validating property: [#metadata.validationPath#]."
+				});
+			break;
+			case "App.Model.Config.Email.Empty":
+				return as422({
+					type: error.type,
+					message: "Your email is empty. Validating property: [#metadata.validationPath#]."
+				});
+			break;
 			case "App.Model.Config.Environment.Description.Invalid":
 				return as422({
 					type: error.type,
@@ -314,18 +326,6 @@ component
 				return as422({
 					type: error.type,
 					message: "Your targeting rules enabled must be provided as a Boolean. Validating property: [#metadata.validationPath#]."
-				});
-			break;
-			case "App.Model.Config.Username.Invalid":
-				return as422({
-					type: error.type,
-					message: "Your username must be provided as a string. Validating property: [#metadata.validationPath#]."
-				});
-			break;
-			case "App.Model.Config.Username.Empty":
-				return as422({
-					type: error.type,
-					message: "Your username is empty. Validating property: [#metadata.validationPath#]."
 				});
 			break;
 			case "App.Model.Config.Variant.Invalid":
