@@ -21,11 +21,22 @@
 			color: #cccccc ;
 		}
 
+		.dots {
+			display: flex ;
+			gap: 5px ;
+			justify-content: center ;
+		}
+		.dots__dot {
+			border-radius: 10px ;
+			height: 10px ;
+			width: 10px ;
+		}
+
 		.breakdown {
 			display: flex ;
 			gap: 1px ;
 		}
-		.breakdown .breakdown__item {
+		.breakdown__item {
 			border-radius: 2px ;
 			height: 24px ;
 			min-width: 2px ;
@@ -98,7 +109,15 @@
 						#encodeForHtml( feature.type )#
 					</td>
 					<td align="center">
-						#numberFormat( feature.variants.len() )#
+
+						<div class="dots">
+							<cfloop index="i" from="1" to="#feature.variants.len()#">
+								<span class="dots__dot variant-#i#"></span>
+							</cfloop>
+						</div>
+
+						<!-- #numberFormat( feature.variants.len() )# -->
+
 					</td>
 					<cfloop array="#environments#" index="environment">
 
