@@ -3,48 +3,48 @@
 	colors = [
 		{
 			index: 1,
-			background: "82ede8",
-			text: "211bae"
+			background: "5661ff",
+			text: "f1f2ff"
 		},
 		{
 			index: 2,
 			background: "65b752",
-			text: "e9ff72"
+			text: "f7fff6"
 		},
 		{
 			index: 3,
-			background: "f3c677",
-			text: "000cb4"
+			background: "f8bf4d",
+			text: "0c0c0c"
 		},
 		{
 			index: 4,
-			background: "ff4d80",
-			text: "0a03b1"
+			background: "ff4d7f",
+			text: "fdfdfd"
 		},
 		{
 			index: 5,
-			background: "274c77",
-			text: "dfecff"
+			background: "7f34d6",
+			text: "feffff"
 		},
 		{
 			index: 6,
-			background: "6a3d9a",
-			text: "ff9d9d"
+			background: "ffeb0d",
+			text: "272727"
 		},
 		{
 			index: 7,
-			background: "f7aef8",
-			text: "a4005f"
+			background: "3bd4d9",
+			text: "ffffff"
 		},
 		{
 			index: 8,
-			background: "b9ff47",
+			background: "6eff89",
 			text: "11323b"
 		},
 		{
 			index: 0,
-			background: "841b1b",
-			text: "ffd5d5"
+			background: "ff5b53",
+			text: "ffffff"
 		}
 	];
 

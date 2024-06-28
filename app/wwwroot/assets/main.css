@@ -15,36 +15,41 @@ button {
 	line-height: inherit ;
 }
 
+/*
+Color palette utility:
+https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),(109,41.2,52),(40,92.3,63.7),(343,100,65.1),(268,66.1,52.1),(55,100,52.5),(182,67.6,54.2),(131,100,71.6),(3,100,66.2)
+*/
+
 .variant-1 {
-	background-color: #82ede8 ;
-	color: #211bae ;
+	background-color: #5661ff ;
+	color: #f1f2ff ;
 }
 .variant-2 {
 	background-color: #65b752 ;
-	color: #e9ff72 ;
+	color: #f7fff6 ;
 }
 .variant-3 {
-	background-color: #f3c677 ;
-	color: #000cb4 ;
+	background-color: #f8bf4d ;
+	color: #0c0c0c ;
 }
 .variant-4 {
-	background-color: #ff4d80 ;
-	color: #0a03b1 ;
+	background-color: #ff4d7f ;
+	color: #fdfdfd ;
 }
 .variant-5 {
-	background-color: #274c77 ;
-	color: #dfecff ;
+	background-color: #7f34d6 ;
+	color: #feffff ;
 }
 .variant-6 {
-	background-color: #6a3d9a ;
-	color: #ff9d9d ;
+	background-color: #ffeb0d ;
+	color: #272727 ;
 }
 .variant-7 {
-	background-color: #f7aef8 ;
-	color: #a4005f ;
+	background-color: #3bd4d9 ;
+	color: #ffffff ;
 }
 .variant-8 {
-	background-color: #b9ff47 ;
+	background-color: #6eff89 ;
 	color: #11323b ;
 }
 .variant-9,
@@ -55,6 +60,6 @@ button {
 .variant-14,
 .variant-15,
 .variant-0 {
-	background-color: #841b1b ;
-	color: #ffd5d5 ;
+	background-color: #ff5b53 ;
+	color: #ffffff ;
 }
