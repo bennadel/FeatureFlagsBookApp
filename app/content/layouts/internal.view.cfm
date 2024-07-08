@@ -14,7 +14,7 @@
 		#request.template.primaryContent#
 
 		<cfmodule template="./shared/local_debugging.cfm">
-
+		<cfmodule template="./shared/javascript.cfm">
 	</body>
 	</html>
 
