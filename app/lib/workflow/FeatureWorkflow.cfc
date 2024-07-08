@@ -9,7 +9,7 @@ component
 	property name="demoConfig" ioc:type="lib.demo.DemoConfig";
 	property name="demoTargeting" ioc:type="lib.demo.DemoTargeting";
 	property name="userService" ioc:type="lib.model.user.UserService";
-	property name="utilities" ioc:type="lib.Utilities";
+	property name="utilities" ioc:type="lib.util.Utilities";
 
 	// ---
 	// PUBLIC METHODS.

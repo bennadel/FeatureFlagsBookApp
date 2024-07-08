@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="validationUtilities" ioc:type="lib.ValidationUtilities";
+	property name="validationUtilities" ioc:type="lib.util.ValidationUtilities";
 
 	// ---
 	// PUBLIC METHODS.

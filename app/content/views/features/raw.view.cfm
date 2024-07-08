@@ -47,6 +47,7 @@
 			inset: 0 ;
 			line-height: 1.5 ;
 			margin: 0 ;
+			overscroll-behavior: contain ;
 			padding: 20px ;
 			position: absolute ;
 		}

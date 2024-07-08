@@ -4,7 +4,7 @@
 	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
-	utilities = request.ioc.get( "lib.Utilities" );
+	utilities = request.ioc.get( "lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

@@ -5,7 +5,7 @@ component
 
 	// Define properties for dependency-injection.
 	property name="apiKey" ioc:get="config.bugsnag.server.apiKey";
-	property name="httpUtilities" ioc:type="lib.HttpUtilities";
+	property name="httpUtilities" ioc:type="lib.util.HttpUtilities";
 	property name="releaseStage" ioc:get="config.bugsnag.server.releaseStage";
 
 	/**

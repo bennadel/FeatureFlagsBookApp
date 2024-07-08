@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="clock" ioc:type="lib.Clock";
+	property name="clock" ioc:type="lib.util.Clock";
 
 	// ---
 	// PUBLIC METHODS.

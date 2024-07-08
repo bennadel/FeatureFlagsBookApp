@@ -4,8 +4,8 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="clock" ioc:type="lib.Clock";
-	property name="validationUtilities" ioc:type="lib.ValidationUtilities";
+	property name="clock" ioc:type="lib.util.Clock";
+	property name="validationUtilities" ioc:type="lib.util.ValidationUtilities";
 
 	// ---
 	// PUBLIC METHODS.

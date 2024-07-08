@@ -5,7 +5,7 @@ component
 
 	// Define properties for dependency-injection.
 	property name="config" ioc:get="config";
-	property name="httpUtilities" ioc:type="lib.HttpUtilities";
+	property name="httpUtilities" ioc:type="lib.util.HttpUtilities";
 
 	// ---
 	// PUBLIC METHODS.

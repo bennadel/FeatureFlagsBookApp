@@ -34,7 +34,7 @@
 
 		.breakdown {
 			display: flex ;
-			gap: 1px ;
+			gap: 2px ;
 		}
 		.breakdown__item {
 			border-radius: 2px ;
