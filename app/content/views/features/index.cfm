@@ -17,6 +17,9 @@
 		case "raw":
 			cfmodule( template = "./raw.cfm" );
 		break;
+		case "targeting":
+			cfmodule( template = "./targeting.cfm" );
+		break;
 		default:
 			throw(
 				type = "App.Routing.Features.InvalidEvent",

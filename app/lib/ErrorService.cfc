@@ -168,6 +168,12 @@ component
 					message: "Your feature key is too long. Keys can be up to #metadata.maxLength#-characters long. Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Feature.NotFound":
+				return as404({
+					type: error.type,
+					message: "The feature you requested cannot be found."
+				});
+			break;
 			case "App.Model.Config.Feature.Targeting.Entry.Missing":
 			case "App.Model.Config.Feature.Targeting.Entry.OutOfBounds":
 				return as422({

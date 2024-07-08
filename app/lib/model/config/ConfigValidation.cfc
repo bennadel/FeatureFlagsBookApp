@@ -104,6 +104,16 @@ component
 
 
 	/**
+	* I throw a feature not found error.
+	*/
+	public void function throwFeatureNotFoundError() {
+
+		throw( type = "App.Model.Config.Feature.NotFound" );
+
+	}
+
+
+	/**
 	* I throw a serialization error for the config data.
 	*/
 	public void function throwSerializationError( required any rootCause ) {

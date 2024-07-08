@@ -103,7 +103,7 @@
 			<cfloop array="#features#" index="feature">
 				<tr>
 					<th align="left" scope="row">
-						#encodeForHtml( feature.key )#
+						<a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
 					</th>
 					<td align="center">
 						#encodeForHtml( feature.type )#

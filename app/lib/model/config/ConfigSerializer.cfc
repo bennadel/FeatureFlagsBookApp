@@ -37,6 +37,25 @@ component
 
 
 	/**
+	* I parse the given JSON payload and return the resultant feature struct. No
+	* validation is performed against the resultant structure.
+	*/
+	public struct function deserializeFeature( required string input ) {
+
+		try {
+
+			return deserializeJson( input );
+
+		} catch ( any error ) {
+
+			validation.throwDeserializationError( error );
+
+		}
+
+	}
+
+
+	/**
 	* I serialize the given config struct into a JSON string.
 	*/
 	public string function serializeConfig( required struct input ) {
@@ -53,6 +72,24 @@ component
 			config.updatedAt = config.updatedAt.dateTimeFormat( "iso" );
 
 			return serializeJson( config );
+
+		} catch ( any error ) {
+
+			validation.throwSerializationError( error );
+
+		}
+
+	}
+
+
+	/**
+	* I serialize the given feature struct into a JSON string.
+	*/
+	public string function serializeFeature( required struct input ) {
+
+		try {
+
+			return serializeJson( input );
 
 		} catch ( any error ) {
 

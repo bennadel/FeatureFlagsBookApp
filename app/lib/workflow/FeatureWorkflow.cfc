@@ -63,6 +63,39 @@ component
 
 	}
 
+
+	/**
+	* I update the feature settings for the given user.
+	*/
+	public void function updateFeature(
+		required string email,
+		required string featureKey,
+		required struct feature
+		) {
+
+		var user = userService.getUser( email );
+		var existingConfig = getConfigForUser( user );
+
+		if ( ! existingConfig.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		var config = duplicate( existingConfig );
+		config.features[ featureKey ] = feature;
+		config = configValidation.testConfig( config );
+
+		// We only wanted to update the version if something has actually changed.
+		if ( configService.compareConfigs( config, existingConfig ) ) {
+
+			config.version++;
+			configService.saveConfig( user.dataFilename, config );
+
+		}
+
+	}
+
 	// ---
 	// PRIVATE METHODS.
 	// ---
