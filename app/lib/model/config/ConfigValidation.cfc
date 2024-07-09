@@ -1343,7 +1343,8 @@ component
 				return testResolutionAsSelection(
 					validationPath = validationPath,
 					feature = feature,
-					resolution = resolution
+					resolution = resolution,
+					type = type
 				);
 
 			break;
@@ -1352,7 +1353,8 @@ component
 				return testResolutionAsDistribution(
 					validationPath = validationPath,
 					feature = feature,
-					resolution = resolution
+					resolution = resolution,
+					type = type
 				);
 
 			break;
@@ -1361,7 +1363,8 @@ component
 				return testResolutionAsVariant(
 					validationPath = validationPath,
 					feature = feature,
-					resolution = resolution
+					resolution = resolution,
+					type = type
 				);
 
 			break;
@@ -1378,7 +1381,8 @@ component
 	private struct function testResolutionAsDistribution(
 		required string validationPath,
 		required struct feature,
-		required struct resolution
+		required struct resolution,
+		required string type
 		) {
 
 		var distribution = testResolutionDistribution(
@@ -1388,7 +1392,7 @@ component
 		);
 
 		return [
-			type: resolution.type,
+			type: type,
 			distribution: distribution
 		];
 
@@ -1401,7 +1405,8 @@ component
 	private struct function testResolutionAsSelection(
 		required string validationPath,
 		required struct feature,
-		required struct resolution
+		required struct resolution,
+		required string type
 		) {
 
 		var selection = testResolutionSelection(
@@ -1411,7 +1416,7 @@ component
 		);
 
 		return [
-			type: resolution.type,
+			type: type,
 			selection: selection
 		];
 
@@ -1424,7 +1429,8 @@ component
 	private struct function testResolutionAsVariant(
 		required string validationPath,
 		required struct feature,
-		required struct resolution
+		required struct resolution,
+		required string type
 		) {
 
 		var variant = testResolutionVariant(
@@ -1434,7 +1440,7 @@ component
 		);
 
 		return [
-			type: resolution.type,
+			type: type,
 			variant: variant
 		];
 

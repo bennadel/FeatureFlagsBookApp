@@ -32,7 +32,7 @@ component
 
 		// Default enabled in development.
 		config.features[ "product-TICKET-111-reporting" ].targeting.development.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 2
 		];
 		config.features[ "product-TICKET-111-reporting" ].targeting.production.rulesEnabled = true;
@@ -42,7 +42,7 @@ component
 			input: "user.company.subdomain",
 			values: [ "fusionworks", "techgenius", "primetech" ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
@@ -52,7 +52,7 @@ component
 			input: "user.groups.influencer",
 			values: [ true ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
@@ -60,7 +60,7 @@ component
 		// Default disabled in development where we haven't integrated the auth-provider.
 		// Default enabled in production.
 		config.features[ "product-TICKET-222-2fa" ].targeting.production.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 2
 		];
 		// Disable selectively for a few companies.
@@ -70,14 +70,14 @@ component
 			input: "user.company.subdomain",
 			values: [ "techgenius" ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 1
 			]
 		]);
 
 		// Default enabled in development.
 		config.features[ "product-TICKET-333-themes" ].targeting.development.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 2
 		];
 		config.features[ "product-TICKET-333-themes" ].targeting.production.rulesEnabled = true;
@@ -87,7 +87,7 @@ component
 			input: "user.groups.influencer",
 			values: [ true ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
@@ -97,7 +97,7 @@ component
 			input: "user.groups.betaTester",
 			values: [ true ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
@@ -107,19 +107,19 @@ component
 			input: "user.company.subdomain",
 			values: [ "futuretech", "innovaplex", "quantumsoft", "starcorp", "ultralink" ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
 
 		// Default enabled in development.
 		config.features[ "product-TICKET-444-homepage-sql-performance" ].targeting.development.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 2
 		];
 		// In production, slowly roll-out to a few customers.
 		config.features[ "product-TICKET-444-homepage-sql-performance" ].targeting.production.resolution = [
-			type: "Distribution",
+			type: "distribution",
 			distribution: [ 90, 10 ]
 		];
 
@@ -131,7 +131,7 @@ component
 			input: "user.groups.influencer",
 			values: [ true ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
@@ -141,7 +141,7 @@ component
 			input: "user.email",
 			values: [ "@nexsol.example.com" ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
@@ -154,19 +154,19 @@ component
 			input: "user.company.subdomain",
 			values: [ "megacorp" ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 2
 			]
 		]);
 
 		// Default to a small size in development.
 		config.features[ "product-TICKET-777-max-team-size" ].targeting.development.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 2
 		];
 		// Default to a reasonable size in development.
 		config.features[ "product-TICKET-777-max-team-size" ].targeting.production.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 3
 		];
 		config.features[ "product-TICKET-777-max-team-size" ].targeting.production.rulesEnabled = true;
@@ -176,7 +176,7 @@ component
 			input: "user.company.fortune500",
 			values: [ true ],
 			resolution: [
-				type: "Selection",
+				type: "selection",
 				selection: 6
 			]
 		]);
@@ -186,7 +186,7 @@ component
 			input: "user.company.fortune100",
 			values: [ true ],
 			resolution: [
-				type: "Variant",
+				type: "variant",
 				variant: 999999999
 			]
 		]);
@@ -194,7 +194,7 @@ component
 		// Default to unlimited in development.
 		// Default to a reasonable measure in production.
 		config.features[ "operations-request-rate-limit" ].targeting.production.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 2
 		];
 		// Raise up for a select set of companies which have a huge number of users behind
@@ -205,7 +205,7 @@ component
 			input: "user.company.subdomain",
 			values: [ "quantumsoft" ],
 			resolution: [
-				type: "Variant",
+				type: "variant",
 				variant: 750
 			]
 		]);
@@ -214,7 +214,7 @@ component
 			input: "user.company.subdomain",
 			values: [ "ultralink" ],
 			resolution: [
-				type: "Variant",
+				type: "variant",
 				variant: 1000
 			]
 		]);
@@ -222,18 +222,18 @@ component
 		// Default to unlimited in development.
 		// Default to a reasonable measure in production.
 		config.features[ "operations-user-rate-limit" ].targeting.production.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 2
 		];
 
 		// Default to trace in development.
 		config.features[ "operations-min-log-level" ].targeting.development.resolution = [
-			type: "Variant",
+			type: "variant",
 			variant: "trace"
 		];
 		// Default to error in production.
 		config.features[ "operations-min-log-level" ].targeting.production.resolution = [
-			type: "Selection",
+			type: "selection",
 			selection: 1
 		];
 
