@@ -4,6 +4,7 @@
 	configValidation = request.ioc.get( "lib.model.config.ConfigValidation" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
+	utilities = request.ioc.get( "lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -21,36 +22,7 @@
 	}
 
 	feature = config.features[ request.context.featureKey ];
-	errorMessage = "";
-
-	if ( form.submitted ) {
-
-		try {
-
-			newFeature = configSerializer.deserializeFeature( form.featureData );
-
-			featureWorkflow.updateFeature(
-				email = request.user.email,
-				featureKey = request.context.featureKey,
-				feature = newFeature
-			);
-
-			location(
-				url = "/index.cfm",
-				addToken = false
-			);
-
-		} catch ( any error ) {
-
-			errorMessage = requestHelper.processError( error );
-
-		}
-
-	} else {
-
-		form.featureData = configSerializer.serializeFeature( feature );
-
-	}
+	environments = utilities.toEnvironmentsArray( config.environments );
 
 	request.template.title = "Feature Targeting";
 

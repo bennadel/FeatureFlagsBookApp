@@ -25,6 +25,52 @@ component
 
 
 	/**
+	* I convert the given collection to an array of entries. Each entry has (index, key,
+	* and value) properties.
+	*/
+	public array function toEntries( required any collection ) {
+
+		if ( isArray( collection ) ) {
+
+			return collection.map(
+				( value, i ) => {
+
+					return {
+						index: i,
+						key: i,
+						value: value
+					};
+
+				}
+			);
+
+		}
+
+		if ( isStruct( collection ) ) {
+
+			return collection.keyArray().map(
+				( key, i ) => {
+
+					return {
+						index: i,
+						key: key,
+						value: collection[ key ]
+					};
+
+				}
+			);
+
+		}
+
+		throw(
+			type = "UnsupportedCollectionType",
+			message = "Cannot get entries for unsupported collection type."
+		);
+
+	}
+
+
+	/**
 	* For look-up purposes, the environments collection is stored as a Struct. However,
 	* for rendering the user interface, it can be easier to work with an array. This
 	* method converts the environments struct-data into array-data.
