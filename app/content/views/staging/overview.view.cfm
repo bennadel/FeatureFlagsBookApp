@@ -146,6 +146,10 @@
 		</h1>
 
 		<p>
+			&larr; <a href="/index.cfm">Back to Overview</a>
+		</p>
+
+		<p>
 			<strong>Environments:</strong>
 
 			<cfloop array="#environments#" index="environment">
@@ -181,7 +185,7 @@
 					</p>
 
 					<p class="feature-name">
-						#encodeForHtml( feature.key )#
+						<a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
 					</p>
 				</th>
 
@@ -307,8 +311,7 @@
 							class="variant-#variantIndex#">
 
 							<a
-								href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( url.environmentKey )#"
-								target="_blank"
+								href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( url.environmentKey )#&from=staging"
 								class="explain">
 								#encodeForHtml( serializeJson( variant ) )#
 							</a>

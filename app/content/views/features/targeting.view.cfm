@@ -96,6 +96,20 @@
 		}
 		.state td {}
 
+		.evaluation {
+			font-size: 0px ;
+			line-height: 0px ;
+			position: relative ;
+		}
+		.evaluation__link {
+			inset: 0 ;
+			position: absolute ;
+		}
+		.evaluation__link:hover {
+			outline: 1px solid #ffffff ;
+			outline-offset: -1px ;
+		}
+
 	</style>
 	<cfoutput>
 
@@ -107,7 +121,7 @@
 				</h1>
 
 				<p>
-					&larr; <a href="/index.cfm">Back</a>
+					&larr; <a href="/index.cfm">Back to Overview</a>
 				</p>
 
 				<dl>
@@ -326,7 +340,7 @@
 					<tr>
 						<cfloop index="environment" array="#environments#">
 							<th>
-								#encodeForHtml( environment.name )#
+								<a href="/index.cfm?event=staging.overview&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
 							</th>
 						</cfloop>
 					</tr>
@@ -343,7 +357,12 @@
 									fallbackVariant = "FALLBACK"
 								) />
 
-								<td class="variant-#result.variantIndex#"></td>
+								<td class="variant-#result.variantIndex# evaluation">
+									<a
+										href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureKey=#encodeForUrl( request.context.featureKey )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
+										class="evaluation__link">
+									</a>
+								</td>
 							</cfloop>
 						</tr>
 					</cfloop>

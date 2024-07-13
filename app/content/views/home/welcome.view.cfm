@@ -1,6 +1,10 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
+		hr {
+			margin: 40px 0 ;
+		}
+
 		.grid {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
@@ -42,6 +46,10 @@
 			min-width: 2px ;
 		}
 
+		.emoji {
+			font-family: arial, verdana, sans-serif ;
+		}
+
 	</style>
 	<cfoutput>
 
@@ -50,25 +58,12 @@
 		</h1>
 
 		<p>
-			Feature flag stuff will happen soon.
-			<a href="/index.cfm?event=staging">See evaluations</a>.
-		</p>
-
-		<cfdump var="#request.user#" />
-
-		<p>
-			<a href="/index.cfm?event=auth.logout">Logout</a>
-		</p>
-
-		<p>
-			<strong>GitHub:</strong> The code for this site is available in my <a href="https://github.com/bennadel/FeatureFlagsBookApp">application repository</a> on GitHub. Feel free to fork, download, modify, and run it, etc. This repository is here to help you learn about Feature Flags.
-		</p>
-
-		<hr />
-
-		<h2>
+			This application is here to help you learn about
+			<span class="emoji">&##x2764;&##xfe0f;</span>
 			Feature Flags
-		</h2>
+			<span class="emoji">&##x2764;&##xfe0f;</span>
+			Click around and edit the feature flag settings to see how targeting changes affect variant allocation.
+		</p>
 
 		<table class="grid">
 		<thead>
@@ -84,7 +79,7 @@
 				</th>
 				<cfloop array="#environments#" index="environment">
 					<th colspan="2">
-						#encodeForHtml( environment.name.ucase() )#
+						<a href="/index.cfm?event=staging&environmentKey=#encodeForUrl( environment.key )#">#encodeForHtml( environment.name.ucase() )#</a>
 					</th>
 				</cfloop>
 			</tr>
@@ -169,8 +164,7 @@
 						</td>
 						<td class="env-right">
 							<a
-								href="/index.cfm?event=staging&environmentKey=#encodeForUrl( environment.key )#"
-								target="_blank"
+								href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )#"
 								class="breakdown">
 								<cfloop collection="#breakdown#" item="i">
 									<cfif breakdown[ i ]>
@@ -192,6 +186,17 @@
 			</cfloop>
 		</tbody>
 		</table>
+
+		<hr />
+
+		<p>
+			<strong>GitHub:</strong> The code for this site is available in my <a href="https://github.com/bennadel/FeatureFlagsBookApp" target="_blank">application repository</a> on GitHub. Feel free to fork, download, modify, and run it, etc.
+		</p>
+
+		<p>
+			Logged-in as <strong>#encodeForHtml( request.user.email )#</strong>.
+			<a href="/index.cfm?event=auth.logout">Logout</a>
+		</p>
 
 	</cfoutput>
 </cfsavecontent>

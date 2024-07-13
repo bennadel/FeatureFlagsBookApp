@@ -19,26 +19,33 @@
 		</h1>
 
 		<p>
+			&larr;
+			<cfswitch expression="#url.from#">
+				<cfcase value="targeting">
+					<a href="/index.cfm?event=features.targeting&featureKey=#encodeForHtml( url.featureKey )#">Back to Feature</a>
+				</cfcase>
+				<cfdefaultcase>
+					<a href="/index.cfm?event=staging&environmentKey=#encodeForHtml( url.environmentKey )#">Back to Staging</a>
+				</cfdefaultcase>
+			</cfswitch>
+		</p>
+
+		<p>
 			<strong>Feature:</strong>
-			#encodeForHtml( url.featureKey )#
+			<a href="/index.cfm?event=features.targeting&featureKey=#encodeForHtml( url.featureKey )#">#encodeForHtml( url.featureKey )#</a>
 		</p>
 
 		<p>
 			<strong>Environment:</strong>
-			#encodeForHtml( url.environmentKey )#
+			<a href="/index.cfm?event=staging&environmentKey=#encodeForHtml( url.environmentKey )#">#encodeForHtml( url.environmentKey )#</a>
 		</p>
 
 		<p>
 			<strong>Variant:</strong>
-			#encodeForHtml( serializeJson( result.variant ) )#
-		</p>
-
-		<p>
-			<strong>Variant Index:</strong>
-			#result.variantIndex#
+			<span class="variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
 
 			<cfif ! result.variantIndex>
-				&mdash; "0" means either a custom override or a fallback value was used.
+				&mdash; a custom variant (or a fallback value) was used.
 			</cfif>
 		</p>
 

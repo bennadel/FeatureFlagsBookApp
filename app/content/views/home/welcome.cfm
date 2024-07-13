@@ -29,7 +29,7 @@
 		.withLogger( demoLogger )
 	;
 
-	request.template.title = "Welcome";
+	request.template.title = "Feature Flags";
 
 	include "./welcome.view.cfm";
 
