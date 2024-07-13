@@ -2,7 +2,10 @@
 
 	configSerializer = request.ioc.get( "lib.model.config.ConfigSerializer" );
 	configValidation = request.ioc.get( "lib.model.config.ConfigValidation" );
+	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
+	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
+	logger = request.ioc.get( "lib.Logger" );
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
@@ -23,6 +26,11 @@
 
 	feature = config.features[ request.context.featureKey ];
 	environments = utilities.toEnvironmentsArray( config.environments );
+
+	featureFlags = new lib.client.FeatureFlags()
+		.withConfig( config )
+		.withLogger( logger )
+	;
 
 	request.template.title = "Feature Targeting";
 
