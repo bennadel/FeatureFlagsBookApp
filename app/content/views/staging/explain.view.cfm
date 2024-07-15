@@ -45,7 +45,11 @@
 			<span class="variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
 
 			<cfif ! result.variantIndex>
-				&mdash; a custom variant (or a fallback value) was used.
+				<cfif ( result.reason == "Error" )>
+					&mdash; fallback value was used due to an error.
+				<cfelse>
+					&mdash; a custom variant was used.
+				</cfif>
 			</cfif>
 		</p>
 
