@@ -324,6 +324,7 @@ component
 		if ( ! config.isLive ) {
 
 			sendToConsole( notifyEvent );
+			return;
 
 		}
 

@@ -14,6 +14,9 @@
 	param name="request.event[ 2 ]" type="string" default="";
 
 	switch ( request.event[ 2 ] ) {
+		case "defaultResolution":
+			cfmodule( template = "./defaultResolution.cfm" );
+		break;
 		case "raw":
 			cfmodule( template = "./raw.cfm" );
 		break;

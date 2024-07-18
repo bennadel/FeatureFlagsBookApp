@@ -344,6 +344,12 @@ component
 					message: "Your targeting must be provided as a struct. Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Targeting.NotFound":
+				return as404({
+					type: error.type,
+					message: "The targeting you requested cannot be found."
+				});
+			break;
 			case "App.Model.Config.Targeting.Rules.Invalid":
 			case "App.Model.Config.Targeting.Rules.Missing":
 				return as422({

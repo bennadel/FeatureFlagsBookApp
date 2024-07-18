@@ -25,6 +25,7 @@
 	}
 
 	feature = config.features[ request.context.featureKey ];
+	feature.key = utilities.getStructKey( config.features, request.context.featureKey );
 	environments = utilities.toEnvironmentsArray( config.environments );
 
 	featureFlags = new lib.client.FeatureFlags()

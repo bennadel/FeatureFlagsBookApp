@@ -104,6 +104,16 @@ component
 
 
 	/**
+	* I throw a targeting not found error.
+	*/
+	public void function throwTargetingNotFoundError() {
+
+		throw( type = "App.Model.Config.Targeting.NotFound" );
+
+	}
+
+
+	/**
 	* I throw a feature not found error.
 	*/
 	public void function throwFeatureNotFoundError() {
@@ -138,6 +148,27 @@ component
 	// ---
 	// PRIVATE CONFIG METHODS.
 	// ---
+
+	/**
+	* I normalize the given numeric value to a core Java data type. This is only needed to
+	* help prevent the subsequent JSON payload from containing decimal values when it
+	* should really have integers. This is more of an aesthetic concern than it is a
+	* functional concern.
+	*/
+	private numeric function normalizeNumeric( required numeric value ) {
+
+		if ( val( value ) == fix( value ) ) {
+
+			return javaCast( "long", value );
+
+		} else {
+
+			return javaCast( "double", value );
+
+		}
+
+	}
+
 
 	/**
 	* I test the top-level created at.
@@ -333,7 +364,7 @@ component
 
 		}
 
-		return val( version );
+		return normalizeNumeric( version );
 
 	}
 
@@ -653,7 +684,7 @@ component
 
 		}
 
-		defaultSelection = val( defaultSelection );
+		defaultSelection = normalizeNumeric( defaultSelection );
 
 		if ( ! feature.variants.isDefined( defaultSelection ) ) {
 
@@ -1113,7 +1144,7 @@ component
 
 		}
 
-		return val( variant );
+		return normalizeNumeric( variant );
 
 	}
 
@@ -1504,7 +1535,7 @@ component
 
 				}
 
-				return val( element );
+				return normalizeNumeric( element );
 
 			}
 		);
@@ -1557,7 +1588,7 @@ component
 
 		}
 
-		selection = val( selection );
+		selection = normalizeNumeric( selection );
 
 		if ( ! feature.variants.isDefined( selection ) ) {
 

@@ -20,7 +20,8 @@ a {
 }
 
 input,
-button {
+button,
+select {
 	font-family: inherit;
 	font-size: inherit ;
 	line-height: inherit ;
@@ -73,4 +74,19 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 .variant-0 {
 	background-color: #ff5b53 ;
 	color: #ffffff ;
+}
+
+
+
+.block-collapse > *:first-child,
+.block-collapse > *:first-child > *:first-child,
+.block-collapse > *:first-child > *:first-child > *:first-child,
+.block-collapse > *:first-child > *:first-child > *:first-child > *:first-child {
+	margin-top: 0 ;
+}
+.block-collapse > *:last-child,
+.block-collapse > *:last-child > *:last-child,
+.block-collapse > *:last-child > *:last-child > *:last-child,
+.block-collapse > *:last-child > *:last-child > *:last-child > *:last-child {
+	margin-bottom: 0 ;
 }

@@ -29,19 +29,6 @@
 			margin: 10px 0 10px 0 ;
 		}
 
-		.cm > *:first-child,
-		.cm > *:first-child > *:first-child,
-		.cm > *:first-child > *:first-child > *:first-child,
-		.cm > *:first-child > *:first-child > *:first-child > *:first-child {
-			margin-top: 0 ;
-		}
-		.cm > *:last-child,
-		.cm > *:last-child > *:last-child,
-		.cm > *:last-child > *:last-child > *:last-child,
-		.cm > *:last-child > *:last-child > *:last-child > *:last-child {
-			margin-bottom: 0 ;
-		}
-
 		.env {}
 		.env__header {
 			border-bottom: 2px solid #333333 ;
@@ -110,6 +97,20 @@
 			outline-offset: -1px ;
 		}
 
+		.editable {
+			display: flex ;
+		}
+		.editable:has(.editable__link:hover) {
+			background-color: #f0f0f0 ;
+		}
+		.editable__link {
+			margin-left: auto ;
+			opacity: 0.7 ;
+		}
+		.editable__link:hover {
+			opacity: 1.0 ;
+		}
+
 	</style>
 	<cfoutput>
 
@@ -129,9 +130,9 @@
 						<dt>
 							<strong>Key:</strong>
 						</dt>
-						<dd class="cm">
+						<dd class="block-collapse">
 							<p>
-								#encodeForHtml( request.context.featureKey )#
+								#encodeForHtml( feature.key )#
 							</p>
 						</dd>
 					</div>
@@ -139,7 +140,7 @@
 						<dt>
 							<strong>Type:</strong>
 						</dt>
-						<dd class="cm">
+						<dd class="block-collapse">
 							<p>
 								#encodeForHtml( feature.type )#
 							</p>
@@ -150,7 +151,7 @@
 							<dt>
 								<strong>Description:</strong>
 							</dt>
-							<dd class="cm">
+							<dd class="block-collapse">
 								<p>
 									#encodeForHtml( feature.description )#
 								</p>
@@ -161,7 +162,7 @@
 						<dt>
 							<strong>Variants:</strong>
 						</dt>
-						<dd class="cm">
+						<dd class="block-collapse">
 							<ol>
 								<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
 									<li>
@@ -185,14 +186,20 @@
 								#encodeForHtml( environment.name )# Settings
 							</span>
 						</h2>
-						<div class="env__body cm">
+						<div class="env__body block-collapse">
 
 							<dl>
 								<div>
-									<dt>
+									<dt class="editable">
 										<strong>Default Resolution:</strong>
+
+										<a
+											href="/index.cfm?event=features.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
+											class="editable__link">
+											Edit
+										</a>
 									</dt>
-									<dd class="cm">
+									<dd class="block-collapse">
 										<cfswitch expression="#settings.resolution.type#">
 											<cfcase value="selection">
 												<p>
@@ -210,7 +217,7 @@
 												<ul>
 													<cfloop index="distributionEntry" array="#utilities.toEntries( settings.resolution.distribution )#">
 														<li>
-															#distributionEntry.value#
+															#distributionEntry.value#%
 															&rarr;
 															<span class="tag variant-#distributionEntry.index#">
 																#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
@@ -235,7 +242,7 @@
 									<dt>
 										<strong>Rules Enabled:</strong>
 									</dt>
-									<dd class="cm">
+									<dd class="block-collapse">
 										<p>
 											#yesNoFormat( settings.rulesEnabled )#
 										</p>
@@ -245,7 +252,7 @@
 									<dt>
 										<strong>Rules:</strong>
 									</dt>
-									<dd class="cm">
+									<dd class="block-collapse">
 										<cfif ! settings.rules.len()>
 											<p>
 												<em>No rules</em>
@@ -256,12 +263,12 @@
 
 											<cfset rule = ruleEntry.value />
 
-											<dl class="rule cm <cfif ! settings.rulesEnabled>rule--disabled</cfif>">
+											<dl class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif>">
 												<div>
 													<dt>
 														<strong>IF</strong>
 													</dt>
-													<dd class="cm">
+													<dd class="block-collapse">
 														<p>
 															"#encodeForHtml( rule.input )#"
 														</p>
@@ -271,7 +278,7 @@
 													<dt>
 														<strong>#encodeForHtml( rule.operator )#</strong>
 													</dt>
-													<dd class="cm">
+													<dd class="block-collapse">
 														<p class="value-list">
 															<cfloop index="value" array="#rule.values#">
 																<span class="value-list__item">
@@ -285,7 +292,7 @@
 													<dt>
 														<strong>Serve:</strong>
 													</dt>
-													<dd class="cm">
+													<dd class="block-collapse">
 														<cfswitch expression="#rule.resolution.type#">
 															<cfcase value="selection">
 																<p>
@@ -302,7 +309,7 @@
 																<ul>
 																	<cfloop index="distributionEntry" array="#utilities.toEntries( rule.resolution.distribution )#">
 																		<li>
-																			#distributionEntry.value#
+																			#distributionEntry.value#%
 																			&rarr;
 																			#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																		</li>
@@ -351,7 +358,7 @@
 							<cfloop index="environment" array="#environments#">
 
 								<cfset result = featureFlags.debugEvaluation(
-									featureKey = request.context.featureKey,
+									featureKey = feature.key,
 									environmentKey = environment.key,
 									context = demoTargeting.getContext( demoUser ),
 									fallbackVariant = "FALLBACK"
@@ -359,7 +366,7 @@
 
 								<td class="variant-#result.variantIndex# evaluation">
 									<a
-										href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureKey=#encodeForUrl( request.context.featureKey )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
+										href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
 										class="evaluation__link">
 									</a>
 								</td>
