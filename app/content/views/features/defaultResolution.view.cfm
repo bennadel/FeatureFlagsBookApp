@@ -51,7 +51,7 @@
 		</dl>
 
 		<cfif errorMessage.len()>
-			<p>
+			<p class="error-message">
 				#encodeForHtml( errorMessage )#
 			</p>
 		</cfif>

@@ -90,3 +90,10 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 .block-collapse > *:last-child > *:last-child > *:last-child > *:last-child {
 	margin-bottom: 0 ;
 }
+
+.error-message {
+	background-color: #ffe8eb ;
+	border: 1px solid #ff0000 ;
+	border-left-width: 5px;
+	padding: 14px 18px ;
+}
