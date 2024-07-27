@@ -20,6 +20,9 @@
 		case "raw":
 			cfmodule( template = "./raw.cfm" );
 		break;
+		case "rulesEnabled":
+			cfmodule( template = "./rulesEnabled.cfm" );
+		break;
 		case "targeting":
 			cfmodule( template = "./targeting.cfm" );
 		break;

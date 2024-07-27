@@ -98,9 +98,10 @@
 		}
 
 		.editable {
+			cursor: pointer ;
 			display: flex ;
 		}
-		.editable:has(.editable__link:hover) {
+		.editable:hover {
 			background-color: #f0f0f0 ;
 		}
 		.editable__link {
@@ -190,11 +191,12 @@
 
 							<dl>
 								<div>
-									<dt class="editable">
+									<dt x-data="Editable" @click="handleClick()" class="editable">
 										<strong>Default Resolution:</strong>
 
 										<a
 											href="/index.cfm?event=features.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
+											x-ref="edit"
 											class="editable__link">
 											Edit
 										</a>
@@ -239,8 +241,15 @@
 									</dd>
 								</div>
 								<div>
-									<dt>
+									<dt x-data="Editable" @click="handleClick()" class="editable">
 										<strong>Rules Enabled:</strong>
+
+										<a
+											href="/index.cfm?event=features.rulesEnabled&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
+											x-ref="edit"
+											class="editable__link">
+											Edit
+										</a>
 									</dt>
 									<dd class="block-collapse">
 										<p>
@@ -380,4 +389,29 @@
 		</div>
 
 	</cfoutput>
+	<script type="text/javascript">
+
+		function Editable() {
+
+			return {
+				handleClick: handleClick
+			};
+
+			// ---
+			// PUBLIC METHODS.
+			// ---
+
+			function handleClick() {
+
+				if ( ! this.$refs.edit.contains( this.$event.target ) ) {
+
+					this.$refs.edit.click();
+
+				}
+
+			}
+
+		}
+
+	</script>
 </cfsavecontent>
