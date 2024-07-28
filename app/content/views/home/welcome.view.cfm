@@ -158,6 +158,9 @@
 						<td align="center" class="env-left">
 							<cfif feature.targeting[ environment.key ].rulesEnabled>
 								Enabled
+								<cfif feature.targeting[ environment.key ].rules.len()>
+									(#feature.targeting[ environment.key ].rules.len()#)
+								</cfif>
 							<cfelse>
 								<span class="disabled">Disabled</span>
 							</cfif>
