@@ -15,6 +15,10 @@
 			border-bottom: 1px solid #cccccc ;
 			padding: 7px 10px ;
 		}
+		.grid tbody tr:hover th,
+		.grid tbody tr:hover td {
+			background-color: #f0f0f0 ;
+		}
 		.grid .env-left {
 			border-left: 1px solid #cccccc ;
 		}
