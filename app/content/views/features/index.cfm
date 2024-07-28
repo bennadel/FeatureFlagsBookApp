@@ -23,6 +23,9 @@
 		case "raw":
 			cfmodule( template = "./raw.cfm" );
 		break;
+		case "reset":
+			cfmodule( template = "./reset.cfm" );
+		break;
 		case "rule":
 			cfmodule( template = "./rule.cfm" );
 		break;

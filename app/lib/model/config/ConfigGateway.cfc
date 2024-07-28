@@ -29,6 +29,25 @@ component
 	// ---
 
 	/**
+	* I delete the config data stored at the given filename. If there is no persisted
+	* data, this is a no-op.
+	*/
+	public void function deleteConfig( required string dataFilename ) {
+
+		cache.delete( dataFilename );
+
+		var dataFilepath = getDataFilepath( dataFilename );
+
+		if ( fileExists( dataFilepath ) ) {
+
+			fileDelete( dataFilepath );
+
+		}
+
+	}
+
+
+	/**
 	* I get the config data stored at the given filename. If there is no persisted data,
 	* an empty structure is returned.
 	*/

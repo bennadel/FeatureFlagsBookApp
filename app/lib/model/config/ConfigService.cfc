@@ -38,6 +38,16 @@ component
 
 
 	/**
+	* I delete the config saved at the given filename.
+	*/
+	public void function deleteConfig( required string dataFilename ) {
+
+		gateway.deleteConfig( dataFilename );
+
+	}
+
+
+	/**
 	* I return a Maybe result for the given config filename.
 	*/
 	public struct function maybeGetConfig( required string dataFilename ) {

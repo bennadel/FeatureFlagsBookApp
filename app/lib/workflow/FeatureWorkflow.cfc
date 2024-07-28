@@ -29,6 +29,19 @@ component
 
 
 	/**
+	* I reset the features config for the given user (this just deletes the persisted
+	* configuration file).
+	*/
+	public void function resetConfig( required string email ) {
+
+		var user = userService.getUser( email );
+
+		configService.deleteConfig( user.dataFilename );
+
+	}
+
+
+	/**
 	* I update the features config for the given user.
 	*/
 	public void function updateConfig(

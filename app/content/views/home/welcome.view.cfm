@@ -194,6 +194,10 @@
 		</tbody>
 		</table>
 
+		<p>
+			You can always <a href="/index.cfm?event=features.reset">reset your settings</a>.
+		</p>
+
 		<hr />
 
 		<p>
