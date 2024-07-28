@@ -80,7 +80,7 @@
 			</p>
 		</cfif>
 
-		<form x-data="FormController" method="post">
+		<form x-data="FormController" @submit="handleSubmit()" method="post">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( request.context.featureKey )#" />
 			<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( request.context.environmentKey )#" />
@@ -328,6 +328,7 @@
 				handleInput: handleInput,
 				handleOperator: handleOperator,
 				handleSelection: handleSelection,
+				handleSubmit: handleSubmit,
 				handleValue: handleValue,
 				handleVariant: handleVariant,
 				removeValue: removeValue,
@@ -426,6 +427,14 @@
 			function handleSelection() {
 
 				this._persistData();
+
+			}
+
+			function handleSubmit() {
+
+				// Adding values is a bit confusing. If there's still an input value that
+				// hasn't been persisted, persist it now before submitting the form.
+				this.handleValue();
 
 			}
 
