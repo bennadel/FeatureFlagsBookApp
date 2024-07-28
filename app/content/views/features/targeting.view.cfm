@@ -276,12 +276,6 @@
 										<strong>Rules:</strong>
 									</dt>
 									<dd class="block-collapse">
-										<cfif ! settings.rules.len()>
-											<p>
-												<em>No rules</em>
-											</p>
-										</cfif>
-
 										<cfloop index="ruleEntry" array="#utilities.toEntries( settings.rules )#">
 
 											<cfset rule = ruleEntry.value />
@@ -364,6 +358,10 @@
 											</dl>
 
 										</cfloop>
+
+										<p>
+											<a href="/index.cfm?event=features.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#">Add rule</a>
+										</p>
 									</dd>
 								</div>
 							</dl>

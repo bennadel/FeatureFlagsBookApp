@@ -39,7 +39,7 @@
 	rules = targeting.rules;
 
 	// Editing an existing rule.
-	if ( rules.isDefined( request.context.ruleIndex ) ) {
+	if ( request.context.ruleIndex && rules.isDefined( request.context.ruleIndex ) ) {
 
 		rule = rules[ request.context.ruleIndex ];
 
