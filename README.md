@@ -172,6 +172,8 @@ You may notice that the `environments`, `features`, and `targeting` properties a
 
 ## Change Log
 
+* **2024, July 28**: I've added basic workflows for editing the core configuration data. At this point, there's still no way to add or delete a feature flag; however, you can edit all the targeting information for the existing feature flag. This should give people a better sense of how feature flags can be progressively rolled out.
+
 * **2024, June 27**: I've added all the configuration validation methods. At this point, I should be able to start creating the UI that allows a user to actually edit their config file.
 
 * **2024, June 10**: I starting working on the list of feature flags. The great thing about having a set of demo-users against which to evaluate the feature flags is that I can show a preview breakdown of the variant allocations. It's a bit of a brute-force&mdash;for each feature, for each environment, for all users, evaluate the variant result&mdash;but, since it's such a small number of users (in the grand scheme of things), it should be fine.
