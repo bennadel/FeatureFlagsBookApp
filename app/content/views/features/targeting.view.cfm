@@ -119,8 +119,13 @@
 			background-color: #f0f0f0 ;
 		}
 		.editable__link {
-			margin-left: auto ;
 			opacity: 0.7 ;
+		}
+		.editable__link:nth-of-type(1) {
+			margin-left: auto ;
+		}
+		.editable__link:nth-of-type(2) {
+			margin-left: 15px ;
 		}
 		.editable__link:hover {
 			opacity: 1.0 ;
@@ -294,6 +299,11 @@
 															x-ref="edit"
 															class="editable__link">
 															Edit
+														</a>
+														<a
+															href="/index.cfm?event=features.deleteRule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
+															class="editable__link">
+															Delete
 														</a>
 													</dt>
 													<dd class="block-collapse">

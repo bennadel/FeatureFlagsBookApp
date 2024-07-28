@@ -17,6 +17,9 @@
 		case "defaultResolution":
 			cfmodule( template = "./defaultResolution.cfm" );
 		break;
+		case "deleteRule":
+			cfmodule( template = "./deleteRule.cfm" );
+		break;
 		case "raw":
 			cfmodule( template = "./raw.cfm" );
 		break;

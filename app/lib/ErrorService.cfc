@@ -299,6 +299,12 @@ component
 					message: "Your rule must be provided as a struct. Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Rule.NotFound":
+				return as404({
+					type: error.type,
+					message: "The rule you requested cannot be found."
+				});
+			break;
 			case "App.Model.Config.Rule.Operator.Invalid":
 			case "App.Model.Config.Rule.Operator.Missing":
 				return as422({

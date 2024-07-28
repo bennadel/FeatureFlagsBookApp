@@ -124,6 +124,16 @@ component
 
 
 	/**
+	* I throw a rule not found error.
+	*/
+	public void function throwRuleNotFoundError() {
+
+		throw( type = "App.Model.Config.Rule.NotFound" );
+
+	}
+
+
+	/**
 	* I throw a serialization error for the config data.
 	*/
 	public void function throwSerializationError( required any rootCause ) {
