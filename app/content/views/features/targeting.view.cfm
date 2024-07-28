@@ -274,8 +274,15 @@
 
 											<dl class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif>">
 												<div>
-													<dt>
+													<dt x-data="Editable" @click="handleClick()" class="editable">
 														<strong>IF</strong>
+
+														<a
+															href="/index.cfm?event=features.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
+															x-ref="edit"
+															class="editable__link">
+															Edit
+														</a>
 													</dt>
 													<dd class="block-collapse">
 														<p>

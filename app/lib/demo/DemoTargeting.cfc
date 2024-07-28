@@ -25,6 +25,63 @@ component
 
 
 	/**
+	* I return the unique set of values that can be attributed to each targeting facet.
+	*/
+	public struct function getDatalists( required array users ) {
+
+		var datalists = [
+			"key": [:],
+			"user.id": [:],
+			"user.email": [:],
+			"user.emailDomain": [:], // Special case.
+			"user.role": [:],
+			"user.company.id": [:],
+			"user.company.subdomain": [:],
+			"user.company.fortune100": [:],
+			"user.company.fortune500": [:],
+			"user.groups.betaTester": [:],
+			"user.groups.influencer": [:]
+		];
+
+		for ( var user in users ) {
+
+			datalists[ "key" ][ user.id ] = true;
+			datalists[ "user.id" ][ user.id ] = true;
+			datalists[ "user.email" ][ user.email ] = true;
+			datalists[ "user.emailDomain" ][ "@" & user.email.listRest( "@" ) ] = true;
+			datalists[ "user.role" ][ user.role ] = true;
+			datalists[ "user.company.id" ][ user.company.id ] = true;
+			datalists[ "user.company.subdomain" ][ user.company.subdomain ] = true;
+			datalists[ "user.company.fortune100" ][ user.company.fortune100 ] = true;
+			datalists[ "user.company.fortune500" ][ user.company.fortune500 ] = true;
+			datalists[ "user.groups.betaTester" ][ user.groups.betaTester ] = true;
+			datalists[ "user.groups.influencer" ][ user.groups.influencer ] = true;
+
+		}
+
+		for ( var key in datalists.keyArray() ) {
+
+			switch ( key ) {
+				case "key":
+				case "user.id":
+				case "user.company.id":
+					var sortType = "numeric";
+				break;
+				default:
+					var sortType = "textnocase";
+				break;
+			}
+
+			datalists[ key ] = datalists[ key ].keyArray().sort( sortType );
+
+		}
+
+		return datalists;
+
+	}
+
+
+	/**
 	* I apply rules to the given demo data in order to make the demo more interesting for
 	* the user without them having to mess with the targeting rules.
 	*/
