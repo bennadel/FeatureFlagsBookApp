@@ -51,6 +51,9 @@
 			border-radius: 3px ;
 			padding: 20px ;
 		}
+		.rule:hover {
+			border-style: solid ;
+		}
 		.rule--disabled {
 			opacity: 0.3 ;
 		}
@@ -87,6 +90,17 @@
 			font-size: 0px ;
 			line-height: 0px ;
 			position: relative ;
+		}
+		.evaluation.flashing {
+			animation-duration: 750ms ;
+			animation-iteration-count: infinite ;
+			animation-name: evaluation-flasher ;
+			animation-timing-function: linear ;
+		}
+		@keyframes evaluation-flasher {
+			50% {
+				background-color: #ffffff ;
+			}
 		}
 		.evaluation__link {
 			inset: 0 ;
@@ -272,7 +286,11 @@
 
 											<cfset rule = ruleEntry.value />
 
-											<dl class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif>">
+											<dl
+												x-data="Rule( '#encodeForJavaScript( environment.key )#', #ruleEntry.index# )"
+												@mouseenter="handleMouseenter()"
+												@mouseleave="handleMouseleave()"
+												class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif>">
 												<div>
 													<dt x-data="Editable" @click="handleClick()" class="editable">
 														<strong>IF</strong>
@@ -379,8 +397,9 @@
 									context = demoTargeting.getContext( demoUser ),
 									fallbackVariant = "FALLBACK"
 								) />
+								<cfset association = "#environment.key#:#result.matchingRuleIndex#" />
 
-								<td class="variant-#result.variantIndex# evaluation">
+								<td class="variant-#result.variantIndex# evaluation #encodeForHtmlAttribute( association )#">
 									<a
 										href="/index.cfm?event=staging.explain&userID=#encodeForUrl( demoUser.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
 										class="evaluation__link">
@@ -397,6 +416,53 @@
 
 	</cfoutput>
 	<script type="text/javascript">
+
+		function Rule( environmentKey, ruleIndex ) {
+
+			return {
+				// Public methods.
+				handleMouseenter: handleMouseenter,
+				handleMouseleave: handleMouseleave,
+
+				// Private methods.
+				_findAssociations: findAssociations
+			};
+
+			// ---
+			// PUBLIC METHODS.
+			// ---
+
+			function handleMouseenter() {
+
+				for ( var node of this._findAssociations() ) {
+
+					node.classList.add( "flashing" );
+
+				}
+
+			}
+
+			function handleMouseleave() {
+
+				for ( var node of this._findAssociations() ) {
+
+					node.classList.remove( "flashing" );
+
+				}
+
+			}
+
+			// ---
+			// PRIVATE METHODS.
+			// ---
+
+			function findAssociations() {
+
+				return document.querySelectorAll( `.${ environmentKey }\\:${ ruleIndex }` );
+
+			}
+
+		}
 
 		function Editable() {
 

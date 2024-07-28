@@ -63,6 +63,7 @@ component
 			feature: "Unknown",
 			evaluatedRules: "Unknown",
 			skippedRules: "Unknown",
+			matchingRuleIndex: 0,
 			resolution: "Unknown",
 			variant: fallbackVariant,
 			variantIndex: 0
@@ -132,7 +133,11 @@ component
 
 			if ( targeting.rulesEnabled ) {
 
+				var ruleIndex = 0;
+
 				for ( var rule in targeting.rules ) {
+
+					ruleIndex++;
 
 					if ( ! context.keyExists( rule.input ) ) {
 
@@ -170,6 +175,7 @@ component
 						// rule to override the default resolution of the environment.
 						result.reason = "MatchingRule";
 						result.resolution = resolution = rule.resolution;
+						result.matchingRuleIndex = ruleIndex;
 						// First matching rule wins - no need to keep checking rules.
 						break;
 
