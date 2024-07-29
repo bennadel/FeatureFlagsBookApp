@@ -56,7 +56,7 @@
 			);
 
 			location(
-				url = "/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )#",
+				url = "/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#",
 				addToken = false
 			);
 

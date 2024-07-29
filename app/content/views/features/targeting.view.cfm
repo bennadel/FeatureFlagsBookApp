@@ -211,7 +211,7 @@
 
 					<cfset settings = feature.targeting[ environment.key ] />
 
-					<div class="env">
+					<div id="environment-#encodeForHtmlAttribute( environment.key )#" class="env">
 						<h2 class="env__header">
 							<span class="env__label">
 								#encodeForHtml( environment.name )# Environment

@@ -28,7 +28,7 @@
 		</h1>
 
 		<p>
-			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )#">Back to Targeting</a>
+			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 		</p>
 
 		<dl>
@@ -106,7 +106,7 @@
 				<button type="submit">
 					Save
 				</button>
-				<a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )#">
+				<a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">
 					Cancel
 				</a>
 			</p>
