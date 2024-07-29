@@ -381,6 +381,10 @@
 
 				</cfloop>
 
+				<p>
+					<a href="/index.cfm?event=features.delete&featureKey=#encodeForUrl( feature.key )#">Delete</a> this feature flag.
+				</p>
+
 			</main>
 			<aside class="panels__aside">
 
