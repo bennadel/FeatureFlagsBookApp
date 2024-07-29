@@ -91,22 +91,6 @@
 			<dl>
 				<div>
 					<dt>
-						<strong>Operator:</strong>
-					</dt>
-					<dd>
-						<select x-model="form.operator" @change="handleOperator()">
-							<template x-for="operator in operators">
-								<option
-									:value="operator"
-									:selected="( operator === form.operator )"
-									x-text="operator">
-								</option>
-							</template>
-						</select>
-					</dd>
-				</div>
-				<div>
-					<dt>
 						<strong>Input:</strong>
 					</dt>
 					<dd>
@@ -116,6 +100,22 @@
 									:value="input"
 									:selected="( input === form.input )"
 									x-text="input">
+								</option>
+							</template>
+						</select>
+					</dd>
+				</div>
+				<div>
+					<dt>
+						<strong>Operator:</strong>
+					</dt>
+					<dd>
+						<select x-model="form.operator" @change="handleOperator()">
+							<template x-for="operator in operators">
+								<option
+									:value="operator"
+									:selected="( operator === form.operator )"
+									x-text="operator">
 								</option>
 							</template>
 						</select>

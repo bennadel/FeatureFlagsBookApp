@@ -42,18 +42,18 @@
 			</div>
 			<div>
 				<dt>
-					<strong>Operator:</strong>
-				</dt>
-				<dd>
-					#encodeForHtml( rule.operator )#
-				</dd>
-			</div>
-			<div>
-				<dt>
 					<strong>Input:</strong>
 				</dt>
 				<dd>
 					"#encodeForHtml( rule.input )#"
+				</dd>
+			</div>
+			<div>
+				<dt>
+					<strong>Operator:</strong>
+				</dt>
+				<dd>
+					#encodeForHtml( rule.operator )#
 				</dd>
 			</div>
 			<div>
