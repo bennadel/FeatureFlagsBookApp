@@ -1,17 +1,6 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
-		dl {
-			margin: 20px 0px ;
-		}
-
-		dl > div {
-			margin: 10px 0 10px 0 ;
-		}
-		dt {
-			margin: 10px 0 10px 0 ;
-		}
-
 		.tiles {
 			display: flex ;
 			flex-wrap: wrap ;
@@ -36,14 +25,6 @@
 			padding-inline: 12px ;
 		}
 
-		.choggle {
-			align-items: center ;
-			display: flex ;
-			gap: 10px ;
-		}
-		.choggle__control {}
-		.choggle__label {}
-
 	</style>
 	<cfoutput>
 
@@ -55,7 +36,7 @@
 			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 		</p>
 
-		<dl>
+		<dl class="key-values">
 			<div>
 				<dt>
 					<strong>Feature:</strong>
@@ -88,7 +69,7 @@
 			<input type="hidden" name="ruleData" value="#encodeForHtmlAttribute( form.ruleData )#" x-ref="ruleData" />
 			<input type="hidden" name="submitted" value="true" />
 
-			<dl>
+			<dl class="key-values">
 				<div>
 					<dt>
 						<strong>Input:</strong>
@@ -180,7 +161,7 @@
 
 						<!-- Selection. -->
 						<template x-if="( form.resolution.type === 'selection' )">
-							<dl>
+							<dl class="key-values">
 								<div>
 									<dt>
 										<strong>Selection:</strong>
@@ -211,7 +192,7 @@
 
 						<!-- Distribution. -->
 						<template x-if="( form.resolution.type === 'distribution' )">
-							<dl>
+							<dl class="key-values">
 								<div>
 									<dt>
 										<strong>Distribution:</strong>
@@ -257,7 +238,7 @@
 
 						<!-- Variant. -->
 						<template x-if="( form.resolution.type === 'variant' )">
-							<dl>
+							<dl class="key-values">
 								<div>
 									<dt>
 										<strong>Variant:</strong>

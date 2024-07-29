@@ -1,29 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		dl {
-			margin: 20px 0px ;
-		}
-
-		dl > div {
-			margin: 10px 0 10px 0 ;
-		}
-		dt {
-			margin: 10px 0 10px 0 ;
-		}
-
-		.choggle {
-			align-items: center ;
-			display: flex ;
-			gap: 10px ;
-		}
-		.choggle--inline {
-			display: inline-flex ;
-		}
-		.choggle__control {}
-		.choggle__label {}
-
-	</style>
 	<cfoutput>
 
 		<h1>
@@ -40,7 +15,7 @@
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="submitted" value="true" />
 
-			<dl class="block-collapse">
+			<dl class="key-values">
 				<div>
 					<dt>
 						<strong>Key:</strong>

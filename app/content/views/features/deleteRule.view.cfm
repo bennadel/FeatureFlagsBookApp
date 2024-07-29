@@ -1,18 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		dl {
-			margin: 20px 0px ;
-		}
-
-		dl > div {
-			margin: 10px 0 10px 0 ;
-		}
-		dt {
-			margin: 10px 0 10px 0 ;
-		}
-
-	</style>
 	<cfoutput>
 
 		<h1>
@@ -23,7 +9,7 @@
 			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 		</p>
 
-		<dl class="block-collapse">
+		<dl class="key-values">
 			<div>
 				<dt>
 					<strong>Feature:</strong>

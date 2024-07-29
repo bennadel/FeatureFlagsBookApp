@@ -49,6 +49,9 @@
 			border: 2px solid #333333 ;
 			padding: 20px ;
 		}
+		.env__body .key-values {
+			margin: 0 ;
+		}
 
 		.rule {
 			border: 1px dashed #999999 ;
@@ -70,12 +73,6 @@
 		.value-list__item {
 			border: 1px solid #f55dff ;
 			border-radius: 3px ;
-			padding: 2px 7px ;
-		}
-
-		.tag {
-			border-radius: 3px ;
-			display: inline-block ;
 			padding: 2px 7px ;
 		}
 
@@ -160,12 +157,12 @@
 					&larr; <a href="/index.cfm">Back to Overview</a>
 				</p>
 
-				<dl>
+				<dl class="key-values">
 					<div>
 						<dt>
 							<strong>Key:</strong>
 						</dt>
-						<dd class="block-collapse">
+						<dd>
 							<p>
 								#encodeForHtml( feature.key )#
 							</p>
@@ -175,7 +172,7 @@
 						<dt>
 							<strong>Type:</strong>
 						</dt>
-						<dd class="block-collapse">
+						<dd>
 							<p>
 								#encodeForHtml( feature.type )#
 							</p>
@@ -186,7 +183,7 @@
 							<dt>
 								<strong>Description:</strong>
 							</dt>
-							<dd class="block-collapse">
+							<dd>
 								<p>
 									#encodeForHtml( feature.description )#
 								</p>
@@ -197,7 +194,7 @@
 						<dt>
 							<strong>Variants:</strong>
 						</dt>
-						<dd class="block-collapse">
+						<dd>
 							<ol>
 								<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
 									<li>
@@ -221,9 +218,9 @@
 								#encodeForHtml( environment.name )# Environment
 							</span>
 						</h2>
-						<div class="env__body block-collapse">
+						<div class="env__body">
 
-							<dl>
+							<dl class="key-values">
 								<div
 									x-data="Flasher( '#encodeForJavaScript( environment.key )#' )"
 									@mouseenter="handleMouseenter()"
@@ -239,7 +236,7 @@
 											Edit
 										</a>
 									</dt>
-									<dd class="block-collapse">
+									<dd>
 										<cfswitch expression="#settings.resolution.type#">
 											<cfcase value="selection">
 												<p>
@@ -289,7 +286,7 @@
 											Edit
 										</a>
 									</dt>
-									<dd class="block-collapse">
+									<dd>
 										<p>
 											#yesNoFormat( settings.rulesEnabled )#
 										</p>
@@ -299,7 +296,7 @@
 									<dt>
 										<strong>Rules:</strong>
 									</dt>
-									<dd class="block-collapse">
+									<dd>
 										<cfloop index="ruleEntry" array="#utilities.toEntries( settings.rules )#">
 
 											<cfset rule = ruleEntry.value />
@@ -308,7 +305,7 @@
 												x-data="Flasher( '#encodeForJavaScript( environment.key )#', #ruleEntry.index#, #serializeJson( ! settings.rulesEnabled )# )"
 												@mouseenter="handleMouseenter()"
 												@mouseleave="handleMouseleave()"
-												class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher">
+												class="rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher">
 												<div>
 													<dt x-data="Editable" @click="handleClick()" class="editable">
 														<strong>IF</strong>
@@ -325,7 +322,7 @@
 															Delete
 														</a>
 													</dt>
-													<dd class="block-collapse">
+													<dd>
 														<p>
 															"#encodeForHtml( rule.input )#"
 														</p>
@@ -335,7 +332,7 @@
 													<dt>
 														<strong>#encodeForHtml( rule.operator )#</strong>
 													</dt>
-													<dd class="block-collapse">
+													<dd>
 														<p class="value-list">
 															<cfloop index="value" array="#rule.values#">
 																<span class="value-list__item">
@@ -349,7 +346,7 @@
 													<dt>
 														<strong>Serve:</strong>
 													</dt>
-													<dd class="block-collapse">
+													<dd>
 														<cfswitch expression="#rule.resolution.type#">
 															<cfcase value="selection">
 																<p>

@@ -28,6 +28,43 @@ textarea {
 	line-height: inherit ;
 }
 
+dl.key-values {
+	margin: 20px 0 30px ;
+}
+dl.key-values dt {
+	margin: 10px 0 ;
+}
+dl.key-values > div {
+	margin: 10px 0 15px ;
+}
+dl.key-values > div:first-child,
+dl.key-values > div > dt > *:first-child,
+dl.key-values > div > dd > *:first-child {
+	margin-top: 0 ;
+}
+dl.key-values > div:last-child,
+dl.key-values > div > dt > *:last-child,
+dl.key-values > div > dd > *:last-child {
+	margin-bottom: 0 ;
+}
+
+.choggle {
+	align-items: center ;
+	display: flex ;
+	gap: 10px ;
+}
+.choggle--inline {
+	display: inline-flex ;
+}
+.choggle__control {}
+.choggle__label {}
+
+.tag {
+	border-radius: 3px ;
+	display: inline-block ;
+	padding: 2px 7px ;
+}
+
 /*
 Color palette utility:
 https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),(109,41.2,52),(40,92.3,63.7),(343,100,65.1),(268,66.1,52.1),(55,100,52.5),(182,67.6,54.2),(131,100,71.6),(3,100,66.2)
@@ -75,21 +112,6 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 .variant-0 {
 	background-color: #ff5b53 ;
 	color: #ffffff ;
-}
-
-
-
-.block-collapse > *:first-child,
-.block-collapse > *:first-child > *:first-child,
-.block-collapse > *:first-child > *:first-child > *:first-child,
-.block-collapse > *:first-child > *:first-child > *:first-child > *:first-child {
-	margin-top: 0 ;
-}
-.block-collapse > *:last-child,
-.block-collapse > *:last-child > *:last-child,
-.block-collapse > *:last-child > *:last-child > *:last-child,
-.block-collapse > *:last-child > *:last-child > *:last-child > *:last-child {
-	margin-bottom: 0 ;
 }
 
 .error-message {

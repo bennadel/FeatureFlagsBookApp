@@ -1,26 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		dl {
-			margin: 20px 0px ;
-		}
-
-		dl > div {
-			margin: 10px 0 10px 0 ;
-		}
-		dt {
-			margin: 10px 0 10px 0 ;
-		}
-
-		.choggle {
-			align-items: center ;
-			display: flex ;
-			gap: 10px ;
-		}
-		.choggle__control {}
-		.choggle__label {}
-
-	</style>
 	<cfoutput>
 
 		<h1>
@@ -31,7 +9,7 @@
 			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 		</p>
 
-		<dl>
+		<dl class="key-values">
 			<div>
 				<dt>
 					<strong>Feature:</strong>
@@ -62,7 +40,7 @@
 			<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( request.context.environmentKey )#" />
 			<input type="hidden" name="submitted" value="true" />
 
-			<dl>
+			<dl class="key-values">
 				<div>
 					<dt>
 						<strong>Rules Evaluation:</strong>

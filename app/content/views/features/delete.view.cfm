@@ -1,18 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		dl {
-			margin: 20px 0px ;
-		}
-
-		dl > div {
-			margin: 10px 0 10px 0 ;
-		}
-		dt {
-			margin: 10px 0 10px 0 ;
-		}
-
-	</style>
 	<cfoutput>
 
 		<h1>
@@ -23,7 +9,7 @@
 			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )#">Back to Targeting</a>
 		</p>
 
-		<dl class="block-collapse">
+		<dl class="key-values">
 			<div>
 				<dt>
 					<strong>Feature:</strong>
@@ -56,9 +42,11 @@
 				</dt>
 				<dd>
 					<ol>
-						<cfloop index="variant" array="#feature.variants#">
+						<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
 							<li>
-								#encodeForHtml( serializeJson( variant ) )#
+								<span class="tag variant-#entry.index#">
+									#encodeForHtml( serializeJson( entry.value ) )#
+								</span>
 							</li>
 						</cfloop>
 					</ol>

@@ -1,26 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		dl {
-			margin: 20px 0px ;
-		}
-
-		dl > div {
-			margin: 10px 0 10px 0 ;
-		}
-		dt {
-			margin: 10px 0 10px 0 ;
-		}
-
-		.choggle {
-			align-items: center ;
-			display: flex ;
-			gap: 10px ;
-		}
-		.choggle__control {}
-		.choggle__label {}
-
-	</style>
 	<cfoutput>
 
 		<h1>
@@ -31,7 +9,7 @@
 			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 		</p>
 
-		<dl>
+		<dl class="key-values">
 			<div>
 				<dt>
 					<strong>Feature:</strong>
@@ -79,7 +57,7 @@
 
 			<!-- Selection. -->
 			<template x-if="( form.type === 'selection' )">
-				<dl>
+				<dl class="key-values">
 					<div>
 						<dt>
 							<strong>Selection:</strong>
@@ -110,7 +88,7 @@
 
 			<!-- Distribution. -->
 			<template x-if="( form.type === 'distribution' )">
-				<dl>
+				<dl class="key-values">
 					<div>
 						<dt>
 							<strong>Distribution:</strong>
@@ -156,7 +134,7 @@
 
 			<!-- Variant. -->
 			<template x-if="( form.type === 'variant' )">
-				<dl>
+				<dl class="key-values">
 					<div>
 						<dt>
 							<strong>Variant:</strong>
