@@ -196,7 +196,7 @@
 
 		<p>
 			You can <a href="/index.cfm?event=features.create">add a feature flag</a>.
-			And, you can always <a href="/index.cfm?event=features.reset">reset your settings</a>.
+			And, you can always <a href="/index.cfm?event=features.reset">reset your settings</a><cfif ( config.version gt 1 )> (version: #encodeForHtml( config.version )#)</cfif>.
 		</p>
 
 		<hr />
