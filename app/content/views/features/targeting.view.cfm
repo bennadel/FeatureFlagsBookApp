@@ -120,6 +120,12 @@
 			opacity: 1.0 ;
 		}
 
+		.flasher:hover {
+			border-radius: 1px ;
+			outline: 2px dashed #aaaaaa ;
+			outline-offset: 4px ;
+		}
+
 	</style>
 	<cfoutput>
 		<!--- These power the mouseenter/mouseleave highlights of the evaluations. --->
@@ -217,7 +223,8 @@
 								<div
 									x-data="Flasher( '#encodeForJavaScript( environment.key )#' )"
 									@mouseenter="handleMouseenter()"
-									@mouseleave="handleMouseleave()">
+									@mouseleave="handleMouseleave()"
+									class="flasher">
 									<dt x-data="Editable" @click="handleClick()" class="editable">
 										<strong>Default Resolution:</strong>
 
@@ -294,10 +301,10 @@
 											<cfset rule = ruleEntry.value />
 
 											<dl
-												x-data="Flasher( '#encodeForJavaScript( environment.key )#', #ruleEntry.index# )"
+												x-data="Flasher( '#encodeForJavaScript( environment.key )#', #ruleEntry.index#, #serializeJson( ! settings.rulesEnabled )# )"
 												@mouseenter="handleMouseenter()"
 												@mouseleave="handleMouseleave()"
-												class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif>">
+												class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher">
 												<div>
 													<dt x-data="Editable" @click="handleClick()" class="editable">
 														<strong>IF</strong>
@@ -439,7 +446,7 @@
 	</cfoutput>
 	<script type="text/javascript">
 
-		function Flasher( environmentKey, ruleIndex = 0 ) {
+		function Flasher( environmentKey, ruleIndex = 0, ignoreEvent = false ) {
 
 			var table = document.querySelector( ".state" );
 			var association = `${ environmentKey }:${ ruleIndex }`;
@@ -456,11 +463,23 @@
 
 			function handleMouseenter() {
 
+				if ( ignoreEvent ) {
+
+					return;
+
+				}
+
 				table.classList.add( association );
 
 			}
 
 			function handleMouseleave() {
+
+				if ( ignoreEvent ) {
+
+					return;
+
+				}
 
 				table.classList.remove( association );
 
