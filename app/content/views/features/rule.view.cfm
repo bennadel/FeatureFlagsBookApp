@@ -240,6 +240,16 @@
 											</label>
 
 										</template>
+
+										<p>
+											Total: <span x-text="form.resolution.allocationTotal"></span>
+
+											<template x-if="( form.resolution.allocationTotal !== 100 )">
+												<span>
+													- <mark>must total to 100</mark>.
+												</span>
+											</template>
+										</p>
 									</dd>
 								</div>
 							</dl>
@@ -338,6 +348,7 @@
 
 				// Private methods.
 				_persistData: persistData,
+				_setAllocationTotal: setAllocationTotal,
 				_setDatalist: setDatalist
 			};
 
@@ -401,12 +412,14 @@
 				}
 
 				this._setDatalist();
+				this._setAllocationTotal();
 
 			}
 
 			function handleDistribution() {
 
 				this._persistData();
+				this._setAllocationTotal();
 
 			}
 
@@ -535,6 +548,19 @@
 			function persistData() {
 
 				ruleDataRef.value = JSON.stringify( this.form );
+
+			}
+
+			function setAllocationTotal() {
+
+				this.form.resolution.allocationTotal = 0;
+				this.form.resolution.distribution.forEach(
+					( value ) => {
+
+						this.form.resolution.allocationTotal += value;
+
+					}
+				);
 
 			}
 
