@@ -172,6 +172,8 @@ You may notice that the `environments`, `features`, and `targeting` properties a
 
 ## Change Log
 
+* **2024, July 29**: I've added the ability to create new feature flags, delete existing feature flags, and reset the configuration data back to the original default values.
+
 * **2024, July 28**: I've added basic workflows for editing the core configuration data. At this point, there's still no way to add or delete a feature flag; however, you can edit all the targeting information for the existing feature flag. This should give people a better sense of how feature flags can be progressively rolled out.
 
 * **2024, June 27**: I've added all the configuration validation methods. At this point, I should be able to start creating the UI that allows a user to actually edit their config file.
