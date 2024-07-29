@@ -91,17 +91,6 @@
 			line-height: 0px ;
 			position: relative ;
 		}
-		.evaluation.flashing {
-			animation-duration: 1000ms ;
-			animation-iteration-count: infinite ;
-			animation-name: evaluation-flasher ;
-			animation-timing-function: linear ;
-		}
-		@keyframes evaluation-flasher {
-			50% {
-				background-color: #ffffff ;
-			}
-		}
 		.evaluation__link {
 			inset: 0 ;
 			position: absolute ;
@@ -132,6 +121,18 @@
 		}
 
 	</style>
+	<cfoutput>
+		<!--- These power the mouseenter/mouseleave highlights of the evaluations. --->
+		<style type="text/css">
+			<cfloop index="environment" array="#environments#">
+				<cfloop index="i" from="0" to="20">
+					.state.#environment.key#\:#i# .evaluation:not(.#environment.key#\:#i#) {
+						background-color: ##ffffff ;
+					}
+				</cfloop>
+			</cfloop>
+		</style>
+	</cfoutput>
 	<cfoutput>
 
 		<div class="panels">
@@ -210,7 +211,7 @@
 
 							<dl>
 								<div
-									x-data="DefaultResolution( '#encodeForJavaScript( environment.key )#' )"
+									x-data="Flasher( '#encodeForJavaScript( environment.key )#' )"
 									@mouseenter="handleMouseenter()"
 									@mouseleave="handleMouseleave()">
 									<dt x-data="Editable" @click="handleClick()" class="editable">
@@ -289,7 +290,7 @@
 											<cfset rule = ruleEntry.value />
 
 											<dl
-												x-data="Rule( '#encodeForJavaScript( environment.key )#', #ruleEntry.index# )"
+												x-data="Flasher( '#encodeForJavaScript( environment.key )#', #ruleEntry.index# )"
 												@mouseenter="handleMouseenter()"
 												@mouseleave="handleMouseleave()"
 												class="rule block-collapse <cfif ! settings.rulesEnabled>rule--disabled</cfif>">
@@ -432,15 +433,15 @@
 	</cfoutput>
 	<script type="text/javascript">
 
-		function DefaultResolution( environmentKey ) {
+		function Flasher( environmentKey, ruleIndex = 0 ) {
+
+			var table = document.querySelector( ".state" );
+			var association = `${ environmentKey }:${ ruleIndex }`;
 
 			return {
 				// Public methods.
 				handleMouseenter: handleMouseenter,
-				handleMouseleave: handleMouseleave,
-
-				// Private methods.
-				_findAssociations: findAssociations
+				handleMouseleave: handleMouseleave
 			};
 
 			// ---
@@ -449,78 +450,13 @@
 
 			function handleMouseenter() {
 
-				for ( var node of this._findAssociations() ) {
-
-					node.classList.add( "flashing" );
-
-				}
+				table.classList.add( association );
 
 			}
 
 			function handleMouseleave() {
 
-				for ( var node of this._findAssociations() ) {
-
-					node.classList.remove( "flashing" );
-
-				}
-
-			}
-
-			// ---
-			// PRIVATE METHODS.
-			// ---
-
-			function findAssociations() {
-
-				return document.querySelectorAll( `.${ environmentKey }\\:0` );
-
-			}
-
-		}
-
-		function Rule( environmentKey, ruleIndex ) {
-
-			return {
-				// Public methods.
-				handleMouseenter: handleMouseenter,
-				handleMouseleave: handleMouseleave,
-
-				// Private methods.
-				_findAssociations: findAssociations
-			};
-
-			// ---
-			// PUBLIC METHODS.
-			// ---
-
-			function handleMouseenter() {
-
-				for ( var node of this._findAssociations() ) {
-
-					node.classList.add( "flashing" );
-
-				}
-
-			}
-
-			function handleMouseleave() {
-
-				for ( var node of this._findAssociations() ) {
-
-					node.classList.remove( "flashing" );
-
-				}
-
-			}
-
-			// ---
-			// PRIVATE METHODS.
-			// ---
-
-			function findAssociations() {
-
-				return document.querySelectorAll( `.${ environmentKey }\\:${ ruleIndex }` );
+				table.classList.remove( association );
 
 			}
 
