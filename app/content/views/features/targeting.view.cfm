@@ -31,9 +31,13 @@
 
 		.env {}
 		.env__header {
+			background-color: #ffffff ;
 			border-bottom: 2px solid #333333 ;
 			display: flex ;
 			margin: 40px 0 0 0 ;
+			position: sticky ;
+			top: 0px ;
+			z-index: 2 ;
 		}
 		.env__label {
 			background-color: #333333 ;
