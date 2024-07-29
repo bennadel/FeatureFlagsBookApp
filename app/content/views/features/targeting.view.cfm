@@ -357,7 +357,9 @@
 																		<li>
 																			#distributionEntry.value#%
 																			&rarr;
-																			#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																			<span class="tag variant-#distributionEntry.index#">
+																				#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																			</span>
 																		</li>
 																	</cfloop>
 																</ul>
