@@ -124,6 +124,10 @@
 	<cfoutput>
 		<!--- These power the mouseenter/mouseleave highlights of the evaluations. --->
 		<style type="text/css">
+			.evaluation {
+				transition: background-color 300ms ease-out ;
+			}
+
 			<cfloop index="environment" array="#environments#">
 				<cfloop index="i" from="0" to="20">
 					.state.#environment.key#\:#i# .evaluation:not(.#environment.key#\:#i#) {
