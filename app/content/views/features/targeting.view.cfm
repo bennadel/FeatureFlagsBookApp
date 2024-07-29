@@ -92,7 +92,7 @@
 			position: relative ;
 		}
 		.evaluation.flashing {
-			animation-duration: 750ms ;
+			animation-duration: 1000ms ;
 			animation-iteration-count: infinite ;
 			animation-name: evaluation-flasher ;
 			animation-timing-function: linear ;
@@ -203,13 +203,16 @@
 					<div class="env">
 						<h2 class="env__header">
 							<span class="env__label">
-								#encodeForHtml( environment.name )# Settings
+								#encodeForHtml( environment.name )# Environment
 							</span>
 						</h2>
 						<div class="env__body block-collapse">
 
 							<dl>
-								<div>
+								<div
+									x-data="DefaultResolution( '#encodeForJavaScript( environment.key )#' )"
+									@mouseenter="handleMouseenter()"
+									@mouseleave="handleMouseleave()">
 									<dt x-data="Editable" @click="handleClick()" class="editable">
 										<strong>Default Resolution:</strong>
 
@@ -428,6 +431,53 @@
 
 	</cfoutput>
 	<script type="text/javascript">
+
+		function DefaultResolution( environmentKey ) {
+
+			return {
+				// Public methods.
+				handleMouseenter: handleMouseenter,
+				handleMouseleave: handleMouseleave,
+
+				// Private methods.
+				_findAssociations: findAssociations
+			};
+
+			// ---
+			// PUBLIC METHODS.
+			// ---
+
+			function handleMouseenter() {
+
+				for ( var node of this._findAssociations() ) {
+
+					node.classList.add( "flashing" );
+
+				}
+
+			}
+
+			function handleMouseleave() {
+
+				for ( var node of this._findAssociations() ) {
+
+					node.classList.remove( "flashing" );
+
+				}
+
+			}
+
+			// ---
+			// PRIVATE METHODS.
+			// ---
+
+			function findAssociations() {
+
+				return document.querySelectorAll( `.${ environmentKey }\\:0` );
+
+			}
+
+		}
 
 		function Rule( environmentKey, ruleIndex ) {
 
