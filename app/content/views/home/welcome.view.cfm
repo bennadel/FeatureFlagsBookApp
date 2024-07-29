@@ -195,7 +195,8 @@
 		</table>
 
 		<p>
-			You can always <a href="/index.cfm?event=features.reset">reset your settings</a>.
+			You can <a href="/index.cfm?event=features.create">add a feature flag</a>.
+			And, you can always <a href="/index.cfm?event=features.reset">reset your settings</a>.
 		</p>
 
 		<hr />
