@@ -66,7 +66,7 @@
 			<span class="emoji">&##x2764;&##xfe0f;</span>
 			Feature Flags
 			<span class="emoji">&##x2764;&##xfe0f;</span>
-			Click around and edit the feature flag settings to see how targeting changes affect variant allocation.
+			Click around and edit the feature flag settings to see how targeting changes affect variant allocation (against the 100 demo users).
 		</p>
 
 		<table class="grid">

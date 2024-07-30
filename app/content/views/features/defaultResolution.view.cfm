@@ -9,7 +9,7 @@
 			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 		</p>
 
-		<dl class="key-values">
+		<dl class="key-values key-values--static">
 			<div>
 				<dt>
 					<strong>Feature:</strong>
@@ -63,24 +63,28 @@
 							<strong>Selection:</strong>
 						</dt>
 						<dd>
-							<template x-for="( variant, i ) in feature.variants">
+							<ul class="no-marker breathing-room">
+								<template x-for="( variant, i ) in feature.variants">
 
-								<label class="choggle">
-									<input
-										x-model.number="form.selection"
-										type="radio"
-										name="selectionIndex"
-										:value="( i + 1 )"
-										@change="handleSelection()"
-										class="choggle__control"
-									/>
-									<span
-										class="choggle__label"
-										x-text="JSON.stringify( variant )">
-									</span>
-								</label>
+									<li>
+										<label class="choggle">
+											<input
+												x-model.number="form.selection"
+												type="radio"
+												name="selectionIndex"
+												:value="( i + 1 )"
+												@change="handleSelection()"
+												class="choggle__control"
+											/>
+											<span
+												class="choggle__label tag" :class="( 'variant-' + ( i + 1 ) )"
+												x-text="JSON.stringify( variant )">
+											</span>
+										</label>
+									</li>
 
-							</template>
+								</template>
+							</ul>
 						</dd>
 					</div>
 				</dl>
@@ -94,29 +98,37 @@
 							<strong>Distribution:</strong>
 						</dt>
 						<dd>
-							<template x-for="( allocation, i ) in form.distribution">
+							<ul class="no-marker breathing-room">
+								<template x-for="( allocation, i ) in form.distribution">
 
-								<label class="choggle">
-									<select
-										x-model.number="form.distribution[ i ]"
-										@change="handleDistribution()"
-										class="choggle__control">
+									<li>
+										<label class="choggle">
+											<select
+												x-model.number="form.distribution[ i ]"
+												@change="handleDistribution()"
+												class="choggle__control">
 
-										<template x-for="n in 101">
-											<option
-												:value="( n - 1 )"
-												:selected="( form.distribution[ i ] === ( n - 1 ) )"
-												x-text="( ( n - 1 ) + '%' )"
-											></option>
-										</template>
-									</select>
-									<span
-										class="choggle__label"
-										x-text="JSON.stringify( feature.variants[ i ] )">
-									</span>
-								</label>
+												<template x-for="n in 101">
+													<option
+														:value="( n - 1 )"
+														:selected="( form.distribution[ i ] === ( n - 1 ) )"
+														x-text="( ( n - 1 ) + '%' )"
+													></option>
+												</template>
+											</select>
+											<span class="choggle__label">
+												&rarr;
+												<span
+													class="tag"
+													:class="( 'variant-' + ( i + 1 ) )"
+													x-text="JSON.stringify( feature.variants[ i ] )">
+												</span>
+											</span>
+										</label>
+									</li>
 
-							</template>
+								</template>
+							</ul>
 
 							<p>
 								Total: <span x-text="form.allocationTotal"></span>

@@ -41,7 +41,7 @@
 					<strong>Variants:</strong>
 				</dt>
 				<dd>
-					<ol>
+					<ol class="breathing-room">
 						<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
 							<li>
 								<span class="tag variant-#entry.index#">

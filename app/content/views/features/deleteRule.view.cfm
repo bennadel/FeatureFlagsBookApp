@@ -65,12 +65,16 @@
 							<p>
 								Distribution
 							</p>
-							<ul>
+							<ul class="breathing-room">
 								<cfloop index="entry" array="#utilities.toEntries( rule.resolution.distribution )#">
-									<li>
-										#encodeForHtml( entry.value )#% &rarr;
-										#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
-									</li>
+									<cfif entry.value>
+										<li>
+											#encodeForHtml( entry.value )#% &rarr;
+											<span class="tag variant-#entry.index#">
+												#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
+											</span>
+										</li>
+									</cfif>
 								</cfloop>
 							</ul>
 						</cfcase>

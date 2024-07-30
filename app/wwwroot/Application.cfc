@@ -68,7 +68,7 @@ component
 		request.logger = ioc.get( "lib.Logger" );
 
 		// This is used to cache-bust some of the static assets.
-		ioc.provide( "staticAssetVersion", "2024.07.29.17.00" );
+		ioc.provide( "staticAssetVersion", "2024.07.30.06.39" );
 
 		// As the very last step in the initialization process, we want to flag that the
 		// application has been fully bootstrapped. This way, we can test the state of the

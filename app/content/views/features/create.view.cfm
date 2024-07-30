@@ -71,29 +71,34 @@
 						<strong>Variants:</strong>
 					</dt>
 					<dd>
-						<ol>
+						<ol class="breathing-room">
 							<cfloop index="entry" array="#utilities.toEntries( form.variantsRaw )#">
 								<li>
-									<input
-										type="text"
-										name="variantsRaw[]"
-										value="#encodeForHtmlAttribute( entry.value )#"
-										size="30"
-									/>
-									<label class="choggle choggle--inline">
+
+									<div class="choggle">
 										<input
-											type="radio"
-											name="defaultSelection"
-											value="#encodeForHtmlAttribute( entry.index )#"
-											<cfif ( form.defaultSelection == entry.index )>
-												checked
-											</cfif>
+											type="text"
+											name="variantsRaw[]"
+											value="#encodeForHtmlAttribute( entry.value )#"
+											size="30"
 											class="choggle__control"
 										/>
-										<span class="=choggle__label">
-											Use as default.
-										</span>
-									</label>
+										<label class="choggle__label choggle">
+											<input
+												type="radio"
+												name="defaultSelection"
+												value="#encodeForHtmlAttribute( entry.index )#"
+												<cfif ( form.defaultSelection == entry.index )>
+													checked
+												</cfif>
+												class="choggle__control"
+											/>
+											<span class="choggle__label">
+												Use as default.
+											</span>
+										</label>
+									</div>
+
 								</li>
 							</cfloop>
 						</ol>

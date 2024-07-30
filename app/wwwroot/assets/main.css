@@ -28,11 +28,24 @@ textarea {
 	line-height: inherit ;
 }
 
+input[ type = "text" ] {
+	padding: 5px 10px ;
+}
+button {
+	padding: 5px 10px ;
+}
+select {
+	padding: 5px 10px ;
+}
+textarea {
+	padding: 5px 10px ;
+}
+
 dl.key-values {
 	margin: 20px 0 30px ;
 }
 dl.key-values dt {
-	margin: 10px 0 ;
+	margin: 0 0 5px ;
 }
 dl.key-values > div {
 	margin: 10px 0 15px ;
@@ -46,6 +59,12 @@ dl.key-values > div:last-child,
 dl.key-values > div > dt > *:last-child,
 dl.key-values > div > dd > *:last-child {
 	margin-bottom: 0 ;
+}
+
+dl.key-values--static {
+	border-bottom: 1px dashed #cccccc ;
+	margin-bottom: 30px ;
+	padding-bottom: 20px ;
 }
 
 .choggle {
@@ -63,6 +82,25 @@ dl.key-values > div > dd > *:last-child {
 	border-radius: 3px ;
 	display: inline-block ;
 	padding: 2px 7px ;
+}
+
+ul.breathing-room li,
+ol.breathing-room li {
+	margin-bottom: 5px ;
+	margin-top: 5px ;
+}
+
+ul.no-marker,
+ol.no-marker {
+	list-style-type: none ;
+	margin-left: 0 ;
+	margin-right: 0 ;
+	padding: 0 ;
+}
+
+ul.no-marker li,
+ol.no-marker li {
+	padding: 0 ;
 }
 
 /*

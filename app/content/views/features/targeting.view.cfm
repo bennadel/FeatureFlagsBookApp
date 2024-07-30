@@ -50,6 +50,9 @@
 			padding: 20px ;
 		}
 		.env__body .key-values {
+			margin: 10px 0 ;
+		}
+		.env__body > .key-values {
 			margin: 0 ;
 		}
 
@@ -195,7 +198,7 @@
 							<strong>Variants:</strong>
 						</dt>
 						<dd>
-							<ol>
+							<ol class="breathing-room">
 								<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
 									<li>
 										<span class="tag variant-#variantEntry.index#">
@@ -251,15 +254,17 @@
 												<p>
 													Distribution
 												</p>
-												<ul>
+												<ul class="breathing-room">
 													<cfloop index="distributionEntry" array="#utilities.toEntries( settings.resolution.distribution )#">
-														<li>
-															#distributionEntry.value#%
-															&rarr;
-															<span class="tag variant-#distributionEntry.index#">
-																#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
-															</span>
-														</li>
+														<cfif distributionEntry.value>
+															<li>
+																#distributionEntry.value#%
+																&rarr;
+																<span class="tag variant-#distributionEntry.index#">
+																	#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																</span>
+															</li>
+														</cfif>
 													</cfloop>
 												</ul>
 											</cfcase>
@@ -305,7 +310,7 @@
 												x-data="Flasher( '#encodeForJavaScript( environment.key )#', #ruleEntry.index#, #serializeJson( ! settings.rulesEnabled )# )"
 												@mouseenter="handleMouseenter()"
 												@mouseleave="handleMouseleave()"
-												class="rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher">
+												class="key-values rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher">
 												<div>
 													<dt x-data="Editable" @click="handleClick()" class="editable">
 														<strong>IF</strong>
@@ -360,15 +365,17 @@
 																<p>
 																	Distribution
 																</p>
-																<ul>
+																<ul class="breathing-room">
 																	<cfloop index="distributionEntry" array="#utilities.toEntries( rule.resolution.distribution )#">
-																		<li>
-																			#distributionEntry.value#%
-																			&rarr;
-																			<span class="tag variant-#distributionEntry.index#">
-																				#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
-																			</span>
-																		</li>
+																		<cfif distributionEntry.value>
+																			<li>
+																				#distributionEntry.value#%
+																				&rarr;
+																				<span class="tag variant-#distributionEntry.index#">
+																					#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																				</span>
+																			</li>
+																		</cfif>
 																	</cfloop>
 																</ul>
 															</cfcase>

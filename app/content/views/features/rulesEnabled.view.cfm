@@ -9,7 +9,7 @@
 			&larr; <a href="/index.cfm?event=features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 		</p>
 
-		<dl class="key-values">
+		<dl class="key-values key-values--static">
 			<div>
 				<dt>
 					<strong>Feature:</strong>

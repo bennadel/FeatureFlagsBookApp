@@ -42,7 +42,7 @@
 
 		<p>
 			<strong>Variant:</strong>
-			<span class="variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+			<span class="tag variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
 
 			<cfif ! result.variantIndex>
 				<cfif ( result.reason == "Error" )>
