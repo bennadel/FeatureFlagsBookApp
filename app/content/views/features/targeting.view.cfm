@@ -10,7 +10,7 @@
 			flex: 1 1 auto ;
 			overflow: auto ;
 			overscroll-behavior: contain ;
-			padding: 0px 20px 20px 20px ;
+			padding: 0px 8px 8px 8px ;
 		}
 		.panels__aside {
 			flex: 0 0 auto ;
@@ -83,6 +83,7 @@
 			border-collapse: collapse ;
 			border-spacing: 0 ;
 			height: 100% ;
+			min-width: 400px ;
 		}
 		.state th {
 			height: 40px ;

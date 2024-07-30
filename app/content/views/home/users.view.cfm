@@ -19,6 +19,10 @@
 		.grid tbody tr:hover td {
 			background-color: #f0f0f0 ;
 		}
+		.grid .sorter {
+			cursor: pointer ;
+			user-select: none ;
+		}
 
 		.highlight {
 			background-color: #fff59a ;
@@ -51,7 +55,7 @@
 			<tr>
 				<!-- User. -->
 				<th>
-					<a @click="sortOn( 'user.id' )">
+					<a @click="sortOn( 'user.id' )" class="sorter">
 						ID
 					</a>
 				</th>
@@ -59,12 +63,12 @@
 					Name
 				</th>
 				<th>
-					<a @click="sortOn( 'user.email' )">
+					<a @click="sortOn( 'user.email' )" class="sorter">
 						Email
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.role' )">
+					<a @click="sortOn( 'user.role' )" class="sorter">
 						Role
 					</a>
 				</th>
@@ -73,28 +77,28 @@
 					ID
 				</th>
 				<th>
-					<a @click="sortOn( 'user.company.subdomain' )">
+					<a @click="sortOn( 'user.company.subdomain' )" class="sorter">
 						Subdomain
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.company.fortune100' )">
+					<a @click="sortOn( 'user.company.fortune100' )" class="sorter">
 						Fortune100
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.company.fortune500' )">
+					<a @click="sortOn( 'user.company.fortune500' )" class="sorter">
 						Fortune500
 					</a>
 				</th>
 				<!-- Groups. -->
 				<th>
-					<a @click="sortOn( 'user.groups.betaTester' )">
+					<a @click="sortOn( 'user.groups.betaTester' )" class="sorter">
 						BetaTester
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.groups.influencer' )">
+					<a @click="sortOn( 'user.groups.influencer' )" class="sorter">
 						Influencer
 					</a>
 				</th>
