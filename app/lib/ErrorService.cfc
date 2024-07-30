@@ -330,11 +330,17 @@ component
 					message: "Your rule values entry must be provided as a simple value (such as a string, number, boolean). Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Rule.Values.Empty":
+				return as422({
+					type: error.type,
+					message: "Your rule values cannot be empty. Please provide at least one simple value (such as a string, number, boolean). Validating property: [#metadata.validationPath#]."
+				});
+			break;
 			case "App.Model.Config.Rule.Values.Invalid":
 			case "App.Model.Config.Rule.Values.Missing":
 				return as422({
 					type: error.type,
-					message: "Your rules values must be provided as an array. Validating property: [#metadata.validationPath#]."
+					message: "Your rule values must be provided as an array. Validating property: [#metadata.validationPath#]."
 				});
 			break;
 			case "App.Model.Config.SerializationFailure":

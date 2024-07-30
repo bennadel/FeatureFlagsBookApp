@@ -1905,6 +1905,17 @@ component
 
 		}
 
+		if ( ! values.len() ) {
+
+			throw(
+				type = "App.Model.Config.Rule.Values.Empty",
+				extendedInfo = serializeJson({
+					validationPath: validationPath
+				})
+			);
+
+		}
+
 		values = values.map(
 			( element, i ) => {
 
