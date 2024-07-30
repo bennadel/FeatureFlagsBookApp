@@ -16,6 +16,40 @@ component
 	// ---
 
 	/**
+	* I remove all the rules and apply a default resolution using selection.
+	*/
+	public void function clearConfig( required string email ) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		config.version = 2;
+		config.features.each(
+			( featureKey, featureSettings ) => {
+
+				featureSettings.targeting.each(
+					( environmentKey, environmentSettings ) => {
+
+						environmentSettings.resolution = [
+							type: "selection",
+							selection: featureSettings.defaultSelection
+						];
+						environmentSettings.rulesEnabled = false;
+						environmentSettings.rules = [];
+
+					}
+				);
+
+			}
+		);
+
+		config = configValidation.testConfig( config );
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
+
+	/**
 	* I get the features config for the given user.
 	*/
 	public struct function getConfig( required string email ) {

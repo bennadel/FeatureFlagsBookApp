@@ -69,6 +69,13 @@
 			Click around and edit the feature flag settings to see how targeting changes affect variant allocation (against the 100 demo users).
 		</p>
 
+		<p>
+			You can <a href="/index.cfm?event=features.create">add a feature flag</a>.
+			And, at any time, you can
+			<a href="/index.cfm?event=features.clear">remove all rules</a> or
+			<a href="/index.cfm?event=features.reset">reset your settings</a><cfif ( config.version gt 1 )> (version: #encodeForHtml( config.version )#)</cfif>.
+		</p>
+
 		<table class="grid">
 		<thead>
 			<tr>
@@ -193,11 +200,6 @@
 			</cfloop>
 		</tbody>
 		</table>
-
-		<p>
-			You can <a href="/index.cfm?event=features.create">add a feature flag</a>.
-			And, you can always <a href="/index.cfm?event=features.reset">reset your settings</a><cfif ( config.version gt 1 )> (version: #encodeForHtml( config.version )#)</cfif>.
-		</p>
 
 		<hr />
 
