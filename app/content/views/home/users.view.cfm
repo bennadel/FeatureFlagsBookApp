@@ -10,6 +10,7 @@
 		.grid td {
 			border-bottom: 2px solid #cccccc ;
 			padding: 7px 10px ;
+			white-space: nowrap ;
 		}
 		.grid .row-group {
 			padding: 20px 20px ;
@@ -24,6 +25,9 @@
 			user-select: none ;
 		}
 
+		.diminish {
+			opacity: 0.3 ;
+		}
 		.highlight {
 			background-color: #fff59a ;
 		}
@@ -39,10 +43,14 @@
 			&larr; <a href="/index.cfm">Back to Overview</a>
 		</p>
 
+		<p>
+			The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map to 1 user.
+		</p>
+
 		<table x-data="Grid" class="grid">
 		<thead>
 			<tr>
-				<th colspan="4" class="col-group">
+				<th colspan="3" class="col-group">
 					User
 				</th>
 				<th colspan="4" class="col-group">
@@ -60,9 +68,6 @@
 					</a>
 				</th>
 				<th>
-					Name
-				</th>
-				<th>
 					<a @click="sortOn( 'user.email' )" class="sorter">
 						Email
 					</a>
@@ -74,7 +79,9 @@
 				</th>
 				<!-- Company. -->
 				<th>
-					ID
+					<a @click="sortOn( 'user.company.id' )" class="sorter">
+						ID
+					</a>
 				</th>
 				<th>
 					<a @click="sortOn( 'user.company.subdomain' )" class="sorter">
@@ -107,7 +114,7 @@
 		<template x-for="( group, groupIndex ) in groups" :key="groupIndex">
 			<tbody>
 				<tr>
-					<th colspan="10" class="row-group">
+					<th colspan="9" class="row-group">
 						<span x-text="group.name"></span>
 						(<span x-text="group.users.length"></span>)
 					</th>
@@ -119,13 +126,8 @@
 							:class="{ highlight: ( input === 'user.id' ) }"
 							x-text="user.id">
 						</td>
-						<td
-							:class="{ highlight: ( input === 'user.name' ) }"
-							x-text="user.name">
-						</td>
-						<td
-							:class="{ highlight: ( input === 'user.email' ) }"
-							x-text="user.email">
+						<td :class="{ highlight: ( input === 'user.email' ) }">
+							<span class="diminish" x-text="user.emailUser"></span><span x-text="user.emailDomain"></span>
 						</td>
 						<td
 							:class="{ highlight: ( input === 'user.role' ) }"
@@ -170,6 +172,16 @@
 
 			var allUsers = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( demoUsers.getUsers() ) )#</cfoutput>" );
 
+			allUsers.forEach(
+				( user ) => {
+
+					var parts = user.email.split( "@" );
+					user.emailUser = parts[ 0 ];
+					user.emailDomain = `@${ parts[ 1 ] }`;
+
+				}
+			);
+
 			return {
 				input: null,
 				groups: null,
@@ -200,12 +212,16 @@
 						getLabel: ( facet ) => "All users"
 					},
 					"user.email": {
-						getFacet: ( user ) => `@${ user.email.split( "@" )[ 1 ] }`,
+						getFacet: ( user ) => user.emailDomain,
 						getLabel: ( facet ) => `Email ending with: ${ facet }`
 					},
 					"user.role": {
 						getFacet: ( user ) => user.role,
 						getLabel: ( facet ) => `Role: ${ facet }`
+					},
+					"user.company.id": {
+						getFacet: ( user ) => user.company.id,
+						getLabel: ( facet ) => `Company ID: ${ facet }`
 					},
 					"user.company.subdomain": {
 						getFacet: ( user ) => user.company.subdomain,

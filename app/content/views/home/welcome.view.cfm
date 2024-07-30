@@ -64,9 +64,9 @@
 		<p>
 			This application is here to help you learn about
 			<span class="emoji">&##x2764;&##xfe0f;</span>
-			Feature Flags
+			<a href="https://featureflagsbook.com/" target="_blank">Feature Flags</a>
 			<span class="emoji">&##x2764;&##xfe0f;</span>
-			Click around and edit the feature flag settings to see how targeting changes affect variant allocation (against the <a href="/index.cfm?event=home.users">100 demo users</a>).
+			Click around and edit the feature flag settings to see how changes to targeting affect variant allocation (against the <a href="/index.cfm?event=home.users">100 demo users</a>).
 		</p>
 
 		<p>
