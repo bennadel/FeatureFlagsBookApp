@@ -17,10 +17,25 @@
 		.grid td {
 			border-bottom: 2px solid #cccccc ;
 			padding: 7px 10px ;
+			text-align: left ;
 			white-space: nowrap ;
+		}
+		.grid th.sticky {
+			background-color: #ffffff ;
+			padding: 10px ;
+			position: sticky ;
+			top: -1px ;
+			z-index: 2 ;
+		}
+		.grid .col-group {
+			border: 1px dashed #cccccc ;
+			border-bottom: 2px solid #cccccc ;
+			padding: 10px ;
+			text-align: center ;
 		}
 		.grid .row-group {
 			padding: 20px 20px ;
+			text-align: center ;
 		}
 
 		.grid tbody tr:hover th,
@@ -84,49 +99,49 @@
 			</tr>
 			<tr>
 				<!-- User. -->
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.id' )" class="sorter">
 						ID
 					</a>
 				</th>
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.email' )" class="sorter">
 						Email
 					</a>
 				</th>
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.role' )" class="sorter">
 						Role
 					</a>
 				</th>
 				<!-- Company. -->
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.company.id' )" class="sorter">
 						ID
 					</a>
 				</th>
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.company.subdomain' )" class="sorter">
 						Subdomain
 					</a>
 				</th>
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.company.fortune100' )" class="sorter">
 						Fortune100
 					</a>
 				</th>
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.company.fortune500' )" class="sorter">
 						Fortune500
 					</a>
 				</th>
 				<!-- Groups. -->
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.groups.betaTester' )" class="sorter">
 						BetaTester
 					</a>
 				</th>
-				<th>
+				<th class="sticky">
 					<a href="##grid" @click="sortOn( 'user.groups.influencer' )" class="sorter">
 						Influencer
 					</a>
