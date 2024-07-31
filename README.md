@@ -9,6 +9,8 @@ As a fun experiment, I wanted to build a small playground companion to my [Featu
 
 [Log into the playground][app] &rarr;
 
+[![Screenshot of Feature Flags Playground video player](./assets/demo-thumbnail@2x.jpg)](https://www.youtube.com/watch?v=5h-ozYaN8Qs)
+
 ## Feature Flags Data Structure
 
 A feature flags system is really just a rules engine that takes application-provided inputs (such as `userID` or `userEmail`), funnels them through a set of rules, and then returns a predictable and repeatable result. Meaning, the same inputs will always yield the same result as long as the configured rules have not changed.
