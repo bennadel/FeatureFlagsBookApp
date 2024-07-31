@@ -1,6 +1,13 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
+		.role-tag {
+			border: 1px solid #cccccc ;
+			border-radius: 4px ;
+			display: inline-block ;
+			padding: 2px 9px ;
+		}
+
 		.grid {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
@@ -47,11 +54,22 @@
 			The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map (roughly) to 1 additional user.
 		</p>
 
-		<p x-data="AuthUsers">
-			I've also created <span x-text="emailCount"></span> users <mark>based on <em>your</em> email address</mark>: <span x-text="emailList"></span>. They all belong to a comany with subdomian "<strong>devteam</strong>".
-		</p>
+		<div x-data="AuthUsers">
+			<p>
+				I've also created <span x-text="authUsers.length"></span> users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
+			</p>
+			<ul class="breathing-room">
+				<template x-for="user in authUsers">
+					<li>
+						<span class="role-tag" x-text="user.role"></span>
+						&rarr;
+						<span x-text="user.email"></span>
+					</li>
+				</template>
+			</ul>
+		</div>
 
-		<table x-data="Grid" class="grid">
+		<table x-data="Grid" id="grid" class="grid">
 		<thead>
 			<tr>
 				<th colspan="3" class="col-group">
@@ -67,49 +85,49 @@
 			<tr>
 				<!-- User. -->
 				<th>
-					<a @click="sortOn( 'user.id' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.id' )" class="sorter">
 						ID
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.email' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.email' )" class="sorter">
 						Email
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.role' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.role' )" class="sorter">
 						Role
 					</a>
 				</th>
 				<!-- Company. -->
 				<th>
-					<a @click="sortOn( 'user.company.id' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.company.id' )" class="sorter">
 						ID
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.company.subdomain' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.company.subdomain' )" class="sorter">
 						Subdomain
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.company.fortune100' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.company.fortune100' )" class="sorter">
 						Fortune100
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.company.fortune500' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.company.fortune500' )" class="sorter">
 						Fortune500
 					</a>
 				</th>
 				<!-- Groups. -->
 				<th>
-					<a @click="sortOn( 'user.groups.betaTester' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.groups.betaTester' )" class="sorter">
 						BetaTester
 					</a>
 				</th>
 				<th>
-					<a @click="sortOn( 'user.groups.influencer' )" class="sorter">
+					<a href="##grid" @click="sortOn( 'user.groups.influencer' )" class="sorter">
 						Influencer
 					</a>
 				</th>
@@ -175,14 +193,9 @@
 		function AuthUsers() {
 
 			var authUsers = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( demoUsers.buildAuthenticatedUsers( request.user.email ) ) )#</cfoutput>" );
-			var emailList = authUsers
-				.map( ( user ) => user.email )
-				.join( ", " )
-			;
 
 			return {
-				emailCount: authUsers.length,
-				emailList: emailList
+				authUsers: authUsers
 			}
 
 		}
