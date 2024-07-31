@@ -9,7 +9,11 @@ As a fun experiment, I wanted to build a small playground companion to my [Featu
 
 [Log into the playground][app] &rarr;
 
-[![Screenshot of Feature Flags Playground video player](./assets/demo-thumbnail@2x.jpg)](https://www.youtube.com/watch?v=5h-ozYaN8Qs)
+<p align="center">
+    <a href="https://www.youtube.com/watch?v=5h-ozYaN8Qs" target="_blank" style="display: block ;">
+        <img src="./assets/demo-thumbnail@2x.jpg" alt="Screenshot of Feature Flags Playground video player" style="display: block ; width: 300px ;" />
+    </a>
+</p>
 
 ## Feature Flags Data Structure
 
