@@ -29,7 +29,7 @@
 		.withLogger( demoLogger )
 	;
 
-	request.template.title = "Feature Flags Demo App";
+	request.template.title = "Feature Flags Playground";
 
 	include "./welcome.view.cfm";
 
