@@ -113,7 +113,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -177,7 +177,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -193,7 +193,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -257,7 +257,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -289,7 +289,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -305,7 +305,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -321,7 +321,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -353,7 +353,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -369,7 +369,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -417,7 +417,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -465,7 +465,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -481,7 +481,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -513,7 +513,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -561,7 +561,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -593,7 +593,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -625,7 +625,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -641,7 +641,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -657,7 +657,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -705,7 +705,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -721,7 +721,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -737,7 +737,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": true
 				}
 			},
@@ -769,7 +769,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -785,7 +785,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -817,7 +817,7 @@ component
 					"fortune500": true
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -881,7 +881,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -961,7 +961,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -993,7 +993,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1057,7 +1057,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1073,7 +1073,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1153,7 +1153,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1185,7 +1185,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1201,7 +1201,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1233,7 +1233,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1249,7 +1249,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1281,7 +1281,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1297,7 +1297,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1425,7 +1425,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1521,7 +1521,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1601,7 +1601,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1617,7 +1617,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1633,7 +1633,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
@@ -1649,7 +1649,7 @@ component
 					"fortune500": false
 				},
 				"groups": {
-					"betaTester": true,
+					"betaTester": false,
 					"influencer": false
 				}
 			},
