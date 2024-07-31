@@ -425,7 +425,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<cfloop array="#demoUsers.getUsers()#" index="demoUser">
+					<cfloop array="#demoUsers.getUsers( request.user.email )#" index="demoUser">
 						<tr>
 							<cfloop index="environment" array="#environments#">
 

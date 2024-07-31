@@ -19,7 +19,7 @@
 	// TODO: Move all of this logic into a Partial component.
 
 	demoData = {
-		users: demoUsers.getUsers()
+		users: demoUsers.getUsers( request.user.email )
 	};
 
 	config = featureWorkflow.getConfig( request.user.email );

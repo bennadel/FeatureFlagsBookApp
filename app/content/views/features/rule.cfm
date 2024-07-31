@@ -99,7 +99,7 @@
 
 	}
 
-	datalists = demoTargeting.getDatalists( demoUsers.getUsers() );
+	datalists = demoTargeting.getDatalists( demoUsers.getUsers( request.user.email ) );
 
 	request.template.title = "Rule";
 

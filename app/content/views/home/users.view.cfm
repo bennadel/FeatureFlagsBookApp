@@ -44,7 +44,11 @@
 		</p>
 
 		<p>
-			The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map to 1 user.
+			The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map (roughly) to 1 additional user.
+		</p>
+
+		<p x-data="AuthUsers">
+			I've also created <span x-text="emailCount"></span> users <mark>based on <em>your</em> email address</mark>: <span x-text="emailList"></span>. They all belong to a comany with subdomian "<strong>devteam</strong>".
 		</p>
 
 		<table x-data="Grid" class="grid">
@@ -168,9 +172,24 @@
 	</cfoutput>
 	<script type="text/javascript">
 
+		function AuthUsers() {
+
+			var authUsers = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( demoUsers.buildAuthenticatedUsers( request.user.email ) ) )#</cfoutput>" );
+			var emailList = authUsers
+				.map( ( user ) => user.email )
+				.join( ", " )
+			;
+
+			return {
+				emailCount: authUsers.length,
+				emailList: emailList
+			}
+
+		}
+
 		function Grid() {
 
-			var allUsers = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( demoUsers.getUsers() ) )#</cfoutput>" );
+			var allUsers = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( demoUsers.getUsers( request.user.email ) ) )#</cfoutput>" );
 
 			allUsers.forEach(
 				( user ) => {

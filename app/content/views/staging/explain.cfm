@@ -22,7 +22,7 @@
 	// TODO: Move all of this logic into a Partial component.
 
 	demoData = {
-		users: demoUsers.getUsers()
+		users: demoUsers.getUsers( request.user.email )
 	};
 
 	userIndex = utilities.indexBy( demoData.users, "id" );

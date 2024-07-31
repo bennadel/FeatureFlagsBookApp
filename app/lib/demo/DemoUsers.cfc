@@ -4,12 +4,69 @@ component
 	{
 
 	/**
-	* I provide a set of users against which to evaluate feature flags.
+	* I generate several demo users based on the email address of the authenticated user.
+	*/
+	public array function buildAuthenticatedUsers( required string authenticatedEmail ) {
+
+		var emailDomain = listRest( authenticatedEmail, "@" ).lcase();
+		var emailUser = listFirst( authenticatedEmail, "@" );
+		var id = 101;
+		var names = [ "Admin", "Manager", "Support", "Engineer", "Analyst" ];
+
+		var authUser = {
+			"id": id++,
+			"name": emailUser.reReplace( "\b(\w)", "\u\1", "all" ),
+			"email": authenticatedEmail,
+			"role": "admin",
+			"company": {
+				"id": 99999,
+				"subdomain": "devteam",
+				"fortune100": false,
+				"fortune500": false
+			},
+			"groups": {
+				"betaTester": true,
+				"influencer": true
+			}
+		};
+		var genericUsers = names.map(
+			( name ) => {
+
+				return {
+					"id": id++,
+					"name": name,
+					"email": "#lcase( name )#@#emailDomain#",
+					"role": "#lcase( name )#",
+					"company": {
+						"id": 99999,
+						"subdomain": "devteam",
+						"fortune100": false,
+						"fortune500": false
+					},
+					"groups": {
+						"betaTester": true,
+						"influencer": false
+					}
+				};
+
+			}
+		);
+
+		return [ authUser, ...genericUsers ];
+
+	}
+
+
+	/**
+	* I provide a set of users against which to evaluate feature flags. In order to make
+	* the experience a little easier to consume, several users are added on-the-fly based
+	* on the given authenticated email address. This way, the user can search for their
+	* own email domain.
 	* 
 	* Note: These user names and company subdomains were randomly generated via ChatGPT.
 	* They aren't intended to match any real people or companies.
 	*/
-	public array function getUsers() {
+	public array function getUsers( string authenticatedEmail = "" ) {
 
 		return [
 			{
@@ -1611,7 +1668,10 @@ component
 					"betaTester": true,
 					"influencer": false
 				}
-			}
+			},
+
+			// 0+ users based on the logged-in user's email address.
+			...buildAuthenticatedUsers( authenticatedEmail )
 		];
 
 	}
