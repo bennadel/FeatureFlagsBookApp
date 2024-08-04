@@ -1,5 +1,1 @@
 .DS_Store
-app/config/config.json
-app/wwwroot/.cfconfig.json
-app/wwwroot/data/*.json
-app/wwwroot/scribble.cfm

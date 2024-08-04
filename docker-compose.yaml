@@ -11,9 +11,25 @@ services:
     volumes:
       - "./app:/app"
     environment:
+      APP_DIR: "/app/wwwroot"
       BOX_SERVER_APP_CFENGINE: "adobe@2021.0.13+330286"
       BOX_SERVER_PROFILE: "development"
       CFPM_INSTALL: "debugger"
-      APP_DIR: "/app/wwwroot"
-    healthcheck:
-      test: "echo hello"
+
+  ng-internal:
+    build:
+      context: "./ng-internal/"
+      dockerfile: "Dockerfile"
+    # When actively developing the Angular app, override the "build" command to use
+    # "watch". Otherwise, the container will start, build the distribution files into the
+    # CFML app volume, and then stop.
+    # command: [ "npm", "run", "build" ]
+    command: [ "npm", "run", "watch" ]
+    volumes:
+      - "./ng-internal:/app"
+      - "./app/wwwroot/ng/internal:/app/dist" # Save dist files into CFML volume.
+      - "ng_internal_node_modules:/app/node_modules"
+
+# Using docker volumes to manage node_modules can help with performance.
+volumes:
+  ng_internal_node_modules:
