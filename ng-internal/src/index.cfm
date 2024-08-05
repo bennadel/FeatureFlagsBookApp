@@ -1,13 +1,33 @@
+<cfscript>
+
+	requestHelper = request.ioc.get( "lib.RequestHelper" );
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	// SECURITY: This SPA experience requires an authenticated user.
+	request.user = requestHelper.ensureAuthenticatedUser();
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	request.template.title = "Feature Flags Playground";
+
+</cfscript>
 
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>
-		Feature Flags Playground
-	</title>
+	<cfmodule template="/content/layouts/shared/meta.cfm">
+	<cfmodule template="/content/layouts/shared/title.cfm">
+	<cfmodule template="/content/layouts/shared/favicon.cfm">
+	<cfmodule template="/content/layouts/shared/bugsnag.cfm">
+
+	<!--- For the Angular experience. --->
 	<base href="./">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript">
+		window.authenticatedUser = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( request.user ) )#</cfoutput>" );
+	</script>
 </head>
 <body>
 
