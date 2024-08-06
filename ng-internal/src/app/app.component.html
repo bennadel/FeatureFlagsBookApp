@@ -4,6 +4,39 @@
 </h1>
 
 <p>
-	Starting to consider some Angular work.
+	Starting to consider some Angular 18 mechanics.
 </p>
 
+<hr />
+
+<router-outlet />
+
+<hr />
+
+<pre>Route Noodling:
+
+<a routerLink="/overview">#/ overview</a> &rarr; #/ overview / features
+<a routerLink="/overview/features">#/ overview / features</a>
+<a routerLink="/overview/users">#/ overview / users</a>
+
+<a routerLink="/staging/features/production">#/ staging / features / :environmentKey</a>
+<a routerLink="/staging/users/1234">#/ staging / users / :userID</a>
+<a routerLink="/staging/users/1234/explain/feature-111/production">#/ staging / users / :userID / explain / :featureKey / :environmentKey</a>
+
+<a routerLink="/features">#/ features</a> &rarr; #/ features / list
+<a routerLink="/features/list">#/ features / list</a>
+<a routerLink="/features/add">#/ features / add</a>
+<a routerLink="/features/clear">#/ features / clear</a>
+<a routerLink="/features/reset">#/ features / reset</a>
+
+<a routerLink="/features/feature-111/clear">#/ features / :featureKey / clear</a>
+<a routerLink="/features/feature-111/reset">#/ features / :featureKey / reset</a>
+<a routerLink="/features/feature-111/delete">#/ features / :featureKey / delete</a>
+
+<a routerLink="/features/feature-111/targeting">#/ features / :featureKey / targeting</a> &rarr; #/ features / :featureKey / targeting / overview
+<a routerLink="/features/feature-111/targeting/overview">#/ features / :featureKey / targeting / overview</a>
+<a routerLink="/features/feature-111/targeting/default-resolution">#/ features / :featureKey / targeting / :environmentKey / default-resolution</a>
+<a routerLink="/features/feature-111/targeting/rules-enabled">#/ features / :featureKey / targeting / :environmentKey / rules-enabled</a>
+<a routerLink="/features/feature-111/targeting/rules/4">#/ features / :featureKey / targeting / :environmentKey / rules / :ruleIndex</a>
+<a routerLink="/features/feature-111/targeting/rules/4/delete">#/ features / :featureKey / targeting / :environmentKey / rules / :ruleIndex / delete</a>
+</pre>

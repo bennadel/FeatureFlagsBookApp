@@ -1,8 +1,6 @@
 
 // Import vendor modules.
 import { Component } from "@angular/core";
-import { RouterLink } from "@angular/router";
-import { RouterOutlet } from "@angular/router";
 
 // Import app modules.
 
@@ -10,15 +8,12 @@ import { RouterOutlet } from "@angular/router";
 // ----------------------------------------------------------------------------------- //
 
 @Component({
-	selector: "app-root",
+	selector: "staging-features-view",
 	standalone: true,
-	imports: [
-		RouterLink,
-		RouterOutlet
-	],
-	styleUrl: "./app.component.less",
-	templateUrl: "./app.component.html"
+	imports: [],
+	styleUrl: "./features-view.component.less",
+	templateUrl: "./features-view.component.html"
 })
-export class AppComponent {
+export class FeaturesViewComponent {
 
 }

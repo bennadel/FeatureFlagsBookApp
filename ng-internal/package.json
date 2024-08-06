@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "build": "ng build --deploy-url=/ng/internal/",
+    "build": "ng build --configuration production --deploy-url=/ng/internal/",
     "watch": "ng build --watch --configuration development --deploy-url=/ng/internal/"
   },
   "private": true,

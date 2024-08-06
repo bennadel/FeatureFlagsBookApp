@@ -1,8 +1,6 @@
 
 // Import vendor modules.
 import { Component } from "@angular/core";
-import { RouterLink } from "@angular/router";
-import { RouterOutlet } from "@angular/router";
 
 // Import app modules.
 
@@ -10,15 +8,12 @@ import { RouterOutlet } from "@angular/router";
 // ----------------------------------------------------------------------------------- //
 
 @Component({
-	selector: "app-root",
+	selector: "overview-users-view",
 	standalone: true,
-	imports: [
-		RouterLink,
-		RouterOutlet
-	],
-	styleUrl: "./app.component.less",
-	templateUrl: "./app.component.html"
+	imports: [],
+	styleUrl: "./users-view.component.less",
+	templateUrl: "./users-view.component.html"
 })
-export class AppComponent {
+export class UsersViewComponent {
 
 }

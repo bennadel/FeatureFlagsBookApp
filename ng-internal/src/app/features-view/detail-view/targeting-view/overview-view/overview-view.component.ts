@@ -1,8 +1,6 @@
 
 // Import vendor modules.
 import { Component } from "@angular/core";
-import { RouterLink } from "@angular/router";
-import { RouterOutlet } from "@angular/router";
 
 // Import app modules.
 
@@ -10,15 +8,12 @@ import { RouterOutlet } from "@angular/router";
 // ----------------------------------------------------------------------------------- //
 
 @Component({
-	selector: "app-root",
+	selector: "targeting-overview-view",
 	standalone: true,
-	imports: [
-		RouterLink,
-		RouterOutlet
-	],
-	styleUrl: "./app.component.less",
-	templateUrl: "./app.component.html"
+	imports: [],
+	styleUrl: "./overview-view.component.less",
+	templateUrl: "./overview-view.component.html"
 })
-export class AppComponent {
+export class OverviewViewComponent {
 
 }
