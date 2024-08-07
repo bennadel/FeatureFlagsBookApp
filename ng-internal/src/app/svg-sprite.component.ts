@@ -2,18 +2,16 @@
 // Import vendor modules.
 import { Component } from "@angular/core";
 
-// Import app modules.
-
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
 @Component({
-	selector: "overview-users-view",
+	selector: "svg-sprite",
 	standalone: true,
 	imports: [],
-	styleUrl: "./users-view.component.less",
-	templateUrl: "./users-view.component.html"
+	styleUrl: "./svg-sprite.component.less",
+	templateUrl: "./svg-sprite.component.html"
 })
-export class UsersViewComponent {
+export class SvgSpriteComponent {
 
 }

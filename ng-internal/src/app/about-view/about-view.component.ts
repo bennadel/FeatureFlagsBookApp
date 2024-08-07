@@ -8,12 +8,12 @@ import { Component } from "@angular/core";
 // ----------------------------------------------------------------------------------- //
 
 @Component({
-	selector: "overview-features-view",
+	selector: "about-view",
 	standalone: true,
 	imports: [],
-	styleUrl: "./features-view.component.less",
-	templateUrl: "./features-view.component.html"
+	styleUrl: "./about-view.component.less",
+	templateUrl: "./about-view.component.html"
 })
-export class FeaturesViewComponent {
+export class AboutViewComponent {
 
 }

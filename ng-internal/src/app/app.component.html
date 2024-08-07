@@ -1,4 +1,7 @@
 
+<svg-sprite></svg-sprite>
+
+
 <h1>
 	Feature Flags Playground
 </h1>
@@ -9,19 +12,30 @@
 
 <hr />
 
+<svg aria-hidden="true">
+	<use xlink:href="#svg-sprite-list-bullets-1"></use>
+</svg>
+<svg aria-hidden="true">
+	<use xlink:href="#svg-sprite-layout-module"></use>
+</svg>
+<svg aria-hidden="true">
+	<use xlink:href="#svg-sprite-multiple-users-1"></use>
+</svg>
+<svg aria-hidden="true">
+	<use xlink:href="#svg-sprite-single-neutral"></use>
+</svg>
+<svg aria-hidden="true">
+	<use xlink:href="#svg-sprite-information-circle"></use>
+</svg>
+<svg aria-hidden="true">
+	<use xlink:href="#svg-sprite-file-code-1"></use>
+</svg>
+
 <router-outlet />
 
 <hr />
 
 <pre>Route Noodling:
-
-<a routerLink="/overview">#/ overview</a> &rarr; #/ overview / features
-<a routerLink="/overview/features">#/ overview / features</a>
-<a routerLink="/overview/users">#/ overview / users</a>
-
-<a routerLink="/staging/features/production">#/ staging / features / :environmentKey</a>
-<a routerLink="/staging/users/1234">#/ staging / users / :userID</a>
-<a routerLink="/staging/users/1234/explain/feature-111/production">#/ staging / users / :userID / explain / :featureKey / :environmentKey</a>
 
 <a routerLink="/features">#/ features</a> &rarr; #/ features / list
 <a routerLink="/features/list">#/ features / list</a>
@@ -39,4 +53,16 @@
 <a routerLink="/features/feature-111/targeting/rules-enabled">#/ features / :featureKey / targeting / :environmentKey / rules-enabled</a>
 <a routerLink="/features/feature-111/targeting/rules/4">#/ features / :featureKey / targeting / :environmentKey / rules / :ruleIndex</a>
 <a routerLink="/features/feature-111/targeting/rules/4/delete">#/ features / :featureKey / targeting / :environmentKey / rules / :ruleIndex / delete</a>
+
+<a routerLink="/staging/features/production">#/ staging / features / :environmentKey</a>
+<a routerLink="/staging/users/1234">#/ staging / users / :userID</a>
+<a routerLink="/staging/users/1234/explain/feature-111/production">#/ staging / users / :userID / explain / :featureKey / :environmentKey</a>
+
+<a routerLink="/users">#/ users</a>
+
+<a routerLink="/about">#/ about</a>
+
+<a routerLink="/account">#/ account</a>
+
+<a routerLink="/raw">#/ raw</a>
 </pre>

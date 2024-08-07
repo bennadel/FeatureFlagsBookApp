@@ -5,6 +5,7 @@ import { RouterLink } from "@angular/router";
 import { RouterOutlet } from "@angular/router";
 
 // Import app modules.
+import { SvgSpriteComponent } from "./svg-sprite.component";
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -14,7 +15,8 @@ import { RouterOutlet } from "@angular/router";
 	standalone: true,
 	imports: [
 		RouterLink,
-		RouterOutlet
+		RouterOutlet,
+		SvgSpriteComponent
 	],
 	styleUrl: "./app.component.less",
 	templateUrl: "./app.component.html"
