@@ -23,8 +23,8 @@ services:
     # When actively developing the Angular app, override the "build" command to use
     # "watch". Otherwise, the container will start, build the distribution files into the
     # CFML app volume, and then stop.
-    # command: [ "npm", "run", "build" ]
-    command: [ "npm", "run", "watch" ]
+    command: [ "npm", "run", "build" ]
+    # command: [ "npm", "run", "watch" ]
     volumes:
       - "./ng-internal:/app"
       - "./app/wwwroot/ng/internal:/app/dist" # Save dist files into CFML volume.

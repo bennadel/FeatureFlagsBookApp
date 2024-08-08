@@ -9,14 +9,14 @@ import { RouterLink } from "@angular/router";
 // ----------------------------------------------------------------------------------- //
 
 @Component({
-	selector: "features-list-view",
+	selector: "staging-environments-view",
 	standalone: true,
 	imports: [
 		RouterLink
 	],
-	styleUrl: "./list-view.component.less",
-	templateUrl: "./list-view.component.html"
+	styleUrl: "./environments-view.component.less",
+	templateUrl: "./environments-view.component.html"
 })
-export class ListViewComponent {
+export class EnvironmentsViewComponent {
 
 }

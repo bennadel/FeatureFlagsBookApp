@@ -1,68 +1,101 @@
 
+<!--
+	The SVG sprite always needs to be included first so that the symbols are available to
+	be consumed in the rest of the app.
+-->
 <svg-sprite></svg-sprite>
 
+<header
+	(mouseenter)="handleHeaderMouseenter()"
+	(mouseleave)="handleHeaderMouseleave()"
+	class="header-panel"
+	[class.expanded]="isHeaderExpanded">
 
-<h1>
-	Feature Flags Playground
-</h1>
+	<nav class="nav">
+		<a
+			href="https://featureflagsbook.com/"
+			target="_blank"
+			(mouseenter)="handleLinkMouseenter()"
+			(click)="handleLinkClick()"
+			class="nav-item nav-item--logo">
+			<svg-icon type="logo" class="nav-item__icon" />
+			<span class="nav-item__label">
+				<u>Read Book</u> &rarr;
+			</span>
+		</a>
 
-<p>
-	Starting to consider some Angular 18 mechanics.
-</p>
+		<a
+			routerLink="/features"
+			routerLinkActive="on"
+			(mouseenter)="handleLinkMouseenter()"
+			(click)="handleLinkClick()"
+			class="nav-item">
+			<svg-icon type="nav-feature-flags" class="nav-item__icon" />
+			<span class="nav-item__label">
+				<u>Feature Flags</u>
+			</span>
+		</a>
+		<a
+			routerLink="/staging"
+			routerLinkActive="on"
+			(mouseenter)="handleLinkMouseenter()"
+			(click)="handleLinkClick()"
+			class="nav-item">
+			<svg-icon type="nav-staging" class="nav-item__icon" />
+			<span class="nav-item__label">
+				<u>Staging</u>
+			</span>
+		</a>
+		<a
+			routerLink="/users"
+			routerLinkActive="on"
+			(mouseenter)="handleLinkMouseenter()"
+			(click)="handleLinkClick()"
+			class="nav-item">
+			<svg-icon type="nav-users" class="nav-item__icon" />
+			<span class="nav-item__label">
+				<u>Users</u>
+			</span>
+		</a>
+		<a
+			routerLink="/about"
+			routerLinkActive="on"
+			(mouseenter)="handleLinkMouseenter()"
+			(click)="handleLinkClick()"
+			class="nav-item">
+			<svg-icon type="nav-about" class="nav-item__icon" />
+			<span class="nav-item__label">
+				<u>About</u>
+			</span>
+		</a>
+		<a
+			routerLink="/raw"
+			routerLinkActive="on"
+			(mouseenter)="handleLinkMouseenter()"
+			(click)="handleLinkClick()"
+			class="nav-item">
+			<svg-icon type="nav-raw" class="nav-item__icon" />
+			<span class="nav-item__label">
+				<u>Raw JSON</u>
+			</span>
+		</a>
+		<a
+			routerLink="/account"
+			routerLinkActive="on"
+			(mouseenter)="handleLinkMouseenter()"
+			(click)="handleLinkClick()"
+			class="nav-item nav-item--splitter">
+			<svg-icon type="nav-account" class="nav-item__icon" />
+			<span class="nav-item__label">
+				<u>Account</u>
+			</span>
+		</a>
+	</nav>
 
-<hr />
+</header>
 
-<svg aria-hidden="true">
-	<use xlink:href="#svg-sprite-list-bullets-1"></use>
-</svg>
-<svg aria-hidden="true">
-	<use xlink:href="#svg-sprite-layout-module"></use>
-</svg>
-<svg aria-hidden="true">
-	<use xlink:href="#svg-sprite-multiple-users-1"></use>
-</svg>
-<svg aria-hidden="true">
-	<use xlink:href="#svg-sprite-single-neutral"></use>
-</svg>
-<svg aria-hidden="true">
-	<use xlink:href="#svg-sprite-information-circle"></use>
-</svg>
-<svg aria-hidden="true">
-	<use xlink:href="#svg-sprite-file-code-1"></use>
-</svg>
+<main class="main-panel">
 
-<router-outlet />
+	<router-outlet />
 
-<hr />
-
-<pre>Route Noodling:
-
-<a routerLink="/features">#/ features</a> &rarr; #/ features / list
-<a routerLink="/features/list">#/ features / list</a>
-<a routerLink="/features/add">#/ features / add</a>
-<a routerLink="/features/clear">#/ features / clear</a>
-<a routerLink="/features/reset">#/ features / reset</a>
-
-<a routerLink="/features/feature-111/clear">#/ features / :featureKey / clear</a>
-<a routerLink="/features/feature-111/reset">#/ features / :featureKey / reset</a>
-<a routerLink="/features/feature-111/delete">#/ features / :featureKey / delete</a>
-
-<a routerLink="/features/feature-111/targeting">#/ features / :featureKey / targeting</a> &rarr; #/ features / :featureKey / targeting / overview
-<a routerLink="/features/feature-111/targeting/overview">#/ features / :featureKey / targeting / overview</a>
-<a routerLink="/features/feature-111/targeting/default-resolution">#/ features / :featureKey / targeting / :environmentKey / default-resolution</a>
-<a routerLink="/features/feature-111/targeting/rules-enabled">#/ features / :featureKey / targeting / :environmentKey / rules-enabled</a>
-<a routerLink="/features/feature-111/targeting/rules/4">#/ features / :featureKey / targeting / :environmentKey / rules / :ruleIndex</a>
-<a routerLink="/features/feature-111/targeting/rules/4/delete">#/ features / :featureKey / targeting / :environmentKey / rules / :ruleIndex / delete</a>
-
-<a routerLink="/staging/features/production">#/ staging / features / :environmentKey</a>
-<a routerLink="/staging/users/1234">#/ staging / users / :userID</a>
-<a routerLink="/staging/users/1234/explain/feature-111/production">#/ staging / users / :userID / explain / :featureKey / :environmentKey</a>
-
-<a routerLink="/users">#/ users</a>
-
-<a routerLink="/about">#/ about</a>
-
-<a routerLink="/account">#/ account</a>
-
-<a routerLink="/raw">#/ raw</a>
-</pre>
+</main>

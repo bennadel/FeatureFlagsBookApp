@@ -3,6 +3,7 @@
 import { Routes } from "@angular/router";
 
 // Import application modules.
+import { EnvironmentsViewComponent } from "./environments-view/environments-view.component";
 import { ExplainViewComponent } from "./explain-view/explain-view.component";
 import { FeaturesViewComponent } from "./features-view/features-view.component";
 import { UserViewComponent } from "./user-view/user-view.component";
@@ -11,6 +12,16 @@ import { UserViewComponent } from "./user-view/user-view.component";
 // ----------------------------------------------------------------------------------- //
 
 export var routes: Routes = [
+	{
+		path: "",
+		pathMatch: "full",
+		redirectTo: "environments"
+	},
+	{
+		path: "environments",
+		pathMatch: "full",
+		component: EnvironmentsViewComponent
+	},
 	{
 		path: "features/:environmentKey",
 		pathMatch: "full",
