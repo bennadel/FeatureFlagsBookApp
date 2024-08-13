@@ -2,3 +2,16 @@
 <h2>
 	Edit Default Resolution
 </h2>
+
+<ul>
+	<li>
+		<strong>Feature:</strong> {{ featureKey }}
+	</li>
+	<li>
+		<strong>Environment:</strong> {{ environmentKey }}
+	</li>
+</ul>
+
+<p>
+	<a [routerLink]="[ '/features', featureKey ]">Cancel</a>
+</p>

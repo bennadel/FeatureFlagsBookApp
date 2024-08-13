@@ -2,6 +2,7 @@
 // Import vendor modules.
 import { Component } from "@angular/core";
 import { inject } from "@angular/core";
+import { RouterLink } from "@angular/router";
 
 // Import app modules.
 import { WindowTitle } from "~/app/shared/services/window-title";
@@ -12,13 +13,20 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 @Component({
 	selector: "detail-clear-view",
 	standalone: true,
-	imports: [],
+	inputs: [
+		"featureKey"
+	],
+	imports: [
+		RouterLink
+	],
 	styleUrl: "./clear-view.component.less",
 	templateUrl: "./clear-view.component.html"
 })
 export class ClearViewComponent {
 
 	private windowTitle:WindowTitle = inject( WindowTitle );
+
+	public featureKey!:string;
 
 	// ---
 	// PUBLIC METHODS.

@@ -2,6 +2,7 @@
 // Import vendor modules.
 import { Component } from "@angular/core";
 import { inject } from "@angular/core";
+import { RouterLink } from "@angular/router";
 import { RouterOutlet } from "@angular/router";
 
 // Import app modules.
@@ -13,7 +14,11 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 @Component({
 	selector: "features-detail-view",
 	standalone: true,
+	inputs: [
+		"featureKey"
+	],
 	imports: [
+		RouterLink,
 		RouterOutlet
 	],
 	styleUrl: "./detail-view.component.less",
@@ -22,6 +27,8 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 export class DetailViewComponent {
 
 	private windowTitle:WindowTitle = inject( WindowTitle );
+
+	public featureKey!:string;
 
 	// ---
 	// PUBLIC METHODS.

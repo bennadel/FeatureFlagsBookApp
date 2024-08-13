@@ -14,6 +14,11 @@ import { ResetViewComponent } from "./reset-view/reset-view.component";
 export var routes: Routes = [
 	{
 		path: "",
+		pathMatch: "full",
+		redirectTo: "targeting"
+	},
+	{
+		path: "",
 		pathMatch: "prefix",
 		component: DetailViewComponent,
 		children: [

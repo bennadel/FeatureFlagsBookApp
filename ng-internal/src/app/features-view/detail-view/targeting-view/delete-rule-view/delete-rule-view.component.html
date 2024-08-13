@@ -2,3 +2,19 @@
 <h2>
 	Delete Rule
 </h2>
+
+<ul>
+	<li>
+		<strong>Feature:</strong> {{ featureKey }}
+	</li>
+	<li>
+		<strong>Environment:</strong> {{ environmentKey }}
+	</li>
+	<li>
+		<strong>Rule Index:</strong> {{ ruleIndex }}
+	</li>
+</ul>
+
+<p>
+	<a [routerLink]="[ '/features', featureKey ]">Cancel</a>
+</p>

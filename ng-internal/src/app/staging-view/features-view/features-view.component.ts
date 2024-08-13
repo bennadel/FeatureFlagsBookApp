@@ -12,6 +12,9 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 @Component({
 	selector: "staging-features-view",
 	standalone: true,
+	inputs: [
+		"environmentKey"
+	],
 	imports: [],
 	styleUrl: "./features-view.component.less",
 	templateUrl: "./features-view.component.html"
@@ -19,6 +22,8 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 export class FeaturesViewComponent {
 
 	private windowTitle:WindowTitle = inject( WindowTitle );
+
+	public environmentKey!:string;
 
 	// ---
 	// PUBLIC METHODS.

@@ -12,6 +12,9 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 @Component({
 	selector: "staging-user-view",
 	standalone: true,
+	inputs: [
+		"userID"
+	],
 	imports: [],
 	styleUrl: "./user-view.component.less",
 	templateUrl: "./user-view.component.html"
@@ -19,6 +22,8 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 export class UserViewComponent {
 
 	private windowTitle:WindowTitle = inject( WindowTitle );
+
+	public userID!:number;
 
 	// ---
 	// PUBLIC METHODS.
