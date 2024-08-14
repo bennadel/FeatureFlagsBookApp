@@ -444,6 +444,7 @@ component
 				});
 			break;
 			case "App.Routing.InvalidEvent":
+			case "App.Routing.Api.InvalidEvent":
 			case "App.Routing.Auth.InvalidEvent":
 			case "App.Routing.Features.InvalidEvent":
 			case "App.Routing.Home.InvalidEvent":
@@ -458,6 +459,9 @@ component
 					type: error.type,
 					message: "Your form has expired. Please try submitting your request again."
 				});
+			break;
+			case "App.Unauthenticated":
+				return as401();
 			break;
 			case "InternalOnly":
 				return as403({
@@ -495,6 +499,16 @@ component
 	private struct function as400( struct errorAttributes = {} ) {
 
 		return getGeneric400Response().append( errorAttributes );
+
+	}
+
+
+	/**
+	* I generate a 401 response object for the given error attributes.
+	*/
+	private struct function as401( struct errorAttributes = {} ) {
+
+		return getGeneric401Response().append( errorAttributes );
 
 	}
 
@@ -588,6 +602,22 @@ component
 			type: "BadRequest",
 			title: "Bad Request",
 			message: "Your request cannot be processed in its current state. Please validate the information in your request and try submitting it again."
+		};
+
+	}
+
+
+	/**
+	* I return the generic "401 Unauthorized" response.
+	*/
+	private struct function getGeneric401Response() {
+
+		return {
+			statusCode: 401,
+			statusText: "Unauthorized",
+			type: "Unauthorized",
+			title: "Unauthorized",
+			message: "Please login and try submitting your request again."
 		};
 
 	}

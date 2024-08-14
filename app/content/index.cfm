@@ -18,6 +18,9 @@
 		param name="request.event[ 1 ]" type="string" default="home";
 
 		switch ( request.event[ 1 ] ) {
+			case "api":
+				cfmodule( template = "./views/api/index.cfm" );
+			break;
 			case "auth":
 				cfmodule( template = "./views/auth/index.cfm" );
 			break;
@@ -46,6 +49,9 @@
 			break;
 			case "internal":
 				cfmodule( template = "./layouts/internal.cfm" );
+			break;
+			case "json":
+				cfmodule( template = "./layouts/json.cfm" );
 			break;
 		}
 

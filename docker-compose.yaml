@@ -16,19 +16,25 @@ services:
       BOX_SERVER_PROFILE: "development"
       CFPM_INSTALL: "debugger"
 
+  # This service will build the distribution files into the CFML app volume, and then
+  # stop. For active development, use the ng-internal-dev service.
   ng-internal:
     build:
       context: "./ng-internal/"
       dockerfile: "Dockerfile"
-    # When actively developing the Angular app, override the "build" command to use
-    # "watch". Otherwise, the container will start, build the distribution files into the
-    # CFML app volume, and then stop.
+    image: "app.featureflagsbook.com/ng-internal:latest"
     command: [ "npm", "run", "build" ]
-    # command: [ "npm", "run", "watch" ]
     volumes:
       - "./ng-internal:/app"
       - "./app/wwwroot/ng/internal:/app/dist" # Save dist files into CFML volume.
       - "ng_internal_node_modules:/app/node_modules"
+
+  # When actively developing the ng-internal code, this service overrides the command and
+  # enables watch mode. Note that this creates a different container that will need to be
+  # removed manually.
+  ng-internal-dev:
+    extends: "ng-internal"
+    command: [ "npm", "run", "watch" ]
 
 # Using docker volumes to manage node_modules can help with performance.
 volumes:

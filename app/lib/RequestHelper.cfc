@@ -32,6 +32,28 @@ component
 
 
 	/**
+	* I return the currently authenticated user; and, if the user isn't authenticated, I
+	* throw an unauthenticated error.
+	*/
+	public struct function getAuthenticatedUser() {
+
+		var maybeUser = authWorkflow.maybeGetRequestUser();
+
+		if ( ! maybeUser.exists ) {
+
+			throw(
+				type = "App.Unauthenticated",
+				message = "Unauthenticated user accessed secure area."
+			);
+
+		}
+
+		return maybeUser.value;
+
+	}
+
+
+	/**
 	* I process the given error, applying the proper status code to the template, and
 	* returning the associated user-friendly response message.
 	*/
