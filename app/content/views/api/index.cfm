@@ -7,10 +7,11 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	// Every page in the API subsystem will use the json template.
+	// Every page in the API subsystem will use the json template - even the errors.
 	request.template.type = "json";
 
-	// This subsystem has its own error handling so that errors are delivered as JSON.
+	// This subsystem has its own error handling so that errors can be captured locally
+	// and delivered as JSON.
 	try {
 
 		// SECURITY: This entire subsystem requires an authenticated user.
@@ -22,6 +23,9 @@
 		param name="request.event[ 2 ]" type="string" default="";
 
 		switch ( request.event[ 2 ] ) {
+			case "partials":
+				cfmodule( template = "./partials/index.cfm" );
+			break;
 			default:
 				throw(
 					type = "App.Routing.Api.InvalidEvent",

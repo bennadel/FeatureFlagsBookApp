@@ -4,10 +4,34 @@ import { Component } from "@angular/core";
 import { inject } from "@angular/core";
 
 // Import app modules.
+import { ApiClient } from "~/app/shared/services/api-client";
 import { WindowTitle } from "~/app/shared/services/window-title";
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
+
+export interface Partial {
+	users: User[];
+};
+
+export interface User {
+	"id": number;
+	"name": string;
+	"email": string;
+	"role": string;
+	"company": {
+		"id": number;
+		"subdomain": string;
+		"fortune100": boolean;
+		"fortune500": boolean;
+	};
+	"groups": {
+		"betaTester": boolean;
+		"influencer": boolean;
+	};
+};
+
+var CACHED_RESPONSE: Partial | null = null;
 
 @Component({
 	selector: "users-view",
@@ -18,7 +42,11 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 })
 export class UsersViewComponent {
 
-	private windowTitle:WindowTitle = inject( WindowTitle );
+	private apiClient = inject( ApiClient );
+	private windowTitle = inject( WindowTitle );
+
+	public isLoading = true;
+	public users: User[] = [];
 
 	// ---
 	// PUBLIC METHODS.
@@ -30,6 +58,43 @@ export class UsersViewComponent {
 	public ngOnInit() {
 
 		this.windowTitle.set( "Demo Users" );
+		this.loadRemoteData();
+
+	}
+
+	// ---
+	// PRIVATE METHODS.
+	// ---
+
+	/**
+	* I load the remote data.
+	*/
+	private async loadRemoteData() : Promise<void> {
+
+		this.isLoading = true;
+		this.users = [];
+
+		if ( CACHED_RESPONSE ) {
+
+			this.isLoading = false;
+			this.users = CACHED_RESPONSE.users;
+
+		}
+
+		try {
+
+			var response = CACHED_RESPONSE = await this.apiClient.get<Partial>({
+				url: "/index.cfm?event=api.partials.ngInternal.users"
+			});
+
+			this.isLoading = false;
+			this.users = response.users;
+
+		} catch ( error ) {
+
+			console.error( error );
+
+		}
 
 	}
 

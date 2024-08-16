@@ -445,6 +445,8 @@ component
 			break;
 			case "App.Routing.InvalidEvent":
 			case "App.Routing.Api.InvalidEvent":
+			case "App.Routing.Api.Partials.InvalidEvent":
+			case "App.Routing.Api.Partials.NgInternal.InvalidEvent":
 			case "App.Routing.Auth.InvalidEvent":
 			case "App.Routing.Features.InvalidEvent":
 			case "App.Routing.Home.InvalidEvent":

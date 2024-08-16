@@ -1,6 +1,7 @@
 
 // Import vendor modules.
 import { ApplicationConfig } from "@angular/core";
+import { provideHttpClient } from "@angular/common/http";
 import { provideRouter } from "@angular/router";
 import { provideZoneChangeDetection } from "@angular/core";
 import { withComponentInputBinding } from "@angular/router";
@@ -25,6 +26,7 @@ export var appConfig: ApplicationConfig = {
 			withRouterConfig({
 				paramsInheritanceStrategy: "always"
 			})
-		)
+		),
+		provideHttpClient()
 	]
 };

@@ -1,8 +1,30 @@
 
 <section class="temp-content">
 
-	<h1>
-		Users
-	</h1>
+	@if ( isLoading ) {
+
+		<p>
+			Loading....
+		</p>
+
+	}
+
+	@if ( ! isLoading ) {
+
+		<h1>
+			Users
+		</h1>
+
+		<ul>
+			@for( user of users ; track user.id ) {
+
+				<li>
+					{{ user.name }} - {{ user.email }}
+				</li>
+
+			}
+		</ul>
+
+	}
 
 </section>
