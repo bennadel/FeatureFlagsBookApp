@@ -24,9 +24,9 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 })
 export class DeleteViewComponent {
 
-	private windowTitle:WindowTitle = inject( WindowTitle );
+	private windowTitle = inject( WindowTitle );
 
-	public featureKey!:string;
+	public featureKey!: string;
 
 	// ---
 	// PUBLIC METHODS.

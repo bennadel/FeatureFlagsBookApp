@@ -21,7 +21,7 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 })
 export class ClearViewComponent {
 
-	private windowTitle:WindowTitle = inject( WindowTitle );
+	private windowTitle = inject( WindowTitle );
 
 	// ---
 	// PUBLIC METHODS.

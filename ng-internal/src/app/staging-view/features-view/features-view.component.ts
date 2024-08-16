@@ -21,9 +21,9 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 })
 export class FeaturesViewComponent {
 
-	private windowTitle:WindowTitle = inject( WindowTitle );
+	private windowTitle = inject( WindowTitle );
 
-	public environmentKey!:string;
+	public environmentKey!: string;
 
 	// ---
 	// PUBLIC METHODS.

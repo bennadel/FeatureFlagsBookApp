@@ -20,7 +20,7 @@ import { inject } from "@angular/core";
 })
 export class FeatureStagingComponent {
 
-	public featureKey!:string;
+	public featureKey!: string;
 
 	// ---
 	// PUBLIC METHODS.

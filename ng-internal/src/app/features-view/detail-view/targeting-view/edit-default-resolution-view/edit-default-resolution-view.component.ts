@@ -25,10 +25,10 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 })
 export class EditDefaultResolutionViewComponent {
 
-	private windowTitle:WindowTitle = inject( WindowTitle );
+	private windowTitle = inject( WindowTitle );
 
-	public featureKey!:string;
-	public environmentKey!:string;
+	public featureKey!: string;
+	public environmentKey!: string;
 
 	// ---
 	// PUBLIC METHODS.

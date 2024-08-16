@@ -21,9 +21,9 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 })
 export class UserViewComponent {
 
-	private windowTitle:WindowTitle = inject( WindowTitle );
+	private windowTitle = inject( WindowTitle );
 
-	public userID!:number;
+	public userID!: number;
 
 	// ---
 	// PUBLIC METHODS.

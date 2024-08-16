@@ -19,9 +19,9 @@ import { WindowTitle } from "~/app/shared/services/window-title";
 })
 export class AccountViewComponent {
 
-	private windowTitle:WindowTitle = inject( WindowTitle );
+	private windowTitle = inject( WindowTitle );
 
-	public session:Session = inject( Session );
+	public session = inject( Session );
 
 	// ---
 	// PUBLIC METHODS.
