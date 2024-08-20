@@ -2,3 +2,56 @@
 :host {
 	display: block ;
 }
+
+.role-tag {
+	border: 1px solid #cccccc ;
+	border-radius: 4px ;
+	display: inline-block ;
+	padding: 2px 9px ;
+}
+
+.grid {
+	border-collapse: collapse ;
+	border-spacing: 0 ;
+	width: 100% ;
+}
+.grid th,
+.grid td {
+	border-bottom: 2px solid #cccccc ;
+	padding: 7px 10px ;
+	text-align: left ;
+	white-space: nowrap ;
+}
+.grid th.sticky {
+	background-color: #ffffff ;
+	padding: 10px ;
+	position: sticky ;
+	top: -1px ;
+	z-index: 2 ;
+}
+.grid .col-group {
+	border: 1px dashed #cccccc ;
+	border-bottom: 2px solid #cccccc ;
+	padding: 10px ;
+	text-align: center ;
+}
+.grid .row-group {
+	padding: 20px 20px ;
+	text-align: center ;
+}
+
+.grid tbody tr:hover th,
+.grid tbody tr:hover td {
+	background-color: #f0f0f0 ;
+}
+.grid .sorter {
+	cursor: pointer ;
+	user-select: none ;
+}
+
+.diminish {
+	opacity: 0.3 ;
+}
+.highlight {
+	background-color: #fff59a ;
+}
