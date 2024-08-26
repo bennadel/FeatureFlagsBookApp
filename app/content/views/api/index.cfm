@@ -3,6 +3,7 @@
 	errorService = request.ioc.get( "lib.ErrorService" );
 	logger = request.ioc.get( "lib.Logger" );
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
+	xsrfService = request.ioc.get( "lib.XsrfService" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -14,7 +15,12 @@
 	// and delivered as JSON.
 	try {
 
-		// SECURITY: This entire subsystem requires an authenticated user.
+		// Security: This entire subsystem expects an XSRF token on every requests
+		// (regardless of whether or not the client is mutating state). This way, we can
+		// keep the request validation simple.
+		xsrfService.testHeader();
+
+		// Security: This entire subsystem requires an authenticated user.
 		request.user = requestHelper.getAuthenticatedUser();
 
 		// --------------------------------------------------------------------------- //

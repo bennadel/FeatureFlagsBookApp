@@ -7,6 +7,7 @@ component
 	property name="authWorkflow" ioc:type="lib.workflow.AuthWorkflow";
 	property name="errorService" ioc:type="lib.ErrorService";
 	property name="logger" ioc:type="lib.Logger";
+	property name="requestMetadata" ioc:type="lib.RequestMetadata";
 
 	// ---
 	// PUBLIC METHODS.

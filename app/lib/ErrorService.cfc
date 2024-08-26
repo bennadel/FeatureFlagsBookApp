@@ -465,6 +465,24 @@ component
 			case "App.Unauthenticated":
 				return as401();
 			break;
+			case "App.Xsrf.Mismatch":
+				return as403({
+					type: error.type,
+					message: "Your XSRF token isn't valid."
+				});
+			break;
+			case "App.Xsrf.MissingCookie":
+				return as400({
+					type: error.type,
+					message: "Your request must include the XSRF cookie (XSRF-TOKEN)."
+				});
+			break;
+			case "App.Xsrf.MissingHeader":
+				return as400({
+					type: error.type,
+					message: "Your request must include the XSRF header (X-XSRF-TOKEN)."
+				});
+			break;
 			case "InternalOnly":
 				return as403({
 					type: error.type,

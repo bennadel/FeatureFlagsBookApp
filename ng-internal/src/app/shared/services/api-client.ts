@@ -3,6 +3,7 @@
 import { firstValueFrom } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { HttpErrorResponse } from "@angular/common/http";
+import { HttpXsrfTokenExtractor } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -48,6 +49,7 @@ export var DEFAULT_MESSAGE = "An unexpected error occurred while processing your
 export class ApiClient {
 
 	private httpClient = inject( HttpClient );
+	private xsrfTokenExtractor = inject( HttpXsrfTokenExtractor );
 
 	// ---
 	// PUBLIC METHODS.
@@ -100,10 +102,19 @@ export class ApiClient {
 	*/
 	public makeRequest<T>( config: ApiRequestConfig ) : Promise<T> {
 
+		// By default XSRF tokens are only included in mutation requests. However, in an
+		// effort to keep things simple on the server, I want all API requests to include
+		// the XSRF token. This way, all requests can all be validated in the same way.
+		var xsrfToken = ( this.xsrfTokenExtractor.getToken() || "" );
+
 		var observable = this.httpClient.request<T>(
 			( config.method || "get" ),
 			config.url,
 			{
+				headers: {
+					// Todo: Can we move this hard-coded name into a provider somehow?
+					"X-XSRF-TOKEN": xsrfToken
+				},
 				params: config.params,
 				body: config.data
 			}

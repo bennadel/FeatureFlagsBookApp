@@ -1,15 +1,19 @@
 <cfscript>
 
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
+	xsrfService = request.ioc.get( "lib.XsrfService" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	// SECURITY: This SPA experience requires an authenticated user.
+	// Security: This SPA experience requires an authenticated user.
 	request.user = requestHelper.ensureAuthenticatedUser();
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
+
+	// All API calls made in this Angular app must include the XSRF token.
+	xsrfService.ensureCookie();
 
 	request.template.title = "Feature Flags Playground";
 
