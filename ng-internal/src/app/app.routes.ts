@@ -48,6 +48,8 @@ export var routes: Routes = [
 		pathMatch: "prefix",
 		loadChildren: () => import( "./users-view/users-view.routes" )
 	},
-
-	// { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+	{
+		path: "**",
+		redirectTo: "/errors/not-found"
+	}
 ];
