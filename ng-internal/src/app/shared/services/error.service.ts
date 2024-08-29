@@ -56,7 +56,12 @@ export class ErrorService {
 			switch ( error.type ) {
 				case "App.Unauthorized":
 
-					this.router.navigateByUrl( "/errors/unauthorized" );
+					this.router.navigateByUrl(
+						"/errors/unauthorized",
+						{
+							skipLocationChange: true
+						}
+					);
 					return true;
 
 				break;
@@ -64,7 +69,12 @@ export class ErrorService {
 				case "App.Xsrf.MissingCookie":
 				case "App.Xsrf.MissingHeader":
 
-					this.router.navigateByUrl( "/errors/xsrf" );
+					this.router.navigateByUrl(
+						"/errors/xsrf",
+						{
+							skipLocationChange: true
+						}
+					);
 					return true;
 
 				break;

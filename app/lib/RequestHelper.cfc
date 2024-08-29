@@ -73,18 +73,37 @@ component
 
 	}
 
-	// ---
-	// PRIVATE METHODS.
-	// ---
+
+	/**
+	* I redirect to the given target URL (if it's internal); or, use the fallback URL.
+	*/
+	public void function redirect(
+		required string targetUrl,
+		required string fallbackUrl
+		) {
+
+		var nextUrl = requestMetadata.isInternalUrl( targetUrl )
+			? targetUrl
+			: fallbackUrl
+		;
+
+		location(
+			url = nextUrl,
+			addToken = false
+		);
+
+	}
+
 
 	/**
 	* I redirect the user to the login / authentication subsystem.
 	*/
-	private void function redirectToLogin() {
+	public void function redirectToLogin() {
 
-		// TODO: Include some sort of "redirectTo" parameter.
+		var redirectTo = requestMetadata.getInternalUrl();
+
 		location(
-			url = "/index.cfm?event=auth",
+			url = "/index.cfm?event=auth&redirectTo=#encodeForUrl( redirectTo )#",
 			addToken = false
 		);
 

@@ -91,12 +91,6 @@ export class UsersViewComponent {
 
 	}
 
-	public ngOnDestroy() {
-
-		console.warn( "Users view desetruction." );
-
-	}
-
 	// ---
 	// PUBLIC METHODS.
 	// ---

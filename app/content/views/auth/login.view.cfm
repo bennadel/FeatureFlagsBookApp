@@ -17,6 +17,7 @@
 
 		<form method="post">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
+			<input type="hidden" name="redirectTo" value="#encodeForHtmlAttribute( request.context.redirectTo )#" />
 			<input type="hidden" name="submitted" value="true" />
 
 			<p>
@@ -49,4 +50,15 @@
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 	</cfoutput>
+	<script type="text/javascript">
+
+		if ( window.location.hash ) {
+
+			document.querySelector( "input[ name = 'redirectTo' ]" )
+				.value += window.location.hash
+			;
+
+		}
+
+	</script>
 </cfsavecontent>

@@ -12,6 +12,7 @@
 	param name="form.submitted" type="boolean" default=false;
 	param name="form.email" type="string" default="";
 	param name="form[ 'cf-turnstile-response' ]" type="string" default="";
+	param name="request.context.redirectTo" type="string" default="";
 
 	errorMessage = "";
 
@@ -22,9 +23,9 @@
 			turnstile.testToken( form[ "cf-turnstile-response" ], requestMetadata.getIpAddress() );
 			authWorkflow.login( form.email.trim() );
 
-			location(
-				url = "/index.cfm",
-				addToken = false
+			requestHelper.redirect(
+				targetUrl = request.context.redirectTo,
+				fallbackUrl = "/index.cfm"
 			);
 
 		} catch ( any error ) {

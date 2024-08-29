@@ -55,6 +55,24 @@ component
 
 
 	/**
+	* I return the URL to be used for an internal redirect.
+	*/
+	public string function getInternalUrl() {
+
+		var resource = getResource();
+
+		if ( cgi.query_string.len() ) {
+
+			return ( resource & "?" & cgi.query_string );
+
+		}
+
+		return resource;
+
+	}
+
+
+	/**
 	* I return the most trusted IP address reported for the current request.
 	*/
 	public string function getIpAddress() {
@@ -136,6 +154,16 @@ component
 
 
 	/**
+	* I return the executing script and any extra path information.
+	*/
+	public string function getResource() {
+
+		return ( cgi.script_name & cgi.path_info );
+
+	}
+
+
+	/**
 	* I return the HTTP scheme.
 	*/
 	public string function getScheme() {
@@ -150,12 +178,6 @@ component
 	*/
 	public string function getScriptName() {
 
-		if ( cgi.path_info.len() ) {
-
-			return cgi.path_info;
-
-		}
-
 		return cgi.script_name;
 
 	}
@@ -166,7 +188,7 @@ component
 	*/
 	public string function getUrl() {
 
-		var resource = ( getScheme() & getHost() & getScriptName() );
+		var resource = ( getScheme() & getHost() & getResource() );
 
 		if ( cgi.query_string.len() ) {
 
@@ -185,6 +207,17 @@ component
 	public string function getUserAgent() {
 
 		return cgi.http_user_agent;
+
+	}
+
+
+	/**
+	* I perform very light-weight validation to make sure the given input starts with a
+	* slash (ie, is not an external URL).
+	*/
+	public boolean function isInternalUrl( required string input ) {
+
+		return ( input.left( 1 ) == "/" );
 
 	}
 
