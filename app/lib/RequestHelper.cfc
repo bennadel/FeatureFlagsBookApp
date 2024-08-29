@@ -43,7 +43,7 @@ component
 		if ( ! maybeUser.exists ) {
 
 			throw(
-				type = "App.Unauthenticated",
+				type = "App.Unauthorized",
 				message = "Unauthenticated user accessed secure area."
 			);
 

@@ -25,12 +25,12 @@ export class ApiErrorResponse {
 
 	public type: string;
 	public message: string;
-	public cause: HttpErrorResponse;
+	public cause: unknown;
 
 	/**
 	* I initialize the error response.
 	*/
-	constructor( type: string, message: string, cause: HttpErrorResponse ) {
+	constructor( type: string, message: string, cause: unknown ) {
 
 		this.type = type;
 		this.message = message;
@@ -120,7 +120,7 @@ export class ApiClient {
 			}
 		);
 
-		return this.buildResponse( config, observable );
+		return this.handleResponse( config, observable );
 
 	}
 
@@ -146,46 +146,46 @@ export class ApiClient {
 	* translation, an error handler is attached and will convert the HTTP error into an
 	* API client error (instanceof ApiErrorResponse).
 	*/
-	private buildResponse<T>(
+	private async handleResponse<T>(
 		config: ApiRequestConfig,
 		observable: Observable<T>
 		) : Promise<T> {
 
-		var promise = firstValueFrom( observable ).catch(
-			( httpResponse ) => {
+		try {
 
-				var error = new ApiErrorResponse( DEFAULT_TYPE, DEFAULT_MESSAGE, httpResponse );
+			return await firstValueFrom( observable );
 
-				if ( httpResponse instanceof HttpErrorResponse ) {
+		} catch ( httpResponse ) {
 
-					try {
+			var error = new ApiErrorResponse( DEFAULT_TYPE, DEFAULT_MESSAGE, httpResponse );
 
-						if (
-							( typeof httpResponse.error === "object" ) &&
-							( typeof httpResponse.error.error === "object" ) &&
-							( typeof httpResponse.error.error.type === "string" ) &&
-							( typeof httpResponse.error.error.message === "string" )
-							) {
+			if ( httpResponse instanceof HttpErrorResponse ) {
 
-							error.type = httpResponse.error.error.type;
-							error.message = httpResponse.error.error.message;
+				try {
 
-						}
+					if (
+						( typeof httpResponse.error === "object" ) &&
+						( typeof httpResponse.error.error === "object" ) &&
+						( typeof httpResponse.error.error.type === "string" ) &&
+						( typeof httpResponse.error.error.message === "string" )
+						) {
 
-					} catch ( extractionError ) {
-
-						// The error was in an unexpected format.
+						error.type = httpResponse.error.error.type;
+						error.message = httpResponse.error.error.message;
 
 					}
 
+				} catch ( extractionError ) {
+
+					// The error was in an unexpected format.
+
 				}
 
-				throw error;
-
 			}
-		);
 
-		return promise;
+			throw error;
+
+		}
 
 	}
 

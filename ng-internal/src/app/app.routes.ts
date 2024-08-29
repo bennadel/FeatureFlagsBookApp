@@ -24,6 +24,11 @@ export var routes: Routes = [
 		loadChildren: () => import( "./account-view/account-view.routes" )
 	},
 	{
+		path: "errors",
+		pathMatch: "prefix",
+		loadChildren: () => import( "./errors-view/errors-view.routes" )
+	},
+	{
 		path: "features",
 		pathMatch: "prefix",
 		loadChildren: () => import( "./features-view/features-view.routes" )

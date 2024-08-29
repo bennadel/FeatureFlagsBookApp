@@ -21,6 +21,12 @@ component
 		var metadata = getErrorMetadata( error );
 
 		switch ( error.type ) {
+			case "App.InternalOnly":
+				return as403({
+					type: error.type,
+					message: "Sorry, you've attempted to use a feature that is currently in private beta. I'm hoping to start opening this up to a wider audience soon. But, I still have some kinks and rough edges to figure out."
+				});
+			break;
 			case "App.Model.Config.CreatedAt.Invalid":
 				return as422({
 					type: error.type,
@@ -462,8 +468,10 @@ component
 					message: "Your form has expired. Please try submitting your request again."
 				});
 			break;
-			case "App.Unauthenticated":
-				return as401();
+			case "App.Unauthorized":
+				return as401({
+					type: error.type
+				});
 			break;
 			case "App.Xsrf.Mismatch":
 				return as403({
@@ -481,12 +489,6 @@ component
 				return as400({
 					type: error.type,
 					message: "Your request must include the XSRF header (X-XSRF-TOKEN)."
-				});
-			break;
-			case "InternalOnly":
-				return as403({
-					type: error.type,
-					message: "Sorry, you've attempted to use a feature that is currently in private beta. I'm hoping to start opening this up to a wider audience soon. But, I still have some kinks and rough edges to figure out."
 				});
 			break;
 			// Anything not handled by an explicit case becomes a generic 500 response.
@@ -619,7 +621,7 @@ component
 		return {
 			statusCode: 400,
 			statusText: "Bad Request",
-			type: "BadRequest",
+			type: "App.BadRequest",
 			title: "Bad Request",
 			message: "Your request cannot be processed in its current state. Please validate the information in your request and try submitting it again."
 		};
@@ -635,7 +637,7 @@ component
 		return {
 			statusCode: 401,
 			statusText: "Unauthorized",
-			type: "Unauthorized",
+			type: "App.Unauthorized",
 			title: "Unauthorized",
 			message: "Please login and try submitting your request again."
 		};
@@ -651,7 +653,7 @@ component
 		return {
 			statusCode: 403,
 			statusText: "Forbidden",
-			type: "Forbidden",
+			type: "App.Forbidden",
 			title: "Forbidden",
 			message: "Your request is not permitted at this time."
 		};
@@ -667,7 +669,7 @@ component
 		return {
 			statusCode: 404,
 			statusText: "Not Found",
-			type: "NotFound",
+			type: "App.NotFound",
 			title: "Page Not Found",
 			message: "The resource that you requested either doesn't exist or has been moved to a new location."
 		};
@@ -683,7 +685,7 @@ component
 		return {
 			statusCode: 422,
 			statusText: "Unprocessable Entity",
-			type: "UnprocessableEntity",
+			type: "App.UnprocessableEntity",
 			title: "Unprocessable Entity",
 			message: "Your request cannot be processed in its current state. Please validate the information in your request and try submitting it again."
 		};
@@ -699,7 +701,7 @@ component
 		return {
 			statusCode: 429,
 			statusText: "Too Many Requests",
-			type: "TooManyRequests",
+			type: "App.TooManyRequests",
 			title: "Too Many Requests",
 			message: "Your request has been rejected due to rate limiting. Please wait a few minutes and then try submitting your request again."
 		};
@@ -715,7 +717,7 @@ component
 		return {
 			statusCode: 500,
 			statusText: "Server Error",
-			type: "ServerError",
+			type: "App.ServerError",
 			title: "Something Went Wrong",
 			message: "Sorry, something seems to have gone wrong while handling your request. I'll see if I can figure out what happened and fix it."
 		};

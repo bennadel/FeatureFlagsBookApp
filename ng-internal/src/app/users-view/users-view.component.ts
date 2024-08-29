@@ -10,6 +10,7 @@ import { SimpleChanges } from "@angular/core";
 
 // Import app modules.
 import { ApiClient } from "~/app/shared/services/api-client";
+import { ErrorService } from "~/app/shared/services/error.service";
 import { ExpiredResponseError } from "~/app/shared/errors";
 import { SpinnerComponent } from "~/app/shared/components/spinner/spinner.component";
 import { User } from "~/app/shared/types";
@@ -58,6 +59,7 @@ export class UsersViewComponent {
 	private activatedRoute = inject( ActivatedRoute );
 	private apiClient = inject( ApiClient );
 	private destroyRef = inject( DestroyRef );
+	private errorService = inject( ErrorService );
 	private windowTitle = inject( WindowTitle );
 
 	public routeInputs: RouteInputs = {
@@ -86,6 +88,12 @@ export class UsersViewComponent {
 		// When the component is destroyed, we want to change the last response ID so that
 		// any pending data load will be ignored.
 		this.destroyRef.onDestroy( () => LAST_RESPONSE_ID++ );
+
+	}
+
+	public ngOnDestroy() {
+
+		console.warn( "Users view desetruction." );
 
 	}
 
@@ -168,14 +176,13 @@ export class UsersViewComponent {
 
 		} catch ( error ) {
 
-			if ( error instanceof ExpiredResponseError ) {
+			if ( ! this.errorService.handleError( error ) ) {
 
-				console.warn( "Ignoring expired partial response." );
-				return;
+				console.group( "Users View Load Remote Data Error" );
+				console.error( error );
+				console.groupEnd();
 
 			}
-
-			console.error( error );
 
 		}
 
