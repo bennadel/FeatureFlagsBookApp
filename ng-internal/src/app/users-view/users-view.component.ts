@@ -11,7 +11,7 @@ import { SimpleChanges } from "@angular/core";
 // Import app modules.
 import { ApiClient } from "~/app/shared/services/api-client";
 import { ErrorService } from "~/app/shared/services/error.service";
-import { ExpiredResponseError } from "~/app/shared/errors";
+import { ExpiredResponseError } from "~/app/shared/services/error.service";
 import { SpinnerComponent } from "~/app/shared/components/spinner/spinner.component";
 import { User } from "~/app/shared/types";
 import { WindowTitle } from "~/app/shared/services/window-title";
@@ -206,7 +206,7 @@ export class UsersViewComponent {
 
 		if ( responseID !== LAST_RESPONSE_ID ) {
 
-			throw( new ExpiredResponseError( "DemoUsers" ) );
+			throw new ExpiredResponseError( "DemoUsers" );
 
 		}
 

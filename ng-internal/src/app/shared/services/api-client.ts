@@ -21,20 +21,17 @@ export interface ApiRequestConfig {
 	data?: any;
 }
 
-export class ApiErrorResponse {
+export class ApiErrorResponse extends Error {
 
 	public type: string;
-	public message: string;
-	public cause: unknown;
 
 	/**
 	* I initialize the error response.
 	*/
 	constructor( type: string, message: string, cause: unknown ) {
 
+		super( message, { cause } );
 		this.type = type;
-		this.message = message;
-		this.cause = cause;
 
 	}
 
@@ -42,6 +39,9 @@ export class ApiErrorResponse {
 
 export var DEFAULT_TYPE = "Unknown";
 export var DEFAULT_MESSAGE = "An unexpected error occurred while processing your request.";
+
+// ----------------------------------------------------------------------------------- //
+// ----------------------------------------------------------------------------------- //
 
 @Injectable({
 	providedIn: "root"
@@ -77,22 +77,6 @@ export class ApiClient {
 			method: "get",
 			...config
 		});
-
-	}
-
-
-	/**
-	* I extract the error message from the given server error (or provide a default).
-	*/
-	public getErrorMessage( error: unknown ) : string {
-
-		if ( error instanceof ApiErrorResponse ) {
-
-			return error.message;
-
-		}
-
-		return DEFAULT_MESSAGE;
 
 	}
 
@@ -157,7 +141,9 @@ export class ApiClient {
 
 		} catch ( httpResponse ) {
 
-			var error = new ApiErrorResponse( DEFAULT_TYPE, DEFAULT_MESSAGE, httpResponse );
+			var type: string = DEFAULT_TYPE;
+			var message: string = DEFAULT_MESSAGE;
+			var cause: unknown = httpResponse;
 
 			if ( httpResponse instanceof HttpErrorResponse ) {
 
@@ -170,8 +156,8 @@ export class ApiClient {
 						( typeof httpResponse.error.error.message === "string" )
 						) {
 
-						error.type = httpResponse.error.error.type;
-						error.message = httpResponse.error.error.message;
+						type = httpResponse.error.error.type;
+						message = httpResponse.error.error.message;
 
 					}
 
@@ -183,7 +169,7 @@ export class ApiClient {
 
 			}
 
-			throw error;
+			throw new ApiErrorResponse( type, message, cause );
 
 		}
 

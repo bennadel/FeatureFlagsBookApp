@@ -1,12 +1,36 @@
 
 // Import vendor modules.
+import { ErrorHandler } from "@angular/core";
 import { inject } from "@angular/core";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 
 // Import app modules.
 import { ApiErrorResponse } from "~/app/shared/services/api-client";
-import { ExpiredResponseError } from "~/app/shared/errors";
+
+// ----------------------------------------------------------------------------------- //
+// ----------------------------------------------------------------------------------- //
+
+/**
+* I represent an expired HTTP response.
+*/
+export class ExpiredResponseError extends Error {
+
+	/**
+	* I initialize the error.
+	*/
+	constructor( context: string = "Unknown" ) {
+
+		super(
+			"Expired response.",
+			{
+				cause: `Context: ${ context }`
+			}
+		);
+
+	}
+
+}
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
@@ -16,6 +40,7 @@ import { ExpiredResponseError } from "~/app/shared/errors";
 })
 export class ErrorService {
 
+	private errorHandler = inject( ErrorHandler );
 	private router = inject( Router );
 
 	// ---
@@ -43,6 +68,10 @@ export class ErrorService {
 	* calling context should handle the error.
 	*/
 	public handleError( error: unknown ) : boolean {
+
+		// Temporary: Let's log all errors as well - this will likely be way too noisy;
+		// but, for the time-being, let's see what happens and then trim-back as needed.
+		this.errorHandler.handleError( error );
 
 		if ( error instanceof ExpiredResponseError ) {
 
