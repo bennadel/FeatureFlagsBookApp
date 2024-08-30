@@ -1,5 +1,6 @@
 <cfscript>
 
+	config = request.ioc.get( "config" );
 	errorService = request.ioc.get( "lib.ErrorService" );
 	logger = request.ioc.get( "lib.Logger" );
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
@@ -53,6 +54,13 @@
 				message: errorResponse.message
 			}
 		};
+
+		// Used to render the error in local development debugging.
+		if ( ! config.isLive ) {
+
+			request.template.primaryContent.lastProcessedError = error;
+
+		}
 
 	}
 

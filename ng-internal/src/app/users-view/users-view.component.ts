@@ -4,16 +4,15 @@ import { ActivatedRoute } from "@angular/router";
 import { Component } from "@angular/core";
 import { DestroyRef } from "@angular/core";
 import { inject } from "@angular/core";
-import { ResolveData } from "@angular/router";
 import { RouterLink } from "@angular/router";
 import { SimpleChanges } from "@angular/core";
 
 // Import app modules.
 import { ApiClient } from "~/app/shared/services/api-client";
+import { Demo } from "~/app/shared/types";
 import { ErrorService } from "~/app/shared/services/error.service";
 import { ExpiredResponseError } from "~/app/shared/services/error.service";
 import { SpinnerComponent } from "~/app/shared/components/spinner/spinner.component";
-import { User } from "~/app/shared/types";
 import { WindowTitle } from "~/app/shared/services/window-title";
 
 // ----------------------------------------------------------------------------------- //
@@ -24,11 +23,11 @@ interface RouteInputs {
 };
 
 interface Partial {
-	users: User[];
-	authenticatedUsers: User[];
+	users: Demo.User[];
+	authenticatedUsers: Demo.User[];
 };
 
-interface EnhancedUser extends User {
+interface EnhancedUser extends Demo.User {
 	emailUser: string;
 	emailDomain: string;
 };
@@ -66,8 +65,8 @@ export class UsersViewComponent {
 		sortOn: ""
 	};
 	public isLoading = true;
-	public users: User[] = [];
-	public authenticatedUsers: User[] = [];
+	public users: Demo.User[] = [];
+	public authenticatedUsers: Demo.User[] = [];
 	public enhancedUsers: EnhancedUser[] = [];
 	public groups: Group[] = [];
 

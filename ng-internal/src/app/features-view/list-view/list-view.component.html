@@ -2,22 +2,142 @@
 <section class="temp-content">
 
 	<h1>
-		Features &rarr; List View
+		Feature Flags Playground
 	</h1>
 
-	<ul>
-		<li>
-			<a routerLink="/features/add">#/ features / add</a>
-		</li>
-		<li>
-			<a routerLink="/features/clear">#/ features / clear</a>
-		</li>
-		<li>
-			<a routerLink="/features/reset">#/ features / reset</a>
-		</li>
-		<li>
-			<a routerLink="/features/feature-111">#/ features / feature-111</a>
-		</li>
-	</ul>
+	<p>
+		This application is here to help you learn about
+		<span class="emoji">&#x2764;&#xfe0f;</span>
+		{{ ' ' }}
+		<a href="https://featureflagsbook.com/" target="_blank">Feature Flags</a>
+		{{ ' ' }}
+		<span class="emoji">&#x2764;&#xfe0f;</span>
+		Click around and edit the feature flag settings to see how changes to targeting affect variant allocation (against the <a routerLink="/users">100+ demo users</a>).
+	</p>
+
+	<p>
+		You can <a routerLink="/features/add">add a feature flag</a>.
+		And, at any time, you can
+		<a routerLink="/features/clear">remove all rules</a> or
+		<a routerLink="/features/reset">reset your settings</a>.
+	</p>
+
+	@if ( isLoading ) {
+
+		<app-spinner></app-spinner>
+
+	}
+
+	@if ( ! isLoading ) {
+
+		<table class="grid">
+		<thead>
+			<tr>
+				<th rowspan="2" valign="bottom" align="left">
+					Feature
+				</th>
+				<th rowspan="2" valign="bottom">
+					Type
+				</th>
+				<th rowspan="2" valign="bottom">
+					Variants
+				</th>
+
+				@for ( environment of environments ; track environment.key ) {
+
+					<th colspan="2">
+						<a [routerLink]="[ '/staging/features', environment.key ]">{{ environment.key }}</a>
+					</th>
+
+				}
+
+			</tr>
+			<tr>
+				@for ( environment of environments ; track environment.key ) {
+
+					<th class="env-left">
+						Rules
+					</th>
+					<th class="env-right">
+						Breakdown
+					</th>
+
+				}
+			</tr>
+		</thead>
+		<tbody>
+			@for ( feature of features ; track feature.key ) {
+
+				<tr>
+					<th align="left" scope="row">
+						<a [routerLink]="[ '/features', feature.key ]">{{ feature.key }}</a>
+					</th>
+					<td align="center">
+						{{ feature.type }}
+					</td>
+					<td align="center">
+
+						<div class="dots">
+							@for ( variant of feature.variants ; track $index ) {
+
+								<span class="dots__dot variant-{{ $index + 1 }}"></span>
+
+							}
+						</div>
+
+					</td>
+
+					@for ( environment of environments ; track environment.key ) {
+
+						<td align="center" class="env-left">
+
+							@if ( feature.targeting[ environment.key ].rulesEnabled ) {
+
+								Enabled
+
+								@if ( feature.targeting[ environment.key ].rules.length ) {
+									({{ feature.targeting[ environment.key ].rules.length }})
+								}
+
+							} @else {
+
+								<span class="disabled">Disabled</span>
+
+							}
+
+						</td>
+
+						<td class="env-right">
+							<a [routerLink]="[ '/features', feature.key, 'targeting' ]" class="breakdown">
+								@for ( breakdown of breakdowns[ feature.key ][ environment.key ] ; track $index ) {
+
+									@if ( breakdown.count ) {
+
+										<span
+											class="breakdown__item variant-{{ breakdown.variantIndex }}"
+											[style.flex-grow]="breakdown.count">
+										</span>
+
+									}
+
+								}
+							</a>
+						</td>
+
+					}
+
+				</tr>
+
+			}
+		</tbody>
+		</table>
+
+		<hr />
+
+		<p>
+			<strong>GitHub:</strong> The code for this site is available in my <a href="https://github.com/bennadel/FeatureFlagsBookApp" target="_blank">application repository</a> on GitHub. Feel free to fork, download, modify, and run it, etc.
+		</p>
+
+	}
 
 </section>

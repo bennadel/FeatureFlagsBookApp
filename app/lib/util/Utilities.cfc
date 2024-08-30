@@ -54,6 +54,22 @@ component
 
 
 	/**
+	* SHIM: I'm hoping this can be removed in future versions of ColdFusion.
+	*/
+	public array function structValueArray( required struct input ) {
+
+		return input.keyArray().map(
+			( key ) => {
+
+				return input[ key ];
+
+			}
+		);
+
+	}
+
+
+	/**
 	* I convert the given collection to an array of entries. Each entry has (index, key,
 	* and value) properties.
 	*/
