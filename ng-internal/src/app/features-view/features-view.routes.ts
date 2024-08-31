@@ -5,6 +5,7 @@ import { Routes } from "@angular/router";
 // Import application modules.
 import { AddViewComponent } from "./add-view/add-view.component";
 import { ClearViewComponent } from "./clear-view/clear-view.component";
+import DetailRoutes from "./detail-view/detail-view.routes";
 import { ListViewComponent } from "./list-view/list-view.component";
 import { ResetViewComponent } from "./reset-view/reset-view.component";
 
@@ -40,7 +41,8 @@ export var routes: Routes = [
 	{
 		path: ":featureKey",
 		pathMatch: "prefix",
-		loadChildren: () => import( "./detail-view/detail-view.routes" )
+		children: DetailRoutes
+		// loadChildren: () => import( "./detail-view/detail-view.routes" )
 	}
 ];
 
