@@ -39,14 +39,4 @@
 
 	}
 
-
-	/**
-	* I get the features for the given config.
-	*/
-	private array function getFeatures( required struct config ) {
-
-		return utilities.toFeaturesArray( config.features );
-
-	}
-
 </cfscript>

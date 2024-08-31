@@ -1,14 +1,108 @@
 
-<section class="temp-content">
+@if ( isLoading ) {
 
-	<h1>
-		Staging &rarr; Features View
-	</h1>
+	<app-spinner></app-spinner>
 
-	<ul>
-		<li>
-			<strong>Environment:</strong> {{ environmentKey }}
-		</li>
-	</ul>
+}
 
-</section>
+@if ( ! isLoading ) {
+
+	<section class="temp-content temp-header">
+
+		<h1>
+			Feature Flag Evaluation
+		</h1>
+
+		<p>
+			@for ( environment of environments ; track environment.key ) {
+
+					<a
+						[routerLink]="[ '/staging/features', environment.key ]"
+						routerLinkActive="active">{{ environment.name }}</a> ,
+
+
+			}
+		</p>
+
+	</section>
+
+	<section class="temp-body">
+
+		<h2>
+			Breakdown
+		</h2>
+
+		<table>
+		<thead>
+			<tr>
+				<th>
+					... tools ...
+				</th>
+				@for ( feature of features ; track feature.key ) {
+
+					<th>
+						{{ feature.description }}<br />
+						<a [routerLink]="[ '/features', feature.key ]">{{ feature.key }}</a>
+					</th>
+
+				}
+			</tr>
+		</thead>
+		<tbody>
+
+			@for ( user of users ; track user.id ) {
+
+				<tr>
+					<th scope="row">
+						{{ user.email }}
+					</th>
+
+					@for ( feature of features ; track feature.key ) {
+
+						<td
+							[attr.data-user-id]="user.id"
+							[attr.data-feature-key]="feature.key"
+							class="variant variant-{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variantIndex }}">
+							<a [routerLink]="[ '/staging/users', user.id, 'explain', feature.key, environmentKey ]">{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variant }}</a>
+						</td>
+
+					}
+				</tr>
+
+			}
+
+		</tbody>
+		</table>
+
+
+	</section>
+
+	<section class="temp-map">
+
+		<table class="map">
+		<tbody>
+
+			@for ( user of users ; track user.id ) {
+
+				<tr>
+
+					@for ( feature of features ; track feature.key ) {
+
+						<td>
+							<button
+								(click)="scrollToEvaluation( user.id, feature.key )"
+								class="variant variant-{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variantIndex }}">
+							</button>
+						</td>
+
+					}
+				</tr>
+
+			}
+
+		</tbody>
+		</table>
+
+	</section>
+
+}

@@ -13,6 +13,18 @@ component
 	// PUBLIC METHODS.
 	// ---
 
+	public struct function getAllocation(
+		required struct config,
+		required array users,
+		required array features,
+		required array environments,
+		string fallbackVariant = "FALLBACK"
+		) {
+
+
+	}
+
+
 	/**
 	* I return the full variant allocation breakdown for the given features, environments,
 	* and users.

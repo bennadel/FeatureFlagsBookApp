@@ -6,6 +6,9 @@
 		case "environments":
 			cfmodule( template = "./environments.cfm" );
 		break;
+		case "features":
+			cfmodule( template = "./features.cfm" );
+		break;
 		default:
 			throw(
 				type = "App.Routing.Api.Partials.NgInternal.Staging.InvalidEvent",
