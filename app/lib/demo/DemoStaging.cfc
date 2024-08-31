@@ -1,6 +1,6 @@
 component
 	output = false
-	hint = "I provide feature flag / environment / user breakdowns for the demo."
+	hint = "I provide feature flag staging for the demo (ie which feature variants are being allocated)."
 	{
 
 	// Define properties for dependency-injection.

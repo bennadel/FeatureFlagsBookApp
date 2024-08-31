@@ -1,6 +1,6 @@
 <cfscript>
 
-	demoBreakdown = request.ioc.get( "lib.demo.DemoBreakdown" );
+	demoStaging = request.ioc.get( "lib.demo.DemoStaging" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
@@ -64,7 +64,7 @@
 		required array environments
 		) {
 
-		return demoBreakdown.getBreakdown( config, users, features, environments );
+		return demoStaging.getBreakdown( config, users, features, environments );
 
 	}
 
