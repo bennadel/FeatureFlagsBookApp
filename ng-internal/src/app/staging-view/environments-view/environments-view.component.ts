@@ -84,7 +84,7 @@ export class EnvironmentsViewComponent {
 
 			if ( ! this.errorService.handleError( error ) ) {
 
-				console.group( "Users View Load Remote Data Error" );
+				console.group( "Remote Data Load Error" );
 				console.error( error );
 				console.groupEnd();
 
