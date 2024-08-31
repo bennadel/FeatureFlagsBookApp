@@ -6,6 +6,9 @@
 		case "features":
 			cfmodule( template = "./features/index.cfm" );
 		break;
+		case "staging":
+			cfmodule( template = "./staging/index.cfm" );
+		break;
 		case "users":
 			cfmodule( template = "./users.cfm" );
 		break;

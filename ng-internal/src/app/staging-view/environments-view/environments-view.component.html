@@ -1,6 +1,62 @@
 
 <section class="temp-content">
 
+	@if ( isLoading ) {
+
+		<app-spinner></app-spinner>
+
+	}
+
+	@if ( ! isLoading ) {
+
+		<h1>
+			Feature Flag Staging
+		</h1>
+
+		@if ( environments.length ) {
+
+			<h2>
+				Demo Environments
+			</h2>
+
+			<ul>
+				@for ( environment of environments ; track environment.key ) {
+
+					<li>
+						<a [routerLink]="[ '/staging/features', environment.key ]">
+							{{ environment.name }}
+						</a>
+					</li>
+
+				}
+			</ul>
+
+		}
+
+		@if ( users.length ) {
+
+			<h2>
+				Demo Users
+			</h2>
+
+			<ul>
+				@for ( user of users ; track user.id ) {
+
+					<li>
+						<a [routerLink]="[ '/staging/users', user.id ]">
+							{{ user.name }}
+							&lt;{{ user.email }}&gt;
+						</a>
+					</li>
+
+				}
+			</ul>
+
+		}
+
+	}
+
+	<!--
 	<h1>
 		Staging &rarr; Environments View
 	</h1>
@@ -16,5 +72,6 @@
 			<a routerLink="/staging/users/1234/explain/feature-111/production">#/ staging / users / 1234 / explain / feature-111 / production</a>
 		</li>
 	</ul>
+	-->
 
 </section>

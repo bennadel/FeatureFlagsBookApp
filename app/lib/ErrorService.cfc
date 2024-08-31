@@ -454,6 +454,7 @@ component
 			case "App.Routing.Api.Partials.InvalidEvent":
 			case "App.Routing.Api.Partials.NgInternal.InvalidEvent":
 			case "App.Routing.Api.Partials.NgInternal.Features.InvalidEvent":
+			case "App.Routing.Api.Partials.NgInternal.Staging.InvalidEvent":
 			case "App.Routing.Auth.InvalidEvent":
 			case "App.Routing.Features.InvalidEvent":
 			case "App.Routing.Home.InvalidEvent":
