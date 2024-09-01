@@ -2,11 +2,22 @@
 <section class="temp-content">
 
 	<h1>
-		Features &rarr; Reset View
+		Reset Feature Tageting
 	</h1>
 
-	<p>
+	@if ( errorMessage ) {
+
+		<p class="temp-error-message">
+			{{ errorMessage }}
+		</p>
+
+	}
+
+	<form (submit)="processForm()">
+		<button type="submit">
+			Reset
+		</button>
 		<a routerLink="/features">Cancel</a>
-	</p>
+	</form>
 
 </section>

@@ -27,6 +27,9 @@ component
 					message: "Sorry, you've attempted to use a feature that is currently in private beta. I'm hoping to start opening this up to a wider audience soon. But, I still have some kinks and rough edges to figure out."
 				});
 			break;
+			case "App.MethodNotAllowed":
+				return as405();
+			break;
 			case "App.Model.Config.CreatedAt.Invalid":
 				return as422({
 					type: error.type,
@@ -451,6 +454,7 @@ component
 			break;
 			case "App.Routing.InvalidEvent":
 			case "App.Routing.Api.InvalidEvent":
+			case "App.Routing.Api.Features.InvalidEvent":
 			case "App.Routing.Api.Partials.InvalidEvent":
 			case "App.Routing.Api.Partials.NgInternal.InvalidEvent":
 			case "App.Routing.Api.Partials.NgInternal.Features.InvalidEvent":
@@ -553,6 +557,16 @@ component
 	private struct function as404( struct errorAttributes = {} ) {
 
 		return getGeneric404Response().append( errorAttributes );
+
+	}
+
+
+	/**
+	* I generate a 405 response object for the given error attributes.
+	*/
+	private struct function as405( struct errorAttributes = {} ) {
+
+		return getGeneric405Response().append( errorAttributes );
 
 	}
 
@@ -674,6 +688,22 @@ component
 			type: "App.NotFound",
 			title: "Page Not Found",
 			message: "The resource that you requested either doesn't exist or has been moved to a new location."
+		};
+
+	}
+
+
+	/**
+	* I return the generic "405 Method Not Allowed" response.
+	*/
+	private struct function getGeneric405Response() {
+
+		return {
+			statusCode: 405,
+			statusText: "Method Not Allowed",
+			type: "App.MethodNotAllowed",
+			title: "Method Not Allowed",
+			message: "Your request cannot be processed with the given HTTP method."
 		};
 
 	}

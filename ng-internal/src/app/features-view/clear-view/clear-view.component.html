@@ -2,11 +2,22 @@
 <section class="temp-content">
 
 	<h1>
-		Features &rarr; Clear View
+		Clear All Targeting
 	</h1>
 
-	<p>
+	@if ( errorMessage ) {
+
+		<p class="temp-error-message">
+			{{ errorMessage }}
+		</p>
+
+	}
+
+	<form (submit)="processForm()">
+		<button type="submit">
+			Clear
+		</button>
 		<a routerLink="/features">Cancel</a>
-	</p>
+	</form>
 
 </section>

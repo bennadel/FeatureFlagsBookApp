@@ -30,6 +30,9 @@
 		param name="request.event[ 2 ]" type="string" default="";
 
 		switch ( request.event[ 2 ] ) {
+			case "features":
+				cfmodule( template = "./features/index.cfm" );
+			break;
 			case "partials":
 				cfmodule( template = "./partials/index.cfm" );
 			break;

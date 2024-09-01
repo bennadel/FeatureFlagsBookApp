@@ -14,6 +14,23 @@ component
 	// ---
 
 	/**
+	* I assert that the current request is made as a POST.
+	*/
+	public void function assertHttpPost() {
+
+		if ( requestMetadata.getMethod() != "POST" ) {
+
+			throw(
+				type = "App.MethodNotAllowed",
+				message = "Request must be made using POST."
+			);
+
+		}
+
+	}
+
+
+	/**
 	* I return the currently authenticated user; and, if the user isn't authenticated, I
 	* redirect the request to the login.
 	*/
