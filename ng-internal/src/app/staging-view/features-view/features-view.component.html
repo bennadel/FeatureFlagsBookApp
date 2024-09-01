@@ -7,7 +7,7 @@
 
 @if ( ! isLoading ) {
 
-	<section class="temp-content temp-header">
+	<section class="temp-content temp-main">
 
 		<h1>
 			Feature Flag Evaluation
@@ -20,19 +20,10 @@
 						[routerLink]="[ '/staging/features', environment.key ]"
 						routerLinkActive="active">{{ environment.name }}</a> ,
 
-
 			}
 		</p>
 
-	</section>
-
-	<section class="temp-body">
-
-		<h2>
-			Breakdown
-		</h2>
-
-		<table>
+		<table class="breakdown">
 		<thead>
 			<tr>
 				<th>
@@ -74,35 +65,29 @@
 		</tbody>
 		</table>
 
-
 	</section>
 
-	<section class="temp-map">
+	<aside class="temp-map">
 
-		<table class="map">
-		<tbody>
+		<div
+			class="map"
+			[style.grid-template-columns]="( 'repeat(' + features.length + ', 1fr )' )">
 
 			@for ( user of users ; track user.id ) {
 
-				<tr>
+				@for ( feature of features ; track feature.key ) {
 
-					@for ( feature of features ; track feature.key ) {
+					<button
+						(click)="scrollToEvaluation( user.id, feature.key )"
+						class="variant-{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variantIndex }}">
+					</button>
 
-						<td>
-							<button
-								(click)="scrollToEvaluation( user.id, feature.key )"
-								class="variant variant-{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variantIndex }}">
-							</button>
-						</td>
-
-					}
-				</tr>
+				}
 
 			}
 
-		</tbody>
-		</table>
+		</div>
 
-	</section>
+	</aside>
 
 }

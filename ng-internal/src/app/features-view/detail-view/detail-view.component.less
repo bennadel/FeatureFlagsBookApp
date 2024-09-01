@@ -1,21 +1,18 @@
 
 :host {
-	bottom: 0 ;
 	display: flex ;
-	left: 0 ;
-	position: absolute ;
-	right: 0 ;
-	top: 0 ;
+	align-items: flex-start ;
 }
 
 .temp-content {
 	flex: 1 1 auto ;
-	overflow: auto ;
-	overscroll-behavior: contain ;
 }
 
 .temp-staging {
 	flex: 0 0 auto ;
-	position: relative ;
+	max-height: 100vh ;
+	min-height: 100vh ;
+	position: sticky ;
+	top: 0 ;
 	width: 20vw ;
 }

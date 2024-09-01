@@ -1,6 +1,9 @@
 
 :host {
+	--global-nav-bar-width: 64px ;
+
 	display: block ;
+	margin-left: var( --global-nav-bar-width ) ;
 }
 
 .header-panel {
@@ -11,7 +14,7 @@
 	overflow: hidden ;
 	position: fixed ;
 	top: 0 ;
-	width: 64px ;
+	width: var( --global-nav-bar-width ) ;
 	z-index: 2 ;
 
 	&.expanded {
@@ -21,16 +24,7 @@
 	}
 }
 
-.main-panel {
-	bottom: 0 ;
-	left: 64px ;
-	right: 0 ;
-	overflow: auto ;
-	overscroll-behavior: contain ;
-	position: fixed ;
-	top: 0 ;
-	z-index: 1 ;
-}
+.main-panel {}
 
 .nav {
 	display: flex ;
