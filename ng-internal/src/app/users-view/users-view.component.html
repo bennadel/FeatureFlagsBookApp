@@ -144,7 +144,7 @@
 							{{ user.id }}
 						</td>
 						<td [class.highlight]="( routeInputs.sortOn === 'user.email' )">
-							<span class="diminish">{{ user.emailUser }}</span>{{ user.emailDomain }}
+							<a [routerLink]="[ '/staging/users', user.id ]"><span class="diminish">{{ user.emailUser }}</span>{{ user.emailDomain }}</a>
 						</td>
 						<td [class.highlight]="( routeInputs.sortOn === 'user.role' )">
 							{{ user.role }}

@@ -9,8 +9,13 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
+	param name="url.userID" type="numeric";
+
 	// TODO: Move all of this logic into a Partial component.
-	request.template.primaryContent = getPartial( request.user.email );
+	request.template.primaryContent = getPartial(
+		email = request.user.email,
+		userID = val( url.userID )
+	);
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -18,16 +23,19 @@
 	/**
 	* I get the main partial payload for the view.
 	*/
-	private struct function getPartial( required string email ) {
+	private struct function getPartial(
+		required string email,
+		required numeric userID
+		) {
 
 		var config = getConfig( email );
-		var users = getUsers( email );
+		var user = getUser( email, userID );
 		var features = getFeatures( config );
 		var environments = getEnvironments( config );
-		var breakdown = getBreakdown( config, users, features, environments );
+		var breakdown = getBreakdown( config, user, features, environments );
 
 		return {
-			users: users,
+			user: user,
 			features: features,
 			environments: environments,
 			breakdown: breakdown
@@ -37,11 +45,11 @@
 
 
 	/**
-	* I get the variant breakdown for the given users.
+	* I get the variant breakdown for the given user.
 	*/
 	private struct function getBreakdown(
 		required struct config,
-		required array users,
+		required struct user,
 		required array features,
 		required array environments,
 		string fallbackVariant = "FALLBACK"
@@ -54,29 +62,23 @@
 
 		var breakdown = [:];
 
-		for ( var environment in environments ) {
+		for ( var feature in features ) {
 
-			breakdown[ environment.key ] = [:];
+			breakdown[ feature.key ] = [:];
+			
+			for ( var environment in environments ) {
 
-			for ( var user in users ) {
+				var result = featureFlags.debugEvaluation(
+					featureKey = feature.key,
+					environmentKey = environment.key,
+					context = demoTargeting.getContext( user ),
+					fallbackVariant = fallbackVariant
+				);
 
-				breakdown[ environment.key ][ user.id ] = [:];
-
-				for ( var feature in features ) {
-
-					var result = featureFlags.debugEvaluation(
-						featureKey = feature.key,
-						environmentKey = environment.key,
-						context = demoTargeting.getContext( user ),
-						fallbackVariant = fallbackVariant
-					);
-
-					breakdown[ environment.key ][ user.id ][ feature.key ] = [
-						variantIndex: result.variantIndex,
-						variant: serializeJson( result.variant )
-					];
-
-				}
+				breakdown[ feature.key ][ environment.key ] = [
+					variantIndex: result.variantIndex,
+					variant: serializeJson( result.variant )
+				];
 
 			}
 
@@ -118,11 +120,26 @@
 
 
 	/**
-	* I get the users for the given authenticated user.
+	* I get the user for the given authenticated user.
 	*/
-	private array function getUsers( required string email ) {
+	private struct function getUser(
+		required string email,
+		required numeric userID
+		) {
 
-		return demoUsers.getUsers( email );
+		var users = demoUsers.getUsers( email );
+		var userIndex = utilities.indexBy( users, "id" );
+
+		if ( ! userIndex.keyExists( userID ) ) {
+
+			throw(
+				type = "App.NotFound",
+				message = "User not found."
+			);
+
+		}
+
+		return userIndex[ userID ];
 
 	}
 

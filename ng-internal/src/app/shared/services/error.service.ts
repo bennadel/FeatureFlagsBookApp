@@ -64,14 +64,26 @@ export class ErrorService {
 
 
 	/**
+	* I attempt to extract the app error type from the given error.
+	*/
+	public getType( error: unknown ) : string {
+
+		if ( error instanceof ApiErrorResponse ) {
+
+			return error.type;
+
+		}
+
+		return "Unknown";
+
+	}
+
+
+	/**
 	* I attempt to handle the error globally, returning true if handled or false if the
 	* calling context should handle the error.
 	*/
 	public handleError( error: unknown ) : boolean {
-
-		// Temporary: Let's log all errors as well - this will likely be way too noisy;
-		// but, for the time-being, let's see what happens and then trim-back as needed.
-		this.errorHandler.handleError( error );
 
 		if ( error instanceof ExpiredResponseError ) {
 
@@ -80,39 +92,42 @@ export class ErrorService {
 
 		}
 
-		if ( error instanceof ApiErrorResponse ) {
+		// Temporary: Let's log all errors as well - this will likely be way too noisy;
+		// but, for the time-being, let's see what happens and then trim-back as needed.
+		this.errorHandler.handleError( error );
 
-			switch ( error.type ) {
-				case "App.Unauthorized":
+		switch ( this.getType( error ) ) {
+			case "App.Unauthorized":
 
-					this.router.navigateByUrl(
-						"/errors/unauthorized",
-						{
-							skipLocationChange: true
-						}
-					);
-					return true;
+				this.router.navigateByUrl(
+					"/errors/unauthorized",
+					{
+						skipLocationChange: true
+					}
+				);
+				return true;
 
-				break;
-				case "App.Xsrf.Mismatch":
-				case "App.Xsrf.MissingCookie":
-				case "App.Xsrf.MissingHeader":
+			break;
+			case "App.Xsrf.Mismatch":
+			case "App.Xsrf.MissingCookie":
+			case "App.Xsrf.MissingHeader":
 
-					this.router.navigateByUrl(
-						"/errors/xsrf",
-						{
-							skipLocationChange: true
-						}
-					);
-					return true;
+				this.router.navigateByUrl(
+					"/errors/xsrf",
+					{
+						skipLocationChange: true
+					}
+				);
+				return true;
 
-				break;
-			}
+			break;
+			default:
 
+				// Defer error handling to the calling context.
+				return false;
+
+			break;
 		}
-
-		// Defer error handling to the calling context.
-		return false;
 
 	}
 

@@ -7,7 +7,6 @@ import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { RouterLink } from "@angular/router";
 import { RouterLinkActive } from "@angular/router";
-import { SimpleChanges } from "@angular/core";
 
 // Import app modules.
 import { ApiClient } from "~/app/shared/services/api-client";
