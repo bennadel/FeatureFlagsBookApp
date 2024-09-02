@@ -1,20 +1,226 @@
 
-<section class="temp-content">
+@if ( isLoading ) {
 
-	<h1>
-		Staging &rarr; Explain View
-	</h1>
+	<app-spinner></app-spinner>
 
-	<ul>
-		<li>
-			<strong>User:</strong> {{ userID }}
-		</li>
-		<li>
-			<strong>Feature:</strong> {{ featureKey }}
-		</li>
-		<li>
-			<strong>Environment:</strong> {{ environmentKey }}
-		</li>
-	</ul>
+}
 
-</section>
+@if (
+	! isLoading &&
+	user &&
+	feature &&
+	environment &&
+	explanation &&
+	result
+	) {
+
+	<section class="temp-content">
+
+		<h1>
+			Variant Explanation
+		</h1>
+
+		<dl>
+			<div>
+				<dt>User:</dt>
+				<dd>
+					<a [routerLink]="[ '/staging/users', user.id ]">{{ user.email }}</a>
+				</dd>
+			</div>
+			<div>
+				<dt>Feature:</dt>
+				<dd>
+					<a [routerLink]="[ '/features', feature.key ]">{{ feature.key }}</a>
+				</dd>
+			</div>
+			<div>
+				<dt>Environment:</dt>
+				<dd>
+					<a [routerLink]="[ '/staging/features', environment.key ]">{{ environment.key }}</a>
+				</dd>
+			</div>
+			<div>
+				<dt>Variant:</dt>
+				<dd>
+					<span class="variant-{{ result.variantIndex }}">
+						{{ result.variant }}
+					</span>
+				</dd>
+			</div>
+			<div>
+				<dt>Reason:</dt>
+				<dd>
+					<mark>{{ explanation.reason }}</mark>
+				</dd>
+			</div>
+		</dl>
+
+		<hr />
+
+		<h2>
+			Context
+		</h2>
+
+		<dl>
+			<div>
+				<dt>"key":</dt>
+				<dd>{{ user.id }}</dd>
+			</div>
+			<div>
+				<dt>"user.id":</dt>
+				<dd>{{ user.id }}</dd>
+			</div>
+			<div>
+				<dt>"user.email":</dt>
+				<dd>{{ user.email }}</dd>
+			</div>
+			<div>
+				<dt>"user.role":</dt>
+				<dd>{{ user.role }}</dd>
+			</div>
+			<div>
+				<dt>"user.company.id":</dt>
+				<dd>{{ user.company.id }}</dd>
+			</div>
+			<div>
+				<dt>"user.company.subdomain":</dt>
+				<dd>{{ user.company.subdomain }}</dd>
+			</div>
+			<div>
+				<dt>"user.company.fortune100":</dt>
+				<dd>{{ user.company.fortune100 }}</dd>
+			</div>
+			<div>
+				<dt>"user.company.fortune500":</dt>
+				<dd>{{ user.company.fortune500 }}</dd>
+			</div>
+			<div>
+				<dt>"user.groups.betaTester":</dt>
+				<dd>{{ user.groups.betaTester }}</dd>
+			</div>
+			<div>
+				<dt>"user.groups.influencer":</dt>
+				<dd>{{ user.groups.influencer }}</dd>
+			</div>
+		</dl>
+
+		<h2>
+			Targeting Details
+		</h2>
+
+		<p>
+			<strong>Reason:</strong>
+			<mark>{{ explanation.reason }}</mark> &mdash;
+
+			@switch( explanation.reason ) {
+				<!--
+					Note: The two key-related cases aren't actually possible in this
+					application (since the context objects are all being hard-coded in the
+					application logic). But, I'm including them here for anyone that might
+					view the source code and wants to better understand the targeting
+					requirements for feature flag state evaluation.
+				-->
+				@case( 'MissingContextKey' ) {
+
+					your context struct must contain a `key` that associates the current request with a targetable entity (such as a user, machine host, ip address, application name, etc). Since you aren't providing a `key`, the fallback variant is being used.
+
+				}
+				@case( 'ComplexContextKey' ) {
+
+					the context `key` property associated with the current request is a complex object and must be a simple value (string). This simple value is used to drive percent-based variant allocations and other targeting rules. Since you aren't providing a proper `key`, the fallback variant is being used.
+
+				}
+				<!-- End: Cases that never happen in this app. -->
+				@case( 'EmptyConfig' ) {
+
+					your configuration is empty (it has no feature flags). As such, the fallback variant is being used.
+
+				}
+				@case( 'MissingFeature' ) {
+
+					your configuration does not contain the given feature key. As such, the fallback variant is being used.
+
+				}
+				@case( 'MissingEnvironment' ) {
+
+					your configuration does not contain the given environment key. As such, the fallback variant is being used.
+
+				}
+				@case( 'DefaultResolution' ) {
+
+					the variant was chosen using the feature's default resolution strategy.
+
+					@if ( explanation.feature !== "Unknown" ) {
+
+						@if ( explanation.feature.targeting[ environment.key ].rulesEnabled ) {
+
+							This is because no rules matched against the given context.
+
+						} @else {
+
+							This is because rules are not enabled.
+
+						}
+
+					}
+
+				}
+				@case( 'MatchingRule' ) {
+
+					a rule matched against the given context and provided an alternative resolution. The variant was chosen using this alternative resolution strategy.
+
+				}
+				@case( 'Error' ) {
+
+					an error occurred. As such, the fallback variant is being used.
+
+				}
+				@default {
+
+					Something unexpected happened. This state should not be possible.
+
+				}
+			}
+		</p>
+
+		@if ( explanation.errorMessage ) {
+
+			<strong>Error:</strong>
+			{{ explanation.errorMessage }}
+
+		}
+
+		<!--
+		@if (
+			( explanation.reason === "MatchingRule" ) &&
+			( explanation.evaluatedRules !== "Unknown" )
+			) {
+
+			<p>
+				<strong>Matching Rule:</strong>
+			</p>
+
+			@let rule = explanation.evaluatedRules[ explanation.evaluatedRules.length - 1 ];
+
+			<dl>
+				<div>
+					<dt>Operator:</dt>
+					<dd>{{ rule.operator }}</dd>
+				</div>
+				<div>
+					<dt>Input:</dt>
+					<dd>{{ rule.input }}</dd>
+				</div>
+
+				<div>
+					<dt>Input:</dt>
+					<dd>{{ rule.input }}</dd>
+				</div>
+			</dl>
+
+		}
+		-->
+
+	</section>
+
+}

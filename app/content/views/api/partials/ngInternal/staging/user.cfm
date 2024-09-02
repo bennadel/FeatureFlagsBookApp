@@ -132,6 +132,7 @@
 
 		if ( ! userIndex.keyExists( userID ) ) {
 
+			// Todo: Throw a more specific error?
 			throw(
 				type = "App.NotFound",
 				message = "User not found."

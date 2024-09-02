@@ -6,6 +6,9 @@
 		case "environments":
 			cfmodule( template = "./environments.cfm" );
 		break;
+		case "explain":
+			cfmodule( template = "./explain.cfm" );
+		break;
 		case "features":
 			cfmodule( template = "./features.cfm" );
 		break;
