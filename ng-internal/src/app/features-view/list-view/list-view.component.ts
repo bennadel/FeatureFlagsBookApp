@@ -96,13 +96,15 @@ export class ListViewComponent {
 
 		} catch ( error ) {
 
-			if ( ! this.errorService.handleError( error ) ) {
+			if ( this.errorService.handleError( error ) ) {
 
-				console.group( "Load Remote Data Error" );
-				console.error( error );
-				console.groupEnd();
+				return;
 
 			}
+
+			console.group( "Load Remote Data Error" );
+			console.error( error );
+			console.groupEnd();
 
 		}
 

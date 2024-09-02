@@ -65,11 +65,13 @@ export class ClearViewComponent {
 
 		} catch ( error ) {
 
-			if ( ! this.errorService.handleError( error ) ) {
+			if ( this.errorService.handleError( error ) ) {
 
-				this.errorMessage = this.errorService.getMessage( error );
+				return;
 
 			}
+
+			this.errorMessage = this.errorService.getMessage( error );
 
 		}
 

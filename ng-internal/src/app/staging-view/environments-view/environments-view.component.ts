@@ -82,13 +82,15 @@ export class EnvironmentsViewComponent {
 
 		} catch ( error ) {
 
-			if ( ! this.errorService.handleError( error ) ) {
+			if ( this.errorService.handleError( error ) ) {
 
-				console.group( "Remote Data Load Error" );
-				console.error( error );
-				console.groupEnd();
+				return;
 
 			}
+
+			console.group( "Remote Data Load Error" );
+			console.error( error );
+			console.groupEnd();
 
 		}
 
