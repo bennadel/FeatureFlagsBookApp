@@ -1,19 +1,38 @@
 
-<h2>
-	Targeting Overview
-</h2>
+<section class="temp-content">
 
-<ul>
-	<li>
-		<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'default-resolution' ]">#/ features / {{ featureKey }} / targeting / production / default-resolution</a>
-	</li>
-	<li>
-		<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules-enabled' ]">#/ features / {{ featureKey }} / targeting / production / rules-enabled</a>
-	</li>
-	<li>
-		<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules', '4' ]">#/ features / {{ featureKey }} / targeting / production / rules / 4</a>
-	</li>
-	<li>
-		<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules', '4', 'delete' ]">#/ features / {{ featureKey }} / targeting / production / rules / 4 / delete</a>
-	</li>
-</ul>
+	<h2>
+		Targeting Overview
+	</h2>
+
+	<p>
+		<a [routerLink]="[ '/features', featureKey, 'targeting' ]">Targeting</a> ,
+		<a [routerLink]="[ '/features', featureKey, 'clear' ]">Clear</a> ,
+		<a [routerLink]="[ '/features', featureKey, 'reset' ]">Reset</a> ,
+		<a [routerLink]="[ '/features', featureKey, 'delete' ]">Delete</a>
+		|
+		<a routerLink="/features">All features</a> &rarr;
+	</p>
+
+	<ul>
+		<li>
+			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'default-resolution' ]">#/ features / {{ featureKey }} / targeting / production / default-resolution</a>
+		</li>
+		<li>
+			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules-enabled' ]">#/ features / {{ featureKey }} / targeting / production / rules-enabled</a>
+		</li>
+		<li>
+			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules', '4' ]">#/ features / {{ featureKey }} / targeting / production / rules / 4</a>
+		</li>
+		<li>
+			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules', '4', 'delete' ]">#/ features / {{ featureKey }} / targeting / production / rules / 4 / delete</a>
+		</li>
+	</ul>
+
+</section>
+
+<aside class="temp-map">
+
+	Dev / Prod
+
+</aside>

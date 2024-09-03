@@ -1,17 +1,21 @@
 
-<h2>
-	Edit Rules Enabled
-</h2>
+<section class="temp-content">
 
-<ul>
-	<li>
-		<strong>Feature:</strong> {{ featureKey }}
-	</li>
-	<li>
-		<strong>Environment:</strong> {{ environmentKey }}
-	</li>
-</ul>
+	<h2>
+		Edit Rules Enabled
+	</h2>
 
-<p>
-	<a [routerLink]="[ '/features', featureKey ]">Cancel</a>
-</p>
+	<ul>
+		<li>
+			<strong>Feature:</strong> {{ featureKey }}
+		</li>
+		<li>
+			<strong>Environment:</strong> {{ environmentKey }}
+		</li>
+	</ul>
+
+	<p>
+		<a [routerLink]="[ '/features', featureKey ]">Cancel</a>
+	</p>
+
+</section>

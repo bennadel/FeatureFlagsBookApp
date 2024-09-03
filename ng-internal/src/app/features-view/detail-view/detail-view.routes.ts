@@ -5,7 +5,6 @@ import { Routes } from "@angular/router";
 // Import application modules.
 import { ClearViewComponent } from "./clear-view/clear-view.component";
 import { DeleteViewComponent } from "./delete-view/delete-view.component";
-import { DetailViewComponent } from "./detail-view.component";
 import { ResetViewComponent } from "./reset-view/reset-view.component";
 import TargetingRoutes from "./targeting-view/targeting-view.routes";
 
@@ -19,32 +18,25 @@ export var routes: Routes = [
 		redirectTo: "targeting"
 	},
 	{
-		path: "",
+		path: "clear",
+		pathMatch: "full",
+		component: ClearViewComponent
+	},
+	{
+		path: "delete",
+		pathMatch: "full",
+		component: DeleteViewComponent
+	},
+	{
+		path: "reset",
+		pathMatch: "full",
+		component: ResetViewComponent
+	},
+	{
+		path: "targeting",
 		pathMatch: "prefix",
-		component: DetailViewComponent,
-		children: [
-			{
-				path: "clear",
-				pathMatch: "full",
-				component: ClearViewComponent
-			},
-			{
-				path: "delete",
-				pathMatch: "full",
-				component: DeleteViewComponent
-			},
-			{
-				path: "reset",
-				pathMatch: "full",
-				component: ResetViewComponent
-			},
-			{
-				path: "targeting",
-				pathMatch: "prefix",
-				children: TargetingRoutes
-				// loadChildren: () => import( "./targeting-view/targeting-view.routes" )
-			}
-		]
+		children: TargetingRoutes
+		// loadChildren: () => import( "./targeting-view/targeting-view.routes" )
 	}
 ];
 
