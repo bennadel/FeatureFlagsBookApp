@@ -5,18 +5,12 @@
 -->
 <svg-sprite></svg-sprite>
 
-<header
-	(mouseenter)="handleHeaderMouseenter()"
-	(mouseleave)="handleHeaderMouseleave()"
-	class="header-panel"
-	[class.expanded]="isHeaderExpanded">
+<header class="header-panel">
 
 	<nav class="nav">
 		<a
 			href="https://featureflagsbook.com/"
 			target="_blank"
-			(mouseenter)="handleLinkMouseenter()"
-			(click)="handleLinkClick()"
 			class="nav-item nav-item--logo">
 			<svg-icon type="logo" class="nav-item__icon" />
 			<span class="nav-item__label">
@@ -26,9 +20,7 @@
 
 		<a
 			routerLink="/features"
-			routerLinkActive="on"
-			(mouseenter)="handleLinkMouseenter()"
-			(click)="handleLinkClick()"
+			routerLinkActive="is-on"
 			class="nav-item">
 			<svg-icon type="nav-feature-flags" class="nav-item__icon" />
 			<span class="nav-item__label">
@@ -37,9 +29,7 @@
 		</a>
 		<a
 			routerLink="/staging"
-			routerLinkActive="on"
-			(mouseenter)="handleLinkMouseenter()"
-			(click)="handleLinkClick()"
+			routerLinkActive="is-on"
 			class="nav-item">
 			<svg-icon type="nav-staging" class="nav-item__icon" />
 			<span class="nav-item__label">
@@ -48,9 +38,7 @@
 		</a>
 		<a
 			routerLink="/users"
-			routerLinkActive="on"
-			(mouseenter)="handleLinkMouseenter()"
-			(click)="handleLinkClick()"
+			routerLinkActive="is-on"
 			class="nav-item">
 			<svg-icon type="nav-users" class="nav-item__icon" />
 			<span class="nav-item__label">
@@ -59,9 +47,7 @@
 		</a>
 		<a
 			routerLink="/about"
-			routerLinkActive="on"
-			(mouseenter)="handleLinkMouseenter()"
-			(click)="handleLinkClick()"
+			routerLinkActive="is-on"
 			class="nav-item">
 			<svg-icon type="nav-about" class="nav-item__icon" />
 			<span class="nav-item__label">
@@ -70,9 +56,7 @@
 		</a>
 		<a
 			routerLink="/raw"
-			routerLinkActive="on"
-			(mouseenter)="handleLinkMouseenter()"
-			(click)="handleLinkClick()"
+			routerLinkActive="is-on"
 			class="nav-item">
 			<svg-icon type="nav-raw" class="nav-item__icon" />
 			<span class="nav-item__label">
@@ -81,9 +65,7 @@
 		</a>
 		<a
 			routerLink="/account"
-			routerLinkActive="on"
-			(mouseenter)="handleLinkMouseenter()"
-			(click)="handleLinkClick()"
+			routerLinkActive="is-on"
 			class="nav-item nav-item--splitter">
 			<svg-icon type="nav-account" class="nav-item__icon" />
 			<span class="nav-item__label">
