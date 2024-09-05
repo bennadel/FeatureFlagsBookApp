@@ -9,9 +9,9 @@
 
 	<section class="temp-content">
 
-		<h2>
+		<h1>
 			Feature: {{ feature.key }}
-		</h2>
+		</h1>
 
 		<p>
 			<a [routerLink]="[ '/features', feature.key, 'targeting' ]">Targeting</a> ,
@@ -19,20 +19,229 @@
 			<a [routerLink]="[ '/features' ]">All Feature Flags</a> &rarr;
 		</p>
 
-		<ul>
-			<li>
-				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'default-resolution' ]">#/ features / {{ feature.key }} / targeting / production / default-resolution</a>
-			</li>
-			<li>
-				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'rules-enabled' ]">#/ features / {{ feature.key }} / targeting / production / rules-enabled</a>
-			</li>
-			<li>
-				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'rules', '4' ]">#/ features / {{ feature.key }} / targeting / production / rules / 4</a>
-			</li>
-			<li>
-				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'rules', '4', 'delete' ]">#/ features / {{ feature.key }} / targeting / production / rules / 4 / delete</a>
-			</li>
-		</ul>
+		<dl>
+			<div>
+				<dt>Key:</dt>
+				<dd>{{ feature.key }}</dd>
+			</div>
+			<div>
+				<dt>Type:</dt>
+				<dd>{{ feature.type }}</dd>
+			</div>
+			<div>
+				<dt>Description:</dt>
+				<dd>{{ feature.description }}</dd>
+			</div>
+			<div>
+				<dt>Variants:</dt>
+				<dd>
+					<ol>
+						@for ( variant of feature.variants ; track $index ) {
+							<li>
+								<span class="variant-{{ $index + 1 }}">
+									{{ variant | json }}
+								</span>
+							</li>
+						}
+					</ol>
+				</dd>
+			</div>
+		</dl>
+
+		@for ( environment of environments ; track environment.key ) {
+
+			@let settings = feature.targeting[ environment.key ];
+
+			<section>
+
+				<h2>
+					{{ environment.name }}
+				</h2>
+
+				<dl>
+					<div>
+						<dt>
+							Default Resolution:
+
+							<a [routerLink]="[ '/features', feature.key, 'targeting', environment.key, 'default-resolution' ]">
+								Edit
+							</a>
+						</dt>
+						<dd>
+							@switch ( settings.resolution.type ) {
+								@case ( "selection" ) {
+
+									<p>
+										Selection
+										&rarr;
+										<span class="tag variant-{{ settings.resolution.selection }}">
+											{{ feature.variants[ settings.resolution.selection - 1 ] | json }}
+										</span>
+									</p>
+
+								}
+								@case ( "distribution" ) {
+
+									<p>
+										Distribution
+									</p>
+									<ul class="breathing-room">
+										@for ( allocation of settings.resolution.distribution ; track $index ) {
+
+											@if ( allocation ) {
+
+												<li>
+													{{ allocation }}%
+													&rarr;
+													<span class="tag variant-{{ $index + 1 }}">
+														{{ feature.variants[ $index ] | json }}
+													</span>
+												</li>
+
+											}
+
+										}
+									</ul>
+
+								}
+								@case ( "variant" ) {
+
+									<p>
+										Variant
+										&rarr;
+										<span class="tag variant-0">
+											{{ settings.resolution.variant | json }}
+										</span>
+									</p>
+
+								}
+
+							}
+						</dd>
+					</div>
+					<div>
+						<dt>
+							<strong>Rules Enabled:</strong>
+
+							<a [routerLink]="[ '/features', feature.key, 'targeting', environment.key, 'rules-enabled' ]">
+								Edit
+							</a>
+						</dt>
+						<dd>
+							<p>
+								<!-- Todo: YesNoFormat pipe? -->
+								{{ settings.rulesEnabled && "Yes" || "No" }}
+							</p>
+						</dd>
+					</div>
+					<div>
+						<dt>
+							<strong>Rules:</strong>
+						</dt>
+						<dd>
+							@for ( rule of settings.rules ; track $index ) {
+
+								<dl>
+									<div>
+										<dt>
+											<strong>IF:</strong>
+
+											<a [routerLink]="[ '/features', feature.key, 'targeting', environment.key, 'rules', ( $index + 1 ) ]">Edit</a> ,
+											<a [routerLink]="[ '/features', feature.key, 'targeting', environment.key, 'rules', ( $index + 1 ), 'delete' ]">Delete</a>
+										</dt>
+										<dd>
+											<p>
+												"{{ rule.input }}"
+											</p>
+										</dd>
+									</div>
+									<div>
+										<dt>
+											<strong>{{ rule.operator }}</strong>
+										</dt>
+										<dd>
+											<p class="value-list">
+												@for ( value of rule.values ; track $index ) {
+
+													<span class="value-list__item">
+														{{ value | json }}
+													</span>
+
+												}
+											</p>
+										</dd>
+									</div>
+									<div>
+										<dt>
+											<strong>Serve:</strong>
+										</dt>
+										<dd>
+											@switch ( rule.resolution.type ) {
+												@case ( "selection" ) {
+
+													<p>
+														Selection &rarr;
+														<span class="tag variant-{{ rule.resolution.selection }}">
+															{{ feature.variants[ rule.resolution.selection - 1 ] | json }}
+														</span>
+													</p>
+
+												}
+												@case ( "distribution" ) {
+
+													<p>
+														Distribution
+													</p>
+													<ul class="breathing-room">
+														@for ( allocation of rule.resolution.distribution ; track $index ) {
+
+															@if ( allocation ) {
+
+																<li>
+																	{{ allocation }}%
+																	&rarr;
+																	<span class="tag variant-{{ $index + 1 }}">
+																		{{ feature.variants[ $index ] | json }}
+																	</span>
+																</li>
+
+															}
+
+														}
+													</ul>
+
+												}
+												@case ( "variant" ) {
+
+													<p>
+														Variant
+														&rarr;
+														<span class="tag variant-0">
+															{{ rule.resolution.variant | json }}
+														</span>
+													</p>
+
+												}
+											}
+										</dd>
+									</div>
+								</dl>
+
+
+								<p>
+									<a [routerLink]="[ '/features', feature.key, 'targeting', environment.key, 'rules', 0 ]">Add rule</a>
+								</p>
+
+							}
+						</dd>
+					</div>
+
+				</dl>
+
+			</section>
+
+
+		}
 
 	</section>
 

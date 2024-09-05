@@ -3,6 +3,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { Component } from "@angular/core";
 import { inject } from "@angular/core";
+import { JsonPipe } from "@angular/common";
 import { RouterLink } from "@angular/router";
 
 // Import app modules.
@@ -53,6 +54,7 @@ var LAST_RESPONSE_ID = 0;
 	selector: "targeting-overview-view",
 	standalone: true,
 	imports: [
+		JsonPipe,
 		RouterLink,
 		SpinnerComponent
 	],
