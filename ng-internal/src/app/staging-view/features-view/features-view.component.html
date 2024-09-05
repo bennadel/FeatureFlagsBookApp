@@ -54,7 +54,7 @@
 							[attr.data-user-id]="user.id"
 							[attr.data-feature-key]="feature.key"
 							class="variant variant-{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variantIndex }}">
-							<a [routerLink]="[ '/staging/users', user.id, 'explain', feature.key, environmentKey ]">{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variant }}</a>
+							<a [routerLink]="[ '/staging/users', user.id, 'explain', feature.key, environmentKey ]">{{ breakdown[ environmentKey ][ user.id ][ feature.key ].variant | json }}</a>
 						</td>
 
 					}

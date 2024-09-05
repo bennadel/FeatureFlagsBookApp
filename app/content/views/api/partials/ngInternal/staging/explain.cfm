@@ -40,18 +40,11 @@
 		var environment = getEnvironment( config, environmentKey );
 		var explanation = getExplanation( config, user, feature, environment );
 
-		// Todo: Should I move this to the client.
-		var result = {
-			variantIndex: explanation.variantIndex,
-			variant: serializeJson( explanation.variant )
-		};
-
 		return {
 			user: user,
 			feature: feature,
 			environment: environment,
-			explanation: explanation,
-			result: result
+			explanation: explanation
 		};
 
 	}

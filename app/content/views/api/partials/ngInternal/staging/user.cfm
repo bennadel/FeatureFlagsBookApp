@@ -77,7 +77,7 @@
 
 				breakdown[ feature.key ][ environment.key ] = [
 					variantIndex: result.variantIndex,
-					variant: serializeJson( result.variant )
+					variant: result.variant
 				];
 
 			}

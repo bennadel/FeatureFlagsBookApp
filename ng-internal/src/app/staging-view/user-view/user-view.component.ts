@@ -3,6 +3,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { Component } from "@angular/core";
 import { inject } from "@angular/core";
+import { JsonPipe } from "@angular/common";
 import { Router } from "@angular/router";
 import { RouterLink } from "@angular/router";
 
@@ -32,7 +33,7 @@ interface Breakdown {
 	[ featureKey: string ]: {
 		[ environmentKey: string ]: {
 			variantIndex: number;
-			variant: string; // Serialized on the server.
+			variant: any;
 		};
 	};
 };
@@ -46,6 +47,7 @@ var LAST_RESPONSE_ID = 0;
 	selector: "staging-user-view",
 	standalone: true,
 	imports: [
+		JsonPipe,
 		RouterLink,
 		SpinnerComponent
 	],

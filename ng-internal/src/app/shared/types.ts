@@ -104,4 +104,35 @@ export namespace Demo {
 		| string
 	;
 
+	export interface Explanation {
+		arguments: {
+			featureKey: string;
+			environmentKey: string;
+			context: UserContext;
+			fallbackVariant: any;
+		};
+		reason: string;
+		errorMessage: string;
+		feature: "Unknown" | Demo.Feature;
+		evaluatedRules: "Unknown" | Demo.Rule[];
+		skippedRules: "Unknown" | Demo.Rule[];
+		matchingRuleIndex: number;
+		resolution: "Unknown" | Demo.Resolution;
+		variant: any;
+		variantIndex: number;
+	};
+
+	export interface UserContext {
+		"key": number;
+		"user.id": number;
+		"user.email": string;
+		"user.role": string;
+		"user.company.id": number;
+		"user.company.subdomain": string;
+		"user.company.fortune100": boolean;
+		"user.company.fortune500": boolean;
+		"user.groups.betaTester": boolean;
+		"user.groups.influencer": boolean;
+	};
+
 };

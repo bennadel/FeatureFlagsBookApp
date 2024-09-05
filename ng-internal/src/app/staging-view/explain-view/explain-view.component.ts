@@ -3,6 +3,7 @@
 import { ActivatedRoute } from "@angular/router";
 import { Component } from "@angular/core";
 import { inject } from "@angular/core";
+import { JsonPipe } from "@angular/common";
 import { Router } from "@angular/router";
 import { RouterLink } from "@angular/router";
 
@@ -27,23 +28,7 @@ interface Partial {
 	user: Demo.User;
 	feature: Demo.Feature;
 	environment: Demo.Environment;
-	explanation: Explanation;
-	result: Result;
-};
-
-interface Explanation {
-	reason: string;
-	errorMessage: string;
-	feature: "Unknown" | Demo.Feature;
-	evaluatedRules: "Unknown" | Demo.Rule[];
-	skippedRules: "Unknown" | Demo.Rule[];
-	matchingRuleIndex: number;
-	resolution: "Unknown" | Demo.Resolution;
-};
-
-interface Result {
-	variantIndex: number;
-	variant: string;
+	explanation: Demo.Explanation;
 };
 
 // ----------------------------------------------------------------------------------- //
@@ -55,6 +40,7 @@ var LAST_RESPONSE_ID = 0;
 	selector: "staging-explain-view",
 	standalone: true,
 	imports: [
+		JsonPipe,
 		RouterLink,
 		SpinnerComponent
 	],
@@ -78,8 +64,7 @@ export class ExplainViewComponent {
 	public user: Demo.User | null = null;
 	public feature: Demo.Feature | null = null;
 	public environment: Demo.Environment | null = null;
-	public explanation: Explanation | null = null;
-	public result: Result | null = null;
+	public explanation: Demo.Explanation | null = null;
 
 	// ---
 	// LIFE-CYCLE METHODS.
@@ -215,7 +200,6 @@ export class ExplainViewComponent {
 		this.environment = response.environment;
 		this.feature = response.feature;
 		this.explanation = response.explanation;
-		this.result = response.result;
 
 		this.setWindowTitle();
 

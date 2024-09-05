@@ -74,7 +74,7 @@
 					@for ( environment of environments ; track environment.key ) {
 
 						<td class="variant variant-{{ breakdown[ feature.key ][ environment.key ].variantIndex }}">
-							<a [routerLink]="[ '/staging/users', user.id, 'explain', feature.key, environment.key ]">{{ breakdown[ feature.key ][ environment.key ].variant }}</a>
+							<a [routerLink]="[ '/staging/users', user.id, 'explain', feature.key, environment.key ]">{{ breakdown[ feature.key ][ environment.key ].variant | json }}</a>
 						</td>
 
 					}

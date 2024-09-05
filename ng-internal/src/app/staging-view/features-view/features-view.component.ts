@@ -4,6 +4,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Component } from "@angular/core";
 import { DestroyRef } from "@angular/core";
 import { inject } from "@angular/core";
+import { JsonPipe } from "@angular/common";
 import { Router } from "@angular/router";
 import { RouterLink } from "@angular/router";
 import { RouterLinkActive } from "@angular/router";
@@ -35,7 +36,7 @@ interface Breakdown {
 		[ userID: string ]: {
 			[ featureKey: string ]: {
 				variantIndex: number;
-				variant: string; // Serialized on the server.
+				variant: any;
 			}
 		};
 	};
@@ -51,6 +52,7 @@ var LAST_RESPONSE_ID = 0;
 	selector: "staging-features-view",
 	standalone: true,
 	imports: [
+		JsonPipe,
 		RouterLink,
 		RouterLinkActive,
 		SpinnerComponent

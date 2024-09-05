@@ -73,7 +73,7 @@
 
 					breakdown[ environment.key ][ user.id ][ feature.key ] = [
 						variantIndex: result.variantIndex,
-						variant: serializeJson( result.variant )
+						variant: result.variant
 					];
 
 				}

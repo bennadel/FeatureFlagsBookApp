@@ -10,8 +10,7 @@
 	user &&
 	feature &&
 	environment &&
-	explanation &&
-	result
+	explanation
 	) {
 
 	<section class="temp-content">
@@ -42,8 +41,8 @@
 			<div>
 				<dt>Variant:</dt>
 				<dd>
-					<span class="variant-{{ result.variantIndex }}">
-						{{ result.variant }}
+					<span class="variant-{{ explanation.variantIndex }}">
+						{{ explanation.variant | json }}
 					</span>
 				</dd>
 			</div>
