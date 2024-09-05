@@ -1,14 +1,18 @@
 <cfscript>
 
-	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
+	param name="url.featureKey" type="string";
+
 	// TODO: Move all of this logic into a Partial component.
-	request.template.primaryContent = getPartial( request.user.email );
+	request.template.primaryContent = getPartial(
+		email = request.user.email,
+		featureKey = url.featureKey.trim()
+	);
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -16,15 +20,16 @@
 	/**
 	* I get the main partial payload for the view.
 	*/
-	private struct function getPartial( required string email ) {
+	private struct function getPartial(
+		required string email,
+		required string featureKey
+		) {
 
 		var config = getConfig( email );
-		var users = getUsers( email );
-		var environments = getEnvironments( config );
+		var feature = getFeature( config, featureKey );
 
 		return {
-			environments: environments,
-			users: users
+			feature: feature
 		};
 
 	}
@@ -41,21 +46,27 @@
 
 
 	/**
-	* I get the environments for the given config.
+	* I get the feature for the given config.
 	*/
-	private array function getEnvironments( required struct config ) {
+	private struct function getFeature(
+		required struct config,
+		required string featureKey
+		) {
 
-		return utilities.toEnvironmentsArray( config.environments );
+		var features = utilities.toFeaturesArray( config.features );
+		var featureIndex = utilities.indexBy( features, "key" );
 
-	}
+		if ( ! featureIndex.keyExists( featureKey ) ) {
 
+			// Todo: Throw a more specific error?
+			throw(
+				type = "App.NotFound",
+				message = "Feature flag not found."
+			);
 
-	/**
-	* I get the users for the given authenticated user.
-	*/
-	private array function getUsers( required string email ) {
+		}
 
-		return demoUsers.getUsers( email );
+		return featureIndex[ featureKey ];
 
 	}
 

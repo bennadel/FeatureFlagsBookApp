@@ -14,6 +14,43 @@ component
 	// ---
 
 	/**
+	* If the current request is a POST that contains a JSON payload, I parse it and append
+	* the content to both the form and context structs.
+	*/
+	public void function applyJsonBody() {
+
+		if ( requestMetadata.getMethod() != "POST" ) {
+
+			return;
+
+		}
+
+		// Todo: Should I encapsulate this better elsewhere?
+		var requestData = getHttpRequestData();
+		var headers = requestData.headers;
+		var contentType = ( headers[ "content-type" ] ?: "" );
+
+		if ( ! contentType.reFindNoCase( "application/(x-)?json" ) ) {
+
+			return;
+
+		}
+
+		var content = isBinary( requestData.content )
+			? charsetEncode( requestData.content, "utf-8" )
+			: requestData.content
+		;
+
+		// Todo: Add better error handling.
+		var jsonData = deserializeJson( content );
+
+		form.append( jsonData );
+		request.context.append( jsonData );
+
+	}
+
+
+	/**
 	* I assert that the current request is made as a POST.
 	*/
 	public void function assertHttpPost() {

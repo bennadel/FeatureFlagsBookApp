@@ -1,12 +1,67 @@
 
-<section class="temp-content">
+@if ( isLoading ) {
 
-	<h2>
-		Delete View
-	</h2>
+	<app-spinner></app-spinner>
 
-	<p>
-		<a [routerLink]="[ '/features', featureKey ]">Cancel</a>
-	</p>
+}
 
-</section>
+@if ( ! isLoading && feature ) {
+
+	<section class="temp-content">
+
+		<h2>
+			Delete Feature: {{ feature.key }}
+		</h2>
+
+		@if ( errorMessage ) {
+
+			<p class="temp-error-message">
+				{{ errorMessage }}
+			</p>
+
+		}
+
+		<dl>
+			<div>
+				<dt>Key:</dt>
+				<dd>{{ feature.key }}</dd>
+			</div>
+			<div>
+				<dt>Type:</dt>
+				<dd>{{ feature.type }}</dd>
+			</div>
+
+			@if ( feature.description ) {
+
+				<div>
+					<dt>Description:</dt>
+					<dd>{{ feature.description }}</dd>
+				</div>
+
+			}
+			<div>
+				<dt>Variants:</dt>
+				<dd>
+					<ol>
+						@for ( variant of feature.variants ; track $index ) {
+
+							<li>
+								<span class="variant-{{ $index + 1 }}">{{ variant | json }}</span>
+							</li>
+
+						}
+					</ol>
+				</dd>
+			</div>
+		</dl>
+
+		<form (submit)="processForm()">
+			<button type="submit">
+				Delete
+			</button>
+			<a [routerLink]="[ '/features', routeInputs.featureKey ]">Cancel</a>
+		</form>
+
+	</section>
+
+}

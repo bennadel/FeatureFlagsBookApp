@@ -24,6 +24,10 @@
 		// Security: This entire subsystem requires an authenticated user.
 		request.user = requestHelper.getAuthenticatedUser();
 
+		// The client-side applications may need to post data as JSON payloads. If so,
+		// those payloads should be folded into the form scope.
+		requestHelper.applyJsonBody();
+
 		// --------------------------------------------------------------------------- //
 		// --------------------------------------------------------------------------- //
 

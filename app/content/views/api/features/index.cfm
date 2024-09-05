@@ -6,6 +6,9 @@
 		case "clear":
 			cfmodule( template = "./clear.cfm" );
 		break;
+		case "delete":
+			cfmodule( template = "./delete.cfm" );
+		break;
 		case "reset":
 			cfmodule( template = "./reset.cfm" );
 		break;

@@ -2,11 +2,30 @@
 
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 
-	request.template.primaryContent = {
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	// TODO: Move all of this logic into a Partial component.
+	request.template.primaryContent = getPartial( request.user.email );
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the main partial payload for the view.
+	*/
+	private struct function getPartial( required string email ) {
+
 		// Base 100 users.
-		users: demoUsers.getUsers( request.user.email ),
+		var users = demoUsers.getUsers( request.user.email );
 		// Additional users based on logged-in user.
-		authenticatedUsers: demoUsers.buildAuthenticatedUsers( request.user.email )
-	};
+		var authenticatedUsers = demoUsers.buildAuthenticatedUsers( request.user.email );
+
+		return {
+			users: users,
+			authenticatedUsers: authenticatedUsers
+		};
+
+	}
 
 </cfscript>

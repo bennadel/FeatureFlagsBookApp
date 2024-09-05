@@ -50,6 +50,30 @@ component
 
 
 	/**
+	* I delete the feature with the given key.
+	*/
+	public void function deleteFeature(
+		required string email,
+		required string featureKey
+		) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		if ( ! config.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		config.features.delete( featureKey );
+		config.version++;
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
+
+	/**
 	* I get the features config for the given user.
 	*/
 	public struct function getConfig( required string email ) {

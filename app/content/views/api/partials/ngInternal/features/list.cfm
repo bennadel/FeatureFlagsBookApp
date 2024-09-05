@@ -20,8 +20,8 @@
 	*/
 	private struct function getPartial( required string email ) {
 
-		var config = featureWorkflow.getConfig( email );
-		var users = demoUsers.getUsers( email );
+		var config = getConfig( email );
+		var users = getUsers( email );
 		var features = getFeatures( config );
 		var environments = getEnvironments( config );
 		var breakdowns = getBreakdowns( config, users, features, environments );
@@ -31,6 +31,16 @@
 			features: features,
 			breakdowns: breakdowns
 		};
+
+	}
+
+
+	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
+
+		return featureWorkflow.getConfig( email );
 
 	}
 
@@ -113,6 +123,16 @@
 		}
 
 		return breakdowns;
+
+	}
+
+
+	/**
+	* I get the users for the given authenticated user.
+	*/
+	private array function getUsers( required string email ) {
+
+		return demoUsers.getUsers( email );
 
 	}
 

@@ -28,7 +28,7 @@
 		required string featureKey
 		) {
 
-		var config = featureWorkflow.getConfig( email );
+		var config = getConfig( email );
 		var feature = getFeature( config, featureKey );
 		var environments = getEnvironments( config );
 		var users = getUsers( email );
@@ -96,6 +96,16 @@
 
 
 	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
+
+		return featureWorkflow.getConfig( email );
+
+	}
+
+
+	/**
 	* I get the environments for the given config.
 	*/
 	private array function getEnvironments( required struct config ) {
@@ -132,7 +142,7 @@
 
 
 	/**
-	* I return the users for the given authenticated user.
+	* I get the users for the given authenticated user.
 	*/
 	private array function getUsers( required string email ) {
 
