@@ -2,10 +2,8 @@
 // Import vendor modules.
 import { ActivatedRoute } from "@angular/router";
 import { Component } from "@angular/core";
-import { DestroyRef } from "@angular/core";
 import { inject } from "@angular/core";
 import { RouterLink } from "@angular/router";
-import { SimpleChanges } from "@angular/core";
 
 // Import app modules.
 import { ApiClient } from "~/app/shared/services/api-client";
@@ -53,7 +51,6 @@ export class ListViewComponent {
 
 	private activatedRoute = inject( ActivatedRoute );
 	private apiClient = inject( ApiClient );
-	private destroyRef = inject( DestroyRef );
 	private errorService = inject( ErrorService );
 	private windowTitle = inject( WindowTitle );
 
@@ -74,9 +71,17 @@ export class ListViewComponent {
 		this.windowTitle.set( "Feature Flags Playground" );
 		this.loadRemoteData();
 
+	}
+
+
+	/**
+	* I get called once when the component is being torn down.
+	*/
+	public ngOnDestroy() {
+
 		// When the component is destroyed, we want to change the last response ID so that
 		// any pending data load will be ignored.
-		this.destroyRef.onDestroy( () => LAST_RESPONSE_ID++ );
+		LAST_RESPONSE_ID++;
 
 	}
 
@@ -137,10 +142,6 @@ export class ListViewComponent {
 		}
 
 		CACHED_RESPONSE = response;
-
-		console.group( "Load Remote Data" );
-		console.log( response );
-		console.groupEnd();
 
 		this.isLoading = false;
 		this.features = CACHED_RESPONSE.features;

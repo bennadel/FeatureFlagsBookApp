@@ -3,7 +3,6 @@
 import { Routes } from "@angular/router";
 
 // Import application modules.
-import { createNumberResolver } from "~/app/shared/routing/resolvers";
 import { EnvironmentsViewComponent } from "./environments-view/environments-view.component";
 import { ExplainViewComponent } from "./explain-view/explain-view.component";
 import { FeaturesViewComponent } from "./features-view/features-view.component";
@@ -31,18 +30,12 @@ export var routes: Routes = [
 	{
 		path: "users/:userID",
 		pathMatch: "full",
-		component: UserViewComponent,
-		resolve: {
-			userID: createNumberResolver( "userID" )
-		}
+		component: UserViewComponent
 	},
 	{
 		path: "users/:userID/explain/:featureKey/:environmentKey",
 		pathMatch: "full",
-		component: ExplainViewComponent,
-		resolve: {
-			userID: createNumberResolver( "userID" )
-		}
+		component: ExplainViewComponent
 	}
 ];
 

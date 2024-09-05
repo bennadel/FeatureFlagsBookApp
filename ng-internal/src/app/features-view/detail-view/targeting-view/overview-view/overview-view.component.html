@@ -1,38 +1,75 @@
 
-<section class="temp-content">
+@if ( isLoading ) {
 
-	<h2>
-		Targeting Overview
-	</h2>
+	<app-spinner></app-spinner>
 
-	<p>
-		<a [routerLink]="[ '/features', featureKey, 'targeting' ]">Targeting</a> ,
-		<a [routerLink]="[ '/features', featureKey, 'clear' ]">Clear</a> ,
-		<a [routerLink]="[ '/features', featureKey, 'reset' ]">Reset</a> ,
-		<a [routerLink]="[ '/features', featureKey, 'delete' ]">Delete</a>
-		|
-		<a routerLink="/features">All features</a> &rarr;
-	</p>
+}
 
-	<ul>
-		<li>
-			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'default-resolution' ]">#/ features / {{ featureKey }} / targeting / production / default-resolution</a>
-		</li>
-		<li>
-			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules-enabled' ]">#/ features / {{ featureKey }} / targeting / production / rules-enabled</a>
-		</li>
-		<li>
-			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules', '4' ]">#/ features / {{ featureKey }} / targeting / production / rules / 4</a>
-		</li>
-		<li>
-			<a [routerLink]="[ '/features', featureKey, 'targeting', 'production', 'rules', '4', 'delete' ]">#/ features / {{ featureKey }} / targeting / production / rules / 4 / delete</a>
-		</li>
-	</ul>
+@if ( ! isLoading && feature ) {
 
-</section>
+	<section class="temp-content">
 
-<aside class="temp-map">
+		<h2>
+			Feature: {{ feature.key }}
+		</h2>
 
-	Dev / Prod
+		<p>
+			<a [routerLink]="[ '/features', feature.key, 'targeting' ]">Targeting</a> ,
+			<a [routerLink]="[ '/features', feature.key, 'delete' ]">Delete</a> ,
+			<a [routerLink]="[ '/features' ]">All Feature Flags</a> &rarr;
+		</p>
 
-</aside>
+		<ul>
+			<li>
+				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'default-resolution' ]">#/ features / {{ feature.key }} / targeting / production / default-resolution</a>
+			</li>
+			<li>
+				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'rules-enabled' ]">#/ features / {{ feature.key }} / targeting / production / rules-enabled</a>
+			</li>
+			<li>
+				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'rules', '4' ]">#/ features / {{ feature.key }} / targeting / production / rules / 4</a>
+			</li>
+			<li>
+				<a [routerLink]="[ '/features', feature.key, 'targeting', 'production', 'rules', '4', 'delete' ]">#/ features / {{ feature.key }} / targeting / production / rules / 4 / delete</a>
+			</li>
+		</ul>
+
+	</section>
+
+	@if ( breakdown ) {
+
+		<aside class="temp-map">
+
+			<div
+				class="map"
+				[style.grid-template-columns]="( 'repeat(' + breakdown.environments.length + ', 1fr )' )">
+				@for ( environment of breakdown.environments ; track environment.key ) {
+
+					<div>
+						{{ environment.name }}
+					</div>
+
+				}
+
+				@for ( user of breakdown.users ; track user.id ) {
+
+					@for ( environment of breakdown.environments ; track environment.key ) {
+
+						@let entry = user.environments[ environment.key ];
+
+						<a
+							[routerLink]="[ '/staging/users', user.id, 'explain', feature.key, environment.key ]"
+							[attr.data-association]="( environment.key + ':' + entry.ruleIndex )"
+							class="variant variant-{{ entry.variantIndex }}">
+						</a>
+
+					}
+
+				}
+			</div>
+
+		</aside>
+
+	}
+
+}
