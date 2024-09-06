@@ -1,0 +1,26 @@
+{
+	"name": "client/playground",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"clean": "rm -rf ./dist/*",
+		"watch": "parcel watch --no-hmr",
+		"build": "npm run clean && parcel build"
+	},
+	"targets": {
+		"default": {
+			"source": [
+				"./src/scripts.html",
+				"./src/styles.html"
+			],
+			"distDir": "./dist/",
+			"publicUrl": "/client/playground"
+		}
+	},
+	"browserslist": "defaults",
+	"devDependencies": {
+		"@parcel/transformer-less": "2.12.0",
+		"alpinejs": "3.14.1",
+		"parcel": "2.12.0"
+	}
+}

@@ -19,7 +19,8 @@ component
 	this.mappings = {
 		"/content": "#this.wwwroot#../content",
 		"/data": "#this.wwwroot#data",
-		"/lib": "#this.wwwroot#../lib"
+		"/lib": "#this.wwwroot#../lib",
+		"/wwwroot": this.wwwroot
 	};
 
 	// As a security best practice, we DO NOT WANT to search for unscoped variables in any

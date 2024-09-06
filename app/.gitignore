@@ -1,5 +1,6 @@
 config/config.json
 wwwroot/.cfconfig.json
 wwwroot/data/*.json
+wwwroot/client
 wwwroot/ng
 wwwroot/scribble.cfm

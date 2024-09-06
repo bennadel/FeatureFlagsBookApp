@@ -16,6 +16,23 @@ services:
       BOX_SERVER_PROFILE: "development"
       CFPM_INSTALL: "debugger"
 
+  client-playground:
+    build:
+      context: "./client/playground/"
+      dockerfile: "Dockerfile"
+    image: "app.featureflagsbook.com/client/playground:latest"
+    command: [ "npm", "run", "build" ]
+    volumes:
+      - "./client/playground:/app"
+      - "./app/wwwroot/client/playground:/app/dist" # Save dist files into CFML volume.
+      - "client_playground_node_modules:/app/node_modules"
+
+  client-playground-dev:
+    extends: "client-playground"
+    profiles:
+      - "dev"
+    command: [ "npm", "run", "watch" ]
+
   # This service will build the distribution files into the CFML app volume, and then
   # stop. For active development, use the ng-internal-dev service.
   # ng-internal:
@@ -38,4 +55,5 @@ services:
 
 # Using docker volumes to manage node_modules can help with performance.
 volumes:
+  client_playground_node_modules:
   ng_internal_node_modules:
