@@ -24,10 +24,10 @@
 <html lang="en">
 <head>
 	<cfscript>
-		cfmodule( template = "/content/layouts/shared/meta.cfm" );
-		cfmodule( template = "/content/layouts/shared/title.cfm" );
-		cfmodule( template = "/content/layouts/shared/favicon.cfm" );
-		cfmodule( template = "/content/layouts/shared/bugsnag.cfm" );
+		cfmodule( template = "/content/common/meta.cfm" );
+		cfmodule( template = "/content/common/title.cfm" );
+		cfmodule( template = "/content/common/favicon.cfm" );
+		cfmodule( template = "/content/common/bugsnag.cfm" );
 	</cfscript>
 
 	<!---

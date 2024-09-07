@@ -465,9 +465,11 @@ component
 			case "App.Routing.Api.Partials.NgInternal.Features.Detail.Targeting.InvalidEvent":
 			case "App.Routing.Api.Partials.NgInternal.Staging.InvalidEvent":
 			case "App.Routing.Auth.InvalidEvent":
-			case "App.Routing.Features.InvalidEvent":
-			case "App.Routing.Home.InvalidEvent":
-			case "App.Routing.Staging.InvalidEvent":
+			case "App.Routing.Playground.InvalidEvent":
+			case "App.Routing.Playground.Features.InvalidEvent":
+			case "App.Routing.Playground.Home.InvalidEvent":
+			case "App.Routing.Playground.Staging.InvalidEvent":
+			case "App.Routing.Playground.Users.InvalidEvent":
 				return as404({
 					type: error.type
 				});
