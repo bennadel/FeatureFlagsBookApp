@@ -28,262 +28,266 @@
 	</style>
 	<cfoutput>
 
-		<h1>
-			#encodeForHtml( request.template.title )#
-		</h1>
+		<section class="content-wrapper u-collapse-margin">
 
-		<p>
-			&larr; <a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
-		</p>
+			<h1>
+				#encodeForHtml( request.template.title )#
+			</h1>
 
-		<dl class="key-values key-values--static">
-			<div>
-				<dt>
-					<strong>Feature:</strong>
-				</dt>
-				<dd>
-					#encodeForHtml( feature.key )#
-				</dd>
-			</div>
-			<div>
-				<dt>
-					<strong>Environment:</strong>
-				</dt>
-				<dd>
-					#encodeForHtml( targeting.key )#
-				</dd>
-			</div>
-		</dl>
-
-		<cfif errorMessage.len()>
-			<p class="error-message">
-				#encodeForHtml( errorMessage )#
+			<p>
+				&larr; <a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
 			</p>
-		</cfif>
 
-		<form x-data="FormController" @submit="handleSubmit()" method="post">
-			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
-			<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( request.context.featureKey )#" />
-			<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( request.context.environmentKey )#" />
-			<input type="hidden" name="ruleIndex" value="#encodeForHtmlAttribute( request.context.ruleIndex )#" />
-			<input type="hidden" name="ruleData" value="#encodeForHtmlAttribute( form.ruleData )#" x-ref="ruleData" />
-			<input type="hidden" name="submitted" value="true" />
-
-			<dl class="key-values">
+			<dl class="key-values key-values--static">
 				<div>
 					<dt>
-						<strong>Input:</strong>
+						<strong>Feature:</strong>
 					</dt>
 					<dd>
-						<select x-model="form.input" @change="handleInput()">
-							<template x-for="input in inputs">
-								<option
-									:value="input"
-									:selected="( input === form.input )"
-									x-text="input">
-								</option>
-							</template>
-						</select>
+						#encodeForHtml( feature.key )#
 					</dd>
 				</div>
 				<div>
 					<dt>
-						<strong>Operator:</strong>
+						<strong>Environment:</strong>
 					</dt>
 					<dd>
-						<select x-model="form.operator" @change="handleOperator()">
-							<template x-for="operator in operators">
-								<option
-									:value="operator"
-									:selected="( operator === form.operator )"
-									x-text="operator">
-								</option>
-							</template>
-						</select>
-					</dd>
-				</div>
-				<div>
-					<dt>
-						<strong>Values:</strong>
-					</dt>
-					<dd>
-						<div class="tiles">
-							<template x-for="( value, i ) in form.values" :key="i">
-
-								<span class="tiles__tile tile">
-									<span class="tile__value" x-text="value"></span>
-									<button type="button" @click="removeValue( i )" class="tile__remove">
-										x
-									</button>
-								</span>
-
-							</template>
-							<div class="tiles__form">
-								<input
-									type="text"
-									x-ref="valueRawRef"
-									x-model.trim="form.valueRaw"
-									list="value-list"
-									@keydown.enter.prevent="handleValue()"
-								/>
-								<datalist id="value-list">
-									<template x-for="option in datalist">
-										<option x-text="option"></option>
-									</template>
-								</datalist>
-
-								<button type="button" @click="handleValue()">
-									Add
-								</button>
-							</div>
-						</div>
-					</dd>
-				</div>
-				<div>
-					<dt>
-						<strong>Resolution:</strong>
-					</dt>
-					<dd>
-						<p>
-							<strong>Use Type:</strong>
-
-							<button type="button" @click="switchToSelection()">
-								Selection
-							</button>
-							<button type="button" @click="switchToDistribution()">
-								Distribution
-							</button>
-							<button type="button" @click="switchToVariant()">
-								Variant
-							</button>
-						</p>
-
-
-						<!-- Selection. -->
-						<template x-if="( form.resolution.type === 'selection' )">
-							<dl class="key-values">
-								<div>
-									<dt>
-										<strong>Selection:</strong>
-									</dt>
-									<dd>
-										<ul class="no-marker breathing-room">
-											<template x-for="( variant, i ) in feature.variants">
-
-												<li>
-													<label class="choggle">
-														<input
-															x-model.number="form.resolution.selection"
-															type="radio"
-															name="selectionIndex"
-															:value="( i + 1 )"
-															@change="handleSelection()"
-															class="choggle__control"
-														/>
-														<span
-															class="choggle__label tag"
-															:class="( 'variant-' + ( i + 1 ) )"
-															x-text="JSON.stringify( variant )">
-														</span>
-													</label>
-												</li>
-
-											</template>
-										</ul>
-									</dd>
-								</div>
-							</dl>
-						</template>
-
-						<!-- Distribution. -->
-						<template x-if="( form.resolution.type === 'distribution' )">
-							<dl class="key-values">
-								<div>
-									<dt>
-										<strong>Distribution:</strong>
-									</dt>
-									<dd>
-										<ul class="no-marker breathing-room">
-											<template x-for="( allocation, i ) in form.resolution.distribution">
-
-												<li>
-													<label class="choggle">
-														<select
-															x-model.number="form.resolution.distribution[ i ]"
-															@change="handleDistribution()"
-															class="choggle__control">
-
-															<template x-for="n in 101">
-																<option
-																	:value="( n - 1 )"
-																	:selected="( form.resolution.distribution[ i ] === ( n - 1 ) )"
-																	x-text="( ( n - 1 ) + '%' )"
-																></option>
-															</template>
-														</select>
-														<span class="choggle__label">
-															&rarr;
-															<span
-																class="tag"
-																:class="( 'variant-' + ( i + 1 ) )"
-																x-text="JSON.stringify( feature.variants[ i ] )">
-															</span>
-														</span>
-													</label>
-												</li>
-
-											</template>
-										</ul>
-
-										<p>
-											Total: <span x-text="form.resolution.allocationTotal"></span>
-
-											<template x-if="( form.resolution.allocationTotal !== 100 )">
-												<span>
-													- <mark>must total to 100</mark>.
-												</span>
-											</template>
-										</p>
-									</dd>
-								</div>
-							</dl>
-						</template>
-
-						<!-- Variant. -->
-						<template x-if="( form.resolution.type === 'variant' )">
-							<dl class="key-values">
-								<div>
-									<dt>
-										<strong>Variant:</strong>
-									</dt>
-									<dd>
-										<input
-											type="text"
-											x-model="form.resolution.variantRaw"
-											@input="handleVariant()"
-											size="30"
-										/>
-										-
-										must by of type <span x-text="feature.type"></span>.
-									</dd>
-								</div>
-							</dl>
-						</template>
-
+						#encodeForHtml( targeting.key )#
 					</dd>
 				</div>
 			</dl>
 
-			<p>
-				<button type="submit">
-					Save
-				</button>
-				<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">
-					Cancel
-				</a>
-			</p>
+			<cfif errorMessage.len()>
+				<p class="error-message">
+					#encodeForHtml( errorMessage )#
+				</p>
+			</cfif>
 
-		</form>
+			<form x-data="FormController" @submit="handleSubmit()" method="post">
+				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
+				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( request.context.featureKey )#" />
+				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( request.context.environmentKey )#" />
+				<input type="hidden" name="ruleIndex" value="#encodeForHtmlAttribute( request.context.ruleIndex )#" />
+				<input type="hidden" name="ruleData" value="#encodeForHtmlAttribute( form.ruleData )#" x-ref="ruleData" />
+				<input type="hidden" name="submitted" value="true" />
+
+				<dl class="key-values">
+					<div>
+						<dt>
+							<strong>Input:</strong>
+						</dt>
+						<dd>
+							<select x-model="form.input" @change="handleInput()">
+								<template x-for="input in inputs">
+									<option
+										:value="input"
+										:selected="( input === form.input )"
+										x-text="input">
+									</option>
+								</template>
+							</select>
+						</dd>
+					</div>
+					<div>
+						<dt>
+							<strong>Operator:</strong>
+						</dt>
+						<dd>
+							<select x-model="form.operator" @change="handleOperator()">
+								<template x-for="operator in operators">
+									<option
+										:value="operator"
+										:selected="( operator === form.operator )"
+										x-text="operator">
+									</option>
+								</template>
+							</select>
+						</dd>
+					</div>
+					<div>
+						<dt>
+							<strong>Values:</strong>
+						</dt>
+						<dd>
+							<div class="tiles">
+								<template x-for="( value, i ) in form.values" :key="i">
+
+									<span class="tiles__tile tile">
+										<span class="tile__value" x-text="value"></span>
+										<button type="button" @click="removeValue( i )" class="tile__remove">
+											x
+										</button>
+									</span>
+
+								</template>
+								<div class="tiles__form">
+									<input
+										type="text"
+										x-ref="valueRawRef"
+										x-model.trim="form.valueRaw"
+										list="value-list"
+										@keydown.enter.prevent="handleValue()"
+									/>
+									<datalist id="value-list">
+										<template x-for="option in datalist">
+											<option x-text="option"></option>
+										</template>
+									</datalist>
+
+									<button type="button" @click="handleValue()">
+										Add
+									</button>
+								</div>
+							</div>
+						</dd>
+					</div>
+					<div>
+						<dt>
+							<strong>Resolution:</strong>
+						</dt>
+						<dd>
+							<p>
+								<strong>Use Type:</strong>
+
+								<button type="button" @click="switchToSelection()">
+									Selection
+								</button>
+								<button type="button" @click="switchToDistribution()">
+									Distribution
+								</button>
+								<button type="button" @click="switchToVariant()">
+									Variant
+								</button>
+							</p>
+
+
+							<!-- Selection. -->
+							<template x-if="( form.resolution.type === 'selection' )">
+								<dl class="key-values">
+									<div>
+										<dt>
+											<strong>Selection:</strong>
+										</dt>
+										<dd>
+											<ul class="no-marker breathing-room">
+												<template x-for="( variant, i ) in feature.variants">
+
+													<li>
+														<label class="choggle">
+															<input
+																x-model.number="form.resolution.selection"
+																type="radio"
+																name="selectionIndex"
+																:value="( i + 1 )"
+																@change="handleSelection()"
+																class="choggle__control"
+															/>
+															<span
+																class="choggle__label tag"
+																:class="( 'variant-' + ( i + 1 ) )"
+																x-text="JSON.stringify( variant )">
+															</span>
+														</label>
+													</li>
+
+												</template>
+											</ul>
+										</dd>
+									</div>
+								</dl>
+							</template>
+
+							<!-- Distribution. -->
+							<template x-if="( form.resolution.type === 'distribution' )">
+								<dl class="key-values">
+									<div>
+										<dt>
+											<strong>Distribution:</strong>
+										</dt>
+										<dd>
+											<ul class="no-marker breathing-room">
+												<template x-for="( allocation, i ) in form.resolution.distribution">
+
+													<li>
+														<label class="choggle">
+															<select
+																x-model.number="form.resolution.distribution[ i ]"
+																@change="handleDistribution()"
+																class="choggle__control">
+
+																<template x-for="n in 101">
+																	<option
+																		:value="( n - 1 )"
+																		:selected="( form.resolution.distribution[ i ] === ( n - 1 ) )"
+																		x-text="( ( n - 1 ) + '%' )"
+																	></option>
+																</template>
+															</select>
+															<span class="choggle__label">
+																&rarr;
+																<span
+																	class="tag"
+																	:class="( 'variant-' + ( i + 1 ) )"
+																	x-text="JSON.stringify( feature.variants[ i ] )">
+																</span>
+															</span>
+														</label>
+													</li>
+
+												</template>
+											</ul>
+
+											<p>
+												Total: <span x-text="form.resolution.allocationTotal"></span>
+
+												<template x-if="( form.resolution.allocationTotal !== 100 )">
+													<span>
+														- <mark>must total to 100</mark>.
+													</span>
+												</template>
+											</p>
+										</dd>
+									</div>
+								</dl>
+							</template>
+
+							<!-- Variant. -->
+							<template x-if="( form.resolution.type === 'variant' )">
+								<dl class="key-values">
+									<div>
+										<dt>
+											<strong>Variant:</strong>
+										</dt>
+										<dd>
+											<input
+												type="text"
+												x-model="form.resolution.variantRaw"
+												@input="handleVariant()"
+												size="30"
+											/>
+											-
+											must by of type <span x-text="feature.type"></span>.
+										</dd>
+									</div>
+								</dl>
+							</template>
+
+						</dd>
+					</div>
+				</dl>
+
+				<p>
+					<button type="submit">
+						Save
+					</button>
+					<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">
+						Cancel
+					</a>
+				</p>
+
+			</form>
+
+		</section>
 
 	</cfoutput>
 	<script type="text/javascript">

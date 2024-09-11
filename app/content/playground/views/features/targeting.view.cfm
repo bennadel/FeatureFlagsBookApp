@@ -11,7 +11,6 @@
 		}
 		.panels__main {
 			flex: 1 1 auto ;
-			padding: 0px 16px 16px 8px ;
 		}
 		.panels__aside {
 			flex: 0 0 auto ;
@@ -154,7 +153,7 @@
 	<cfoutput>
 
 		<div class="panels">
-			<main class="panels__main">
+			<section class="panels__main content-wrapper u-collapse-margin">
 
 				<h1>
 					#encodeForHtml( request.template.title )#
@@ -414,7 +413,7 @@
 					<a href="/index.cfm?event=playground.features.delete&featureKey=#encodeForUrl( feature.key )#">Delete</a> this feature flag.
 				</p>
 
-			</main>
+			</section>
 			<aside class="panels__aside">
 
 				<table class="state">

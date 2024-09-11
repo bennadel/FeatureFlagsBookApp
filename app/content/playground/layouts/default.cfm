@@ -1,8 +1,14 @@
 <cfscript>
 
+	ui = request.ioc.get( "lib.util.ViewHelper" );
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
 	param name="request.template.statusCode" type="numeric" default=200;
 	param name="request.template.statusText" type="string" default="OK";
 	param name="request.template.title" type="string" default="";
+	param name="request.template.activeNavItem" type="string" default="";
 	param name="request.template.primaryContent" type="string" default="";
 
 	// Override the response status code.

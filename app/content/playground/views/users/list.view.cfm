@@ -57,150 +57,154 @@
 	</style>
 	<cfoutput>
 
-		<h1>
-			#encodeForHtml( request.template.title )#
-		</h1>
+		<section class="content-wrapper u-collapse-margin">
 
-		<p>
-			&larr; <a href="/index.cfm">Back to Overview</a>
-		</p>
+			<h1>
+				#encodeForHtml( request.template.title )#
+			</h1>
 
-		<p>
-			The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map (roughly) to 1 additional user.
-		</p>
-
-		<div x-data="AuthUsers">
 			<p>
-				I've also created <span x-text="authUsers.length"></span> users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
+				&larr; <a href="/index.cfm">Back to Overview</a>
 			</p>
-			<ul class="breathing-room">
-				<template x-for="user in authUsers">
-					<li>
-						<span class="role-tag" x-text="user.role"></span>
-						&rarr;
-						<span x-text="user.email"></span>
-					</li>
-				</template>
-			</ul>
-		</div>
 
-		<table x-data="Grid" id="grid" class="grid">
-		<thead>
-			<tr>
-				<th colspan="3" class="col-group">
-					User
-				</th>
-				<th colspan="4" class="col-group">
-					Company
-				</th>
-				<th colspan="2" class="col-group">
-					Groups
-				</th>
-			</tr>
-			<tr>
-				<!-- User. -->
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.id' )" class="sorter">
-						ID
-					</a>
-				</th>
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.email' )" class="sorter">
-						Email
-					</a>
-				</th>
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.role' )" class="sorter">
-						Role
-					</a>
-				</th>
-				<!-- Company. -->
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.company.id' )" class="sorter">
-						ID
-					</a>
-				</th>
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.company.subdomain' )" class="sorter">
-						Subdomain
-					</a>
-				</th>
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.company.fortune100' )" class="sorter">
-						Fortune100
-					</a>
-				</th>
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.company.fortune500' )" class="sorter">
-						Fortune500
-					</a>
-				</th>
-				<!-- Groups. -->
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.groups.betaTester' )" class="sorter">
-						BetaTester
-					</a>
-				</th>
-				<th class="sticky">
-					<a href="##grid" @click="sortOn( 'user.groups.influencer' )" class="sorter">
-						Influencer
-					</a>
-				</th>
-			</tr>
-		</thead>
-		<template x-for="( group, groupIndex ) in groups" :key="groupIndex">
-			<tbody>
+			<p>
+				The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map (roughly) to 1 additional user.
+			</p>
+
+			<div x-data="AuthUsers">
+				<p>
+					I've also created <span x-text="authUsers.length"></span> users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
+				</p>
+				<ul class="breathing-room">
+					<template x-for="user in authUsers">
+						<li>
+							<span class="role-tag" x-text="user.role"></span>
+							&rarr;
+							<span x-text="user.email"></span>
+						</li>
+					</template>
+				</ul>
+			</div>
+
+			<table x-data="Grid" id="grid" class="grid">
+			<thead>
 				<tr>
-					<th colspan="9" class="row-group">
-						<span x-text="group.name"></span>
-						(<span x-text="group.users.length"></span>)
+					<th colspan="3" class="col-group">
+						User
+					</th>
+					<th colspan="4" class="col-group">
+						Company
+					</th>
+					<th colspan="2" class="col-group">
+						Groups
 					</th>
 				</tr>
-				<template x-for="user in group.users" :key="user.id">
+				<tr>
+					<!-- User. -->
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.id' )" class="sorter">
+							ID
+						</a>
+					</th>
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.email' )" class="sorter">
+							Email
+						</a>
+					</th>
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.role' )" class="sorter">
+							Role
+						</a>
+					</th>
+					<!-- Company. -->
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.company.id' )" class="sorter">
+							ID
+						</a>
+					</th>
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.company.subdomain' )" class="sorter">
+							Subdomain
+						</a>
+					</th>
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.company.fortune100' )" class="sorter">
+							Fortune100
+						</a>
+					</th>
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.company.fortune500' )" class="sorter">
+							Fortune500
+						</a>
+					</th>
+					<!-- Groups. -->
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.groups.betaTester' )" class="sorter">
+							BetaTester
+						</a>
+					</th>
+					<th class="sticky">
+						<a href="##grid" @click="sortOn( 'user.groups.influencer' )" class="sorter">
+							Influencer
+						</a>
+					</th>
+				</tr>
+			</thead>
+			<template x-for="( group, groupIndex ) in groups" :key="groupIndex">
+				<tbody>
 					<tr>
-						<!-- User. -->
-						<td
-							:class="{ highlight: ( input === 'user.id' ) }"
-							x-text="user.id">
-						</td>
-						<td :class="{ highlight: ( input === 'user.email' ) }">
-							<span class="diminish" x-text="user.emailUser"></span><span x-text="user.emailDomain"></span>
-						</td>
-						<td
-							:class="{ highlight: ( input === 'user.role' ) }"
-							x-text="user.role">
-						</td>
-						<!-- Company. -->
-						<td
-							:class="{ highlight: ( input === 'user.company.id' ) }"
-							x-text="user.company.id">
-						</td>
-						<td
-							:class="{ highlight: ( input === 'user.company.subdomain' ) }"
-							x-text="user.company.subdomain">
-						</td>
-						<td
-							:class="{ highlight: ( input === 'user.company.fortune100' ) }"
-							x-text="user.company.fortune100">
-						</td>
-						<td
-							:class="{ highlight: ( input === 'user.company.fortune500' ) }"
-							x-text="user.company.fortune500">
-						</td>
-						<!-- Groups. -->
-						<td
-							:class="{ highlight: ( input === 'user.groups.betaTester' ) }"
-							x-text="user.groups.betaTester">
-						</td>
-						<td
-							:class="{ highlight: ( input === 'user.groups.influencer' ) }"
-							x-text="user.groups.influencer">
-						</td>
+						<th colspan="9" class="row-group">
+							<span x-text="group.name"></span>
+							(<span x-text="group.users.length"></span>)
+						</th>
 					</tr>
-				</template>
-			</tbody>
-		</template>
-		</table>
+					<template x-for="user in group.users" :key="user.id">
+						<tr>
+							<!-- User. -->
+							<td
+								:class="{ highlight: ( input === 'user.id' ) }"
+								x-text="user.id">
+							</td>
+							<td :class="{ highlight: ( input === 'user.email' ) }">
+								<span class="diminish" x-text="user.emailUser"></span><span x-text="user.emailDomain"></span>
+							</td>
+							<td
+								:class="{ highlight: ( input === 'user.role' ) }"
+								x-text="user.role">
+							</td>
+							<!-- Company. -->
+							<td
+								:class="{ highlight: ( input === 'user.company.id' ) }"
+								x-text="user.company.id">
+							</td>
+							<td
+								:class="{ highlight: ( input === 'user.company.subdomain' ) }"
+								x-text="user.company.subdomain">
+							</td>
+							<td
+								:class="{ highlight: ( input === 'user.company.fortune100' ) }"
+								x-text="user.company.fortune100">
+							</td>
+							<td
+								:class="{ highlight: ( input === 'user.company.fortune500' ) }"
+								x-text="user.company.fortune500">
+							</td>
+							<!-- Groups. -->
+							<td
+								:class="{ highlight: ( input === 'user.groups.betaTester' ) }"
+								x-text="user.groups.betaTester">
+							</td>
+							<td
+								:class="{ highlight: ( input === 'user.groups.influencer' ) }"
+								x-text="user.groups.influencer">
+							</td>
+						</tr>
+					</template>
+				</tbody>
+			</template>
+			</table>
+
+		</section>
 
 	</cfoutput>
 	<script type="text/javascript">

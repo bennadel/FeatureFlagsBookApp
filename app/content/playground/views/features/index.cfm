@@ -2,6 +2,8 @@
 
 	param name="request.event[ 3 ]" type="string" default="";
 
+	request.template.activeNavItem = "features";
+
 	switch ( request.event[ 3 ] ) {
 		case "clear":
 			cfmodule( template = "./clear.cfm" );

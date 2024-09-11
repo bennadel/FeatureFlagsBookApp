@@ -2,6 +2,8 @@
 
 	param name="request.event[ 3 ]" type="string" default="overview";
 
+	request.template.activeNavItem = "staging";
+
 	switch ( request.event[ 3 ] ) {
 		case "explain":
 			cfmodule( template = "./explain.cfm" );

@@ -24,6 +24,9 @@
 		// case "about":
 		// case "raw":
 		// case "account":
+		case "account":
+			cfmodule( template = "./views/account/index.cfm" );
+		break;
 		case "features":
 			cfmodule( template = "./views/features/index.cfm" );
 		break;

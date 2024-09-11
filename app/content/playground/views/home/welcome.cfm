@@ -30,6 +30,7 @@
 	;
 
 	request.template.title = "Feature Flags Playground";
+	request.template.activeNavItem = "features";
 
 	include "./welcome.view.cfm";
 

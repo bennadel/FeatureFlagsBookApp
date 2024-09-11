@@ -2,6 +2,8 @@
 
 	param name="request.event[ 3 ]" type="string" default="list";
 
+	request.template.activeNavItem = "users";
+
 	switch ( request.event[ 3 ] ) {
 		case "list":
 			cfmodule( template = "./list.cfm" );
