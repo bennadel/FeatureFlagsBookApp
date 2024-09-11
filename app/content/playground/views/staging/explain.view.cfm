@@ -33,6 +33,11 @@
 			</p>
 
 			<p>
+				<strong>User:</strong>
+				#encodeForHtml( demoUser.email )#
+			</p>
+
+			<p>
 				<strong>Feature:</strong>
 				<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForHtml( url.featureKey )#">#encodeForHtml( url.featureKey )#</a>
 			</p>
