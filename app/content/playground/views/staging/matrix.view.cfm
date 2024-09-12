@@ -213,7 +213,7 @@
 					<tr>
 						<th scope="row">
 							<p class="user-name">
-								#encodeForHtml( demoUser.name )#
+								<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( demoUser.id )#">#encodeForHtml( demoUser.name )#</a>
 							</p>
 
 							<dl class="user-context">

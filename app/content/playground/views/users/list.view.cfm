@@ -80,7 +80,7 @@
 						<li>
 							<span class="role-tag" x-text="user.role"></span>
 							&rarr;
-							<span x-text="user.email"></span>
+							<a :href="`/index.cfm?event=playground.staging.user&userID=${ user.id }`" x-text="user.email"></a>
 						</li>
 					</template>
 				</ul>
@@ -161,9 +161,8 @@
 					<template x-for="user in group.users" :key="user.id">
 						<tr>
 							<!-- User. -->
-							<td
-								:class="{ highlight: ( input === 'user.id' ) }"
-								x-text="user.id">
+							<td :class="{ highlight: ( input === 'user.id' ) }">
+								<a :href="`/index.cfm?event=playground.staging.user&userID=${ user.id }`" x-text="user.id"></a>
 							</td>
 							<td :class="{ highlight: ( input === 'user.email' ) }">
 								<span class="diminish" x-text="user.emailUser"></span><span x-text="user.emailDomain"></span>

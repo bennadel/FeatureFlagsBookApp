@@ -1,6 +1,6 @@
 <cfscript>
 
-	param name="request.event[ 3 ]" type="string" default="";
+	param name="request.event[ 3 ]" type="string" default="overview";
 
 	request.template.activeNavItem = "staging";
 
@@ -10,6 +10,12 @@
 		break;
 		case "matrix":
 			cfmodule( template = "./matrix.cfm" );
+		break;
+		case "overview":
+			cfmodule( template = "./overview.cfm" );
+		break;
+		case "user":
+			cfmodule( template = "./user.cfm" );
 		break;
 		default:
 			throw(

@@ -47,7 +47,7 @@
 						</span>
 					</a>
 					<a
-						href="index.cfm?event=playground.staging.matrix"
+						href="index.cfm?event=playground.staging"
 						#ui.attrClass({
 							"m1-nav__item": true,
 							"is-on": ( request.template.activeNavItem == 'staging' )

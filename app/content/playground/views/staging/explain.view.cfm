@@ -23,6 +23,9 @@
 			<p>
 				&larr;
 				<cfswitch expression="#url.from#">
+					<cfcase value="user">
+						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForHtml( url.userID )#">Back to User</a>
+					</cfcase>
 					<cfcase value="targeting">
 						<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForHtml( url.featureKey )#">Back to Feature</a>
 					</cfcase>
@@ -34,7 +37,7 @@
 
 			<p>
 				<strong>User:</strong>
-				#encodeForHtml( demoUser.email )#
+				<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( demoUser.id )#">#encodeForHtml( demoUser.email )#</a>
 			</p>
 
 			<p>
