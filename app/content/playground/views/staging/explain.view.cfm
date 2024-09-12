@@ -27,7 +27,7 @@
 						<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForHtml( url.featureKey )#">Back to Feature</a>
 					</cfcase>
 					<cfdefaultcase>
-						<a href="/index.cfm?event=playground.staging&environmentKey=#encodeForHtml( url.environmentKey )#">Back to Staging</a>
+						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( url.environmentKey )#">Back to Staging</a>
 					</cfdefaultcase>
 				</cfswitch>
 			</p>
@@ -44,7 +44,7 @@
 
 			<p>
 				<strong>Environment:</strong>
-				<a href="/index.cfm?event=playground.staging&environmentKey=#encodeForHtml( url.environmentKey )#">#encodeForHtml( url.environmentKey )#</a>
+				<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( url.environmentKey )#">#encodeForHtml( url.environmentKey )#</a>
 			</p>
 
 			<p>

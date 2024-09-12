@@ -421,7 +421,7 @@
 					<tr>
 						<cfloop index="environment" array="#environments#">
 							<th>
-								<a href="/index.cfm?event=playground.staging.overview&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
+								<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
 							</th>
 						</cfloop>
 					</tr>

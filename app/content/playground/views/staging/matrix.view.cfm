@@ -158,11 +158,11 @@
 
 					<cfif ( environment.key == url.environmentKey )>
 
-						<a href="/index.cfm?event=playground.staging.overview&environmentKey=#encodeForHtml( environment.key )#"><strong>#encodeForHtml( environment.name )#</strong></a>
+						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#"><strong>#encodeForHtml( environment.name )#</strong></a>
 
 					<cfelse>
 
-						<a href="/index.cfm?event=playground.staging.overview&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
+						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
 
 					</cfif>
 
