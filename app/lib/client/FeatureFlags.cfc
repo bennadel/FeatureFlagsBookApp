@@ -190,7 +190,10 @@ component
 				variants = variants,
 				resolution = resolution
 			);
-			result.variantIndex = arrayFind( variants, result.variant );
+			result.variantIndex = ( resolution.type == "Variant" )
+				? 0
+				: arrayFind( variants, result.variant )
+			;
 
 			return result;
 
