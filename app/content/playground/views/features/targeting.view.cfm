@@ -159,10 +159,6 @@
 					#encodeForHtml( request.template.title )#
 				</h1>
 
-				<p>
-					&larr; <a href="/index.cfm">Back to Overview</a>
-				</p>
-
 				<dl class="key-values">
 					<div>
 						<dt>

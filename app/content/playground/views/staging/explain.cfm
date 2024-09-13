@@ -12,7 +12,6 @@
 	param name="url.userID" type="numeric";
 	param name="url.featureKey" type="string";
 	param name="url.environmentKey" type="string";
-	param name="url.from" type="string" default="staging";
 
 	request.template.title = "Explain Evaluation";
 

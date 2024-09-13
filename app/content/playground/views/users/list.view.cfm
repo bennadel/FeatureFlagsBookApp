@@ -64,10 +64,6 @@
 			</h1>
 
 			<p>
-				&larr; <a href="/index.cfm">Back to Overview</a>
-			</p>
-
-			<p>
 				The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map (roughly) to 1 additional user.
 			</p>
 

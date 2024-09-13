@@ -148,10 +148,6 @@
 			</h1>
 
 			<p>
-				&larr; <a href="/index.cfm">Back to Overview</a>
-			</p>
-
-			<p>
 				<strong>Environments:</strong>
 
 				<cfloop array="#environments#" index="environment">

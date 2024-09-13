@@ -21,21 +21,6 @@
 			</h1>
 
 			<p>
-				&larr;
-				<cfswitch expression="#url.from#">
-					<cfcase value="user">
-						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForHtml( url.userID )#">Back to User</a>
-					</cfcase>
-					<cfcase value="targeting">
-						<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForHtml( url.featureKey )#">Back to Feature</a>
-					</cfcase>
-					<cfdefaultcase>
-						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( url.environmentKey )#">Back to Staging</a>
-					</cfdefaultcase>
-				</cfswitch>
-			</p>
-
-			<p>
 				<strong>User:</strong>
 				<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( demoUser.id )#">#encodeForHtml( demoUser.email )#</a>
 			</p>
