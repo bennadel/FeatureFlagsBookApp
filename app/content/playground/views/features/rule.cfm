@@ -16,32 +16,16 @@
 	param name="form.ruleData" type="string" default="";
 	param name="form.submitted" type="boolean" default=false;
 
-	config = featureWorkflow.getConfig( request.user.email );
-
-	if ( ! config.features.keyExists( request.context.featureKey ) ) {
-
-		configValidation.throwFeatureNotFoundError();
-
-	}
-
-	feature = config.features[ request.context.featureKey ];
-	feature.key = utilities.getStructKey( config.features, request.context.featureKey );
-
-	if ( ! feature.targeting.keyExists( request.context.environmentKey ) ) {
-
-		configValidation.throwTargetingNotFoundError();
-
-	}
-
-	targeting = feature.targeting[ request.context.environmentKey ];
-	targeting.key = utilities.getStructKey( feature.targeting, request.context.environmentKey );
-
-	rules = targeting.rules;
+	partial = getPartial(
+		email = request.user.email,
+		featureKey = request.context.featureKey,
+		environmentKey = request.context.environmentKey
+	);
 
 	// Editing an existing rule.
-	if ( request.context.ruleIndex && rules.isDefined( request.context.ruleIndex ) ) {
+	if ( request.context.ruleIndex && partial.rules.isDefined( request.context.ruleIndex ) ) {
 
-		rule = rules[ request.context.ruleIndex ];
+		rule = partial.rules[ request.context.ruleIndex ];
 
 	// Adding a new rule.
 	} else {
@@ -69,21 +53,30 @@
 
 			if ( request.context.ruleIndex ) {
 
-				rules[ request.context.ruleIndex ] = deserializeJson( form.ruleData );
+				partial.config
+					.features[ partial.feature.key ]
+						.targeting[ partial.environment.key ]
+							.rules[ request.context.ruleIndex ] = deserializeJson( form.ruleData )
+				;
 
 			} else {
 
-				rules.append( deserializeJson( form.ruleData ) );
+				partial.config
+					.features[ partial.feature.key ]
+						.targeting[ partial.environment.key ]
+							.rules
+								.append( deserializeJson( form.ruleData ) )
+				;
 
 			}
 
 			featureWorkflow.updateConfig(
 				email = request.user.email,
-				config = config
+				config = partial.config
 			);
 
 			location(
-				url = "/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#",
+				url = "/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( partial.feature.key )###environment-#encodeForUrl( partial.environment.key )#",
 				addToken = false
 			);
 
@@ -99,10 +92,114 @@
 
 	}
 
-	datalists = demoTargeting.getDatalists( demoUsers.getUsers( request.user.email ) );
-
-	request.template.title = "Rule";
+	request.template.title = partial.title;
 
 	include "./rule.view.cfm";
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the main partial payload for the view.
+	*/
+	private struct function getPartial(
+		required string email,
+		required string  featureKey,
+		required string  environmentKey
+		) {
+
+		var config = getConfig( email );
+		var feature = getFeature( config, featureKey );
+		var environment = getEnvironment( config, environmentKey );
+		var rules = getRules( feature, environment );
+		var datalists = getDatalists( email );
+
+		return {
+			config: config,
+			feature: feature,
+			environment: environment,
+			rules: rules,
+			datalists: datalists,
+			title: "Rule"
+		};
+
+	}
+
+
+	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
+
+		return featureWorkflow.getConfig( email );
+
+	}
+
+
+	/**
+	* I get the data lists for the demo users.
+	*/
+	private struct function getDatalists( required string email ) {
+
+		return demoTargeting.getDatalists( demoUsers.getUsers( email ) );
+
+	}
+
+
+	/**
+	* I get the environment for the given key.
+	*/
+	private struct function getEnvironment(
+		required struct config,
+		required string environmentKey
+		) {
+
+		var environments = utilities.toEnvironmentsArray( config.environments );
+		var environmentIndex = utilities.indexBy( environments, "key" );
+
+		if ( ! environmentIndex.keyExists( environmentKey ) ) {
+
+			configValidation.throwTargetingNotFoundError();
+
+		}
+
+		return environmentIndex[ environmentKey ];
+
+	}
+
+
+	/**
+	* I get the feature for the given key.
+	*/
+	private struct function getFeature(
+		required struct config,
+		required string featureKey
+		) {
+
+		var features = utilities.toFeaturesArray( config.features );
+		var featureIndex = utilities.indexBy( features, "key" );
+
+		if ( ! featureIndex.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		return featureIndex[ featureKey ];
+
+	}
+
+
+	/**
+	* I get the rules in the given environment.
+	*/
+	private array function getRules(
+		required struct feature,
+		required struct environment
+		) {
+
+		return feature.targeting[ environment.key ].rules;
+
+	}
 
 </cfscript>

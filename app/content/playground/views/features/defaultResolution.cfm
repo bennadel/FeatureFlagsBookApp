@@ -13,7 +13,6 @@
 	param name="form.resolutionData" type="string" default="";
 	param name="form.submitted" type="boolean" default=false;
 
-
 	partial = getPartial(
 		email = request.user.email,
 		featureKey = request.context.featureKey,

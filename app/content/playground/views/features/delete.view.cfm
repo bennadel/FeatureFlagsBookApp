@@ -4,12 +4,8 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( request.template.title )#
+				#encodeForHtml( partial.title )#
 			</h1>
-
-			<p>
-				&larr; <a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )#">Back to Targeting</a>
-			</p>
 
 			<dl class="key-values">
 				<div>
@@ -17,7 +13,7 @@
 						<strong>Feature:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( feature.key )#
+						#encodeForHtml( partial.feature.key )#
 					</dd>
 				</div>
 				<div>
@@ -25,16 +21,16 @@
 						<strong>Type:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( feature.type )#
+						#encodeForHtml( partial.feature.type )#
 					</dd>
 				</div>
-				<cfif feature.description.len()>
+				<cfif partial.feature.description.len()>
 					<div>
 						<dt>
 							<strong>Description:</strong>
 						</dt>
 						<dd>
-							#encodeForHtml( feature.description )#
+							#encodeForHtml( partial.feature.description )#
 						</dd>
 					</div>
 				</cfif>
@@ -44,7 +40,7 @@
 					</dt>
 					<dd>
 						<ol class="breathing-room">
-							<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
+							<cfloop index="entry" array="#utilities.toEntries( partial.feature.variants )#">
 								<li>
 									<span class="tag variant-#entry.index#">
 										#encodeForHtml( serializeJson( entry.value ) )#
@@ -64,14 +60,14 @@
 
 			<form method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
-				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( request.context.featureKey )#" />
+				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( partial.feature.key )#" />
 				<input type="hidden" name="submitted" value="true" />
 
 				<p>
 					<button type="submit">
 						Delete Feature Flag
 					</button>
-					<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )#">
+					<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( partial.feature.key )#">
 						Cancel
 					</a>
 				</p>

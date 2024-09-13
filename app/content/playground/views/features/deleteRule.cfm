@@ -13,50 +13,33 @@
 	param name="request.context.ruleIndex" type="numeric" default=0;
 	param name="form.submitted" type="boolean" default=false;
 
-	config = featureWorkflow.getConfig( request.user.email );
+	partial = getPartial(
+		email = request.user.email,
+		featureKey = request.context.featureKey,
+		environmentKey = request.context.environmentKey,
+		ruleIndex = val( request.context.ruleIndex )
+	);
 
-	if ( ! config.features.keyExists( request.context.featureKey ) ) {
-
-		configValidation.throwFeatureNotFoundError();
-
-	}
-
-	feature = config.features[ request.context.featureKey ];
-	feature.key = utilities.getStructKey( config.features, request.context.featureKey );
-
-	if ( ! feature.targeting.keyExists( request.context.environmentKey ) ) {
-
-		configValidation.throwTargetingNotFoundError();
-
-	}
-
-	targeting = feature.targeting[ request.context.environmentKey ];
-	targeting.key = utilities.getStructKey( feature.targeting, request.context.environmentKey );
-
-	rules = targeting.rules;
-
-	if ( ! request.context.ruleIndex || ! rules.isDefined( request.context.ruleIndex ) ) {
-
-		configValidation.throwRuleNotFoundError();
-
-	}
-
-	rule = rules[ request.context.ruleIndex ];
 	errorMessage = "";
 
 	if ( form.submitted ) {
 
 		try {
 
-			rules.deleteAt( request.context.ruleIndex );
+			partial.config
+				.features[ partial.feature.key ]
+					.targeting[ partial.environment.key ]
+						.rules
+							.deleteAt( request.context.ruleIndex )
+			;
 
 			featureWorkflow.updateConfig(
 				email = request.user.email,
-				config = config
+				config = partial.config
 			);
 
 			location(
-				url = "/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#",
+				url = "/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( partial.feature.key )###environment-#encodeForUrl( partial.environment.key )#",
 				addToken = false
 			);
 
@@ -68,8 +51,112 @@
 
 	}
 
-	request.template.title = "Delete Rule";
+	request.template.title = partial.title;
 
 	include "./deleteRule.view.cfm";
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the main partial payload for the view.
+	*/
+	private struct function getPartial(
+		required string email,
+		required string  featureKey,
+		required string  environmentKey,
+		required numeric ruleIndex
+		) {
+
+		var config = getConfig( email );
+		var feature = getFeature( config, featureKey );
+		var environment = getEnvironment( config, environmentKey );
+		var rule = getRule( feature, environment, ruleIndex );
+
+		return {
+			config: config,
+			feature: feature,
+			environment: environment,
+			rule: rule,
+			title: "Delete Rule"
+		};
+
+	}
+
+
+	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
+
+		return featureWorkflow.getConfig( email );
+
+	}
+
+
+	/**
+	* I get the environment for the given key.
+	*/
+	private struct function getEnvironment(
+		required struct config,
+		required string environmentKey
+		) {
+
+		var environments = utilities.toEnvironmentsArray( config.environments );
+		var environmentIndex = utilities.indexBy( environments, "key" );
+
+		if ( ! environmentIndex.keyExists( environmentKey ) ) {
+
+			configValidation.throwTargetingNotFoundError();
+
+		}
+
+		return environmentIndex[ environmentKey ];
+
+	}
+
+
+	/**
+	* I get the feature for the given key.
+	*/
+	private struct function getFeature(
+		required struct config,
+		required string featureKey
+		) {
+
+		var features = utilities.toFeaturesArray( config.features );
+		var featureIndex = utilities.indexBy( features, "key" );
+
+		if ( ! featureIndex.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		return featureIndex[ featureKey ];
+
+	}
+
+
+	/**
+	* I get the rule at the given index.
+	*/
+	private struct function getRule(
+		required struct feature,
+		required struct environment,
+		required numeric ruleIndex
+		) {
+
+		var rules = feature.targeting[ environment.key ].rules;
+
+		if ( ! rules.isDefined( ruleIndex ) ) {
+
+			configValidation.throwRuleNotFoundError();
+
+		}
+
+		return rules[ ruleIndex ];
+
+	}
 
 </cfscript>

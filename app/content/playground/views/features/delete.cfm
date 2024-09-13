@@ -11,16 +11,10 @@
 	param name="request.context.featureKey" type="string" default="";
 	param name="form.submitted" type="boolean" default=false;
 
-	config = featureWorkflow.getConfig( request.user.email );
-
-	if ( ! config.features.keyExists( request.context.featureKey ) ) {
-
-		configValidation.throwFeatureNotFoundError();
-
-	}
-
-	feature = config.features[ request.context.featureKey ];
-	feature.key = utilities.getStructKey( config.features, request.context.featureKey );
+	partial = getPartial(
+		email = request.user.email,
+		featureKey = request.context.featureKey
+	);
 
 	errorMessage = "";
 
@@ -28,11 +22,11 @@
 
 		try {
 
-			config.features.delete( feature.key );
+			partial.config.features.delete( partial.feature.key );
 
 			featureWorkflow.updateConfig(
 				email = request.user.email,
-				config = config
+				config = partial.config
 			);
 
 			location(
@@ -48,8 +42,62 @@
 
 	}
 
-	request.template.title = "Delete Feature Flag";
+	request.template.title = partial.title;
 
 	include "./delete.view.cfm";
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the main partial payload for the view.
+	*/
+	private struct function getPartial(
+		required string email,
+		required string  featureKey
+		) {
+
+		var config = getConfig( email );
+		var feature = getFeature( config, featureKey );
+
+		return {
+			config: config,
+			feature: feature,
+			title: "Delete Feature Flag"
+		};
+
+	}
+
+
+	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
+
+		return featureWorkflow.getConfig( email );
+
+	}
+
+
+	/**
+	* I get the feature for the given key.
+	*/
+	private struct function getFeature(
+		required struct config,
+		required string featureKey
+		) {
+
+		var features = utilities.toFeaturesArray( config.features );
+		var featureIndex = utilities.indexBy( features, "key" );
+
+		if ( ! featureIndex.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		return featureIndex[ featureKey ];
+
+	}
 
 </cfscript>

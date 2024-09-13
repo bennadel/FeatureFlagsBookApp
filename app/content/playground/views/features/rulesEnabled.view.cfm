@@ -4,12 +4,8 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( request.template.title )#
+				#encodeForHtml( partial.title )#
 			</h1>
-
-			<p>
-				&larr; <a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">Back to Targeting</a>
-			</p>
 
 			<dl class="key-values key-values--static">
 				<div>
@@ -17,7 +13,7 @@
 						<strong>Feature:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( feature.key )#
+						#encodeForHtml( partial.feature.key )#
 					</dd>
 				</div>
 				<div>
@@ -25,7 +21,7 @@
 						<strong>Environment:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( targeting.key )#
+						#encodeForHtml( partial.environment.key )#
 					</dd>
 				</div>
 			</dl>
@@ -38,8 +34,8 @@
 
 			<form method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
-				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( request.context.featureKey )#" />
-				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( request.context.environmentKey )#" />
+				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( partial.feature.key )#" />
+				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( partial.environment.key )#" />
 				<input type="hidden" name="submitted" value="true" />
 
 				<dl class="key-values">
@@ -86,7 +82,7 @@
 					<button type="submit">
 						Save
 					</button>
-					<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( targeting.key )#">
+					<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( partial.feature.key )###environment-#encodeForUrl( partial.environment.key )#">
 						Cancel
 					</a>
 				</p>
