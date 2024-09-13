@@ -63,7 +63,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( request.template.title )#
+				#encodeForHtml( partial.title )#
 			</h1>
 
 			<p>
@@ -78,7 +78,7 @@
 				You can <a href="/index.cfm?event=playground.features.create">add a feature flag</a>.
 				And, at any time, you can
 				<a href="/index.cfm?event=playground.features.clear">remove all rules</a> or
-				<a href="/index.cfm?event=playground.features.reset">reset your settings</a><cfif ( config.version gt 1 )> (version: #encodeForHtml( config.version )#)</cfif>.
+				<a href="/index.cfm?event=playground.features.reset">reset your settings</a><cfif ( partial.version gt 1 )> (version: #encodeForHtml( partial.version )#)</cfif>.
 			</p>
 
 			<table class="grid">
@@ -93,14 +93,14 @@
 					<th rowspan="2" valign="bottom">
 						Variants
 					</th>
-					<cfloop array="#environments#" index="environment">
+					<cfloop array="#partial.environments#" index="environment">
 						<th colspan="2">
 							<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForUrl( environment.key )#">#encodeForHtml( environment.name.ucase() )#</a>
 						</th>
 					</cfloop>
 				</tr>
 				<tr>
-					<cfloop array="#environments#" index="environment">
+					<cfloop array="#partial.environments#" index="environment">
 						<th class="env-left">
 							Rules
 						</th>
@@ -111,7 +111,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<cfloop array="#features#" index="feature">
+				<cfloop array="#partial.features#" index="feature">
 					<tr>
 						<th align="left" scope="row">
 							<a href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
@@ -130,47 +130,7 @@
 							<!-- #numberFormat( feature.variants.len() )# -->
 
 						</td>
-						<cfloop array="#environments#" index="environment">
-
-							<!---
-								Since we know that all evaluations of our feature flags are
-								being performed against a fixed set of users, we can calculate
-								a concrete breakdown that illustrates which users will receive
-								which variants based on the current configuration.
-
-								This has a good deal of brute-force overhead (nested loops);
-								but, since the dataset is relatively small, it should be fine.
-								In the future, this could be something we persist as a
-								separate calculation.
-							--->
-							<cfset breakdown = [:] />
-							<!---
-								If feature results in a FALLBACK or CUSTOM variant, then we
-								will track that as the zero-index.
-							--->
-							<cfset breakdown[ 0 ] = 0 />
-
-							<!---
-								Setup all the initial counts so that we can easily ++ in the
-								accumulation logic below.
-							--->
-							<cfloop index="i" from="1" to="#feature.variants.len()#">
-								<cfset breakdown[ i ] = 0 />
-							</cfloop>
-
-							<cfloop array="#demoData.users#" index="demoUser">
-
-								<cfset result = featureFlags.debugEvaluation(
-									featureKey = feature.key,
-									environmentKey = environment.key,
-									context = demoTargeting.getContext( demoUser ),
-									fallbackVariant = "FALLBACK"
-								) />
-
-								<cfset breakdown[ result.variantIndex ]++ />
-
-							</cfloop>
-
+						<cfloop array="#partial.environments#" index="environment">
 							<td align="center" class="env-left">
 								<cfif feature.targeting[ environment.key ].rulesEnabled>
 									Enabled
@@ -182,6 +142,9 @@
 								</cfif>
 							</td>
 							<td class="env-right">
+
+								<cfset breakdown = partial.results[ feature.key ][ environment.key ] />
+
 								<a
 									href="/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( feature.key )#"
 									class="breakdown">

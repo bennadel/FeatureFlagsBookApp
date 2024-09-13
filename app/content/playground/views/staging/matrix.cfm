@@ -52,44 +52,6 @@
 
 
 	/**
-	* I get the results matrix of users x features for the given environment.
-	*/
-	private struct function getResults(
-		required struct config,
-		required array features,
-		required struct environment,
-		required array users
-		) {
-
-		var featureFlags = new lib.client.FeatureFlags()
-			.withConfig( config )
-			.withLogger( demoLogger )
-		;
-		var results = {};
-
-		for ( var user in users ) {
-
-			results[ user.id ] = {};
-
-			for ( var feature in features ) {
-
-				results[ user.id ][ feature.key ] = featureFlags.debugEvaluation(
-					featureKey = feature.key,
-					environmentKey = environment.key,
-					context = demoTargeting.getContext( user ),
-					fallbackVariant = "FALLBACK"
-				);
-
-			}
-
-		}
-
-		return results;
-
-	}
-
-
-	/**
 	* I get the config data for the given authenticated user.
 	*/
 	private struct function getConfig( required string email ) {
@@ -140,6 +102,44 @@
 	private array function getFeatures( required struct config ) {
 
 		return utilities.toFeaturesArray( config.features );
+
+	}
+
+
+	/**
+	* I get the results matrix of users x features for the given environment.
+	*/
+	private struct function getResults(
+		required struct config,
+		required array features,
+		required struct environment,
+		required array users
+		) {
+
+		var featureFlags = new lib.client.FeatureFlags()
+			.withConfig( config )
+			.withLogger( demoLogger )
+		;
+		var results = {};
+
+		for ( var user in users ) {
+
+			results[ user.id ] = {};
+
+			for ( var feature in features ) {
+
+				results[ user.id ][ feature.key ] = featureFlags.debugEvaluation(
+					featureKey = feature.key,
+					environmentKey = environment.key,
+					context = demoTargeting.getContext( user ),
+					fallbackVariant = "FALLBACK"
+				);
+
+			}
+
+		}
+
+		return results;
 
 	}
 
