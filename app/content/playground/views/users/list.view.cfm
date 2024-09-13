@@ -60,7 +60,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( request.template.title )#
+				#encodeForHtml( partial.title )#
 			</h1>
 
 			<p>
@@ -71,22 +71,20 @@
 				The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map (roughly) to 1 additional user.
 			</p>
 
-			<div x-data="AuthUsers">
-				<p>
-					I've also created <span x-text="authUsers.length"></span> users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
-				</p>
-				<ul class="breathing-room">
-					<template x-for="user in authUsers">
-						<li>
-							<span class="role-tag" x-text="user.role"></span>
-							&rarr;
-							<a :href="`/index.cfm?event=playground.staging.user&userID=${ user.id }`" x-text="user.email"></a>
-						</li>
-					</template>
-				</ul>
-			</div>
+			<p>
+				I've also created #numberFormat( partial.authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
+			</p>
+			<ul class="breathing-room">
+				<cfloop array="#partial.authUsers#" index="user">
+					<li>
+						<span class="role-tag">#encodeForHtml( user.role )#</span>
+						&rarr;
+						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
+					</li>
+				</cfloop>
+			</ul>
 
-			<table x-data="Grid" id="grid" class="grid">
+			<table id="grid" class="grid">
 			<thead>
 				<tr>
 					<th colspan="3" class="col-group">
@@ -102,222 +100,102 @@
 				<tr>
 					<!-- User. -->
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.id' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.id##grid" class="sorter">
 							ID
 						</a>
 					</th>
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.email' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.email##grid" class="sorter">
 							Email
 						</a>
 					</th>
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.role' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.role##grid" class="sorter">
 							Role
 						</a>
 					</th>
 					<!-- Company. -->
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.company.id' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.company.id##grid" class="sorter">
 							ID
 						</a>
 					</th>
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.company.subdomain' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.company.subdomain##grid" class="sorter">
 							Subdomain
 						</a>
 					</th>
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.company.fortune100' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.company.fortune100##grid" class="sorter">
 							Fortune100
 						</a>
 					</th>
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.company.fortune500' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.company.fortune500##grid" class="sorter">
 							Fortune500
 						</a>
 					</th>
 					<!-- Groups. -->
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.groups.betaTester' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.groups.betaTester##grid" class="sorter">
 							BetaTester
 						</a>
 					</th>
 					<th class="sticky">
-						<a href="##grid" @click="sortOn( 'user.groups.influencer' )" class="sorter">
+						<a href="/index.cfm?event=playground.users&sortOn=user.groups.influencer##grid" class="sorter">
 							Influencer
 						</a>
 					</th>
 				</tr>
 			</thead>
-			<template x-for="( group, groupIndex ) in groups" :key="groupIndex">
+			<cfloop array="#partial.groups#" index="group">
 				<tbody>
 					<tr>
 						<th colspan="9" class="row-group">
-							<span x-text="group.name"></span>
-							(<span x-text="group.users.length"></span>)
+							#encodeForHtml( group.name )#
+							(#numberFormat( group.users.len() )#)
 						</th>
 					</tr>
-					<template x-for="user in group.users" :key="user.id">
+					<cfloop array="#group.users#" index="user">
 						<tr>
 							<!-- User. -->
-							<td :class="{ highlight: ( input === 'user.id' ) }">
-								<a :href="`/index.cfm?event=playground.staging.user&userID=${ user.id }`" x-text="user.id"></a>
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.id' ) })#>
+								<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.id )#</a>
 							</td>
-							<td :class="{ highlight: ( input === 'user.email' ) }">
-								<span class="diminish" x-text="user.emailUser"></span><span x-text="user.emailDomain"></span>
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.email' ) })#>
+								<span class="diminish">#encodeForHtml( user.emailUser )#</span>#encodeForHtml( user.emailDomain )#
 							</td>
-							<td
-								:class="{ highlight: ( input === 'user.role' ) }"
-								x-text="user.role">
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.role' ) })#>
+								#encodeForHtml( user.role )#
 							</td>
 							<!-- Company. -->
-							<td
-								:class="{ highlight: ( input === 'user.company.id' ) }"
-								x-text="user.company.id">
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.company.id' ) })#>
+								#encodeForHtml( user.company.id )#
 							</td>
-							<td
-								:class="{ highlight: ( input === 'user.company.subdomain' ) }"
-								x-text="user.company.subdomain">
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.company.subdomain' ) })#>
+								#encodeForHtml( user.company.subdomain )#
 							</td>
-							<td
-								:class="{ highlight: ( input === 'user.company.fortune100' ) }"
-								x-text="user.company.fortune100">
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.company.fortune100' ) })#>
+								#yesNoFormat( user.company.fortune100 )#
 							</td>
-							<td
-								:class="{ highlight: ( input === 'user.company.fortune500' ) }"
-								x-text="user.company.fortune500">
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.company.fortune500' ) })#>
+								#yesNoFormat( user.company.fortune500 )#
 							</td>
 							<!-- Groups. -->
-							<td
-								:class="{ highlight: ( input === 'user.groups.betaTester' ) }"
-								x-text="user.groups.betaTester">
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.groups.betaTester' ) })#>
+								#yesNoFormat( user.groups.betaTester )#
 							</td>
-							<td
-								:class="{ highlight: ( input === 'user.groups.influencer' ) }"
-								x-text="user.groups.influencer">
+							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.groups.influencer' ) })#>
+								#yesNoFormat( user.groups.influencer )#
 							</td>
 						</tr>
-					</template>
+
+					</cfloop>
 				</tbody>
-			</template>
+			</cfloop>
 			</table>
 
 		</section>
 
 	</cfoutput>
-	<script type="text/javascript">
-
-		function AuthUsers() {
-
-			var authUsers = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( demoUsers.buildAuthenticatedUsers( request.user.email ) ) )#</cfoutput>" );
-
-			return {
-				authUsers: authUsers
-			}
-
-		}
-
-		function Grid() {
-
-			var allUsers = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( demoUsers.getUsers( request.user.email ) ) )#</cfoutput>" );
-
-			allUsers.forEach(
-				( user ) => {
-
-					var parts = user.email.split( "@" );
-					user.emailUser = parts[ 0 ];
-					user.emailDomain = `@${ parts[ 1 ] }`;
-
-				}
-			);
-
-			return {
-				input: null,
-				groups: null,
-
-				// Public methods.
-				init: $init,
-				sortOn: sortOn
-			};
-
-			// ---
-			// PUBLIC METHODS.
-			// ---
-
-			function $init() {
-
-				this.sortOn( "user.id" );
-
-			}
-
-			function sortOn( input ) {
-
-				this.input = input;
-				this.groups = [];
-
-				var operators = {
-					"user.id": {
-						getFacet: ( user ) => "all",
-						getLabel: ( facet ) => "All users"
-					},
-					"user.email": {
-						getFacet: ( user ) => user.emailDomain,
-						getLabel: ( facet ) => `Email ending with: ${ facet }`
-					},
-					"user.role": {
-						getFacet: ( user ) => user.role,
-						getLabel: ( facet ) => `Role: ${ facet }`
-					},
-					"user.company.id": {
-						getFacet: ( user ) => user.company.id,
-						getLabel: ( facet ) => `Company ID: ${ facet }`
-					},
-					"user.company.subdomain": {
-						getFacet: ( user ) => user.company.subdomain,
-						getLabel: ( facet ) => `Company subdomain: ${ facet }`
-					},
-					"user.company.fortune100": {
-						getFacet: ( user ) => user.company.fortune100,
-						getLabel: ( facet ) => `Fortune 100: ${ facet }`
-					},
-					"user.company.fortune500": {
-						getFacet: ( user ) => user.company.fortune500,
-						getLabel: ( facet ) => `Fortune 500: ${ facet }`
-					},
-					"user.groups.betaTester": {
-						getFacet: ( user ) => user.groups.betaTester,
-						getLabel: ( facet ) => `Beta tester: ${ facet }`
-					},
-					"user.groups.influencer": {
-						getFacet: ( user ) => user.groups.influencer,
-						getLabel: ( facet ) => `Influencer: ${ facet }`
-					}
-				};
-				var operator = operators[ this.input ];
-				var groupIndex = Object.create( null );
-
-				for ( var user of allUsers ) {
-
-					var facet = operator.getFacet( user );
-
-					if ( ! groupIndex[ facet ] ) {
-
-						groupIndex[ facet ] = {
-							name: operator.getLabel( facet ),
-							users: []
-						};
-						this.groups.push( groupIndex[ facet ] );
-
-					}
-
-					groupIndex[ facet ].users.push( user );
-
-				}
-
-			}
-
-		}
-
-	</script>
 </cfsavecontent>
