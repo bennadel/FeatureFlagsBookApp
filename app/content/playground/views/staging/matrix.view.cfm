@@ -165,11 +165,6 @@
 				</cfloop>
 			</p>
 
-			<p>
-				<strong>Description:</strong>
-				#encodeForHtml( config.environments[ url.environmentKey ].description )#
-			</p>
-
 			<table class="state">
 			<thead>
 				<th scope="col">

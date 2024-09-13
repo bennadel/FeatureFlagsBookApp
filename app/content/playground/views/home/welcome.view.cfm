@@ -15,6 +15,9 @@
 			border-bottom: 1px solid #cccccc ;
 			padding: 7px 10px ;
 		}
+		.grid thead th {
+			border-bottom-width: 2px ;
+		}
 		.grid tbody tr:hover th,
 		.grid tbody tr:hover td {
 			background-color: #f0f0f0 ;
