@@ -4,11 +4,11 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( request.template.title )#
+				#encodeForHtml( partial.title )#
 			</h1>
 
 			<p>
-				You are logged-in as <strong>#encodeForHtml( request.user.email )#</strong>.
+				You are logged-in as <strong>#encodeForHtml( partial.user.email )#</strong>.
 			</p>
 
 			<p>

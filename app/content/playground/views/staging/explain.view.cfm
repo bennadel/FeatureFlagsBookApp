@@ -17,12 +17,12 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( request.template.title )#
+				#encodeForHtml( partial.title )#
 			</h1>
 
 			<p>
 				<strong>User:</strong>
-				<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( demoUser.id )#">#encodeForHtml( demoUser.email )#</a>
+				<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( partial.user.id )#">#encodeForHtml( partial.user.email )#</a>
 			</p>
 
 			<p>
@@ -37,10 +37,10 @@
 
 			<p>
 				<strong>Variant:</strong>
-				<span class="tag variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+				<span class="tag variant-#partial.result.variantIndex#">#encodeForHtml( serializeJson( partial.result.variant ) )#</span>
 
-				<cfif ! result.variantIndex>
-					<cfif ( result.reason == "Error" )>
+				<cfif ! partial.result.variantIndex>
+					<cfif ( partial.result.reason == "Error" )>
 						&mdash; fallback value was used due to an error.
 					<cfelse>
 						&mdash; a custom variant was used.
@@ -50,7 +50,7 @@
 
 			<p>
 				<strong>Reason:</strong>
-				<mark>#encodeForHtml( result.reason )#</mark>
+				<mark>#encodeForHtml( partial.result.reason )#</mark>
 			</p>
 
 			<hr />
@@ -60,7 +60,7 @@
 			</h2>
 
 			<div class="dump-wrapper">
-				<cfdump var="#result.arguments.context#" />
+				<cfdump var="#partial.result.arguments.context#" />
 			</div>
 
 			<hr />
@@ -71,9 +71,9 @@
 
 			<p>
 				<strong>Reason:</strong>
-				<mark>#encodeForHtml( result.reason )#</mark> &mdash;
+				<mark>#encodeForHtml( partial.result.reason )#</mark> &mdash;
 
-				<cfswitch expression="#result.reason#">
+				<cfswitch expression="#partial.result.reason#">
 					<!---
 						Note: The two key-related cases aren't actually possible in this
 						application (since the context objects are all being hard-coded in the
@@ -100,7 +100,7 @@
 					<cfcase value="DefaultResolution">
 						the variant was chosen using the feature's default resolution strategy.
 
-						<cfif result.feature.targeting[ url.environmentKey ].rulesEnabled>
+						<cfif partial.result.feature.targeting[ url.environmentKey ].rulesEnabled>
 							This is because no rules matched against the given context.
 						<cfelse>
 							This is because rules are not enabled.
@@ -118,60 +118,60 @@
 				</cfswitch>
 			</p>
 
-			<cfif result.errorMessage.len()>
+			<cfif partial.result.errorMessage.len()>
 				<strong>Error:</strong>
-				#encodeForHtml( result.errorMessage )#
+				#encodeForHtml( partial.result.errorMessage )#
 			</cfif>
 
-			<cfif ( result.reason == "MatchingRule" )>
+			<cfif ( partial.result.reason == "MatchingRule" )>
 
 				<p>
 					<strong>Matching Rule:</strong>
 				</p>
 
 				<div class="dump-wrapper">
-					<cfdump var="#result.evaluatedRules.last()#" />
+					<cfdump var="#partial.result.evaluatedRules.last()#" />
 				</div>
 
 			</cfif>
 
-			<cfif isStruct( result.resolution )>
+			<cfif isStruct( partial.result.resolution )>
 
 				<p>
 					<strong>Resolution:</strong> The following resolution strategy was used to select the variant.
 				</p>
 
 				<div class="dump-wrapper">
-					<cfdump var="#result.resolution#" />
+					<cfdump var="#partial.result.resolution#" />
 				</div>
 
 			</cfif>
 
-			<cfif isArray( result.evaluatedRules )>
+			<cfif isArray( partial.result.evaluatedRules )>
 
 				<p>
 					<strong>Evaluated Rules:</strong> The following rules were evaluated as part of the targeting.
 				</p>
 
 				<div class="dump-wrapper">
-					<cfdump var="#result.evaluatedRules#" />
+					<cfdump var="#partial.result.evaluatedRules#" />
 				</div>
 
 			</cfif>
 
-			<cfif isArray( result.skippedRules )>
+			<cfif isArray( partial.result.skippedRules )>
 
 				<p>
 					<strong>Skipped Rules:</strong> The following rules were skipped while targeting (due to a mismatch in keys and/or data types).
 				</p>
 
 				<div class="dump-wrapper">
-					<cfdump var="#result.skippedRules#" />
+					<cfdump var="#partial.result.skippedRules#" />
 				</div>
 
 			</cfif>
 
-			<cfif isStruct( result.feature )>
+			<cfif isStruct( partial.result.feature )>
 
 				<hr />
 
@@ -186,12 +186,12 @@
 
 				<p>
 					<strong>Description:</strong>
-					#encodeForHtml( result.feature.description )#
+					#encodeForHtml( partial.result.feature.description )#
 				</p>
 
 				<p>
 					<strong>Type:</strong>
-					#encodeForHtml( result.feature.type )#
+					#encodeForHtml( partial.result.feature.type )#
 				</p>
 
 				<p>
@@ -199,7 +199,7 @@
 				</p>
 
 				<div class="dump-wrapper">
-					<cfdump var="#result.feature.variants#" />
+					<cfdump var="#partial.result.feature.variants#" />
 				</div>
 
 				<p>
@@ -207,7 +207,7 @@
 				</p>
 
 				<div class="dump-wrapper">
-					<cfdump var="#result.feature.targeting#" />
+					<cfdump var="#partial.result.feature.targeting#" />
 				</div>
 
 			</cfif>

@@ -13,47 +13,142 @@
 	param name="url.featureKey" type="string";
 	param name="url.environmentKey" type="string";
 
-	request.template.title = "Explain Evaluation";
+	partial = getPartial(
+		email = request.user.email,
+		userID = val( url.userID ),
+		featureKey = url.featureKey,
+		environmentKey = url.environmentKey
+	);
+
+	request.template.title = partial.title;
+
+	include "./explain.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	// TODO: Move all of this logic into a Partial component.
+	/**
+	* I get the main partial payload for the view.
+	*/
+	private struct function getPartial(
+		required string email,
+		required numeric userID,
+		required string  featureKey,
+		required string environmentKey
+		) {
 
-	demoData = {
-		users: demoUsers.getUsers( request.user.email )
-	};
+		var config = getConfig( email );
+		var user = getUser( email, userID );
+		var feature = getFeature( config, featureKey );
+		var environment = getEnvironment( config, environmentKey );
 
-	userIndex = utilities.indexBy( demoData.users, "id" );
-
-	if ( ! userIndex.keyExists( url.userID ) ) {
-
-		location(
-			url = "/index.cfm",
-			addToken = false
+		var featureFlags = new lib.client.FeatureFlags()
+			.withConfig( config )
+			.withLogger( demoLogger )
+		;
+		var result = featureFlags.debugEvaluation(
+			featureKey = feature.key,
+			environmentKey = environment.key,
+			context = demoTargeting.getContext( user ),
+			fallbackVariant = "FALLBACK"
 		);
+
+		return {
+			user: user,
+			feature: feature,
+			environment: environment,
+			result: result,
+			title: "Explain Evaluation"
+		};
 
 	}
 
-	config = featureWorkflow.getConfig( request.user.email );
 
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
+	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
 
-	featureFlags = new lib.client.FeatureFlags()
-		.withConfig( config )
-		.withLogger( demoLogger )
-	;
+		return featureWorkflow.getConfig( email );
 
-	demoUser = userIndex[ url.userID ];
+	}
 
-	result = featureFlags.debugEvaluation(
-		featureKey = url.featureKey,
-		environmentKey = url.environmentKey,
-		context = demoTargeting.getContext( demoUser ),
-		fallbackVariant = "FALLBACK"
-	);
 
-	include "./explain.view.cfm";
+	/**
+	* I get the environment for the given key.
+	*/
+	private struct function getEnvironment(
+		required struct config,
+		required string environmentKey
+		) {
+
+		var environments = utilities.toEnvironmentsArray( config.environments );
+		var environmentIndex = utilities.indexBy( environments, "key" );
+
+		if ( ! environmentIndex.keyExists( environmentKey ) ) {
+
+			// Todo: Throw a more specific error?
+			throw(
+				type = "App.NotFound",
+				message = "Environment not found."
+			);
+
+		}
+
+		return environmentIndex[ environmentKey ];
+
+	}
+
+
+	/**
+	* I get the feature for the given key.
+	*/
+	private struct function getFeature(
+		required struct config,
+		required string featureKey
+		) {
+
+		var features = utilities.toFeaturesArray( config.features );
+		var featureIndex = utilities.indexBy( features, "key" );
+
+		if ( ! featureIndex.keyExists( featureKey ) ) {
+
+			// Todo: Throw a more specific error?
+			throw(
+				type = "App.NotFound",
+				message = "Feature flag not found."
+			);
+
+		}
+
+		return featureIndex[ featureKey ];
+
+	}
+
+
+	/**
+	* I get the user for the given authenticated user.
+	*/
+	private struct function getUser(
+		required string email,
+		required numeric userID
+		) {
+
+		var users = demoUsers.getUsers( email );
+		var userIndex = utilities.indexBy( users, "id" );
+
+		if ( ! userIndex.keyExists( userID ) ) {
+
+			// Todo: Throw a more specific error?
+			throw(
+				type = "App.NotFound",
+				message = "User not found."
+			);
+
+		}
+
+		return userIndex[ userID ];
+
+	}
 
 </cfscript>
