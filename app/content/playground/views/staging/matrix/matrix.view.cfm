@@ -1,6 +1,11 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
+		.environment {}
+		.environment.is-on {
+			font-weight: bold ;
+		}
+
 		.state {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
@@ -144,23 +149,21 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( partial.title )#
+				#encodeForHtml( title )#
 			</h1>
 
 			<p>
 				<strong>Environments:</strong>
 
-				<cfloop array="#partial.environments#" index="environment">
+				<cfloop array="#environments#" index="entry">
 
-					<cfif ( environment.key == url.environmentKey )>
-
-						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#"><strong>#encodeForHtml( environment.name )#</strong></a>
-
-					<cfelse>
-
-						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
-
-					</cfif>
+					<a
+						href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( entry.key )#"
+						#ui.attrClass({
+							"environment": true,
+							"is-on": ( entry.key == url.environmentKey )
+						})#
+						>#encodeForHtml( entry.name )#</a>
 
 				</cfloop>
 			</p>
@@ -170,7 +173,7 @@
 				<th scope="col">
 					User
 				</th>
-				<cfloop array="#partial.features#" item="feature">
+				<cfloop array="#features#" item="feature">
 
 					<th scope="col" valign="bottom">
 						<p class="feature-description">
@@ -195,7 +198,7 @@
 				<cfset mapperRowIndex = 0 />
 				<cfset mapperColumnIndex = 0 />
 
-				<cfloop array="#partial.users#" index="user">
+				<cfloop array="#users#" index="user">
 
 					<cfset mapper.append( [] ) />
 					<cfset mapperRowIndex++ />
@@ -249,9 +252,9 @@
 								</div>
 							</dl>
 						</th>
-						<cfloop array="#partial.features#" item="feature">
+						<cfloop array="#features#" item="feature">
 
-							<cfset result = partial.results[ user.id ][ feature.key ] />
+							<cfset result = results[ user.id ][ feature.key ] />
 
 							<td
 								data-user-id="#encodeForHtmlAttribute( user.id )#"
@@ -280,11 +283,11 @@
 
 		<div x-data="Mapper" class="mapper">
 			<table>
-			<cfloop array="#partial.users#" index="user">
+			<cfloop array="#users#" index="user">
 				<tr>
-					<cfloop array="#partial.features#" index="feature">
+					<cfloop array="#features#" index="feature">
 
-						<cfset result = partial.results[ user.id ][ feature.key ] />
+						<cfset result = results[ user.id ][ feature.key ] />
 
 						<td class="variant-#result.variantIndex#">
 							<button

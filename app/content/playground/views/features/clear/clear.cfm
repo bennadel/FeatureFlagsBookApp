@@ -8,7 +8,8 @@
 
 	param name="form.submitted" type="boolean" default=false;
 
-	partial = getPartial( request.user.email );
+	config = getConfig( request.user.email );
+	title = request.template.title = "Remove Feature Flag Rules";
 	errorMessage = "";
 
 	if ( form.submitted ) {
@@ -27,27 +28,10 @@
 
 	}
 
-	request.template.title = partial.title;
-
 	include "./clear.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial( required string email ) {
-
-		var config = getConfig( email );
-
-		return {
-			config: config,
-			title: "Remove Feature Flag Rules"
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

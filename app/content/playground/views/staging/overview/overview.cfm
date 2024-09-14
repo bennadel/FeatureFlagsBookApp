@@ -7,33 +7,15 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	partial = getPartial( request.user.email );
-
-	request.template.title = partial.title;
+	config = getConfig( request.user.email );
+	users = getUsers( request.user.email );
+	environments = getEnvironments( config );
+	title = request.template.title = "Staging Contexts";
 
 	include "./overview.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial( required string email ) {
-
-		var config = getConfig( email );
-		var users = getUsers( email );
-		var environments = getEnvironments( config );
-		var title = "Staging Contexts";
-
-		return {
-			environments: environments,
-			users: users,
-			title: title
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

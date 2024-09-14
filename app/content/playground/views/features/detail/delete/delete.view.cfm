@@ -4,7 +4,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( partial.title )#
+				#encodeForHtml( title )#
 			</h1>
 
 			<dl class="key-values">
@@ -13,7 +13,7 @@
 						<strong>Feature:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( partial.feature.key )#
+						#encodeForHtml( feature.key )#
 					</dd>
 				</div>
 				<div>
@@ -21,16 +21,16 @@
 						<strong>Type:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( partial.feature.type )#
+						#encodeForHtml( feature.type )#
 					</dd>
 				</div>
-				<cfif partial.feature.description.len()>
+				<cfif feature.description.len()>
 					<div>
 						<dt>
 							<strong>Description:</strong>
 						</dt>
 						<dd>
-							#encodeForHtml( partial.feature.description )#
+							#encodeForHtml( feature.description )#
 						</dd>
 					</div>
 				</cfif>
@@ -40,7 +40,7 @@
 					</dt>
 					<dd>
 						<ol class="breathing-room">
-							<cfloop index="entry" array="#utilities.toEntries( partial.feature.variants )#">
+							<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
 								<li>
 									<span class="tag variant-#entry.index#">
 										#encodeForHtml( serializeJson( entry.value ) )#
@@ -60,14 +60,14 @@
 
 			<form method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
-				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( partial.feature.key )#" />
+				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="submitted" value="true" />
 
 				<p>
 					<button type="submit">
 						Delete Feature Flag
 					</button>
-					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( partial.feature.key )#">
+					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#">
 						Cancel
 					</a>
 				</p>

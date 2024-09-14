@@ -4,6 +4,7 @@
 	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
+	ui = request.ioc.get( "lib.util.ViewHelper" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
@@ -11,45 +12,18 @@
 
 	param name="url.environmentKey" type="string" default="development";
 
-	partial = getPartial(
-		email = request.user.email,
-		environmentKey = url.environmentKey
-	);
-
-	request.template.title = partial.title;
+	config = getConfig( request.user.email );
+	features = getFeatures( config );
+	environments = getEnvironments( config );
+	environment = getEnvironment( environments, url.environmentKey );
+	users = getUsers( request.user.email );
+	results = getResults( config, features, environment, users );
+	title = request.template.title = "Feature Matrix: #environment.name#";
 
 	include "./matrix.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required string  environmentKey
-		) {
-
-		var config = getConfig( email );
-		var features = getFeatures( config );
-		var environments = getEnvironments( config );
-		var environment = getEnvironment( environments, environmentKey );
-		var users = getUsers( email );
-		var results = getResults( config, features, environment, users );
-		var title = "Feature Matrix: #environment.name#";
-
-		return {
-			features: features,
-			environments: environments,
-			environment: environment,
-			users: users,
-			results: results,
-			title: title
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

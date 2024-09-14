@@ -13,56 +13,18 @@
 	param name="url.featureKey" type="string";
 	param name="url.environmentKey" type="string";
 
-	partial = getPartial(
-		email = request.user.email,
-		userID = val( url.userID ),
-		featureKey = url.featureKey,
-		environmentKey = url.environmentKey
-	);
 
-	request.template.title = partial.title;
+	config = getConfig( request.user.email );
+	user = getUser( request.user.email, val( url.userID ) );
+	feature = getFeature( config, url.featureKey );
+	environment = getEnvironment( config, url.environmentKey );
+	result = getResult( config, user, feature, environment );
+	title = request.template.title = "Explain Evaluation";
 
 	include "./explain.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required numeric userID,
-		required string  featureKey,
-		required string environmentKey
-		) {
-
-		var config = getConfig( email );
-		var user = getUser( email, userID );
-		var feature = getFeature( config, featureKey );
-		var environment = getEnvironment( config, environmentKey );
-
-		var featureFlags = new lib.client.FeatureFlags()
-			.withConfig( config )
-			.withLogger( demoLogger )
-		;
-		var result = featureFlags.debugEvaluation(
-			featureKey = feature.key,
-			environmentKey = environment.key,
-			context = demoTargeting.getContext( user ),
-			fallbackVariant = "FALLBACK"
-		);
-
-		return {
-			user: user,
-			feature: feature,
-			environment: environment,
-			result: result,
-			title: "Explain Evaluation"
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.
@@ -122,6 +84,31 @@
 		}
 
 		return featureIndex[ featureKey ];
+
+	}
+
+
+	/**
+	* I get the feature targeting result for the given user, feature, environment.
+	*/
+	private struct function getResult(
+		required struct config,
+		required struct user,
+		required struct feature,
+		required struct environment
+		) {
+
+		var featureFlags = new lib.client.FeatureFlags()
+			.withConfig( config )
+			.withLogger( demoLogger )
+		;
+
+		return featureFlags.debugEvaluation(
+			featureKey = feature.key,
+			environmentKey = environment.key,
+			context = demoTargeting.getContext( user ),
+			fallbackVariant = "FALLBACK"
+		);
 
 	}
 

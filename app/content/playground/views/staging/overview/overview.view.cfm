@@ -4,7 +4,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( partial.title )#
+				#encodeForHtml( title )#
 			</h1>
 
 			<h2>
@@ -12,7 +12,7 @@
 			</h2>
 
 			<ul>
-				<cfloop array="#partial.environments#" index="environment">
+				<cfloop array="#environments#" index="environment">
 					<li>
 						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForUrl( environment.key )#">#encodeForHtml( environment.name )#</a>
 					</li>
@@ -24,7 +24,7 @@
 			</h2>
 
 			<ul>
-				<cfloop array="#partial.users#" index="user">
+				<cfloop array="#users#" index="user">
 					<li>
 						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
 					</li>

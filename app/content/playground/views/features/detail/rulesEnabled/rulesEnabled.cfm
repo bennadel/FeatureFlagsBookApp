@@ -13,35 +13,34 @@
 	param name="form.rulesEnabled" type="boolean" default=false;
 	param name="form.submitted" type="boolean" default=false;
 
-	partial = getPartial(
-		email = request.user.email,
-		featureKey = request.context.featureKey,
-		environmentKey = request.context.environmentKey
-	);
 
+	config = getConfig( request.user.email );
+	feature = getFeature( config, request.context.featureKey );
+	environment = getEnvironment( config, request.context.environmentKey );
+	title = request.template.title = "Rules Enabled";
 	errorMessage = "";
 
 	if ( form.submitted ) {
 
 		try {
 
-			partial.config
-				.features[ partial.feature.key ]
-					.targeting[ partial.environment.key ]
+			config
+				.features[ feature.key ]
+					.targeting[ environment.key ]
 						.rulesEnabled = !! form.rulesEnabled
 			;
 
 			featureWorkflow.updateConfig(
 				email = request.user.email,
-				config = partial.config
+				config = config
 			);
 
 			requestHelper.goto(
 				[
 					event: "playground.features.detail.targeting",
-					featureKey: partial.feature.key
+					featureKey: feature.key
 				],
-				"environment-#partial.environment.key#"
+				"environment-#environment.key#"
 			);
 
 		} catch ( any error ) {
@@ -52,39 +51,14 @@
 
 	} else {
 
-		form.rulesEnabled = partial.feature.targeting[ partial.environment.key ].rulesEnabled;
+		form.rulesEnabled = feature.targeting[ environment.key ].rulesEnabled;
 
 	}
-
-	request.template.title = "Rules Enabled";
 
 	include "./rulesEnabled.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required string  featureKey,
-		required string  environmentKey
-		) {
-
-		var config = getConfig( email );
-		var feature = getFeature( config, featureKey );
-		var environment = getEnvironment( config, environmentKey );
-
-		return {
-			config: config,
-			feature: feature,
-			environment: environment,
-			title: "Rules Enabled"
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

@@ -11,43 +11,17 @@
 
 	param name="url.userID" type="numeric";
 
-	partial = getPartial(
-		email = request.user.email,
-		userID = val( url.userID )
-	);
-
-	request.template.title = partial.title;
+	config = getConfig( request.user.email );
+	user = getUser( request.user.email, val( url.userID ) );
+	features = getFeatures( config );
+	environments = getEnvironments( config );
+	breakdown = getBreakdown( config, user, features, environments );
+	title = request.template.title = user.name;
 
 	include "./user.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required numeric userID
-		) {
-
-		var config = getConfig( email );
-		var user = getUser( email, userID );
-		var features = getFeatures( config );
-		var environments = getEnvironments( config );
-		var breakdown = getBreakdown( config, user, features, environments );
-		var title = user.name;
-
-		return {
-			user: user,
-			features: features,
-			environments: environments,
-			breakdown: breakdown,
-			title: title
-		};
-
-	}
-
 
 	/**
 	* I get the variant breakdown for the given user.

@@ -14,7 +14,8 @@
 	param name="form.variantsRaw" type="array" default=[];
 	param name="form.submitted" type="boolean" default=false;
 
-	config = featureWorkflow.getConfig( request.user.email );
+	config = getConfig( request.user.email );
+	title = request.template.title = "Create New Feature Flag";
 	errorMessage = "";
 
 	if ( form.submitted ) {
@@ -94,8 +95,18 @@
 
 	}
 
-	request.template.title = "Create New Feature Flag";
-
 	include "./create.view.cfm";
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
+
+		return featureWorkflow.getConfig( email );
+
+	}
 
 </cfscript>

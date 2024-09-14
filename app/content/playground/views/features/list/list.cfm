@@ -9,38 +9,18 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	partial = getPartial( request.user.email );
-
-	request.template.title = partial.title ;
-	request.template.activeNavItem = "features";
+	config = getConfig( request.user.email );
+	version = config.version;
+	features = getFeatures( config );
+	environments = getEnvironments( config );
+	users = getUsers( request.user.email );
+	results = getResults( config, features, environments, users );
+	title = request.template.title = "Feature Flags Playground";
 
 	include "./list.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial( required string email ) {
-
-		var config = getConfig( email );
-		var version = config.version;
-		var features = getFeatures( config );
-		var environments = getEnvironments( config );
-		var users = getUsers( email );
-		var results = getResults( config, features, environments, users );
-
-		return {
-			version: version,
-			features: features,
-			environments: environments,
-			results: results,
-			title: "Feature Flags Playground"
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

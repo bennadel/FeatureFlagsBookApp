@@ -31,7 +31,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( partial.title )#
+				#encodeForHtml( title )#
 			</h1>
 
 			<dl class="key-values key-values--static">
@@ -40,7 +40,7 @@
 						<strong>Feature:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( partial.feature.key )#
+						#encodeForHtml( feature.key )#
 					</dd>
 				</div>
 				<div>
@@ -48,7 +48,7 @@
 						<strong>Environment:</strong>
 					</dt>
 					<dd>
-						#encodeForHtml( partial.environment.key )#
+						#encodeForHtml( environment.key )#
 					</dd>
 				</div>
 			</dl>
@@ -61,9 +61,9 @@
 
 			<form x-data="FormController" @submit="handleSubmit()" method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
-				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( partial.feature.key )#" />
-				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( partial.environment.key )#" />
-				<input type="hidden" name="ruleIndex" value="#encodeForHtmlAttribute( request.context.ruleIndex )#" />
+				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
+				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
+				<input type="hidden" name="ruleIndex" value="#encodeForHtmlAttribute( ruleIndex )#" />
 				<input type="hidden" name="ruleData" value="#encodeForHtmlAttribute( form.ruleData )#" x-ref="ruleData" />
 				<input type="hidden" name="submitted" value="true" />
 
@@ -276,7 +276,7 @@
 					<button type="submit">
 						Save
 					</button>
-					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( partial.feature.key )###environment-#encodeForUrl( partial.environment.key )#">
+					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#">
 						Cancel
 					</a>
 				</p>
@@ -290,10 +290,10 @@
 
 		function FormController() {
 
-			var feature = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( partial.feature ) )#</cfoutput>" );
+			var feature = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( feature ) )#</cfoutput>" );
 			var rule = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( rule ) )#</cfoutput>" );
 			var ruleDataRef = this.$refs.ruleData;
-			var datalists = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( partial.datalists ) )#</cfoutput>" );
+			var datalists = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( datalists ) )#</cfoutput>" );
 
 			// Return public API for proxy.
 			return {

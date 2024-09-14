@@ -11,22 +11,20 @@
 	param name="request.context.featureKey" type="string" default="";
 	param name="form.submitted" type="boolean" default=false;
 
-	partial = getPartial(
-		email = request.user.email,
-		featureKey = request.context.featureKey
-	);
-
+	config = getConfig( request.user.email );
+	feature = getFeature( config, request.context.featureKey );
+	title = request.template.title = "Delete Feature Flag";
 	errorMessage = "";
 
 	if ( form.submitted ) {
 
 		try {
 
-			partial.config.features.delete( partial.feature.key );
+			config.features.delete( feature.key );
 
 			featureWorkflow.updateConfig(
 				email = request.user.email,
-				config = partial.config
+				config = config
 			);
 
 			requestHelper.goto();
@@ -39,32 +37,10 @@
 
 	}
 
-	request.template.title = partial.title;
-
 	include "./delete.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required string  featureKey
-		) {
-
-		var config = getConfig( email );
-		var feature = getFeature( config, featureKey );
-
-		return {
-			config: config,
-			feature: feature,
-			title: "Delete Feature Flag"
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

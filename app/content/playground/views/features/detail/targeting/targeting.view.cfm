@@ -137,7 +137,7 @@
 				transition: background-color 300ms ease-out ;
 			}
 
-			<cfloop array="#partial.environments#" index="environment">
+			<cfloop array="#environments#" index="environment">
 				<cfloop index="i" from="0" to="20">
 					.state.#environment.key#\:#i# .evaluation:not(.#environment.key#\:#i#) {
 						background-color: ##ffffff ;
@@ -152,7 +152,7 @@
 			<section class="panels__main content-wrapper u-collapse-margin">
 
 				<h1>
-					#encodeForHtml( partial.title )#
+					#encodeForHtml( title )#
 				</h1>
 
 				<dl class="key-values">
@@ -162,7 +162,7 @@
 						</dt>
 						<dd>
 							<p>
-								#encodeForHtml( partial.feature.key )#
+								#encodeForHtml( feature.key )#
 							</p>
 						</dd>
 					</div>
@@ -172,18 +172,18 @@
 						</dt>
 						<dd>
 							<p>
-								#encodeForHtml( partial.feature.type )#
+								#encodeForHtml( feature.type )#
 							</p>
 						</dd>
 					</div>
-					<cfif partial.feature.description.len()>
+					<cfif feature.description.len()>
 						<div>
 							<dt>
 								<strong>Description:</strong>
 							</dt>
 							<dd>
 								<p>
-									#encodeForHtml( partial.feature.description )#
+									#encodeForHtml( feature.description )#
 								</p>
 							</dd>
 						</div>
@@ -194,7 +194,7 @@
 						</dt>
 						<dd>
 							<ol class="breathing-room">
-								<cfloop index="variantEntry" array="#utilities.toEntries( partial.feature.variants )#">
+								<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
 									<li>
 										<span class="tag variant-#variantEntry.index#">
 											#encodeForHtml( serializeJson( variantEntry.value ) )#
@@ -206,9 +206,9 @@
 					</div>
 				</dl>
 
-				<cfloop array="#partial.environments#" index="environment">
+				<cfloop array="#environments#" index="environment">
 
-					<cfset settings = partial.feature.targeting[ environment.key ] />
+					<cfset settings = feature.targeting[ environment.key ] />
 
 					<div id="environment-#encodeForHtmlAttribute( environment.key )#" class="env">
 						<h2 class="env__header">
@@ -228,7 +228,7 @@
 										<strong>Default Resolution:</strong>
 
 										<a
-											href="/index.cfm?event=playground.features.detail.defaultResolution&featureKey=#encodeForUrl( partial.feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
+											href="/index.cfm?event=playground.features.detail.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
 											class="editable__link">
 											Edit
@@ -241,7 +241,7 @@
 													Selection
 													&rarr;
 													<span class="tag variant-#settings.resolution.selection#">
-														#encodeForHtml( serializeJson( partial.feature.variants[ settings.resolution.selection ] ) )#
+														#encodeForHtml( serializeJson( feature.variants[ settings.resolution.selection ] ) )#
 													</span>
 												</p>
 											</cfcase>
@@ -256,7 +256,7 @@
 																#distributionEntry.value#%
 																&rarr;
 																<span class="tag variant-#distributionEntry.index#">
-																	#encodeForHtml( serializeJson( partial.feature.variants[ distributionEntry.index ] ) )#
+																	#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																</span>
 															</li>
 														</cfif>
@@ -280,7 +280,7 @@
 										<strong>Rules Enabled:</strong>
 
 										<a
-											href="/index.cfm?event=playground.features.detail.rulesEnabled&featureKey=#encodeForUrl( partial.feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
+											href="/index.cfm?event=playground.features.detail.rulesEnabled&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
 											class="editable__link">
 											Edit
@@ -311,13 +311,13 @@
 														<strong>IF</strong>
 
 														<a
-															href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( partial.feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
+															href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
 															x-ref="edit"
 															class="editable__link">
 															Edit
 														</a>
 														<a
-															href="/index.cfm?event=playground.features.detail.deleteRule&featureKey=#encodeForUrl( partial.feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
+															href="/index.cfm?event=playground.features.detail.deleteRule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
 															class="editable__link">
 															Delete
 														</a>
@@ -352,7 +352,7 @@
 																<p>
 																	Selection &rarr;
 																	<span class="tag variant-#rule.resolution.selection#">
-																		#encodeForHtml( serializeJson( partial.feature.variants[ rule.resolution.selection ] ) )#
+																		#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 																	</span>
 																</p>
 															</cfcase>
@@ -367,7 +367,7 @@
 																				#distributionEntry.value#%
 																				&rarr;
 																				<span class="tag variant-#distributionEntry.index#">
-																					#encodeForHtml( serializeJson( partial.feature.variants[ distributionEntry.index ] ) )#
+																					#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																				</span>
 																			</li>
 																		</cfif>
@@ -390,7 +390,7 @@
 										</cfloop>
 
 										<p>
-											<a href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( partial.feature.key )#&environmentKey=#encodeForUrl( environment.key )#">Add rule</a>
+											<a href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#">Add rule</a>
 										</p>
 									</dd>
 								</div>
@@ -402,7 +402,7 @@
 				</cfloop>
 
 				<p>
-					<a href="/index.cfm?event=playground.features.detail.delete&featureKey=#encodeForUrl( partial.feature.key )#">Delete</a> this feature flag.
+					<a href="/index.cfm?event=playground.features.detail.delete&featureKey=#encodeForUrl( feature.key )#">Delete</a> this feature flag.
 				</p>
 
 			</section>
@@ -411,7 +411,7 @@
 				<table class="state">
 				<thead>
 					<tr>
-						<cfloop array="#partial.environments#" index="environment">
+						<cfloop array="#environments#" index="environment">
 							<th>
 								<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
 							</th>
@@ -419,16 +419,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<cfloop array="#partial.users#" index="user">
+					<cfloop array="#users#" index="user">
 						<tr>
-							<cfloop array="#partial.environments#" index="environment">
+							<cfloop array="#environments#" index="environment">
 
-								<cfset result = partial.results[ user.id ][ environment.key ] />
+								<cfset result = results[ user.id ][ environment.key ] />
 								<cfset association = "#environment.key#:#result.ruleIndex#" />
 
 								<td class="variant-#result.variantIndex# evaluation #encodeForHtmlAttribute( association )#">
 									<a
-										href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( partial.feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
+										href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
 										class="evaluation__link">
 									</a>
 								</td>

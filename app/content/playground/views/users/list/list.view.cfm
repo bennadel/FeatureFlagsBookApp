@@ -63,7 +63,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( partial.title )#
+				#encodeForHtml( title )#
 			</h1>
 
 			<p>
@@ -71,10 +71,10 @@
 			</p>
 
 			<p>
-				I've also created #numberFormat( partial.authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
+				I've also created #numberFormat( authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
 			</p>
 			<ul class="breathing-room">
-				<cfloop array="#partial.authUsers#" index="user">
+				<cfloop array="#authUsers#" index="user">
 					<li>
 						<span class="role-tag">#encodeForHtml( user.role )#</span>
 						&rarr;
@@ -147,7 +147,7 @@
 					</th>
 				</tr>
 			</thead>
-			<cfloop array="#partial.groups#" index="group">
+			<cfloop array="#groups#" index="group">
 				<tbody>
 					<tr>
 						<th colspan="9" class="row-group">

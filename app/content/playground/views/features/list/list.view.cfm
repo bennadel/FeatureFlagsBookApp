@@ -63,7 +63,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( partial.title )#
+				#encodeForHtml( title )#
 			</h1>
 
 			<p>
@@ -78,7 +78,7 @@
 				You can <a href="/index.cfm?event=playground.features.create">add a feature flag</a>.
 				And, at any time, you can
 				<a href="/index.cfm?event=playground.features.clear">remove all rules</a> or
-				<a href="/index.cfm?event=playground.features.reset">reset your settings</a><cfif ( partial.version gt 1 )> (version: #encodeForHtml( partial.version )#)</cfif>.
+				<a href="/index.cfm?event=playground.features.reset">reset your settings</a><cfif ( version gt 1 )> (version: #encodeForHtml( version )#)</cfif>.
 			</p>
 
 			<table class="grid">
@@ -93,14 +93,14 @@
 					<th rowspan="2" valign="bottom">
 						Variants
 					</th>
-					<cfloop array="#partial.environments#" index="environment">
+					<cfloop array="#environments#" index="environment">
 						<th colspan="2">
 							<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForUrl( environment.key )#">#encodeForHtml( environment.name.ucase() )#</a>
 						</th>
 					</cfloop>
 				</tr>
 				<tr>
-					<cfloop array="#partial.environments#" index="environment">
+					<cfloop array="#environments#" index="environment">
 						<th class="env-left">
 							Rules
 						</th>
@@ -111,7 +111,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<cfloop array="#partial.features#" index="feature">
+				<cfloop array="#features#" index="feature">
 					<tr>
 						<th align="left" scope="row">
 							<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
@@ -130,7 +130,7 @@
 							<!-- #numberFormat( feature.variants.len() )# -->
 
 						</td>
-						<cfloop array="#partial.environments#" index="environment">
+						<cfloop array="#environments#" index="environment">
 							<td align="center" class="env-left">
 								<cfif feature.targeting[ environment.key ].rulesEnabled>
 									Enabled
@@ -143,7 +143,7 @@
 							</td>
 							<td class="env-right">
 
-								<cfset breakdown = partial.results[ feature.key ][ environment.key ] />
+								<cfset breakdown = results[ feature.key ][ environment.key ] />
 
 								<a
 									href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#"

@@ -4,7 +4,7 @@
 		<section class="content-wrapper u-collapse-margin">
 
 			<h1>
-				#encodeForHtml( request.template.title )#
+				#encodeForHtml( title )#
 			</h1>
 
 			<cfif errorMessage.len()>

@@ -16,23 +16,25 @@
 	param name="form.ruleData" type="string" default="";
 	param name="form.submitted" type="boolean" default=false;
 
-	partial = getPartial(
-		email = request.user.email,
-		featureKey = request.context.featureKey,
-		environmentKey = request.context.environmentKey
-	);
+	config = getConfig( request.user.email );
+	feature = getFeature( config, request.context.featureKey );
+	environment = getEnvironment( config, request.context.environmentKey );
+	ruleIndex = val( request.context.ruleIndex );
+	rules = getRules( feature, environment );
+	datalists = getDatalists( request.user.email );
+	title = request.template.title = "Rule";
+	errorMessage = "";
 
 	// Editing an existing rule.
-	if ( request.context.ruleIndex && partial.rules.isDefined( request.context.ruleIndex ) ) {
+	if ( ruleIndex && rules.isDefined( ruleIndex ) ) {
 
-		rule = partial.rules[ request.context.ruleIndex ];
+		rule = rules[ ruleIndex ];
 
 	// Adding a new rule.
 	} else {
 
 		// Force index to be zero as a safe-guard.
-		request.context.ruleIndex = 0;
-
+		ruleIndex = 0;
 		rule = [
 			operator: "IsOneOf",
 			input: "user.email",
@@ -44,26 +46,24 @@
 		];
 
 	}
-
-	errorMessage = "";
-
+	
 	if ( form.submitted ) {
 
 		try {
 
-			if ( request.context.ruleIndex ) {
+			if ( ruleIndex ) {
 
-				partial.config
-					.features[ partial.feature.key ]
-						.targeting[ partial.environment.key ]
-							.rules[ request.context.ruleIndex ] = deserializeJson( form.ruleData )
+				config
+					.features[ feature.key ]
+						.targeting[ environment.key ]
+							.rules[ ruleIndex ] = deserializeJson( form.ruleData )
 				;
 
 			} else {
 
-				partial.config
-					.features[ partial.feature.key ]
-						.targeting[ partial.environment.key ]
+				config
+					.features[ feature.key ]
+						.targeting[ environment.key ]
 							.rules
 								.append( deserializeJson( form.ruleData ) )
 				;
@@ -72,15 +72,15 @@
 
 			featureWorkflow.updateConfig(
 				email = request.user.email,
-				config = partial.config
+				config = config
 			);
 
 			requestHelper.goto(
 				[
 					event: "playground.features.detail.targeting",
-					featureKey: partial.feature.key
+					featureKey: feature.key
 				],
-				"environment-#partial.environment.key#"
+				"environment-#environment.key#"
 			);
 
 		} catch ( any error ) {
@@ -95,39 +95,10 @@
 
 	}
 
-	request.template.title = partial.title;
-
 	include "./rule.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required string  featureKey,
-		required string  environmentKey
-		) {
-
-		var config = getConfig( email );
-		var feature = getFeature( config, featureKey );
-		var environment = getEnvironment( config, environmentKey );
-		var rules = getRules( feature, environment );
-		var datalists = getDatalists( email );
-
-		return {
-			config: config,
-			feature: feature,
-			environment: environment,
-			rules: rules,
-			datalists: datalists,
-			title: "Rule"
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

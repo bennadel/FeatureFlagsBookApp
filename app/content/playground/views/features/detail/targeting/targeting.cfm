@@ -14,43 +14,18 @@
 
 	param name="url.featureKey" type="string";
 
-	partial = getPartial(
-		email = request.user.email,
-		featureKey = url.featureKey
-	);
-
-	request.template.title = partial.title;
+	config = getConfig( request.user.email );
+	feature = getFeature( config, url.featureKey );
+	environments = getEnvironments( config );
+	users = getUsers( request.user.email );
+	results = getResults( config, feature, environments, users );
+	title = request.template.title = "Feature Targeting";
 
 	include "./targeting.view.cfm";
 
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required string  featureKey
-		) {
-
-		var config = getConfig( email );
-		var feature = getFeature( config, featureKey );
-		var environments = getEnvironments( config );
-		var users = getUsers( email );
-		var results = getResults( config, feature, environments, users );
-
-		return {
-			feature: feature,
-			environments: environments,
-			users: users,
-			results: results,
-			title: "Feature Targeting"
-		};
-
-	}
-
 
 	/**
 	* I get the config data for the given authenticated user.

@@ -8,40 +8,15 @@
 
 	param name="url.sortOn" type="string" default="user.id";
 
-	partial = getPartial(
-		email = request.user.email,
-		sortOn = url.sortOn
-	);
-
-	request.template.title = partial.title;
+	users = getUsers( request.user.email );
+	authUsers = getAuthUsers( request.user.email );
+	groups = getGroups( users, url.sortOn );
+	title = request.template.title = "Demo Users For Targeting";
 
 	include "./list.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the main partial payload for the view.
-	*/
-	private struct function getPartial(
-		required string email,
-		required string sortOn
-		) {
-
-		var users = getUsers( email );
-		var authUsers = getAuthUsers( email );
-		var groups = getGroups( users, sortOn );
-		var title = "Demo Users For Targeting";
-
-		return {
-			users: users,
-			authUsers: authUsers,
-			groups: groups,
-			title: title
-		};
-
-	}
-
 
 	/**
 	* I get the users that are built to represent the authenticated user's team.
