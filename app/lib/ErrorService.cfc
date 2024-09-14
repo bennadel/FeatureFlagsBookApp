@@ -468,7 +468,7 @@ component
 			case "App.Routing.Playground.InvalidEvent":
 			case "App.Routing.Playground.Account.InvalidEvent":
 			case "App.Routing.Playground.Features.InvalidEvent":
-			case "App.Routing.Playground.Home.InvalidEvent":
+			case "App.Routing.Playground.Features.Detail.InvalidEvent":
 			case "App.Routing.Playground.Staging.InvalidEvent":
 			case "App.Routing.Playground.Users.InvalidEvent":
 				return as404({

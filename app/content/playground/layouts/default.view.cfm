@@ -33,7 +33,7 @@
 						</span>
 					</a>
 					<a
-						href="index.cfm?event=playground.home"
+						href="index.cfm?event=playground.features"
 						#ui.attrClass({
 							"m1-nav__item": true,
 							"is-on": ( request.template.activeNavItem == 'features' )

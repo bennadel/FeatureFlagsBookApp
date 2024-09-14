@@ -1,0 +1,139 @@
+<cfscript>
+
+	demoLogger = request.ioc.get( "lib.Logger" );
+	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
+	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
+	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
+	utilities = request.ioc.get( "lib.util.Utilities" );
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	partial = getPartial( request.user.email );
+
+	request.template.title = partial.title ;
+	request.template.activeNavItem = "features";
+
+	include "./list.view.cfm";
+
+	// ------------------------------------------------------------------------------- //
+	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the main partial payload for the view.
+	*/
+	private struct function getPartial( required string email ) {
+
+		var config = getConfig( email );
+		var version = config.version;
+		var features = getFeatures( config );
+		var environments = getEnvironments( config );
+		var users = getUsers( email );
+		var results = getResults( config, features, environments, users );
+
+		return {
+			version: version,
+			features: features,
+			environments: environments,
+			results: results,
+			title: "Feature Flags Playground"
+		};
+
+	}
+
+
+	/**
+	* I get the config data for the given authenticated user.
+	*/
+	private struct function getConfig( required string email ) {
+
+		return featureWorkflow.getConfig( email );
+
+	}
+
+
+	/**
+	* I get the environments for the given config.
+	*/
+	private array function getEnvironments( required struct config ) {
+
+		return utilities.toEnvironmentsArray( config.environments );
+
+	}
+
+
+	/**
+	* I get the features for the given config.
+	*/
+	private array function getFeatures( required struct config ) {
+
+		return utilities.toFeaturesArray( config.features );
+
+	}
+
+
+	/**
+	* I get the results matrix of the features x environments breakdown.
+	*/
+	private struct function getResults(
+		required struct config,
+		required array features,
+		required array environments,
+		required array users
+		) {
+
+		var featureFlags = new lib.client.FeatureFlags()
+			.withConfig( config )
+			.withLogger( demoLogger )
+		;
+		var results = {};
+
+		for ( var feature in features ) {
+
+			results[ feature.key ] = {};
+
+			for ( var environment in environments ) {
+
+				var breakdown = results[ feature.key ][ environment.key ] = [:];
+
+				for ( var variantIndex = 1 ; variantIndex <= feature.variants.len() ; variantIndex++ ) {
+
+					breakdown[ variantIndex ] = 0;
+
+				}
+
+				// The fallback or custom variant count will go last.
+				breakdown[ 0 ] = 0;
+
+				for ( var user in users ) {
+
+					var result = featureFlags.debugEvaluation(
+						featureKey = feature.key,
+						environmentKey = environment.key,
+						context = demoTargeting.getContext( user ),
+						fallbackVariant = "FALLBACK"
+					);
+
+					breakdown[ result.variantIndex ]++;
+
+				}
+
+			}
+
+		}
+
+		return results;
+
+	}
+
+
+	/**
+	* I get the users for the given authenticated user.
+	*/
+	private array function getUsers( required string email ) {
+
+		return demoUsers.getUsers( email );
+
+	}
+
+</cfscript>

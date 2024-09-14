@@ -15,10 +15,10 @@
 				cfmodule( template = "./api/index.cfm" );
 			break;
 			case "auth":
-				cfmodule( template = "./auth/index.cfm" );
+				cfmodule( template = "./auth/auth.cfm" );
 			break;
 			case "playground":
-				cfmodule( template = "./playground/index.cfm" );
+				cfmodule( template = "./playground/playground.cfm" );
 			break;
 			default:
 				throw(
@@ -34,7 +34,7 @@
 	} catch ( any error ) {
 
 		cfmodule(
-			template = "./error/index.cfm",
+			template = "./error/error.cfm",
 			error = error
 		);
 
