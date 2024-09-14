@@ -66,11 +66,10 @@
 				email = request.user.email,
 				config = config
 			);
-
-			location(
-				url = "/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( form.featureKey )#",
-				addToken = false
-			);
+			requestHelper.goto([
+				event: "playground.features.targeting",
+				featureKey: form.featureKey
+			]);
 
 		} catch ( any error ) {
 

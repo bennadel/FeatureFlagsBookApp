@@ -75,9 +75,12 @@
 				config = partial.config
 			);
 
-			location(
-				url = "/index.cfm?event=playground.features.targeting&featureKey=#encodeForUrl( partial.feature.key )###environment-#encodeForUrl( partial.environment.key )#",
-				addToken = false
+			requestHelper.goto(
+				[
+					event: "playground.features.targeting",
+					featureKey: partial.feature.key
+				],
+				"environment-#partial.environment.key#"
 			);
 
 		} catch ( any error ) {

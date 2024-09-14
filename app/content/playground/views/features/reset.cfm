@@ -17,10 +17,7 @@
 
 			featureWorkflow.resetConfig( request.user.email );
 
-			location(
-				url = "/index.cfm",
-				addToken = false
-			);
+			requestHelper.goto();
 
 		} catch ( any error ) {
 

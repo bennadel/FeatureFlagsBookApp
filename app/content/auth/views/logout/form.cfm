@@ -16,10 +16,7 @@
 
 			authWorkflow.logout();
 
-			location(
-				url = "/index.cfm?event=auth.logout.success",
-				addToken = false
-			);
+			requestHelper.goto( "auth.logout.success" );
 
 		}
 

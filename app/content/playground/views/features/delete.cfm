@@ -29,10 +29,7 @@
 				config = partial.config
 			);
 
-			location(
-				url = "/index.cfm",
-				addToken = false
-			);
+			requestHelper.goto();
 
 		} catch ( any error ) {
 

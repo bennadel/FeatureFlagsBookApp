@@ -109,6 +109,67 @@ component
 
 
 	/**
+	* I forward the user an internal URL constructed with the given parts.
+	*/
+	public void function goto(
+		any searchParams = [:],
+		string fragment = ""
+		) {
+
+		if ( isSimpleValue( searchParams ) ) {
+
+			gotoV2( { event: searchParams }, fragment );
+
+		} else {
+
+			gotoV2( searchParams, fragment );
+		}
+
+	}
+
+
+	/**
+	* I forward the user an internal URL constructed with the given parts.
+	*/
+	public void function gotoV2(
+		required struct searchParams,
+		required string fragment
+		) {
+
+		var nextUrl = "/index.cfm";
+
+		if ( searchParams.count() ) {
+
+			var pairs = searchParams.keyArray()
+				.map(
+					( key ) => {
+
+						return "#encodeForUrl( key )#=#encodeForUrl( searchParams[ key ] )#";
+
+					}
+				)
+				.toList( "&" )
+			;
+
+			nextUrl &= "?#pairs#";
+
+		}
+
+		if ( fragment.len() ) {
+
+			nextUrl &= "###encodeForUrl( fragment )#";
+
+		}
+
+		location(
+			url = nextUrl,
+			addToken = false
+		);
+
+	}
+
+
+	/**
 	* I process the given error, applying the proper status code to the template, and
 	* returning the associated user-friendly response message.
 	*/
