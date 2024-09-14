@@ -39,6 +39,6 @@
 		break;
 	}
 
-	cfmodule( template = "./layouts/default.cfm" );
+	cfmodule( template = "./layouts/default/default.cfm" );
 
 </cfscript>
