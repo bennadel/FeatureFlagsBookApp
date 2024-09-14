@@ -9,9 +9,12 @@
 			flex: 1 1 auto ;
 		}
 		.panels__aside {
+			box-shadow: -1px 0 #d0d0d0 ;
+			display: flex ;
 			flex: 0 0 auto ;
 			max-height: 100vh ;
 			min-height: 100vh ;
+			padding: 20px ;
 			position: sticky ;
 			top: 0 ;
 		}
@@ -80,12 +83,14 @@
 		.state {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
-			height: 100vh ;
 			min-width: 400px ;
 		}
 		.state th {
-			height: 40px ;
-			padding: 5px 15px ;
+			padding: 0 ;
+		}
+		.state th a {
+			display: block ;
+			padding: 0 15px 10px ;
 		}
 		.state td {}
 
