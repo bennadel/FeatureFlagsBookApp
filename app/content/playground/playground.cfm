@@ -25,6 +25,9 @@
 		case "features":
 			cfmodule( template = "./views/features/features.cfm" );
 		break;
+		case "raw":
+			cfmodule( template = "./views/raw/raw.cfm" );
+		break;
 		case "staging":
 			cfmodule( template = "./views/staging/staging.cfm" );
 		break;

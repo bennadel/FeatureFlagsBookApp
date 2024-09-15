@@ -89,6 +89,7 @@
 							<u>About</u>
 						</span>
 					</a>
+					--->
 					<a
 						href="index.cfm?event=playground.raw"
 						#ui.attrClass({
@@ -103,7 +104,6 @@
 							<u>Raw JSON</u>
 						</span>
 					</a>
-					--->
 					<a
 						href="index.cfm?event=playground.account"
 						#ui.attrClass({
