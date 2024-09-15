@@ -53,7 +53,6 @@ component
 			"feature-flags": "svg-sprite--legacy-streamline-regular--interface-essential--lists--list-bullets-1",
 			"staging": "svg-sprite--legacy-streamline-regular--interface-essential--layouts--layout-module",
 			"users": "svg-sprite--legacy-streamline-regular--users--geometric-full-body-multiple-users--multiple-users-1",
-			"about": "svg-sprite--legacy-streamline-regular--interface-essential--alerts--information-circleircle",
 			"raw-json": "svg-sprite--legacy-streamline-regular--programming-apps-websites--coding-files--file-code-1",
 			"account": "svg-sprite--legacy-streamline-regular--users--geometric-close-up-single-users-neutral--single-neutraleutral"
 		};

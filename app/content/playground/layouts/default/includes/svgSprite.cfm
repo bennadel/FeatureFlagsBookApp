@@ -44,14 +44,6 @@
 		<path d="M2.25 23.25a9.75 9.75 0 0 1 19.5 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
 	</symbol>
 
-	<!--- https://www.streamlinehq.com/icons/legacy-streamline-regular/interface-essential/alerts/information-circle --->
-	<symbol id="svg-sprite--legacy-streamline-regular--interface-essential--alerts--information-circleircle" viewBox="0 0 24 24">
-		<path stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M14.25 16.5h-0.75A1.5 1.5 0 0 1 12 15v-3.75a0.75 0.75 0 0 0 -0.75 -0.75h-0.75" stroke-width="1.5"></path>
-		<path stroke="currentColor" fill="none" d="M11.625 7.5a0.375 0.375 0 0 1 0 -0.75" stroke-width="1.5"></path>
-		<path stroke="currentColor" fill="none" d="M11.625 7.5a0.375 0.375 0 0 0 0 -0.75" stroke-width="1.5"></path>
-		<path stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" d="M12 23.25c6.213 0 11.25 -5.037 11.25 -11.25S18.213 0.75 12 0.75 0.75 5.787 0.75 12 5.787 23.25 12 23.25Z" stroke-width="1.5"></path>
-	</symbol>
-
 	<!--- https://www.streamlinehq.com/icons/legacy-streamline-regular/programming-apps-websites/coding-files/file-code-1 --->
 	<symbol id="svg-sprite--legacy-streamline-regular--programming-apps-websites--coding-files--file-code-1" viewBox="0 0 24 24">
 		<path d="M22.5 21.753a1.5 1.5 0 0 1 -1.5 1.5H3a1.5 1.5 0 0 1 -1.5 -1.5v-19.5A1.5 1.5 0 0 1 3 0.753h15.045a1.5 1.5 0 0 1 1.048 0.427l2.955 2.882a1.5 1.5 0 0 1 0.452 1.074Z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>

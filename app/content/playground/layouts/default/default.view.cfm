@@ -74,22 +74,6 @@
 							<u>Users</u>
 						</span>
 					</a>
-					<!---
-					<a
-						href="index.cfm?event=playground.about"
-						#ui.attrClass({
-							"m1-nav__item": true,
-							"is-on": ( request.template.activeNavItem == 'about' )
-						})#>
-
-						<span aria-hidden="true" class="m1-nav__icon">
-							<svg>#ui.useIcon( "about" )#</svg>
-						</span>
-						<span class="m1-nav__label">
-							<u>About</u>
-						</span>
-					</a>
-					--->
 					<a
 						href="index.cfm?event=playground.raw"
 						#ui.attrClass({
