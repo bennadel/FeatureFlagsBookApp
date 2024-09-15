@@ -456,14 +456,6 @@ component
 				return as404();
 			break;
 			case "App.Routing.InvalidEvent":
-			case "App.Routing.Api.InvalidEvent":
-			case "App.Routing.Api.Features.InvalidEvent":
-			case "App.Routing.Api.Partials.InvalidEvent":
-			case "App.Routing.Api.Partials.NgInternal.InvalidEvent":
-			case "App.Routing.Api.Partials.NgInternal.Features.InvalidEvent":
-			case "App.Routing.Api.Partials.NgInternal.Features.Detail.InvalidEvent":
-			case "App.Routing.Api.Partials.NgInternal.Features.Detail.Targeting.InvalidEvent":
-			case "App.Routing.Api.Partials.NgInternal.Staging.InvalidEvent":
 			case "App.Routing.Auth.InvalidEvent":
 			case "App.Routing.Playground.InvalidEvent":
 			case "App.Routing.Playground.Account.InvalidEvent":

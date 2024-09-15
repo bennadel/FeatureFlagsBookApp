@@ -11,9 +11,6 @@
 		param name="request.event[ 1 ]" type="string" default="playground";
 
 		switch ( request.event[ 1 ] ) {
-			case "api":
-				cfmodule( template = "./api/index.cfm" );
-			break;
 			case "auth":
 				cfmodule( template = "./auth/auth.cfm" );
 			break;
