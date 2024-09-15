@@ -1,5 +1,5 @@
 {
-	"name": "client/playground",
+	"name": "client",
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
@@ -14,7 +14,7 @@
 				"./src/styles.html"
 			],
 			"distDir": "./dist/",
-			"publicUrl": "/client/playground"
+			"publicUrl": "/client"
 		}
 	},
 	"browserslist": "defaults",

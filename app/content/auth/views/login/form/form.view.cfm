@@ -2,11 +2,11 @@
 	<cfoutput>
 
 		<h1>
-			Login to the Feature Flags Playground
+			Feature Flags Playground
 		</h1>
 
 		<p>
-			This is a toy application to help illustrate the way in which feature flags can be configured. It is intended to be a companion piece to the <a href="https://featureflagsbook.com/" target="_blank">Feature Flags book</a> by <a href="https://www.bennadel.com/" target="_blank">Ben Nadel</a>.
+			This is a toy application to help illustrate the way in which feature flags can be configured to target various user cohorts. It is intended to be a companion piece to the <a href="https://featureflagsbook.com/" target="_blank">Feature Flags book</a> by <a href="https://www.bennadel.com/" rel="author" target="_blank">Ben Nadel</a>.
 		</p>
 
 		<cfif errorMessage.len()>
@@ -23,7 +23,7 @@
 			<p>
 				<strong>Email:</strong><br />
 				<input
-					type="string"
+					type="text"
 					name="email"
 					value=""
 					placeholder="Email address..."

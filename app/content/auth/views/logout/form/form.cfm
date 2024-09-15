@@ -8,6 +8,7 @@
 
 	param name="form.submitted" type="boolean" default=false;
 
+	request.template.title = "Log Out";
 	errorMessage = "";
 
 	try {
@@ -25,8 +26,6 @@
 		errorMessage = requestHelper.processError( error );
 
 	}
-
-	request.template.title = "Log Out";
 
 	include "./form.view.cfm";
 

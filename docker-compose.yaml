@@ -16,24 +16,24 @@ services:
       BOX_SERVER_PROFILE: "development"
       CFPM_INSTALL: "debugger"
 
-  client-playground:
+  client:
     build:
-      context: "./client/playground/"
+      context: "./client/"
       dockerfile: "Dockerfile"
-    image: "app.featureflagsbook.com/client/playground:latest"
+    image: "app.featureflagsbook.com/client:latest"
     command: [ "npm", "run", "build" ]
     volumes:
-      - "./client/playground:/app"
-      - "./app/wwwroot/client/playground:/app/dist" # Save dist files into CFML volume.
-      - "client_playground_node_modules:/app/node_modules"
+      - "./client:/app"
+      # Save dist files into CFML volume where they can be consumed by the app.
+      - "./app/wwwroot/client:/app/dist"
+      # Makes sure we don't overwrite the node_modules in the build container.
+      - "client_node_modules:/app/node_modules"
 
-  client-playground-dev:
-    extends: "client-playground"
+  client-dev:
+    extends: "client"
     profiles:
       - "dev"
     command: [ "npm", "run", "watch" ]
 
-# Using docker volumes to manage node_modules can help with performance.
 volumes:
-  client_playground_node_modules:
-  ng_internal_node_modules:
+  client_node_modules:
