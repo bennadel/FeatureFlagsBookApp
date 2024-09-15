@@ -35,6 +35,7 @@
 			background-color: #ffffff ;
 			border-bottom: 2px solid #333333 ;
 			display: flex ;
+			font-weight: 400 ;
 			margin: 40px 0 0 0 ;
 			position: sticky ;
 			top: 0px ;
@@ -418,7 +419,7 @@
 					<tr>
 						<cfloop array="#environments#" index="environment">
 							<th>
-								<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.name )#</a>
+								<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#">#encodeForHtml( environment.name )#</a>
 							</th>
 						</cfloop>
 					</tr>

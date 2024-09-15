@@ -8,13 +8,13 @@
 			</h1>
 
 			<h2>
-				Environments
+				Features
 			</h2>
 
 			<ul>
-				<cfloop array="#environments#" index="environment">
+				<cfloop array="#features#" index="feature">
 					<li>
-						<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForUrl( environment.key )#">#encodeForHtml( environment.name )#</a>
+						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
 					</li>
 				</cfloop>
 			</ul>

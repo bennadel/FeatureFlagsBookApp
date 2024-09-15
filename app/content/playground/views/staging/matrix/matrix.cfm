@@ -10,15 +10,12 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="url.environmentKey" type="string" default="development";
-
 	config = getConfig( request.user.email );
 	features = getFeatures( config );
 	environments = getEnvironments( config );
-	environment = getEnvironment( environments, url.environmentKey );
 	users = getUsers( request.user.email );
-	results = getResults( config, features, environment, users );
-	title = request.template.title = "Feature Matrix: #environment.name#";
+	results = getResults( config, features, environments, users );
+	title = request.template.title = "Feature Matrix";
 
 	include "./matrix.view.cfm";
 
@@ -31,31 +28,6 @@
 	private struct function getConfig( required string email ) {
 
 		return featureWorkflow.getConfig( email );
-
-	}
-
-
-	/**
-	* I get the environment for the given key.
-	*/
-	private struct function getEnvironment(
-		required array environments,
-		required string environmentKey
-		) {
-
-		var environmentIndex = utilities.indexBy( environments, "key" );
-
-		if ( ! environmentIndex.keyExists( environmentKey ) ) {
-
-			// Todo: Throw a more specific error?
-			throw(
-				type = "App.NotFound",
-				message = "Environment not found."
-			);
-
-		}
-
-		return environmentIndex[ environmentKey ];
 
 	}
 
@@ -81,12 +53,12 @@
 
 
 	/**
-	* I get the results matrix of users x features for the given environment.
+	* I get the results matrix of features x environments x users.
 	*/
 	private struct function getResults(
 		required struct config,
 		required array features,
-		required struct environment,
+		required array environments,
 		required array users
 		) {
 
@@ -96,18 +68,24 @@
 		;
 		var results = {};
 
-		for ( var user in users ) {
+		for ( var feature in features ) {
 
-			results[ user.id ] = {};
+			results[ feature.key ] = {};
 
-			for ( var feature in features ) {
+			for ( var environment in environments ) {
 
-				results[ user.id ][ feature.key ] = featureFlags.debugEvaluation(
-					featureKey = feature.key,
-					environmentKey = environment.key,
-					context = demoTargeting.getContext( user ),
-					fallbackVariant = "FALLBACK"
-				);
+				results[ feature.key ][ environment.key ] = {};
+
+				for ( var user in users ) {
+
+					results[ feature.key ][ environment.key ][ user.id ] = featureFlags.debugEvaluation(
+						featureKey = feature.key,
+						environmentKey = environment.key,
+						context = demoTargeting.getContext( user ),
+						fallbackVariant = "FALLBACK"
+					);
+
+				}
 
 			}
 

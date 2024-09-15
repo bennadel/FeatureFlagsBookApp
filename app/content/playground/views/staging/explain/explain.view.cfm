@@ -20,48 +20,79 @@
 				#encodeForHtml( title )#
 			</h1>
 
-			<p>
-				<strong>User:</strong>
-				<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
-			</p>
+			<dl class="key-values">
+				<div>
+					<dt>
+						<strong>User:</strong>
+					</dt>
+					<dd>
+						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
+					</dd>
+				</div>
+				<div>
+					<dt>
+						<strong>Feature:</strong>
+					</dt>
+					<dd>
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForHtml( feature.key )#">#encodeForHtml( feature.key )#</a>
+					</dd>
+				</div>
+				<div>
+					<dt>
+						<strong>Environment:</strong>
+					</dt>
+					<dd>
+						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#">#encodeForHtml( environment.key )#</a>
+					</dd>
+				</div>
+				<div>
+					<dt>
+						<strong>Variant:</strong>
+					</dt>
+					<dd>
+						<span class="tag variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
 
-			<p>
-				<strong>Feature:</strong>
-				<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForHtml( feature.key )#">#encodeForHtml( feature.key )#</a>
-			</p>
-
-			<p>
-				<strong>Environment:</strong>
-				<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( environment.key )#">#encodeForHtml( environment.key )#</a>
-			</p>
-
-			<p>
-				<strong>Variant:</strong>
-				<span class="tag variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
-
-				<cfif ! result.variantIndex>
-					<cfif ( result.reason == "Error" )>
-						&mdash; fallback value was used due to an error.
-					<cfelse>
-						&mdash; a custom variant was used.
-					</cfif>
-				</cfif>
-			</p>
-
-			<p>
-				<strong>Reason:</strong>
-				<mark>#encodeForHtml( result.reason )#</mark>
-			</p>
+						<cfif ! result.variantIndex>
+							<cfif ( result.reason == "Error" )>
+								&mdash; fallback value was used due to an error.
+							<cfelse>
+								&mdash; a custom variant was used.
+							</cfif>
+						</cfif>
+					</dd>
+				</div>
+				<div>
+					<dt>
+						<strong>Reason:</strong>
+					</dt>
+					<dd>
+						<mark>#encodeForHtml( result.reason )#</mark>
+					</dd>
+				</div>
+			</dl>
 
 			<hr />
 
 			<h2>
-				Context
+				Targeting Context
 			</h2>
 
-			<div class="dump-wrapper">
-				<cfdump var="#result.arguments.context#" />
-			</div>
+			<p>
+				The following inputs were made available to the feature flag evaluation:
+			</p>
+
+			<dl class="key-values">
+				<cfloop array="#utilities.toEntries( result.arguments.context )#" index="entry">
+					<div>
+						<dt>
+							<strong>"#encodeForHtml( entry.key )#":</strong>
+						</dt>
+						<dd>
+							#encodeForHtml( entry.value )#
+						</dd>
+					</div>
+				</cfloop>
+			</dl>
 
 			<hr />
 

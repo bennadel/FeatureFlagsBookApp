@@ -8,8 +8,8 @@
 	// ------------------------------------------------------------------------------- //
 
 	config = getConfig( request.user.email );
+	features = getFeatures( config );
 	users = getUsers( request.user.email );
-	environments = getEnvironments( config );
 	title = request.template.title = "Staging Contexts";
 
 	include "./overview.view.cfm";
@@ -28,11 +28,11 @@
 
 
 	/**
-	* I get the environments for the given config.
+	* I get the features for the given config.
 	*/
-	private array function getEnvironments( required struct config ) {
+	private array function getFeatures( required struct config ) {
 
-		return utilities.toEnvironmentsArray( config.environments );
+		return utilities.toFeaturesArray( config.features );
 
 	}
 

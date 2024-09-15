@@ -1,146 +1,44 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
-		.environment {}
-		.environment.is-on {
-			font-weight: bold ;
+		.feature {}
+
+		.feature__header {
+			background-color: #ffffff ;
+			border-bottom: 2px solid #333333 ;
+			display: flex ;
+			font-weight: 400 ;
+			margin: 40px 0 0 0 ;
+			position: sticky ;
+			top: 0px ;
+			z-index: 2 ;
+		}
+		.feature__label {
+			background-color: #333333 ;
+			border-top-right-radius: 3px ;
+			color: #ffffff ;
+			padding: 10px 30px 4px 22px ;
+		}
+		.feature__body {
+			border: 2px solid #333333 ;
+			padding: 20px ;
+		}
+
+		.environment-key {
+			margin-top: 30px ;
 		}
 
 		.state {
-			border-collapse: collapse ;
-			border-spacing: 0 ;
-		}
-
-		.state thead th {
-			background-color: #ffffff ;
-			padding: 14px 25px ;
-			position: sticky ;
-			top: 0 ;
-			white-space: nowrap ;
-			z-index: 3 ;
-		}
-
-		.state tbody th {
-			background-color: #ffffff ;
-			left: 0 ;
-			padding: 15px 20px ;
-			position: sticky ;
-			white-space: nowrap ;
-			z-index: 2 ;
-		}
-
-		.state thead th:after,
-		.state tbody th:after {
-			border: 2px solid #cccccc ;
-			content: "" ;
-			inset: 0 ;
-			pointer-events: none ;
-			position: absolute ;
-		}
-		.state thead th:after {
-			border-width: 2px 1px 2px 1px ;
-		}
-		.state tbody th:after {
-			border-width: 0px 2px 2px 2px ;
-		}
-
-		.state td {
-			border: 1px solid #ffffff ;
-			border-width: 0px 1px 1px 0px ;
-			padding: 8px 20px ;
-			position: relative ;
-			white-space: nowrap ;
-		}
-		.state td.target {
-			outline: 4px solid red ;
-			outline-offset: -5px ;
-		}
-		.state .explain {
-			color: inherit ;
-		}
-		/* Take up the entire cell surface area. */
-		.state .explain:after {
-			content: "" ;
-			inset: 0 ;
-			position: absolute ;
-		}
-
-		.feature-description {
-			color: #999999 ;
-			font-size: 16px ;
-			margin: 0 0 10px 0 ;
-			white-space: wrap ;
-		}
-
-		.feature-name {
-			margin: 0 ;
-		}
-
-		.user-name {
-			border: 1px dashed #cccccc ;
-			margin: 0 0 15px 0 ;
-			padding: 10px ;
-			text-align: center ;
-		}
-
-		.user-context {
-			font-size: 16px ;
-			margin: 0 ;
-			padding: 0 ;
-			text-align: left ;
-		}
-		.user-context div {
 			display: flex ;
-			margin-block: 5px ;
+			flex-wrap: wrap ;
+			gap: 1px ;
 		}
-		.user-context div:first-child {
-			margin-top: 0 ;
+		.state a {
+			padding: 9px 15px 8px ;
+			text-decoration: none ;
 		}
-		.user-context div:last-child {
-			margin-bottom: 0 ;
-		}
-		.user-context dt {
-			color: #999999 ;
-			margin: 0 10px 0 0 ;
-			padding: 0 ;
-		}
-		.user-context dd {
-			margin: 0 ;
-			padding: 0 ;
-		}
-
-		.mapper {
-			border: 1px solid #33333399 ;
-			border-width: 6px 0px 0px 6px ;
-			bottom: 0px ;
-			opacity: 0.4 ;
-			position: fixed ;
-			right: 0px ;
-			z-index: 2 ;
-		}
-		.mapper table {
-			border-collapse: collapse ;
-			border-spacing: 0 ;
-		}
-		.mapper:hover {
-			opacity: 1.0 ;
-		}
-		.mapper td {
-			margin: 0 ;
-			padding: 0 ;
-		}
-		.mapper button {
-			background-color: transparent ;
-			border-width: 0 ;
-			cursor: pointer ;
-			display: block ;
-			height: 4px ;
-			margin: 0 ;
-			padding: 0 ;
-			width: 20px ;
-		}
-		.mapper button:hover {
-			background-color: #ffffff ;
+		.state a:hover {
+			text-decoration: underline ;
 		}
 
 	</style>
@@ -153,193 +51,60 @@
 			</h1>
 
 			<p>
-				<strong>Environments:</strong>
-
-				<cfloop array="#environments#" index="entry">
-
-					<a
-						href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForHtml( entry.key )#"
-						#ui.attrClass({
-							"environment": true,
-							"is-on": ( entry.key == url.environmentKey )
-						})#
-						>#encodeForHtml( entry.name )#</a>
-
-				</cfloop>
+				The following provides an overview of the feature flag variant values being allocated to the demo users across the various environments. You can click on any given variant to see an explanation as to why that variant has been chosen.
 			</p>
 
-			<table class="state">
-			<thead>
-				<th scope="col">
-					User
-				</th>
-				<cfloop array="#features#" item="feature">
-
-					<th scope="col" valign="bottom">
-						<p class="feature-description">
-							#encodeForHtml( feature.description )#
-						</p>
-
-						<p class="feature-name">
-							<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
-						</p>
-					</th>
-
+			<ul>
+				<cfloop array="#features#" index="feature">
+					<li>
+						<a href="###encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
+					</li>
 				</cfloop>
-			</thead>
-			<tbody>
+			</ul>
 
-				<!---
-					As we render the table, we're going to build-up a two-dimensional map of
-					the rows and columns along with the variants. This way, at the end, we can
-					render a visual map of all the evaluations.
-				--->
-				<cfset mapper = [] />
-				<cfset mapperRowIndex = 0 />
-				<cfset mapperColumnIndex = 0 />
+			<cfloop array="#features#" index="feature">
 
-				<cfloop array="#users#" index="user">
+				<article id="#encodeForHtmlAttribute( feature.key )#" class="feature">
 
-					<cfset mapper.append( [] ) />
-					<cfset mapperRowIndex++ />
-					<cfset mapperColumnIndex = 0 />
+					<h2 class="feature__header">
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#" class="feature__label">#encodeForHtml( feature.key )#</a>
+					</h2>
 
-					<tr>
-						<th scope="row">
-							<p class="user-name">
-								<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.name )#</a>
+					<div class="feature__body u-collapse-margin">
+
+						<cfif feature.description.len()>
+							<p>
+								#encodeForHtml( feature.description )#
 							</p>
-							<dl class="user-context">
-								<div>
-									<dt>key:</dt>
-									<dd>#encodeForHtml( user.id )#</dd>
-								</div>
-								<div>
-									<dt>user.id:</dt>
-									<dd>#encodeForHtml( user.id )#</dd>
-								</div>
-								<div>
-									<dt>user.email:</dt>
-									<dd>#encodeForHtml( user.email )#</dd>
-								</div>
-								<div>
-									<dt>user.role:</dt>
-									<dd>#encodeForHtml( user.role )#</dd>
-								</div>
-								<div>
-									<dt>user.company.id:</dt>
-									<dd>#encodeForHtml( user.company.id )#</dd>
-								</div>
-								<div>
-									<dt>user.company.subdomain:</dt>
-									<dd>#encodeForHtml( user.company.subdomain )#</dd>
-								</div>
-								<div>
-									<dt>user.company.fortune100:</dt>
-									<dd>#encodeForHtml( user.company.fortune100 )#</dd>
-								</div>
-								<div>
-									<dt>user.company.fortune500:</dt>
-									<dd>#encodeForHtml( user.company.fortune500 )#</dd>
-								</div>
-								<div>
-									<dt>user.groups.betaTester:</dt>
-									<dd>#encodeForHtml( user.groups.betaTester )#</dd>
-								</div>
-								<div>
-									<dt>user.groups.influencer:</dt>
-									<dd>#encodeForHtml( user.groups.influencer )#</dd>
-								</div>
-							</dl>
-						</th>
-						<cfloop array="#features#" item="feature">
+						</cfif>
 
-							<cfset result = results[ user.id ][ feature.key ] />
+						<cfloop array="#environments#" index="environment">
 
-							<td
-								data-user-id="#encodeForHtmlAttribute( user.id )#"
-								data-feature-key="#encodeForHtmlAttribute( feature.key )#"
-								align="center"
-								valign="center"
-								class="variant-#result.variantIndex#">
+							<h3 class="environment-key">
+								<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#">#encodeForHtml( environment.key )#</a>
+							</h3>
 
-								<a
-									href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=staging"
-									class="explain">
-									#encodeForHtml( serializeJson( result.variant ) )#
-								</a>
+							<div class="state">
+								<cfloop array="#users#" index="user">
 
-							</td>
+									<cfset result = results[ feature.key ][ environment.key ][ user.id ] />
+
+									<a href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=staging"
+										class="variant-#result.variantIndex#">
+										#encodeForHtml( serializeJson( result.variant ) )#
+									</a>
+								</cfloop>
+							</div>
 
 						</cfloop>
-					</tr>
 
-				</cfloop>
+					</div>
 
-			</tbody>
-			</table>
+				</article>
+
+			</cfloop>
 
 		</section>
 
-		<div x-data="Mapper" class="mapper">
-			<table>
-			<cfloop array="#users#" index="user">
-				<tr>
-					<cfloop array="#features#" index="feature">
-
-						<cfset result = results[ user.id ][ feature.key ] />
-
-						<td class="variant-#result.variantIndex#">
-							<button
-								data-user-id="#encodeForHtmlAttribute( user.id )#"
-								data-feature-key="#encodeForHtmlAttribute( feature.key )#"
-								@click="scrollToResult()"
-								class="mapper-action">
-							</button>
-						</td>
-
-					</cfloop>
-				</tr>
-			</cfloop>
-			</table>
-		</div>
-
 	</cfoutput>
-	<script type="text/javascript">
-
-		function Mapper() {
-
-			return {
-				stateNode: null,
-				scrollToResult: scrollToResult
-			};
-
-			function scrollToResult() {
-
-				var userID = this.$el.dataset.userId;
-				var featureKey = this.$el.dataset.featureKey;
-				var node = document.querySelector( `.state [data-user-id="${ userID }"][data-feature-key="${ featureKey }"]` );
-
-				if ( this.stateNode ) {
-
-					this.stateNode.classList.remove( "target" );
-
-				}
-
-				if ( this.stateNode = node ) {
-
-					this.stateNode.classList.add( "target" );
-					this.stateNode.scrollIntoView({
-						behavior: "smooth",
-						block: "center",
-						inline: "center"
-					});
-
-				}
-
-			}
-
-		}
-
-	</script>
 </cfsavecontent>
