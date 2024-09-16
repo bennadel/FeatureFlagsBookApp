@@ -82,6 +82,48 @@ component
 
 
 	/**
+	* I get the list of available inputs.
+	*/
+	public array function getInputs() {
+
+		return [
+			"key",
+			"user.id",
+			"user.email",
+			"user.role",
+			"user.company.id",
+			"user.company.subdomain",
+			"user.company.fortune100",
+			"user.company.fortune500",
+			"user.groups.betaTester",
+			"user.groups.influencer"
+		];
+
+	}
+
+
+	/**
+	* I get the list of available operators.
+	*/
+	public array function getOperators() {
+
+		return [
+			"Contains",
+			"EndsWith",
+			"IsOneOf",
+			"MatchesPattern",
+			"NotContains",
+			"NotEndsWith",
+			"NotIsOneOf",
+			"NotMatchesPattern",
+			"NotStartsWith",
+			"StartsWith"
+		];
+
+	}
+
+
+	/**
 	* I apply rules to the given demo data in order to make the demo more interesting for
 	* the user without them having to mess with the targeting rules.
 	*/

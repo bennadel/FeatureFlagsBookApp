@@ -28,44 +28,79 @@
 	ruleIndex = val( request.context.ruleIndex );
 	rules = getRules( feature, environment );
 	datalists = getDatalists( request.user.email );
+	operators = getOperators();
+	inputs = getInputs();
 	title = request.template.title = "Rule";
 	errorMessage = "";
 
 	if ( ruleIndex && ! rules.isDefined( ruleIndex ) ) {
 
-		ruleIndex = 0;
+		configValidation.throwRuleNotFoundError();
 
 	}
 
-	operators = [
-		"Contains",
-		"EndsWith",
-		"IsOneOf",
-		"MatchesPattern",
-		"NotContains",
-		"NotEndsWith",
-		"NotIsOneOf",
-		"NotMatchesPattern",
-		"NotStartsWith",
-		"StartsWith"
-	];
-	inputs = [
-		"key",
-		"user.id",
-		"user.email",
-		"user.role",
-		"user.company.id",
-		"user.company.subdomain",
-		"user.company.fortune100",
-		"user.company.fortune500",
-		"user.groups.betaTester",
-		"user.groups.influencer"
-	];
-
-	
 	if ( form.submitted ) {
 
 		try {
+
+			// Clean-up the form values a bit. All the values are submitted as strings;
+			// but we can remove empty ones and cast certain patterns based on the
+			// selected input. Ultimately, we could store everything as a string; but, for
+			// a better UI experience, it's nicer when things are cast.
+			form.values = form.values
+				.filter(
+					( value ) => {
+
+						return value.trim().len();
+
+					}
+				)
+				.map(
+					( value ) => {
+
+						value = value.trim();
+
+						switch ( form.input ) {
+							case "key":
+							case "user.id":
+							case "user.company.id":
+
+								// Note: Jumping through hoops here because ColdFusion
+								// will sometimes cast numeric values to have a decimal
+								// place and I want integers to render as integers.
+								if ( isValid( "integer", value ) ) {
+
+									return javaCast( "int", value );
+
+								} else if ( isNumeric( value ) ) {
+
+									return val( value );
+
+								}
+
+							break;
+							case "user.company.fortune100":
+							case "user.company.fortune500":
+							case "user.groups.betaTester":
+							case "user.groups.influencer":
+
+								if (
+									! compare( value, "true" ) ||
+									! compare( value, "false" )
+									) {
+
+									return !! value;
+
+								}
+
+							break;
+						}
+
+						return value;
+
+					}
+				)
+			;
 
 			// Note: We can store dirty data into the resolution configuration - the
 			// validation process will skip-over anything that isn't relevant to the
@@ -73,13 +108,7 @@
 			rule = [
 				operator: form.operator,
 				input: form.input,
-				values: form.values.filter(
-					( value ) => {
-
-						return len( value );
-
-					}
-				),
+				values: form.values,
 				resolution: [
 					type: form.resolutionType,
 					selection: form.resolutionSelection,
@@ -271,6 +300,26 @@
 		}
 
 		return featureIndex[ featureKey ];
+
+	}
+
+
+	/**
+	* I get the list of available inputs.
+	*/
+	private array function getInputs() {
+
+		return demoTargeting.getInputs();
+
+	}
+
+
+	/**
+	* I get the list of available operators.
+	*/
+	private array function getOperators() {
+
+		return demoTargeting.getOperators();
 
 	}
 
