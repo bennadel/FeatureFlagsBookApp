@@ -34,7 +34,7 @@
 						<strong>Feature:</strong>
 					</dt>
 					<dd>
-						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForHtml( feature.key )#">#encodeForHtml( feature.key )#</a>
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForHtml( feature.key )###environment-#encodeForUrl( environment.key )#">#encodeForHtml( feature.key )#</a>
 					</dd>
 				</div>
 				<div>
@@ -66,7 +66,19 @@
 						<strong>Reason:</strong>
 					</dt>
 					<dd>
-						<mark>#encodeForHtml( result.reason )#</mark>
+						<cfif ( result.reason == "DefaultResolution" )>
+
+							<a href="/index.cfm?event=playground.features.detail.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"><mark>#encodeForHtml( result.reason )#</mark></a>
+
+						<cfelseif result.matchingRuleIndex>
+
+							<a href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( result.matchingRuleIndex )#"><mark>#encodeForHtml( result.reason )#</mark></a>
+
+						<cfelse>
+
+							<mark>#encodeForHtml( result.reason )#</mark>
+
+						</cfif>
 					</dd>
 				</div>
 			</dl>
