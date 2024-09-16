@@ -60,11 +60,7 @@
 
 		if ( ! featureIndex.keyExists( featureKey ) ) {
 
-			// Todo: Throw a more specific error?
-			throw(
-				type = "App.NotFound",
-				message = "Feature flag not found."
-			);
+			configValidation.throwFeatureNotFoundError();
 
 		}
 

@@ -1,9 +1,11 @@
 <cfscript>
 
+	configValidation = request.ioc.get( "lib.model.config.ConfigValidation" );
 	demoLogger = request.ioc.get( "lib.Logger" );
 	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
+	userValidation = request.ioc.get( "lib.model.user.UserValidation" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
@@ -49,11 +51,7 @@
 
 		if ( ! environmentIndex.keyExists( environmentKey ) ) {
 
-			// Todo: Throw a more specific error?
-			throw(
-				type = "App.NotFound",
-				message = "Environment not found."
-			);
+			configValidation.throwTargetingNotFoundError();
 
 		}
 
@@ -75,11 +73,7 @@
 
 		if ( ! featureIndex.keyExists( featureKey ) ) {
 
-			// Todo: Throw a more specific error?
-			throw(
-				type = "App.NotFound",
-				message = "Feature flag not found."
-			);
+			configValidation.throwFeatureNotFoundError();
 
 		}
 
@@ -126,11 +120,7 @@
 
 		if ( ! userIndex.keyExists( userID ) ) {
 
-			// Todo: Throw a more specific error?
-			throw(
-				type = "App.NotFound",
-				message = "User not found."
-			);
+			userValidation.throwUserNotFoundError();
 
 		}
 

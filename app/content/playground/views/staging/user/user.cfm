@@ -4,6 +4,7 @@
 	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
+	userValidation = request.ioc.get( "lib.model.user.UserValidation" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
@@ -111,11 +112,7 @@
 
 		if ( ! userIndex.keyExists( userID ) ) {
 
-			// Todo: Throw a more specific error?
-			throw(
-				type = "App.NotFound",
-				message = "User not found."
-			);
+			userValidation.throwUserNotFoundError();
 
 		}
 

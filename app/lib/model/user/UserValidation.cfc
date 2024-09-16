@@ -81,4 +81,18 @@ component
 
 	}
 
+
+	/**
+	* I throw a user not found error.
+	* 
+	* Caution: This method doesn't really belong here - it's only being used to throw
+	* errors for demo users. But, since I don't really have a full data access layer, I'm
+	* putting it in the closest meaningful place.
+	*/
+	public void function throwUserNotFoundError() {
+
+		throw( type = "App.Model.User.NotFound" );
+
+	}
+
 }

@@ -11,7 +11,13 @@
 		releaseStage: clientConfig.releaseStage
 	];
 
-	// TODO: Include user identifier when available.
+	if ( ! isNull( request.user ) ) {
+
+		startConfig.user = [
+			email: request.user.email
+		];
+
+	}
 
 </cfscript>
 <script type="text/javascript">

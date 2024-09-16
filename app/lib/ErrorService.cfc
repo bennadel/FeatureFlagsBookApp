@@ -452,6 +452,12 @@ component
 					message: "Your email address is too long. Please use an email address that is less than 75-characters long."
 				});
 			break;
+			case "App.Model.User.NotFound":
+				return as404({
+					type: error.type,
+					message: "The user you requested cannot be found."
+				});
+			break;
 			case "App.NotFound":
 				return as404();
 			break;
