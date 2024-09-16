@@ -13,7 +13,13 @@
 	param name="request.context.featureKey" type="string" default="";
 	param name="request.context.environmentKey" type="string" default="";
 	param name="request.context.ruleIndex" type="numeric" default=0;
-	param name="form.ruleData" type="string" default="";
+	param name="form.input" type="string" default="";
+	param name="form.operator" type="string" default="";
+	param name="form.values" type="array" default=[];
+	param name="form.resolutionType" type="string" default="selection";
+	param name="form.resolutionSelection" type="numeric" default=1;
+	param name="form.resolutionDistribution" type="array" default=[];
+	param name="form.resolutionVariant" type="any" default="";
 	param name="form.submitted" type="boolean" default=false;
 
 	config = getConfig( request.user.email );
@@ -25,38 +31,69 @@
 	title = request.template.title = "Rule";
 	errorMessage = "";
 
-	// Editing an existing rule.
-	if ( ruleIndex && rules.isDefined( ruleIndex ) ) {
+	if ( ruleIndex && ! rules.isDefined( ruleIndex ) ) {
 
-		rule = rules[ ruleIndex ];
-
-	// Adding a new rule.
-	} else {
-
-		// Force index to be zero as a safe-guard.
 		ruleIndex = 0;
-		rule = [
-			operator: "IsOneOf",
-			input: "user.email",
-			values: [],
-			resolution: [
-				type: "selection",
-				selection: 1
-			]
-		];
 
 	}
+
+	operators = [
+		"Contains",
+		"EndsWith",
+		"IsOneOf",
+		"MatchesPattern",
+		"NotContains",
+		"NotEndsWith",
+		"NotIsOneOf",
+		"NotMatchesPattern",
+		"NotStartsWith",
+		"StartsWith"
+	];
+	inputs = [
+		"key",
+		"user.id",
+		"user.email",
+		"user.role",
+		"user.company.id",
+		"user.company.subdomain",
+		"user.company.fortune100",
+		"user.company.fortune500",
+		"user.groups.betaTester",
+		"user.groups.influencer"
+	];
+
 	
 	if ( form.submitted ) {
 
 		try {
+
+			// Note: We can store dirty data into the resolution configuration - the
+			// validation process will skip-over anything that isn't relevant to the
+			// given resolution type.
+			rule = [
+				operator: form.operator,
+				input: form.input,
+				values: form.values.filter(
+					( value ) => {
+
+						return len( value );
+
+					}
+				),
+				resolution: [
+					type: form.resolutionType,
+					selection: form.resolutionSelection,
+					distribution: form.resolutionDistribution,
+					variant: form.resolutionVariant
+				]
+			];
 
 			if ( ruleIndex ) {
 
 				config
 					.features[ feature.key ]
 						.targeting[ environment.key ]
-							.rules[ ruleIndex ] = deserializeJson( form.ruleData )
+							.rules[ ruleIndex ] = rule
 				;
 
 			} else {
@@ -65,7 +102,7 @@
 					.features[ feature.key ]
 						.targeting[ environment.key ]
 							.rules
-								.append( deserializeJson( form.ruleData ) )
+								.append( rule )
 				;
 
 			}
@@ -91,7 +128,81 @@
 
 	} else {
 
-		form.ruleData = serializeJson( rule );
+		if ( ruleIndex ) {
+
+			rule = rules[ ruleIndex ];
+
+		} else {
+
+			rule = [
+				operator: "IsOneOf",
+				input: "user.email",
+				values: [],
+				resolution: [
+					type: "selection",
+					selection: 1
+				]
+			];
+
+		}
+
+		form.input = rule.input;
+		form.operator = rule.operator;
+		form.values = rule.values;
+		form.resolutionType = rule.resolution.type;
+
+		if ( form.resolutionType == "selection" ) {
+
+			form.resolutionSelection = rule.resolution.selection;
+
+		} else {
+
+			form.resolutionSelection = 1;
+
+		}
+
+		if ( form.resolutionType == "distribution" ) {
+
+			form.resolutionDistribution = rule.resolution.distribution;
+
+		} else {
+
+			form.resolutionDistribution = feature.variants.map(
+				( _, i ) => {
+
+					return ( ( i == 1 ) ? 100 : 0 );
+
+				}
+			);
+
+		}
+
+		if ( form.resolutionType == "variant" ) {
+
+			switch ( feature.type ) {
+				case "string":
+					form.resolutionVariant = rule.resolution.variant;
+				break;
+				default:
+					form.resolutionVariant = serializeJson( rule.resolution.variant );
+				break;
+			}
+
+		} else {
+
+			switch ( feature.type ) {
+				case "boolean":
+					form.resolutionVariant = false;
+				break;
+				case "number":
+					form.resolutionVariant = 0;
+				break;
+				default:
+					form.resolutionVariant = "";
+				break;
+			}
+
+		}
 
 	}
 
@@ -113,9 +224,9 @@
 	/**
 	* I get the data lists for the demo users.
 	*/
-	private struct function getDatalists( required string email ) {
+	private array function getDatalists( required string email ) {
 
-		return demoTargeting.getDatalists( demoUsers.getUsers( email ) );
+		return utilities.toEntries( demoTargeting.getDatalists( demoUsers.getUsers( email ) ) );
 
 	}
 

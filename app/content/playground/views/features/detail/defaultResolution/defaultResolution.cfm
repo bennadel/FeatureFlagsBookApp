@@ -10,7 +10,10 @@
 
 	param name="request.context.featureKey" type="string" default="";
 	param name="request.context.environmentKey" type="string" default="";
-	param name="form.resolutionData" type="string" default="";
+	param name="form.resolutionType" type="string" default="selection";
+	param name="form.resolutionSelection" type="numeric" default=1;
+	param name="form.resolutionDistribution" type="array" default=[];
+	param name="form.resolutionVariant" type="any" default="";
 	param name="form.submitted" type="boolean" default=false;
 
 	config = getConfig( request.user.email );
@@ -24,12 +27,18 @@
 
 		try {
 
-			// Note: We can store dirty data into the config - the validation process will
-			// skip-over anything that isn't relevant to the resolution type.
+			// Note: We can store dirty data into the resolution configuration - the
+			// validation process will skip-over anything that isn't relevant to the
+			// given resolution type.
 			config
 				.features[ feature.key ]
 					.targeting[ environment.key ]
-						.resolution = deserializeJson( form.resolutionData )
+						.resolution = [
+							type: form.resolutionType,
+							selection: form.resolutionSelection,
+							distribution: form.resolutionDistribution,
+							variant: form.resolutionVariant
+						]
 			;
 
 			featureWorkflow.updateConfig(
@@ -53,7 +62,60 @@
 
 	} else {
 
-		form.resolutionData = serializeJson( resolution );
+		form.resolutionType = resolution.type;
+
+		if ( resolution.type == "selection" ) {
+
+			form.resolutionSelection = resolution.selection;
+
+		} else {
+
+			form.resolutionSelection = 1;
+
+		}
+
+		if ( resolution.type == "distribution" ) {
+
+			form.resolutionDistribution = resolution.distribution;
+
+		} else {
+
+			form.resolutionDistribution = feature.variants.map(
+				( _, i ) => {
+
+					return ( ( i == 1 ) ? 100 : 0 );
+
+				}
+			);
+
+		}
+
+		if ( resolution.type == "variant" ) {
+
+			switch ( feature.type ) {
+				case "string":
+					form.resolutionVariant = resolution.variant;
+				break;
+				default:
+					form.resolutionVariant = serializeJson( resolution.variant );
+				break;
+			}
+
+		} else {
+
+			switch ( feature.type ) {
+				case "boolean":
+					form.resolutionVariant = false;
+				break;
+				case "number":
+					form.resolutionVariant = 0;
+				break;
+				default:
+					form.resolutionVariant = "";
+				break;
+			}
+
+		}
 
 	}
 

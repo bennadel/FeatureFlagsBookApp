@@ -1,4 +1,11 @@
 <cfsavecontent variable="request.template.primaryContent">
+	<style type="text/css">
+
+		.hidden {
+			display: none ;
+		}
+
+	</style>
 	<cfoutput>
 
 		<section class="content-wrapper u-collapse-margin">
@@ -36,132 +43,160 @@
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
-				<input type="hidden" name="resolutionData" value="#encodeForHtmlAttribute( form.resolutionData )#" x-ref="resolutionData" />
 				<input type="hidden" name="submitted" value="true" />
 
-				<p>
-					<strong>Use Type:</strong>
-
-					<button type="button" @click="switchToSelection()">
-						Selection
-					</button>
-					<button type="button" @click="switchToDistribution()">
-						Distribution
-					</button>
-					<button type="button" @click="switchToVariant()">
-						Variant
-					</button>
-				</p>
-
-				<!-- Selection. -->
-				<template x-if="( form.type === 'selection' )">
-					<dl class="key-values">
-						<div>
-							<dt>
-								<strong>Selection:</strong>
-							</dt>
-							<dd>
-								<ul class="no-marker breathing-room">
-									<template x-for="( variant, i ) in feature.variants">
-
-										<li>
-											<label class="choggle">
-												<input
-													x-model.number="form.selection"
-													type="radio"
-													name="selectionIndex"
-													:value="( i + 1 )"
-													@change="handleSelection()"
-													class="choggle__control"
-												/>
-												<span
-													class="choggle__label tag" :class="( 'variant-' + ( i + 1 ) )"
-													x-text="JSON.stringify( variant )">
-												</span>
-											</label>
-										</li>
-
-									</template>
-								</ul>
-							</dd>
-						</div>
-					</dl>
-				</template>
-
-				<!-- Distribution. -->
-				<template x-if="( form.type === 'distribution' )">
-					<dl class="key-values">
-						<div>
-							<dt>
-								<strong>Distribution:</strong>
-							</dt>
-							<dd>
-								<ul class="no-marker breathing-room">
-									<template x-for="( allocation, i ) in form.distribution">
-
-										<li>
-											<label class="choggle">
-												<select
-													x-model.number="form.distribution[ i ]"
-													@change="handleDistribution()"
-													class="choggle__control">
-
-													<template x-for="n in 101">
-														<option
-															:value="( n - 1 )"
-															:selected="( form.distribution[ i ] === ( n - 1 ) )"
-															x-text="( ( n - 1 ) + '%' )"
-														></option>
-													</template>
-												</select>
-												<span class="choggle__label">
-													&rarr;
-													<span
-														class="tag"
-														:class="( 'variant-' + ( i + 1 ) )"
-														x-text="JSON.stringify( feature.variants[ i ] )">
-													</span>
-												</span>
-											</label>
-										</li>
-
-									</template>
-								</ul>
-
-								<p>
-									Total: <span x-text="form.allocationTotal"></span>
-
-									<template x-if="( form.allocationTotal !== 100 )">
-										<span>
-											- <mark>must total to 100</mark>.
-										</span>
-									</template>
-								</p>
-							</dd>
-						</div>
-					</dl>
-				</template>
-
-				<!-- Variant. -->
-				<template x-if="( form.type === 'variant' )">
-					<dl class="key-values">
-						<div>
-							<dt>
-								<strong>Variant:</strong>
-							</dt>
-							<dd>
+				<dl class="key-values">
+					<div>
+						<dt>
+							<strong>Type:</strong>
+						</dt>
+						<dd>
+							<label class="choggle">
 								<input
-									type="text"
-									x-model="form.variantRaw"
-									@input="handleVariant()"
-									size="30"
+									type="radio"
+									name="resolutionType"
+									value="selection"
+									<cfif ( form.resolutionType == "selection" )>
+										checked
+									</cfif>
+									@change="handleType()"
+									class="choggle__control"
 								/>
-								-
-								must by of type <span x-text="feature.type"></span>.
-							</dd>
-						</div>
-					</dl>
-				</template>
+								<span class="choggle__label">
+									Selection
+								</span>
+							</label>
+							<label class="choggle">
+								<input
+									type="radio"
+									name="resolutionType"
+									value="distribution"
+									<cfif ( form.resolutionType == "distribution" )>
+										checked
+									</cfif>
+									@change="handleType()"
+									class="choggle__control"
+								/>
+								<span class="choggle__label">
+									Distribution
+								</span>
+							</label>
+							<label class="choggle">
+								<input
+									type="radio"
+									name="resolutionType"
+									value="variant"
+									<cfif ( form.resolutionType == "variant" )>
+										checked
+									</cfif>
+									@change="handleType()"
+									class="choggle__control"
+								/>
+								<span class="choggle__label">
+									Variant
+								</span>
+							</label>
+						</dd>
+					</div>
+
+					<!--- Start: Selection. --->
+					<div :class="{ hidden: ( resolutionType !== 'selection' ) }">
+						<dt>
+							<strong>Selection:</strong>
+						</dt>
+						<dd>
+							<ul class="no-marker breathing-room">
+								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
+
+									<li>
+										<label class="choggle">
+											<input
+												type="radio"
+												name="resolutionSelection"
+												value="#encodeForHtmlAttribute( entry.index )#"
+												<cfif ( form.resolutionSelection == entry.index )>
+													checked
+												</cfif>
+												class="choggle__control"
+											/>
+											<span class="choggle__label tag variant-#entry.index#">
+												#encodeForHtml( serializeJson( entry.value ) )#
+											</span>
+										</label>
+									</li>
+
+								</cfloop>
+							</ul>
+						</dd>
+					</div>
+					<!--- End: Selection. --->
+
+					<!--- Start: Distribution. --->
+					<div :class="{ hidden: ( resolutionType !== 'distribution' ) }">
+						<dt>
+							<strong>Distribution:</strong>
+						</dt>
+						<dd>
+							<ul class="no-marker breathing-room">
+								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
+
+									<li>
+										<label class="choggle">
+											<select name="resolutionDistribution[]" @change="handleAllocation()" class="choggle__control">
+												<cfloop from="0" to="100" index="i">
+													<option
+														value="#i#"
+														<cfif ( form.resolutionDistribution[ entry.index ] == i )>
+															selected
+														</cfif>
+														>
+														#i#
+													</option>
+												</cfloop>
+											</select>
+											<span class="choggle__label">
+												&rarr;
+												<span class="tag variant-#entry.index#">
+													#encodeForHtml( serializeJson( entry.value ) )#
+												</span>
+											</span>
+										</label>
+									</li>
+
+								</cfloop>
+							</ul>
+
+							<p>
+								Total: <span x-text="allocationTotal"></span>
+
+								<template x-if="( allocationTotal !== 100 )">
+									<span>
+										- <mark>must total to 100</mark>.
+									</span>
+								</template>
+							</p>
+						</dd>
+					</div>
+					<!--- End: Distribution. --->
+
+					<!--- Start: Variant. --->
+					<div :class="{ hidden: ( resolutionType !== 'variant' ) }">
+						<dt>
+							<strong>Variant:</strong>
+						</dt>
+						<dd>
+							<input
+								type="text"
+								name="resolutionVariant"
+								value="#encodeForHtmlAttribute( form.resolutionVariant )#"
+								size="30"
+							/>
+							-
+							must by of type #encodeForHtml( feature.type )#.
+						</dd>
+					</div>
+					<!--- End: Variant. --->
+				</dl>
 
 				<p>
 					<button type="submit">
@@ -181,195 +216,53 @@
 
 		function FormController() {
 
-			var feature = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( feature ) )#</cfoutput>" );
-			var resolution = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( resolution ) )#</cfoutput>" );
-			var resolutionDataRef = this.$refs.resolutionData;
+			var form = this.$el;
 
 			// Return public API for proxy.
 			return {
 				init: $init,
-				feature: feature,
-				resolution: resolution,
-				form: null,
+				resolutionType: "",
+				allocationTotal: 100,
 
-				// Public methods.
-				handleDistribution: handleDistribution,
-				handleSelection: handleSelection,
-				handleVariant: handleVariant,
-				switchToDistribution: switchToDistribution,
-				switchToSelection: switchToSelection,
-				switchToVariant: switchToVariant,
-
-				// Private methods.
-				_persistData: persistData,
-				_setAllocationTotal: setAllocationTotal
+				handleAllocation: handleAllocation,
+				handleType: handleType,
 			};
 
 			// ---
 			// PUBLIC METHODS.
 			// ---
 
+			/**
+			* I initialize the Alpine component.
+			*/
 			function $init() {
 
-				try {
-
-					this.form = JSON.parse( resolutionDataRef.value );
-
-				} catch ( error ) {
-
-					this.form = JSON.parse( JSON.stringify( resolution ) );
-
-				}
-
-				if ( this.form.type !== "selection" ) {
-
-					this.form.selection = 1;
-
-				}
-
-				if ( this.form.type !== "distribution" ) {
-
-					this.form.distribution = feature.variants.map(
-						( variant, i ) => {
-
-							if ( i === 0 ) {
-
-								return 100;
-
-							}
-
-							return 0;
-
-						}
-					);
-
-				}
-
-				if ( this.form.type !== "variant" ) {
-
-					this.form.variant = feature.variants[ 0 ];
-
-				}
-
-				switch ( feature.type ) {
-					case "boolean":
-					case "number":
-					case "string":
-						this.form.variantRaw = String( this.form.variant );
-					break;
-					default:
-						this.form.variantRaw = JSON.stringify( this.form.variant );
-					break;
-				}
-
-				this._setAllocationTotal();
+				this.handleType();
+				this.handleAllocation();
 
 			}
 
+			/**
+			* I update the allocation total after one of the distributions is changed.
+			*/
+			function handleAllocation() {
 
-			function handleDistribution() {
+				this.allocationTotal = 0;
 
-				this._persistData();
-				this._setAllocationTotal();
+				for ( var element of form.elements[ "resolutionDistribution[]" ] ) {
 
-			}
-
-			function handleSelection() {
-
-				this._persistData();
-
-			}
-
-
-			function handleVariant() {
-
-				try {
-
-					switch ( feature.type ) {
-						case "string":
-							this.form.variant = this.form.variantRaw;
-						break;
-						case "number":
-						case "boolean":
-						default:
-							this.form.variant = JSON.parse( this.form.variantRaw );
-						break;
-					}
-
-					this._persistData();
-
-				} catch ( error ) {
-
-					// console.group( "Error processing raw variant" );
-					// console.log( this.form.variantRaw );
-					// console.error( error );
-					// console.groupEnd();
+					this.allocationTotal += parseInt( element.value, 10 );
 
 				}
 
 			}
 
-			function switchToDistribution() {
+			/**
+			* I update the resolution details after the type is changed.
+			*/
+			function handleType( event ) {
 
-				if ( this.form.type === "distribution" ) {
-
-					return;
-
-				}
-
-				this.form.type = "distribution";
-				this._persistData();
-
-			}
-
-
-			function switchToSelection() {
-
-				if ( this.form.type === "selection" ) {
-
-					return;
-
-				}
-
-				this.form.type = "selection";
-				this._persistData();
-
-			}
-
-
-			function switchToVariant() {
-
-				if ( this.form.type === "variant" ) {
-
-					return;
-
-				}
-
-				this.form.type = "variant";
-				this._persistData();
-
-			}
-
-			// ---
-			// PRIVATE METHODS.
-			// ---
-
-			function persistData() {
-
-				resolutionDataRef.value = JSON.stringify( this.form );
-
-			}
-
-			function setAllocationTotal() {
-
-				this.form.allocationTotal = 0;
-				this.form.distribution.forEach(
-					( value ) => {
-
-						this.form.allocationTotal += value;
-
-					}
-				);
+				this.resolutionType = form.elements.resolutionType.value;
 
 			}
 

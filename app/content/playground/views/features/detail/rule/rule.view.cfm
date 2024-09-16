@@ -1,6 +1,10 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
+		.hidden {
+			display: none ;
+		}
+
 		.tiles {
 			display: flex ;
 			flex-wrap: wrap ;
@@ -59,12 +63,11 @@
 				</p>
 			</cfif>
 
-			<form x-data="FormController" @submit="handleSubmit()" method="post">
+			<form x-data="FormController" method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
 				<input type="hidden" name="ruleIndex" value="#encodeForHtmlAttribute( ruleIndex )#" />
-				<input type="hidden" name="ruleData" value="#encodeForHtmlAttribute( form.ruleData )#" x-ref="ruleData" />
 				<input type="hidden" name="submitted" value="true" />
 
 				<dl class="key-values">
@@ -73,14 +76,17 @@
 							<strong>Input:</strong>
 						</dt>
 						<dd>
-							<select x-model="form.input" @change="handleInput()">
-								<template x-for="input in inputs">
+							<select name="input" @change="handleInput()">
+								<cfloop array="#inputs#" index="input">
 									<option
-										:value="input"
-										:selected="( input === form.input )"
-										x-text="input">
+										value="#encodeForHtmlAttribute( input )#"
+										<cfif ( form.input == input )>
+											selected
+										</cfif>
+										>
+										#encodeForHtml( input )#
 									</option>
-								</template>
+								</cfloop>
 							</select>
 						</dd>
 					</div>
@@ -89,14 +95,17 @@
 							<strong>Operator:</strong>
 						</dt>
 						<dd>
-							<select x-model="form.operator" @change="handleOperator()">
-								<template x-for="operator in operators">
+							<select name="operator" @change="handleOperator()">
+								<cfloop array="#operators#" index="operator">
 									<option
-										:value="operator"
-										:selected="( operator === form.operator )"
-										x-text="operator">
+										value="#encodeForHtmlAttribute( operator )#"
+										<cfif ( form.operator == operator )>
+											selected
+										</cfif>
+										>
+										#encodeForHtml( operator )#
 									</option>
-								</template>
+								</cfloop>
 							</select>
 						</dd>
 					</div>
@@ -106,9 +115,10 @@
 						</dt>
 						<dd>
 							<div class="tiles">
-								<template x-for="( value, i ) in form.values" :key="i">
+								<template x-for="( value, i ) in values" :key="i">
 
 									<span class="tiles__tile tile">
+										<input type="hidden" name="values[]" :value="value" />
 										<span class="tile__value" x-text="value"></span>
 										<button type="button" @click="removeValue( i )" class="tile__remove">
 											x
@@ -119,22 +129,24 @@
 								<div class="tiles__form">
 									<input
 										type="text"
-										x-ref="valueRawRef"
-										x-model.trim="form.valueRaw"
-										list="value-list"
+										name="values[]"
+										x-ref="rawValueRef"
+										:list="datalist"
 										@keydown.enter.prevent="handleValue()"
 									/>
-									<datalist id="value-list">
-										<template x-for="option in datalist">
-											<option x-text="option"></option>
-										</template>
-									</datalist>
-
 									<button type="button" @click="handleValue()">
 										Add
 									</button>
 								</div>
 							</div>
+
+							<cfloop array="#datalists#" index="entry">
+								<datalist id="datalist.#entry.key#">
+									<cfloop array="#entry.value#" index="option">
+										<option>#encodeForHtml( option )#</option>
+									</cfloop>
+								</datalist>
+							</cfloop>
 						</dd>
 					</div>
 					<div>
@@ -142,134 +154,151 @@
 							<strong>Resolution:</strong>
 						</dt>
 						<dd>
-							<p>
-								<strong>Use Type:</strong>
-
-								<button type="button" @click="switchToSelection()">
+							<label class="choggle">
+								<input
+									type="radio"
+									name="resolutionType"
+									value="selection"
+									<cfif ( form.resolutionType == "selection" )>
+										checked
+									</cfif>
+									@change="handleType()"
+									class="choggle__control"
+								/>
+								<span class="choggle__label">
 									Selection
-								</button>
-								<button type="button" @click="switchToDistribution()">
+								</span>
+							</label>
+							<label class="choggle">
+								<input
+									type="radio"
+									name="resolutionType"
+									value="distribution"
+									<cfif ( form.resolutionType == "distribution" )>
+										checked
+									</cfif>
+									@change="handleType()"
+									class="choggle__control"
+								/>
+								<span class="choggle__label">
 									Distribution
-								</button>
-								<button type="button" @click="switchToVariant()">
+								</span>
+							</label>
+							<label class="choggle">
+								<input
+									type="radio"
+									name="resolutionType"
+									value="variant"
+									<cfif ( form.resolutionType == "variant" )>
+										checked
+									</cfif>
+									@change="handleType()"
+									class="choggle__control"
+								/>
+								<span class="choggle__label">
 									Variant
-								</button>
-							</p>
-
-
-							<!-- Selection. -->
-							<template x-if="( form.resolution.type === 'selection' )">
-								<dl class="key-values">
-									<div>
-										<dt>
-											<strong>Selection:</strong>
-										</dt>
-										<dd>
-											<ul class="no-marker breathing-room">
-												<template x-for="( variant, i ) in feature.variants">
-
-													<li>
-														<label class="choggle">
-															<input
-																x-model.number="form.resolution.selection"
-																type="radio"
-																name="selectionIndex"
-																:value="( i + 1 )"
-																@change="handleSelection()"
-																class="choggle__control"
-															/>
-															<span
-																class="choggle__label tag"
-																:class="( 'variant-' + ( i + 1 ) )"
-																x-text="JSON.stringify( variant )">
-															</span>
-														</label>
-													</li>
-
-												</template>
-											</ul>
-										</dd>
-									</div>
-								</dl>
-							</template>
-
-							<!-- Distribution. -->
-							<template x-if="( form.resolution.type === 'distribution' )">
-								<dl class="key-values">
-									<div>
-										<dt>
-											<strong>Distribution:</strong>
-										</dt>
-										<dd>
-											<ul class="no-marker breathing-room">
-												<template x-for="( allocation, i ) in form.resolution.distribution">
-
-													<li>
-														<label class="choggle">
-															<select
-																x-model.number="form.resolution.distribution[ i ]"
-																@change="handleDistribution()"
-																class="choggle__control">
-
-																<template x-for="n in 101">
-																	<option
-																		:value="( n - 1 )"
-																		:selected="( form.resolution.distribution[ i ] === ( n - 1 ) )"
-																		x-text="( ( n - 1 ) + '%' )"
-																	></option>
-																</template>
-															</select>
-															<span class="choggle__label">
-																&rarr;
-																<span
-																	class="tag"
-																	:class="( 'variant-' + ( i + 1 ) )"
-																	x-text="JSON.stringify( feature.variants[ i ] )">
-																</span>
-															</span>
-														</label>
-													</li>
-
-												</template>
-											</ul>
-
-											<p>
-												Total: <span x-text="form.resolution.allocationTotal"></span>
-
-												<template x-if="( form.resolution.allocationTotal !== 100 )">
-													<span>
-														- <mark>must total to 100</mark>.
-													</span>
-												</template>
-											</p>
-										</dd>
-									</div>
-								</dl>
-							</template>
-
-							<!-- Variant. -->
-							<template x-if="( form.resolution.type === 'variant' )">
-								<dl class="key-values">
-									<div>
-										<dt>
-											<strong>Variant:</strong>
-										</dt>
-										<dd>
-											<input
-												type="text"
-												x-model="form.resolution.variantRaw"
-												@input="handleVariant()"
-												size="30"
-											/>
-											-
-											must by of type <span x-text="feature.type"></span>.
-										</dd>
-									</div>
-								</dl>
-							</template>
-
+								</span>
+							</label>
 						</dd>
 					</div>
+
+					<!--- Start: Selection. --->
+					<div :class="{ hidden: ( resolutionType !== 'selection' ) }">
+						<dt>
+							<strong>Selection:</strong>
+						</dt>
+						<dd>
+							<ul class="no-marker breathing-room">
+								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
+
+									<li>
+										<label class="choggle">
+											<input
+												type="radio"
+												name="resolutionSelection"
+												value="#encodeForHtmlAttribute( entry.index )#"
+												<cfif ( form.resolutionSelection == entry.index )>
+													checked
+												</cfif>
+												class="choggle__control"
+											/>
+											<span class="choggle__label tag variant-#entry.index#">
+												#encodeForHtml( serializeJson( entry.value ) )#
+											</span>
+										</label>
+									</li>
+
+								</cfloop>
+							</ul>
+						</dd>
+					</div>
+					<!--- End: Selection. --->
+
+					<!--- Start: Distribution. --->
+					<div :class="{ hidden: ( resolutionType !== 'distribution' ) }">
+						<dt>
+							<strong>Distribution:</strong>
+						</dt>
+						<dd>
+							<ul class="no-marker breathing-room">
+								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
+
+									<li>
+										<label class="choggle">
+											<select name="resolutionDistribution[]" @change="handleAllocation()" class="choggle__control">
+												<cfloop from="0" to="100" index="i">
+													<option
+														value="#i#"
+														<cfif ( form.resolutionDistribution[ entry.index ] == i )>
+															selected
+														</cfif>
+														>
+														#i#
+													</option>
+												</cfloop>
+											</select>
+											<span class="choggle__label">
+												&rarr;
+												<span class="tag variant-#entry.index#">
+													#encodeForHtml( serializeJson( entry.value ) )#
+												</span>
+											</span>
+										</label>
+									</li>
+
+								</cfloop>
+							</ul>
+
+							<p>
+								Total: <span x-text="allocationTotal"></span>
+
+								<template x-if="( allocationTotal !== 100 )">
+									<span>
+										- <mark>must total to 100</mark>.
+									</span>
+								</template>
+							</p>
+						</dd>
+					</div>
+					<!--- End: Distribution. --->
+
+					<!--- Start: Variant. --->
+					<div :class="{ hidden: ( resolutionType !== 'variant' ) }">
+						<dt>
+							<strong>Variant:</strong>
+						</dt>
+						<dd>
+							<input
+								type="text"
+								name="resolutionVariant"
+								value="#encodeForHtmlAttribute( form.resolutionVariant )#"
+								size="30"
+							/>
+							-
+							must by of type #encodeForHtml( feature.type )#.
+						</dd>
+					</div>
+					<!--- End: Variant. --->
 				</dl>
 
 				<p>
@@ -290,59 +319,24 @@
 
 		function FormController() {
 
-			var feature = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( feature ) )#</cfoutput>" );
-			var rule = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( rule ) )#</cfoutput>" );
-			var ruleDataRef = this.$refs.ruleData;
-			var datalists = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( datalists ) )#</cfoutput>" );
+			var form = this.$el;
+			var values = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( form.values ) )#</cfoutput>" );
 
 			// Return public API for proxy.
 			return {
 				init: $init,
-				feature: feature,
-				rule: rule,
-				form: null,
-				operators: [
-					"Contains",
-					"EndsWith",
-					"IsOneOf",
-					"MatchesPattern",
-					"NotContains",
-					"NotEndsWith",
-					"NotIsOneOf",
-					"NotMatchesPattern",
-					"NotStartsWith",
-					"StartsWith"
-				],
-				inputs: [
-					"key",
-					"user.id",
-					"user.email",
-					"user.role",
-					"user.company.id",
-					"user.company.subdomain",
-					"user.company.fortune100",
-					"user.company.fortune500",
-					"user.groups.betaTester",
-					"user.groups.influencer"
-				],
-				datalist: [],
+				values: values,
+				datalist: "",
 
 				// Public methods.
-				handleDistribution: handleDistribution,
+				handleAllocation: handleAllocation,
 				handleInput: handleInput,
 				handleOperator: handleOperator,
-				handleSelection: handleSelection,
-				handleSubmit: handleSubmit,
+				handleType: handleType,
 				handleValue: handleValue,
-				handleVariant: handleVariant,
 				removeValue: removeValue,
-				switchToDistribution: switchToDistribution,
-				switchToSelection: switchToSelection,
-				switchToVariant: switchToVariant,
 
 				// Private methods.
-				_persistData: persistData,
-				_setAllocationTotal: setAllocationTotal,
 				_setDatalist: setDatalist
 			};
 
@@ -350,188 +344,79 @@
 			// PUBLIC METHODS.
 			// ---
 
+			/**
+			* I initialize the Alpine component.
+			*/
 			function $init() {
 
-				try {
-
-					this.form = JSON.parse( ruleDataRef.value );
-
-				} catch ( error ) {
-
-					this.form = JSON.parse( JSON.stringify( rule ) );
-
-				}
-
-				this.form.valueRaw = "";
-
-				if ( this.form.resolution.type !== "selection" ) {
-
-					this.form.resolution.selection = 1;
-
-				}
-
-				if ( this.form.resolution.type !== "distribution" ) {
-
-					this.form.resolution.distribution = feature.variants.map(
-						( variant, i ) => {
-
-							if ( i === 0 ) {
-
-								return 100;
-
-							}
-
-							return 0;
-
-						}
-					);
-
-				}
-
-				if ( this.form.resolution.type !== "variant" ) {
-
-					this.form.resolution.variant = feature.variants[ 0 ];
-
-				}
-
-				switch ( feature.type ) {
-					case "boolean":
-					case "number":
-					case "string":
-						this.form.resolution.variantRaw = String( this.form.resolution.variant );
-					break;
-					default:
-						this.form.resolution.variantRaw = JSON.stringify( this.form.resolution.variant );
-					break;
-				}
-
-				this._setDatalist();
-				this._setAllocationTotal();
+				this.handleInput()
+				this.handleType();
+				this.handleAllocation();
 
 			}
 
-			function handleDistribution() {
+			/**
+			* I update the allocation total after one of the distributions is changed.
+			*/
+			function handleAllocation() {
 
-				this._persistData();
-				this._setAllocationTotal();
+				this.allocationTotal = 0;
+
+				for ( var element of form.elements[ "resolutionDistribution[]" ] ) {
+
+					this.allocationTotal += parseInt( element.value, 10 );
+
+				}
 
 			}
 
+			/**
+			* I update the datalist in response to the input change.
+			*/
 			function handleInput() {
 
-				this._persistData();
 				this._setDatalist();
 
 			}
 
+			/**
+			* I update the datalist in response to the operator change.
+			*/
 			function handleOperator() {
 
-				this._persistData();
 				this._setDatalist();
 
 			}
 
-			function handleSelection() {
+			/**
+			* I update the resolution details after the type is changed.
+			*/
+			function handleType( event ) {
 
-				this._persistData();
-
-			}
-
-			function handleSubmit() {
-
-				// Adding values is a bit confusing. If there's still an input value that
-				// hasn't been persisted, persist it now before submitting the form.
-				this.handleValue();
+				this.resolutionType = form.elements.resolutionType.value;
 
 			}
 
+			/**
+			* I add a new value to the 
+			*/
 			function handleValue() {
 
-				if ( ! this.form.valueRaw ) {
+				if ( ! this.$refs.rawValueRef.value ) {
 
 					return;
 
 				}
 
-				this.form.values.push( this.form.valueRaw );
-				this._persistData();
-
-				this.form.valueRaw = "";
-				this.$refs.valueRawRef.focus();
-
-			}
-
-			function handleVariant() {
-
-				try {
-
-					switch ( feature.type ) {
-						case "string":
-							this.form.resolution.variant = this.form.resolution.variantRaw;
-						break;
-						case "number":
-						case "boolean":
-						default:
-							this.form.resolution.variant = JSON.parse( this.form.resolution.variantRaw );
-						break;
-					}
-
-					this._persistData();
-
-				} catch ( error ) {
-
-					// console.group( "Error processing raw variant" );
-					// console.log( this.form.variantRaw );
-					// console.error( error );
-					// console.groupEnd();
-
-				}
+				this.values.push( this.$refs.rawValueRef.value );
+				this.$refs.rawValueRef.value = "";
+				this.$refs.rawValueRef.focus();
 
 			}
 
 			function removeValue( i ) {
 
-				this.form.values.splice( i, 1 );
-				this._persistData();
-
-			}
-
-			function switchToDistribution() {
-
-				if ( this.form.resolution.type === "distribution" ) {
-
-					return;
-
-				}
-
-				this.form.resolution.type = "distribution";
-				this._persistData();
-
-			}
-
-			function switchToSelection() {
-
-				if ( this.form.resolution.type === "selection" ) {
-
-					return;
-
-				}
-
-				this.form.resolution.type = "selection";
-				this._persistData();
-
-			}
-
-			function switchToVariant() {
-
-				if ( this.form.resolution.type === "variant" ) {
-
-					return;
-
-				}
-
-				this.form.resolution.type = "variant";
-				this._persistData();
+				this.values.splice( i, 1 );
 
 			}
 
@@ -539,38 +424,22 @@
 			// PRIVATE METHODS.
 			// ---
 
-			function persistData() {
-
-				ruleDataRef.value = JSON.stringify( this.form );
-
-			}
-
-			function setAllocationTotal() {
-
-				this.form.resolution.allocationTotal = 0;
-				this.form.resolution.distribution.forEach(
-					( value ) => {
-
-						this.form.resolution.allocationTotal += value;
-
-					}
-				);
-
-			}
-
 			function setDatalist() {
+
+				var input = form.elements.input.value;
+				var operator = form.elements.operator.value;
 
 				// Special case for email-domain based targeting.
 				if (
-					( this.form.input === "user.email" ) &&
-					( this.form.operator === "EndsWith" )
+					( input === "user.email" ) &&
+					( operator === "EndsWith" )
 					) {
 
-					this.datalist = datalists[ "user.emailDomain" ];
+					this.datalist = "datalist.user.emailDomain";
 
 				} else {
 
-					this.datalist = datalists[ this.form.input ];
+					this.datalist = `datalist.${ input }`;
 
 				}
 
