@@ -156,7 +156,7 @@
 								<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.id )#</a>
 							</td>
 							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.email' ) })#>
-								<span class="diminish">#encodeForHtml( user.emailUser )#</span>#encodeForHtml( user.emailDomain )#
+								<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#"><span class="diminish">#encodeForHtml( user.emailUser )#</span>#encodeForHtml( user.emailDomain )#</a>
 							</td>
 							<td #ui.attrClass({ highlight: ( url.sortOn == 'user.role' ) })#>
 								#encodeForHtml( user.role )#

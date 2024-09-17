@@ -58,9 +58,7 @@
 									type="radio"
 									name="resolutionType"
 									value="selection"
-									<cfif ( form.resolutionType == "selection" )>
-										checked
-									</cfif>
+									#ui.attrChecked( form.resolutionType == "selection" )#
 									@change="handleType()"
 									class="choggle__control"
 								/>
@@ -73,9 +71,7 @@
 									type="radio"
 									name="resolutionType"
 									value="distribution"
-									<cfif ( form.resolutionType == "distribution" )>
-										checked
-									</cfif>
+									#ui.attrChecked( form.resolutionType == "distribution" )#
 									@change="handleType()"
 									class="choggle__control"
 								/>
@@ -88,9 +84,7 @@
 									type="radio"
 									name="resolutionType"
 									value="variant"
-									<cfif ( form.resolutionType == "variant" )>
-										checked
-									</cfif>
+									#ui.attrChecked( form.resolutionType == "variant" )#
 									@change="handleType()"
 									class="choggle__control"
 								/>
@@ -116,9 +110,7 @@
 												type="radio"
 												name="resolutionSelection"
 												value="#encodeForHtmlAttribute( entry.index )#"
-												<cfif ( form.resolutionSelection == entry.index )>
-													checked
-												</cfif>
+												#ui.attrChecked( form.resolutionSelection == entry.index )#
 												class="choggle__control"
 											/>
 											<span class="choggle__label tag variant-#entry.index#">
@@ -148,10 +140,7 @@
 												<cfloop from="0" to="100" index="i">
 													<option
 														value="#i#"
-														<cfif ( form.resolutionDistribution[ entry.index ] == i )>
-															selected
-														</cfif>
-														>
+														#ui.attrSelected( form.resolutionDistribution[ entry.index ] == i )#>
 														#i#
 													</option>
 												</cfloop>

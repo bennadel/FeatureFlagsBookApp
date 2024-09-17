@@ -43,9 +43,7 @@
 										type="radio"
 										name="type"
 										value="#encodeForHtmlAttribute( featureType )#"
-										<cfif ( form.type == featureType )>
-											checked
-										</cfif>
+										#ui.attrChecked( form.type == featureType )#
 										class="choggle__control"
 									/>
 									<span class="choggle__label">
@@ -90,9 +88,7 @@
 													type="radio"
 													name="defaultSelection"
 													value="#encodeForHtmlAttribute( entry.index )#"
-													<cfif ( form.defaultSelection == entry.index )>
-														checked
-													</cfif>
+													#ui.attrChecked( form.defaultSelection == entry.index )#
 													class="choggle__control"
 												/>
 												<span class="choggle__label">

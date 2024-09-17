@@ -4,6 +4,22 @@ component
 	{
 
 	/**
+	* I return the checked attribute based on the given condition.
+	*/
+	public string function attrChecked( required boolean input ) {
+
+		if ( input ) {
+
+			return "checked";
+
+		}
+
+		return "";
+
+	}
+
+
+	/**
 	* I return a list of class names that map to truthy values in the given options.
 	*/
 	public string function attrClass( required struct options ) {
@@ -39,6 +55,22 @@ component
 		}
 
 		return ( 'class="#classNames.toList( " " )#"' );
+
+	}
+
+
+	/**
+	* I return the selected attribute based on the given condition.
+	*/
+	public string function attrSelected( required boolean input ) {
+
+		if ( input ) {
+
+			return "selected";
+
+		}
+
+		return "";
 
 	}
 

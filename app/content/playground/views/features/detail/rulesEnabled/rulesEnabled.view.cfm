@@ -43,7 +43,7 @@
 				<dl class="key-values">
 					<div>
 						<dt>
-							<strong>Rules Evaluation:</strong>
+							<strong>Evaluate Rules:</strong>
 						</dt>
 						<dd>
 							<label for="form--disabled" class="choggle">
@@ -52,13 +52,11 @@
 									type="radio"
 									name="rulesEnabled"
 									value="false"
-									<cfif ! form.rulesEnabled>
-										checked
-									</cfif>
+									#ui.attrChecked( ! form.rulesEnabled )#
 									class="choggle__control"
 								/>
 								<span class="choggle__label">
-									Disabled
+									No &mdash; only the default resolution should be used.
 								</span>
 							</label>
 							<label for="form--enabled" class="choggle">
@@ -67,13 +65,11 @@
 									type="radio"
 									name="rulesEnabled"
 									value="true"
-									<cfif form.rulesEnabled>
-										checked
-									</cfif>
+									#ui.attrChecked( form.rulesEnabled )#
 									class="choggle__control"
 								/>
 								<span class="choggle__label">
-									Enabled
+									Yes &mdash; allow default resolution to be overridden by matching rule.
 								</span>
 							</label>
 						</dd>

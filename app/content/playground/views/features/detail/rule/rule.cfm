@@ -5,6 +5,7 @@
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
+	ui = request.ioc.get( "lib.util.ViewHelper" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
