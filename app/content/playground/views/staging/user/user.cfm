@@ -14,6 +14,7 @@
 
 	config = getConfig( request.user.email );
 	user = getUser( request.user.email, val( url.userID ) );
+	context = getContext( user );
 	features = getFeatures( config );
 	environments = getEnvironments( config );
 	breakdown = getBreakdown( config, user, features, environments );
@@ -57,7 +58,8 @@
 
 				breakdown[ feature.key ][ environment.key ] = [
 					variantIndex: result.variantIndex,
-					variant: result.variant
+					variant: result.variant,
+					matchingRuleIndex: result.matchingRuleIndex
 				];
 
 			}
@@ -85,6 +87,16 @@
 	private array function getEnvironments( required struct config ) {
 
 		return utilities.toEnvironmentsArray( config.environments );
+
+	}
+
+
+	/**
+	* I get the targeting context for the given user.
+	*/
+	private struct function getContext( required struct user ) {
+
+		return demoTargeting.getContext( user );
 
 	}
 

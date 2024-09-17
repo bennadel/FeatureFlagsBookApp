@@ -7,6 +7,10 @@
 				#encodeForHtml( title )#
 			</h1>
 
+			<p class="ui-readable-width">
+				The staging area provides a high-level overview of how the feature flag variants are being allocated across all users and environments.
+			</p>
+
 			<h2>
 				Features
 			</h2>

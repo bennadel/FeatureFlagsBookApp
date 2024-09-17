@@ -9,6 +9,10 @@
 			This is a toy application to help illustrate the way in which feature flags can be configured to target various user cohorts. It is intended to be a companion piece to the <a href="https://featureflagsbook.com/" target="_blank">Feature Flags book</a> by <a href="https://www.bennadel.com/" rel="author" target="_blank">Ben Nadel</a>.
 		</p>
 
+		<p>
+			You can login with your email address. Sample data will be provisioned automatically.
+		</p>
+
 		<cfif errorMessage.len()>
 			<p class="error-message">
 				#encodeForHtml( errorMessage )#

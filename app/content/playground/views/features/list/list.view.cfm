@@ -66,19 +66,19 @@
 				#encodeForHtml( title )#
 			</h1>
 
-			<p>
+			<p class="ui-readable-width">
 				This application is here to help you learn about
 				<span class="emoji">&##x2764;&##xfe0f;</span>
 				<a href="https://featureflagsbook.com/" target="_blank">Feature Flags</a>
 				<span class="emoji">&##x2764;&##xfe0f;</span>
-				Click around and edit the feature flag settings to see how changes to targeting affect variant allocation (against the <a href="/index.cfm?event=playground.users">100 demo users</a>).
+				Click around and edit the feature flag settings to see how your changes to targeting affect variant allocation against the <a href="/index.cfm?event=playground.users">demo users</a>.
 			</p>
 
-			<p>
+			<p class="ui-readable-width">
 				You can <a href="/index.cfm?event=playground.features.create">add a feature flag</a>.
 				And, at any time, you can
 				<a href="/index.cfm?event=playground.features.clear">remove all rules</a> or
-				<a href="/index.cfm?event=playground.features.reset">reset your settings</a><cfif ( version gt 1 )> (version: #encodeForHtml( version )#)</cfif>.
+				<a href="/index.cfm?event=playground.features.reset">reset your settings</a> (currently on version: #encodeForHtml( version )#).
 			</p>
 
 			<table class="grid">
@@ -127,8 +127,6 @@
 								</cfloop>
 							</div>
 
-							<!-- #numberFormat( feature.variants.len() )# -->
-
 						</td>
 						<cfloop array="#environments#" index="environment">
 							<td align="center" class="env-left">
@@ -171,7 +169,7 @@
 
 			<hr />
 
-			<p>
+			<p  class="ui-readable-width">
 				<strong>GitHub:</strong> The code for this site is available in my <a href="https://github.com/bennadel/FeatureFlagsBookApp" target="_blank">application repository</a> on GitHub. Feel free to fork, download, modify, and run it, etc.
 			</p>
 

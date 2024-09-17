@@ -84,6 +84,7 @@
 		.state {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
+			margin: 0 ;
 			min-width: 400px ;
 		}
 		.state th {

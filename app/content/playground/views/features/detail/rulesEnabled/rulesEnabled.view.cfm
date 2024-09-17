@@ -7,7 +7,7 @@
 				#encodeForHtml( title )#
 			</h1>
 
-			<dl class="key-values key-values--static">
+			<dl class="key-values">
 				<div>
 					<dt>
 						<strong>Feature:</strong>
@@ -25,6 +25,8 @@
 					</dd>
 				</div>
 			</dl>
+
+			<hr class="ui-rule is-soft" />
 
 			<cfif errorMessage.len()>
 				<p class="error-message">

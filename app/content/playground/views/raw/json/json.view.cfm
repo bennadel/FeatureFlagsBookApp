@@ -6,7 +6,7 @@
 			border: 1px solid #cccccc ;
 			border-radius: 4px ;
 			display: block ;
-			margin: 0 ;
+			margin: 2em 0 0 ;
 			padding: 24px 28px ;
 		}
 		.pretty-print code {
@@ -24,8 +24,8 @@
 				#encodeForHtml( title )#
 			</h1>
 
-			<p>
-				The following is the full JSON payload for your feature flags playground data. You can <a href="/index.cfm?event=playground.features.reset&from=raw">reset this data</a> at any time.
+			<p class="ui-readable-width">
+				The following is the full JSON payload behind your feature flags playground data. You can <a href="/index.cfm?event=playground.features.reset&from=raw">reset this data</a> at any time.
 			</p>
 
 			<pre class="pretty-print"><code x-data="PrettyPrint"></code></pre>

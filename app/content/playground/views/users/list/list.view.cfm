@@ -1,13 +1,6 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
-		.role-tag {
-			border: 1px solid #cccccc ;
-			border-radius: 4px ;
-			display: inline-block ;
-			padding: 2px 9px ;
-		}
-
 		.grid {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
@@ -66,17 +59,18 @@
 				#encodeForHtml( title )#
 			</h1>
 
-			<p>
-				The following 100 users are used to demonstrate how feature flag targeting affects variant allocation. I've purposely used 100 so that every 1% of additional distribution will map (roughly) to 1 additional user.
+			<p class="ui-readable-width">
+				The following users are here to demonstrate how feature flag targeting affects variant allocation. I've purposely generated 100 users so that every 1% of additional distribution will map (roughly) to 1 additional user.
 			</p>
 
-			<p>
+			<p class="ui-readable-width">
 				I've also created #numberFormat( authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
 			</p>
+
 			<ul class="breathing-room">
 				<cfloop array="#authUsers#" index="user">
 					<li>
-						<span class="role-tag">#encodeForHtml( user.role )#</span>
+						<span class="ui-tag">#encodeForHtml( user.role )#</span>
 						&rarr;
 						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
 					</li>

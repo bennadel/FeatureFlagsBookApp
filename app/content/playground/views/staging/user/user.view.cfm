@@ -1,4 +1,44 @@
 <cfsavecontent variable="request.template.primaryContent">
+	<style type="text/css">
+
+		.grid {
+			width: 100% ;
+		}
+		.grid th,
+		.grid td {
+			border-bottom: 1px solid #cccccc ;
+			padding: 7px 10px ;
+		}
+		.grid thead th {
+			border-bottom-width: 2px ;
+		}
+		.grid tbody tr:hover th,
+		.grid tbody tr:hover td:not(.variant) {
+			background-color: #f0f0f0 ;
+		}
+		.grid .env-left {
+			border-left: 1px solid #cccccc ;
+		}
+		.grid .env-right {
+			border-right: 1px solid #cccccc ;
+			text-align: center ;
+		}
+		.grid .disabled {
+			color: #cccccc ;
+		}
+
+		.dots {
+			display: flex ;
+			gap: 5px ;
+			justify-content: center ;
+		}
+		.dots__dot {
+			border-radius: 10px ;
+			height: 10px ;
+			width: 10px ;
+		}
+
+	</style>
 	<cfoutput>
 
 		<section class="content-wrapper u-collapse-margin">
@@ -7,54 +47,56 @@
 				#encodeForHtml( title )#
 			</h1>
 
+			<p class="ui-readable-width">
+				The following properties are used to define the "context" object during feature flag evaluation. Each one of these properties can be used within a rule to target a specific user or subset of users.
+			</p>
+
 			<dl class="key-values">
-				<div>
-					<dt><strong>ID:</strong></dt>
-					<dd>#encodeForHtml( user.id )#</dd>
-				</div>
-				<div>
-					<dt><strong>Email:</strong></dt>
-					<dd>#encodeForHtml( user.email )#</dd>
-				</div>
-				<div>
-					<dt><strong>Role:</strong></dt>
-					<dd>#encodeForHtml( user.role )#</dd>
-				</div>
-				<div>
-					<dt><strong>Company ID:</strong></dt>
-					<dd>#encodeForHtml( user.company.id )#</dd>
-				</div>
-				<div>
-					<dt><strong>Company Subdomain:</strong></dt>
-					<dd>#encodeForHtml( user.company.subdomain )#</dd>
-				</div>
-				<div>
-					<dt><strong>Company Fortune 100:</strong></dt>
-					<dd>#yesNoFormat( user.company.fortune100 )#</dd>
-				</div>
-				<div>
-					<dt><strong>Company Fortune 500:</strong></dt>
-					<dd>#yesNoFormat( user.company.fortune500 )#</dd>
-				</div>
-				<div>
-					<dt><strong>Beta Tester:</strong></dt>
-					<dd>#yesNoFormat( user.groups.betaTester )#</dd>
-				</div>
-				<div>
-					<dt><strong>Influencer:</strong></dt>
-					<dd>#yesNoFormat( user.groups.influencer )#</dd>
-				</div>
+				<cfloop array="#utilities.toEntries( context )#" index="entry">
+					<div>
+						<dt>
+							<strong>"#encodeForHtml( entry.key )#"</strong>
+						</dt>
+						<dd>
+							#encodeForHtml( entry.value )#
+						</dd>
+					</div>
+				</cfloop>
 			</dl>
 
-			<table border="1" cellspacing="2" cellpadding="10">
+			<h2>
+				Feature Flag Evaluations
+			</h2>
+
+			<p class="ui-readable-width">
+				Using your current feature flag configuration, the following variants are being assigned to this user (using the context object above). Click on one of the following variants to see an explanation of the assignment. Or, click on the feature flag key to view and modify the targeting rules.
+			</p>
+
+			<table class="grid">
 			<thead>
 				<tr>
-					<th>
+					<th rowspan="2" valign="bottom" align="left">
 						Feature
 					</th>
+					<th rowspan="2" valign="bottom">
+						Type
+					</th>
+					<th rowspan="2" valign="bottom">
+						Variants
+					</th>
 					<cfloop array="#environments#" index="environment">
-						<th>
-							<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForUrl( environment.key )#">#encodeForHtml( environment.name )#</a>
+						<th colspan="2">
+							<a href="/index.cfm?event=playground.staging.matrix&environmentKey=#encodeForUrl( environment.key )#">#encodeForHtml( environment.name.ucase() )#</a>
+						</th>
+					</cfloop>
+				</tr>
+				<tr>
+					<cfloop array="#environments#" index="environment">
+						<th class="env-left">
+							Rules
+						</th>
+						<th class="env-right">
+							Variant
 						</th>
 					</cfloop>
 				</tr>
@@ -62,12 +104,41 @@
 			<tbody>
 				<cfloop array="#features#" index="feature">
 					<tr>
-						<th scope="row" align="left">
+						<th align="left" scope="row">
 							<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
 						</th>
+						<td align="center">
+							#encodeForHtml( feature.type )#
+						</td>
+						<td align="center">
+
+							<div class="dots">
+								<cfloop index="i" from="1" to="#feature.variants.len()#">
+									<span class="dots__dot variant-#i#"></span>
+								</cfloop>
+							</div>
+
+						</td>
 						<cfloop array="#environments#" index="environment">
-							<td class="variant variant-#breakdown[ feature.key ][ environment.key ].variantIndex#">
-								<a href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=user">#encodeForHtml( serializeJson( breakdown[ feature.key ][ environment.key ].variant ) )#</a>
+
+							<cfset result = breakdown[ feature.key ][ environment.key ] />
+
+							<td
+								align="center"
+								class="env-left"
+								<cfif result.matchingRuleIndex>style="font-weight: bold ;"</cfif>
+								>
+								<cfif feature.targeting[ environment.key ].rulesEnabled>
+									Enabled
+									<cfif feature.targeting[ environment.key ].rules.len()>
+										(#feature.targeting[ environment.key ].rules.len()#)
+									</cfif>
+								<cfelse>
+									<span class="disabled">Disabled</span>
+								</cfif>
+							</td>
+							<td class="env-right variant variant-#result.variantIndex#">
+								<a href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=user">#encodeForHtml( serializeJson( result.variant ) )#</a>
 							</td>
 						</cfloop>
 					</tr>

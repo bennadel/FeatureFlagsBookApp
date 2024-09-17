@@ -30,7 +30,10 @@
 	datalists = getDatalists( request.user.email );
 	operators = getOperators();
 	inputs = getInputs();
-	title = request.template.title = "Rule";
+	title = request.template.title = ( ruleIndex )
+		? "Edit Rule"
+		: "Add Rule"
+	;
 	errorMessage = "";
 
 	if ( ruleIndex && ! rules.isDefined( ruleIndex ) ) {
