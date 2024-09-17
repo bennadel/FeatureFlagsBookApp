@@ -14,7 +14,7 @@
 			flex: 0 0 auto ;
 			max-height: 100vh ;
 			min-height: 100vh ;
-			padding: 20px ;
+			padding: 15px 20px 20px 20px ;
 			position: sticky ;
 			top: 0 ;
 		}
@@ -82,8 +82,8 @@
 		}
 
 		.state {
-			border-collapse: collapse ;
-			border-spacing: 0 ;
+			border-collapse: separate ;
+			border-spacing: 1px ;
 			margin: 0 ;
 			min-width: 400px ;
 		}

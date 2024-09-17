@@ -78,7 +78,7 @@
 				</div>
 			</dl>
 
-			<hr />
+			<hr class="ui-rule" />
 
 			<h2>
 				User Inputs
@@ -101,7 +101,7 @@
 				</cfloop>
 			</dl>
 
-			<hr />
+			<hr class="ui-rule" />
 
 			<h2>
 				Evaluation Details

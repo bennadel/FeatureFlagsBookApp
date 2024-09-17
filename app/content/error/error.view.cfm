@@ -24,7 +24,7 @@
 				#encodeForHtml( message )#
 			</p>
 
-			<hr />
+			<hr class="ui-rule" />
 
 			<p>
 				In the meantime, you can <a href="/index.cfm">return to the homepage</a>.

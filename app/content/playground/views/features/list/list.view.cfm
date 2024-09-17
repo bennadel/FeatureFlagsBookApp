@@ -8,6 +8,7 @@
 		.grid {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
+			margin-bottom: 2.5rem ;
 			width: 100% ;
 		}
 		.grid th,
@@ -166,8 +167,6 @@
 				</cfloop>
 			</tbody>
 			</table>
-
-			<hr />
 
 			<p  class="ui-readable-width">
 				<strong>GitHub:</strong> The code for this site is available in my <a href="https://github.com/bennadel/FeatureFlagsBookApp" target="_blank">application repository</a> on GitHub. Feel free to fork, download, modify, and run it, etc.

@@ -19,7 +19,7 @@
 	environments = getEnvironments( config );
 	users = getUsers( request.user.email );
 	results = getResults( config, feature, environments, users );
-	title = request.template.title = "Feature Targeting";
+	title = request.template.title = "Feature Flag Targeting";
 
 	include "./targeting.view.cfm";
 
