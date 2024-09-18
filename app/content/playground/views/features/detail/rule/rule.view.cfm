@@ -19,6 +19,7 @@
 			display: flex ;
 		}
 		.tile__value {
+			align-self: center ;
 			padding: 5px 15px ;
 		}
 		.tile__remove {

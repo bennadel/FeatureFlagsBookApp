@@ -12,7 +12,6 @@
 			box-shadow: -1px 0 #d0d0d0 ;
 			display: flex ;
 			flex: 0 0 auto ;
-			max-height: 100vh ;
 			min-height: 100vh ;
 			padding: 15px 20px 20px 20px ;
 			position: sticky ;
@@ -81,33 +80,27 @@
 			padding: 2px 7px ;
 		}
 
+
+
 		.state {
-			border-collapse: separate ;
-			border-spacing: 1px ;
-			margin: 0 ;
+			display: grid ;
+			column-gap: 1px ;
+			grid-template-columns: 1fr 1fr ;
 			min-width: 400px ;
 		}
-		.state th {
-			padding: 0 ;
-		}
-		.state th a {
-			display: block ;
+		.state__header {
+			font-weight: bold ;
 			padding: 0 15px 10px ;
+			text-align: center ;
 		}
-		.state td {}
-
-		.evaluation {
-			font-size: 0px ;
-			line-height: 0px ;
-			position: relative ;
+		.state__variant {
+			border-bottom: 0.5px solid #ffffff ;
+			min-height: 4px ;
 		}
-		.evaluation__link {
-			inset: 0 ;
-			position: absolute ;
-		}
-		.evaluation__link:hover {
-			outline: 1px solid #ffffff ;
-			outline-offset: -1px ;
+		.state__variant:hover {
+			outline: 3px solid #ffffff ;
+			outline-offset: 0px ;
+			z-index: 2 ;
 		}
 
 		.editable {
@@ -130,32 +123,48 @@
 			opacity: 1.0 ;
 		}
 
-		.flasher:hover {
-			border-radius: 1px ;
-			outline: 2px dashed #aaaaaa ;
-			outline-offset: 4px ;
-		}
-
 	</style>
 	<cfoutput>
 		<!--- These power the mouseenter/mouseleave highlights of the evaluations. --->
 		<style type="text/css">
-			.evaluation {
-				transition: background-color 300ms ease-out ;
+			.flasher-distal {
+				transition: opacity 300ms ease-out ;
 			}
 
 			<cfloop array="#environments#" index="environment">
 				<cfloop index="i" from="0" to="20">
-					.state.#environment.key#\:#i# .evaluation:not(.#environment.key#\:#i#) {
-						background-color: ##ffffff ;
-					}
+
+					.flash-root[data-flash-environment="#environment.key#"][data-flash-rule="#i#"]
+						.flasher-proximal[data-flash-environment="#environment.key#"][data-flash-rule="#i#"] {
+							border-radius: 1px ;
+							outline: 1px dashed deeppink ;
+							outline-offset: 4px ;
+						}
+
+					.flash-root[data-flash-source="distal"][data-flash-environment="#environment.key#"][data-flash-rule="#i#"]
+						.flasher-proximal[data-flash-environment="#environment.key#"][data-flash-rule="#i#"] {
+							animation: 500ms infinite proximal-animated ;
+							outline: 2px solid deeppink ;
+						}
+
+					.flash-root[data-flash-environment="#environment.key#"][data-flash-rule="#i#"]
+						.flasher-distal:not([data-flash-environment="#environment.key#"][data-flash-rule="#i#"]) {
+							opacity: 0.2 ;
+						}
+
 				</cfloop>
 			</cfloop>
+
+			@keyframes proximal-animated {
+				50% {
+					outline-offset: 6px ;
+				}
+			}
 		</style>
 	</cfoutput>
 	<cfoutput>
 
-		<div class="panels">
+		<div x-data="FlashRoot" class="panels flash-root">
 			<section class="panels__main content-wrapper u-collapse-margin">
 
 				<h1>
@@ -227,10 +236,11 @@
 
 							<dl class="key-values">
 								<div
-									x-data="Flasher( '#encodeForJavaScript( environment.key )#' )"
-									@mouseenter="handleMouseenter()"
-									@mouseleave="handleMouseleave()"
-									class="flasher">
+									@mouseenter="flashProximal( '#encodeForJavaScript( environment.key )#' )"
+									@mouseleave="unflash()"
+									data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
+									data-flash-rule="0"
+									class="flasher-proximal">
 									<dt x-data="Editable" @click="handleClick()" class="editable">
 										<strong>Default Resolution:</strong>
 
@@ -309,10 +319,11 @@
 											<cfset rule = ruleEntry.value />
 
 											<dl
-												x-data="Flasher( '#encodeForJavaScript( environment.key )#', #ruleEntry.index#, #serializeJson( ! settings.rulesEnabled )# )"
-												@mouseenter="handleMouseenter()"
-												@mouseleave="handleMouseleave()"
-												class="key-values rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher">
+												@mouseenter="flashProximal( '#encodeForJavaScript( environment.key )#', '#ruleEntry.index#', #serializeJson( ! settings.rulesEnabled )# )"
+												@mouseleave="unflash()"
+												data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
+												data-flash-rule="#encodeForHtmlAttribute( ruleEntry.index )#"
+												class="key-values rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher-proximal">
 												<div>
 													<dt x-data="Editable" @click="handleClick()" class="editable">
 														<strong>IF</strong>
@@ -415,35 +426,26 @@
 			</section>
 			<aside class="panels__aside">
 
-				<table class="state">
-				<thead>
-					<tr>
-						<cfloop array="#environments#" index="environment">
-							<th>
-								<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#">#encodeForHtml( environment.name )#</a>
-							</th>
-						</cfloop>
-					</tr>
-				</thead>
-				<tbody>
-					<cfloop array="#users#" index="user">
-						<tr>
-							<cfloop array="#environments#" index="environment">
-
-								<cfset result = results[ user.id ][ environment.key ] />
-								<cfset association = "#environment.key#:#result.ruleIndex#" />
-
-								<td class="variant-#result.variantIndex# evaluation #encodeForHtmlAttribute( association )#">
-									<a
-										href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
-										class="evaluation__link">
-									</a>
-								</td>
-							</cfloop>
-						</tr>
+				<div class="state">
+					<cfloop array="#environments#" index="environment">
+						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#" class="state__header">#encodeForHtml( environment.name )#</a>
 					</cfloop>
-				</tbody>
-				</table>
+					<cfloop array="#users#" index="user">
+						<cfloop array="#environments#" index="environment">
+
+							<cfset result = results[ user.id ][ environment.key ] />
+
+							<a
+								href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
+								@mouseenter="flashDistal( '#encodeForJavaScript( environment.key )#', '#result.ruleIndex#' )"
+								@mouseleave="unflash()"
+								data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
+								data-flash-rule="#encodeForHtmlAttribute( result.ruleIndex )#"
+								class="state__variant variant-#result.variantIndex# flasher-distal">
+							</a>
+						</cfloop>
+					</cfloop>
+				</div>
 
 			</aside>
 		</div>
@@ -451,34 +453,51 @@
 	</cfoutput>
 	<script type="text/javascript">
 
-		function Flasher( environmentKey, ruleIndex = 0, ignoreEvent = false ) {
+		function FlashRoot() {
 
-			var table = document.querySelector( ".state" );
-			var association = `${ environmentKey }:${ ruleIndex }`;
+			var root = this.$el;
+			var unflashTimer = null;
+			var scrollTimer = null;
 
 			return {
-				// Public methods.
-				handleMouseenter: handleMouseenter,
-				handleMouseleave: handleMouseleave
+				flashDistal: flashDistal,
+				flashProximal: flashProximal,
+				unflash: unflash
 			};
 
-			// ---
-			// PUBLIC METHODS.
-			// ---
+			/**
+			* I highlight the associations, sourced from the distal trigger.
+			*/
+			function flashDistal( environmentKey, ruleIndex ) {
 
-			function handleMouseenter() {
+				clearTimeout( unflashTimer );
+				clearTimeout( scrollTimer );
 
-				if ( ignoreEvent ) {
+				root.dataset.flashSource = "distal";
+				root.dataset.flashEnvironment = environmentKey;
+				root.dataset.flashRule = ruleIndex;
 
-					return;
+				scrollTimer = setTimeout(
+					() => {
 
-				}
+						root
+							.querySelector( `.flasher-proximal[data-flash-environment="${ environmentKey }"][data-flash-rule="${ ruleIndex }"]` )
+							.scrollIntoView({
+								behavior: "smooth",
+								block: "center"
+							})
+						;
 
-				table.classList.add( association );
+					},
+					500
+				);
 
 			}
 
-			function handleMouseleave() {
+			/**
+			* I highlight the associations, sourced from the proximal trigger.
+			*/
+			function flashProximal( environmentKey, ruleIndex = 0, ignoreEvent = false ) {
 
 				if ( ignoreEvent ) {
 
@@ -486,7 +505,32 @@
 
 				}
 
-				table.classList.remove( association );
+				clearTimeout( unflashTimer );
+				clearTimeout( scrollTimer );
+
+				root.dataset.flashSource = "proximal";
+				root.dataset.flashEnvironment = environmentKey;
+				root.dataset.flashRule = ruleIndex;
+
+			}
+
+			/**
+			* I remove the association highlight.
+			*/
+			function unflash() {
+
+				clearTimeout( unflashTimer );
+				clearTimeout( scrollTimer );
+				unflashTimer = setTimeout(
+					() => {
+
+						delete root.dataset.flashSource;
+						delete root.dataset.flashEnvironment;
+						delete root.dataset.flashRule;
+
+					},
+					250
+				);
 
 			}
 
