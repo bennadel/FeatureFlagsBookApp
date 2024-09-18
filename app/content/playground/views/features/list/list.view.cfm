@@ -80,6 +80,7 @@
 				And, at any time, you can
 				<a href="/index.cfm?event=playground.features.clear">remove all rules</a> or
 				<a href="/index.cfm?event=playground.features.reset">reset your settings</a> (currently on version: #encodeForHtml( version )#).
+				(TBD: <a href="/index.cfm?event=playground.walkthrough">walkthrough</a>)
 			</p>
 
 			<table class="grid">

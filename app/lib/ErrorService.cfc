@@ -470,6 +470,7 @@ component
 			case "App.Routing.Playground.Raw.InvalidEvent":
 			case "App.Routing.Playground.Staging.InvalidEvent":
 			case "App.Routing.Playground.Users.InvalidEvent":
+			case "App.Routing.Playground.Walkthrough.InvalidEvent":
 				return as404({
 					type: error.type
 				});

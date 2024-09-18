@@ -34,6 +34,9 @@
 		case "users":
 			cfmodule( template = "./views/users/users.cfm" );
 		break;
+		case "walkthrough":
+			cfmodule( template = "./views/walkthrough/walkthrough.cfm" );
+		break;
 		default:
 			throw(
 				type = "App.Routing.Playground.InvalidEvent",
