@@ -11,6 +11,44 @@ component
 	// ---
 
 	/**
+	* I build the feature flag entry using the given base properties. All of the features
+	* will default to using a selection resolution for the first variant.
+	*/
+	public struct function buildFeature(
+		required string type,
+		required string description,
+		required array variants
+		) {
+
+		return [
+			type: type,
+			description: description,
+			variants: variants,
+			defaultSelection: 1,
+			targeting: [
+				development: [
+					resolution: [
+						type: "selection",
+						selection: 1
+					],
+					rulesEnabled: false,
+					rules: []
+				],
+				production: [
+					resolution: [
+						type: "selection",
+						selection: 1
+					],
+					rulesEnabled: false,
+					rules: []
+				]
+			]
+		];
+
+	}
+
+
+	/**
 	* I provide a default configuration for the given user.
 	*/
 	public struct function getConfig(
@@ -86,47 +124,6 @@ component
 					description = "I determine the minimum log-level to be emitted by the application.",
 					variants = [ "error", "warn", "info", "debug" ]
 				)
-			]
-		];
-
-	}
-
-	// ---
-	// PRIVATE METHODS.
-	// ---
-
-	/**
-	* I build the feature flag entry using the given base properties. All of the features
-	* will default to using a selection resolution for the first variant.
-	*/
-	private struct function buildFeature(
-		required string type,
-		required string description,
-		required array variants
-		) {
-
-		return [
-			type: type,
-			description: description,
-			variants: variants,
-			defaultSelection: 1,
-			targeting: [
-				development: [
-					resolution: [
-						type: "selection",
-						selection: 1
-					],
-					rulesEnabled: false,
-					rules: []
-				],
-				production: [
-					resolution: [
-						type: "selection",
-						selection: 1
-					],
-					rulesEnabled: false,
-					rules: []
-				]
 			]
 		];
 

@@ -1,22 +1,29 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<h1>
+			#encodeForHtml( title )#
+		</h1>
 
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
+		<p class="ui-readable-width">
+			Wow, things are going so smoothly!
+		</p>
 
-			<p class="ui-readable-width">
-				Wow, things are going so smoothly!
+		<form method="get">
+			<input type="hidden" name="event" value="playground.walkthrough.step9" />
 
-				<a href="/index.cfm?event=playground.walkthrough.step9">enable for all users</a>
-			</p>
+			<button type="submit">
+				Enable for All Users
+			</button>
+		</form>
 
-		</section>
+	</cfoutput>
+</cfsavecontent>
+
+<cfsavecontent variable="request.template.asideContent">
+	<cfoutput>
+
+		<cfmodule template="../shared/targeting.cfm" step="8" highlightAssociation="production:0:2">
 
 	</cfoutput>
 </cfsavecontent>

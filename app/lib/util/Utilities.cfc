@@ -4,35 +4,6 @@ component
 	{
 
 	/**
-	* I return the given key using the internal key-casing.
-	*/
-	public string function getStructKey(
-		required struct target,
-		required string key
-		) {
-
-		// The native structKeyArray() function will return the keys using their internal
-		// representation. If we can find a case-INSENSITIVE match, we can return the
-		// original key to get the internal key-casing.
-		for ( var originalKey in structKeyArray( target ) ) {
-
-			if ( originalKey == key ) {
-
-				return originalKey;
-
-			}
-
-		}
-
-		throw(
-			type = "MissingStructKey",
-			message = "Key [#key#] doesn't exist."
-		);
-
-	}
-
-
-	/**
 	* I index the given collection using the given key as the associative entry.
 	*/
 	public struct function indexBy(

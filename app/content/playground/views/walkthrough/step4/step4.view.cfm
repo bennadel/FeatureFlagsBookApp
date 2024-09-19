@@ -1,22 +1,29 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<h1>
+			#encodeForHtml( title )#
+		</h1>
 
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
+		<p class="ui-readable-width">
+			So far so good, the feature seems to work for your user. Now, let's try enabling it for your whole team.
+		</p>
 
-			<p class="ui-readable-width">
-				So far so good, the feature seems to work for your user. Now, let's try enabling it for your whole team.
+		<form method="get">
+			<input type="hidden" name="event" value="playground.walkthrough.step5" />
 
-				<a href="/index.cfm?event=playground.walkthrough.step5">enable for your team</a>
-			</p>
+			<button type="submit">
+				Enable for Your Team
+			</button>
+		</form>
 
-		</section>
+	</cfoutput>
+</cfsavecontent>
+
+<cfsavecontent variable="request.template.asideContent">
+	<cfoutput>
+
+		<cfmodule template="../shared/targeting.cfm" step="4" highlightAssociation="production:1:2">
 
 	</cfoutput>
 </cfsavecontent>

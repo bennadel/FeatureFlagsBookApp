@@ -1,22 +1,29 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<h1>
+			#encodeForHtml( title )#
+		</h1>
 
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
+		<p class="ui-readable-width">
+			Ok, we now have a new feature in a default state. Every user is receiving the same value. To start development, let's enable the feature locally.
+		</p>
 
-			<p class="ui-readable-width">
-				Ok, we now have a new feature in a default state. Every user is receiving the same value. To start development, let's enable the feature locally.
+		<form method="get">
+			<input type="hidden" name="event" value="playground.walkthrough.step3" />
 
-				<a href="/index.cfm?event=playground.walkthrough.step3">enable in development</a>
-			</p>
+			<button type="submit">
+				Enable in Development
+			</button>
+		</form>
 
-		</section>
+	</cfoutput>
+</cfsavecontent>
+
+<cfsavecontent variable="request.template.asideContent">
+	<cfoutput>
+
+		<cfmodule template="../shared/targeting.cfm" step="2">
 
 	</cfoutput>
 </cfsavecontent>

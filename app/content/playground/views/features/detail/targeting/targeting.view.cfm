@@ -171,7 +171,7 @@
 					#encodeForHtml( title )#
 				</h1>
 
-				<dl class="key-values">
+				<dl class="key-values ui-readable-width">
 					<div>
 						<dt>
 							<strong>Key:</strong>
