@@ -13,6 +13,11 @@
 			flex: 0 0 auto ;
 		}
 
+		aside.content-wrapper {
+			position: sticky ;
+			top: 0 ;
+		}
+
 	</style>
 	<cfoutput>
 

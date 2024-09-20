@@ -6,7 +6,7 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			Amazing work! You've fully integrated your new feature and removed the feature code. At this point, you can start exploring the other feature flags in this playground app:
+			Amazing work! You've fully integrated your new feature and removed the now-unnecessary feature-gating. At this point, I invite you to start exploring the other feature flags in this playground app:
 		</p>
 
 		<h2>

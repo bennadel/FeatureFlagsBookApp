@@ -76,11 +76,14 @@
 			</p>
 
 			<p class="ui-readable-width">
+				Not sure where to start? How about a <a href="/index.cfm?event=playground.walkthrough"><mark>feature development walk-through</mark></a> &rarr;
+			</p>
+
+			<p class="ui-readable-width">
 				You can <a href="/index.cfm?event=playground.features.create">add a feature flag</a>.
 				And, at any time, you can
 				<a href="/index.cfm?event=playground.features.clear">remove all rules</a> or
 				<a href="/index.cfm?event=playground.features.reset">reset your settings</a> (currently on version: #encodeForHtml( version )#).
-				(TBD: <a href="/index.cfm?event=playground.walkthrough">walkthrough</a>)
 			</p>
 
 			<table class="grid">

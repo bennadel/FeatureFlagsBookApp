@@ -17,7 +17,7 @@
 	);
 
 	features = getFeatures( config );
-	title = request.template.title = "Time for your next challenge";
+	title = request.template.title = "Time For Your Next Challenge";
 
 	include "./step11.view.cfm";
 

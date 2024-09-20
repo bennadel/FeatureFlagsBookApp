@@ -6,14 +6,16 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			Your feaure has been running in production for some period of time with no issues. It seems that customers are happy and the coast is clear. Time to clean-up after yourself. Remove the feature-gating logic from your code and then delete the feature flag configuration.
+			Your new feaure has been running in production for some period of time with no issues. It seems that the customers are happy and the coast is clear. It's time to clean-up after yourself (reducing complexity in the code). Remove the feature-gating logic from the code and then delete the feature flag configuration:
 		</p>
+
+		<cfmodule template="./snippet-1.cfm">
 
 		<form method="get">
 			<input type="hidden" name="event" value="playground.walkthrough.step11" />
 
 			<button type="submit">
-				Delete Feature Flag
+				Delete Feature Flag &rarr;
 			</button>
 		</form>
 

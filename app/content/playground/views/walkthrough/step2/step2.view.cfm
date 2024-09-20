@@ -6,14 +6,20 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			Ok, we now have a new feature in a default state. Every user is receiving the same value. To start development, let's enable the feature locally.
+			We just created our new Boolean feature flag. It has two variants: <span class="variant-1">false</span> and <span class="variant-2">true</span>. By default, every user in every environment will receive the first variant (<span class="variant-1">false</span>). You can see this variant allocation over to the right.
 		</p>
+
+		<p class="ui-readable-width">
+			To start developing our new feature, let's enable the feature flag in our development environment. To do this, we'll change the default <code>resolution</code> in our development environment to serve the second variant (<span class="variant-2">true</span>):
+		</p>
+
+		<cfmodule template="./snippet-1.cfm">
 
 		<form method="get">
 			<input type="hidden" name="event" value="playground.walkthrough.step3" />
 
 			<button type="submit">
-				Enable in Development
+				Enable in Development Environment &rarr;
 			</button>
 		</form>
 

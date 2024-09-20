@@ -6,14 +6,26 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			You've worked hard on your feature in the development environment. Now, it's time to start progressively releasing it in production. Let's start with just your user.
+			As you can see on the right, every user in the development environment is now receiving the <span class="variant-2">true</span> variant. We can now build our new feature in the development environment by wrapping our new code in a conditional check:
 		</p>
+
+		<cfmodule template="./snippet-1.cfm">
+
+		<p class="ui-readable-width">
+			With this new code tucked safely behind a feature flag, we can deploy this code to production at any time without actually "releasing" the feature to any users. Since all users in the production environment are still receiving the <span class="variant-1">false</span> variant, all users in the production environment will continue to see the old, plain-text editor.
+		</p>
+
+		<p class="ui-readable-width">
+			But, once the new feature has been developed, we can start to incrementally release it to our production users. Let's start by releasing it to <em>your user</em> only. To do this, we'll add a rule that targets your email address:
+		</p>
+
+		<cfmodule template="./snippet-2.cfm">
 
 		<form method="get">
 			<input type="hidden" name="event" value="playground.walkthrough.step4" />
 
 			<button type="submit">
-				Enable for Yourself
+				Enable for Your User in Production &rarr;
 			</button>
 		</form>
 

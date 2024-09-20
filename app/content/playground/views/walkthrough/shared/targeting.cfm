@@ -20,6 +20,7 @@
 	users = getUsers( request.user.email );
 	companies = getCompanies( users );
 	results = getResults( config, feature, environments, users );
+	journey = getJourney();
 
 	include "./targeting.view.cfm";
 
@@ -115,6 +116,27 @@
 		}
 
 		return featureIndex[ featureKey ];
+
+	}
+
+
+	/**
+	* I get the journey steps for the walk-through.
+	*/
+	private struct function getJourney() {
+
+		return [
+			"2": "Initial Feature State",
+			"3": "Enable in Development Environment",
+			"4": "Solo Testing in Production",
+			"5": "Internal Testing in Production",
+			"6": "Beta Testing With Customer",
+			"7": "Cautious Roll-Out to 25% of Users",
+			"8": "Cautious Roll-Out to 50% of Users",
+			"9": "Enable Feature For All Users",
+			"10": "Soaking in Production",
+			"11": "Time For Your Next Challenge"
+		];
 
 	}
 

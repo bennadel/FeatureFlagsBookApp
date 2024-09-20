@@ -6,7 +6,7 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			Let's build a feature together...
+			Feature flags completely transform the way you think about and approach product development. Instead of occasionally deploying large features to an entire user-base, you can incrementally build and gradually release a feature to an increasing number of users. To get a better sense of what this means, let's create and release a feature together.
 		</p>
 
 		<dl class="key-values ui-readable-width">
