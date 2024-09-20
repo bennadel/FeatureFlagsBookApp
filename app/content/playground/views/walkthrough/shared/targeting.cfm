@@ -15,7 +15,7 @@
 	param name="attributes.highlightAssociation" type="string" default="";
 
 	config = getConfig( request.user.email );
-	feature = getFeature( config, request.walkthroughFeature.key );
+	feature = getFeature( config, request.featureKey );
 	environments = getEnvironments( config );
 	users = getUsers( request.user.email );
 	companies = getCompanies( users );

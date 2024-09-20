@@ -15,7 +15,7 @@
 					<strong>Feature:</strong>
 				</dt>
 				<dd>
-					<mark>#encodeForHtml( request.walkthroughFeature.key )#</mark>
+					<mark>#encodeForHtml( request.featureKey )#</mark>
 				</dd>
 			</div>
 			<div>
@@ -23,7 +23,7 @@
 					<strong>Type:</strong>
 				</dt>
 				<dd>
-					#encodeForHtml( request.walkthroughFeature.settings.type )#
+					#encodeForHtml( request.feature.type )#
 				</dd>
 			</div>
 			<div>
@@ -31,7 +31,7 @@
 					<strong>Description:</strong>
 				</dt>
 				<dd>
-					#encodeForHtml( request.walkthroughFeature.settings.description )#
+					#encodeForHtml( request.feature.description )#
 				</dd>
 			</div>
 			<div>
@@ -40,7 +40,7 @@
 				</dt>
 				<dd>
 					<ul class="breathing-room">
-						<cfloop array="#utilities.toEntries( request.walkthroughFeature.settings.variants )#" index="entry">
+						<cfloop array="#utilities.toEntries( request.feature.variants )#" index="entry">
 							<li>
 								<span class="tag variant variant-#entry.index#">
 									#encodeForHtml( serializeJson( entry.value ) )#

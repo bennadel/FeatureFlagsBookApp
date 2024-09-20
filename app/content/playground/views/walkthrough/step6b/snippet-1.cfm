@@ -25,15 +25,15 @@
 							selection: 2
 						}
 					},
-					{
-						input: <mark>"user.company.subdomain"</mark>,
-						operator: <mark>"IsOneOf"</mark>,
-						values: [ <mark>"dayknight"</mark> ],
-						resolution: {
-							type: "selection",
-							<mark>selection: 2</mark>
-						}
-					}
+					<mark class="ui-revert">{</mark>
+						<mark class="ui-revert">input: "user.company.subdomain",</mark>
+						<mark class="ui-revert">operator: "IsOneOf",</mark>
+						<mark class="ui-revert">values: [ "dayknight" ],</mark>
+						<mark class="ui-revert">resolution: {</mark>
+							<mark class="ui-revert">type: "selection",</mark>
+							<mark class="ui-revert">selection: 2</mark>
+						<mark class="ui-revert">}</mark>
+					<mark class="ui-revert">}</mark>
 				]
 			}
 		}

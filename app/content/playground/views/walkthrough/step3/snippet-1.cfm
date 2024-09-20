@@ -1,7 +1,7 @@
 <cfsavecontent variable="code">
 <cfoutput>
 
-if ( <mark>features[ "#request.walkthroughFeature.key#" ]</mark> ) {
+if ( <mark>features[ "#request.featureKey#" ]</mark> ) {
 
 	// ... <mark>render new rich-text editor</mark> ...
 

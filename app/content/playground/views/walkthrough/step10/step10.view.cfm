@@ -19,6 +19,8 @@
 			</button>
 		</form>
 
+		<cfmodule template="../shared/raw.cfm">
+
 	</cfoutput>
 </cfsavecontent>
 

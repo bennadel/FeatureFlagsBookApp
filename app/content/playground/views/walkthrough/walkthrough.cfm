@@ -11,14 +11,12 @@
 	// changing the features. However, in order to make sure that the steps are in the
 	// expected state, every step is going to reset the feature to the expected state on
 	// load. The following structure provides the basis on which each step will build.
-	request.walkthroughFeature = {
-		key: "product-TICKET-919-rich-text-editor",
-		settings: demoConfig.buildFeature(
-			type = "boolean",
-			description = "This feature enables the use of a new rich text editor for long-form content. It replaces the current plain text inputs with an editable content area powered by the Quill.js library.",
-			variants = [ false, true ]
-		)
-	};
+	request.featureKey = "product-TICKET-919-rich-text-editor";
+	request.feature = demoConfig.buildFeature(
+		type = "boolean",
+		description = "This feature enables the use of a new rich text editor for long-form content. It replaces the current plain text inputs with an editable content area powered by the Quill.js library.",
+		variants = [ false, true ]
+	);
 
 	request.template.activeNavItem = "features";
 
@@ -40,6 +38,12 @@
 		break;
 		case "step6":
 			cfmodule( template = "./step6/step6.cfm" );
+		break;
+		case "step6b":
+			cfmodule( template = "./step6b/step6b.cfm" );
+		break;
+		case "step6c":
+			cfmodule( template = "./step6c/step6c.cfm" );
 		break;
 		case "step7":
 			cfmodule( template = "./step7/step7.cfm" );

@@ -21,5 +21,9 @@
 			</cfloop>
 		</ul>
 
+		<p>
+			And, if you're curious to see how the feature flag configuration data is stored, take a look at <a href="/index.cfm?event=playground.raw">the raw JSON</a>.
+		</p>
+
 	</cfoutput>
 </cfsavecontent>

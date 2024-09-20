@@ -2,7 +2,7 @@
 <cfoutput>
 
 {
-	"#request.walkthroughFeature.key#": {
+	"#request.featureKey#": {
 		targeting: {
 			<mark>production:</mark> {
 				rulesEnabled: true,

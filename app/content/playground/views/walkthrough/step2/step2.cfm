@@ -7,7 +7,7 @@
 
 	config = getConfig( request.user.email );
 	// Reset the feature settings to the expected state for this step.
-	config.features[ request.walkthroughFeature.key ] = request.walkthroughFeature.settings;
+	config.features[ request.featureKey ] = request.feature;
 	// Reset the stored config.
 	featureWorkflow.updateConfig(
 		email = request.user.email,

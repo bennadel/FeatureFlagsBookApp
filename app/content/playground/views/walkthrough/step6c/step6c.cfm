@@ -16,6 +16,33 @@
 		rulesEnabled: false,
 		rules: []
 	];
+	feature.targeting.production = [
+		resolution: [
+			type: "selection",
+			selection: 1
+		],
+		rulesEnabled: true,
+		rules: [
+			[
+				input: "user.email",
+				operator: "IsOneOf",
+				values: [ request.user.email ],
+				resolution: [
+					type: "selection",
+					selection: 2
+				]
+			],
+			[
+				input: "user.company.subdomain",
+				operator: "IsOneOf",
+				values: [ "devteam" ],
+				resolution: [
+					type: "selection",
+					selection: 2
+				]
+			]
+		]
+	];
 
 	// Reset the stored config.
 	featureWorkflow.updateConfig(
@@ -23,9 +50,9 @@
 		config = config
 	);
 
-	title = request.template.title = "Enable in Development Environment";
+	title = request.template.title = "The Errors Have Stopped";
 
-	include "./step3.view.cfm";
+	include "./step6c.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

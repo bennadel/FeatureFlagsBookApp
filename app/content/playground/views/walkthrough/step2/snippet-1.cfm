@@ -2,7 +2,7 @@
 <cfoutput>
 
 {
-	"#request.walkthroughFeature.key#": {
+	"#request.featureKey#": {
 		targeting: {
 			<mark>development:</mark> {
 				resolution: {

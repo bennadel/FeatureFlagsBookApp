@@ -8,7 +8,7 @@
 
 	config = getConfig( request.user.email );
 	// Reset the feature settings to the expected state for this step.
-	config.features.delete( request.walkthroughFeature.key );
+	config.features.delete( request.featureKey );
 
 	// Reset the stored config.
 	featureWorkflow.updateConfig(

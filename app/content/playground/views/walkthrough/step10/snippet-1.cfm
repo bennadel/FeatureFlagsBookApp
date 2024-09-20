@@ -1,7 +1,7 @@
 <cfsavecontent variable="code">
 <cfoutput>
 
-features.delete( "#request.walkthroughFeature.key#" );
+features.delete( "#request.featureKey#" );
 
 </cfoutput>
 </cfsavecontent>
