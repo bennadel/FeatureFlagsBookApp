@@ -18,7 +18,7 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			As you can see on the right, the feature has been enabled for the "dayknight" subdomain. Now, in addition to using the new feature internally on your development team, you have real customers consuming it. This will almost certainly surface new bugs and usability issues. But, no worries&mdash;the vast majority of production users are still consuming the old version of the feature.
+			As you can see on the right, the feature has been enabled for the "dayknight" subdomain. Now, in addition to using the new feature internally on your development team, you have real customers consuming it. This will almost certainly surface new bugs and usability issues. But, no worries&mdash;the vast majority of production users are still receiving the first variant (<span class="variant-1">false</span>) and are still consuming the old version of the feature.
 		</p>
 
 		<p class="ui-readable-width">
@@ -45,11 +45,11 @@
 			</h2>
 
 			<p>
-				As a thought experiment, let's imagine that your beta-testing customer uncovered a critical bug in your new feature's implementation. Perhaps the text values are being truncated and the data is being corrupted! We need to prevent more errors from taking place.
+				As a thought experiment, let's imagine that your beta-testing customer uncovered a critical bug in your new feature's implementation. Perhaps the text values are being truncated and the data is being corrupted! We need to prevent more errors from taking place ASAP!
 			</p>
 
 			<p>
-				This is where feature flag really shine!
+				This is where feature flags are worth their weight in gold!
 			</p>
 
 			<p>

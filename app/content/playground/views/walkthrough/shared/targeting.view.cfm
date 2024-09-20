@@ -64,14 +64,14 @@
 				opacity: 0.3 ;
 			}
 			.states span[ data-association = "#attributes.highlightAssociation#" ] {
-				animation: pulsate 1s infinite ease-in-out ;
+				animation: pulsate 2.2s infinite ease-in-out ;
 				opacity: 1.0 ;
 			}
 
 			@keyframes pulsate {
 				50% {
 					border-radius: 10px ;
-					transform: translate3d( 0, -4px, 0 ) ;
+					transform: scale( 0.3 ) ;
 				}
 			}
 		</style>

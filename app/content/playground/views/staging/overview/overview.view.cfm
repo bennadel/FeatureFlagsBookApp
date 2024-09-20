@@ -24,16 +24,24 @@
 			</ul>
 
 			<h2>
-				Users
+				Users by Company Subdomain
 			</h2>
 
-			<ul>
-				<cfloop array="#users#" index="user">
-					<li>
-						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
-					</li>
-				</cfloop>
-			</ul>
+			<cfloop array="#companies#" index="company">
+
+				<h3>
+					Company: #encodeForHtml( company.subdomain )#
+				</h3>
+
+				<ul>
+					<cfloop array="#company.users#" index="user">
+						<li>
+							<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
+						</li>
+					</cfloop>
+				</ul>
+
+			</cfloop>
 
 		</section>
 

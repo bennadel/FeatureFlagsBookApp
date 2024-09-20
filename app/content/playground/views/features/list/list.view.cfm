@@ -1,10 +1,6 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<style type="text/css">
 
-		hr {
-			margin: 40px 0 ;
-		}
-
 		.grid {
 			border-collapse: collapse ;
 			border-spacing: 0 ;
@@ -72,18 +68,33 @@
 				<span class="emoji">&##x2764;&##xfe0f;</span>
 				<a href="https://featureflagsbook.com/" target="_blank">Feature Flags</a>
 				<span class="emoji">&##x2764;&##xfe0f;</span>
-				Click around and edit the feature flag settings to see how your changes to targeting affect variant allocation against the <a href="/index.cfm?event=playground.users">demo users</a>.
+				Click around and edit the feature flag settings to see how changes to the targeting affect variant allocation against the <a href="/index.cfm?event=playground.users">demo users</a>.
+			</p>
+
+			<h2>
+				Start With a Feature Development Walk-Through
+			</h2>
+
+			<p class="ui-readable-width">
+				Feature flags will completely change the way you think about product development. But, integrating feature flags into your feature development life-cycle is a learning process. If you're new to feature flags, let's walk-through a small feature journey together.
 			</p>
 
 			<p class="ui-readable-width">
-				Not sure where to start? How about a <a href="/index.cfm?event=playground.walkthrough"><mark>feature development walk-through</mark></a> &rarr;
+				<a href="/index.cfm?event=playground.walkthrough"><mark>Start feature development walk-through</mark></a> &rarr;
 			</p>
 
+			<hr class="ui-rule" />
+
+			<h2>
+				Your Feature Flag Dashboard
+			</h2>
+
 			<p class="ui-readable-width">
-				You can <a href="/index.cfm?event=playground.features.create">add a feature flag</a>.
-				And, at any time, you can
-				<a href="/index.cfm?event=playground.features.clear">remove all rules</a> or
-				<a href="/index.cfm?event=playground.features.reset">reset your settings</a> (currently on version: #encodeForHtml( version )#).
+				You can:
+				<a href="/index.cfm?event=playground.features.create"><strong>add</strong> a feature flag</a>,
+				<a href="/index.cfm?event=playground.features.clear"><strong>remove</strong> all rules</a> or,
+				<a href="/index.cfm?event=playground.features.reset"><strong>reset</strong> your settings</a>.
+				<!--- (currently on version: #encodeForHtml( version )#). --->
 			</p>
 
 			<table class="grid">

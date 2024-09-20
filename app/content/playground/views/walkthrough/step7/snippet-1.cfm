@@ -7,7 +7,7 @@
 			<mark>production:</mark> {
 				resolution: {
 					type: "distribution",
-					<mark>distribution:</mark> [ <mark>50</mark>, <mark>50</mark> ]
+					<mark>distribution:</mark> [ <span class="variant-1">50</span>, <span class="variant-2">50</span> ]
 				},
 				rulesEnabled: true,
 				rules: [

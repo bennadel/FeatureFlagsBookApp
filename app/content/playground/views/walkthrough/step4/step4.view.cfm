@@ -6,20 +6,24 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			As you can see on the right, by targeting your user specifically (via email address), we were able to "release" the new feature to your user in production without releasing it to any other users. Now, you can test the feature in the actual production environment, with actual production data and actual production dependencies, without disrupting anyone else's experience.
+			As you can see on the right, by targeting your user specifically (via email address), we're able to "release" the new feature to your user in production without releasing it to any other users. Now, you can test the feature in the actual production environment, with actual production data and actual production dependencies, without disrupting anyone else's experience.
 		</p>
 
 		<p class="ui-readable-width">
-			And, once you're satisfied that the feature is working well enough, we can release the feature to your entire development team. This will allow the team to "dog food" the feature. To do this, we'll add a rule that targets your team's subdomain, "devteam":
+			Once you're satisfied that the feature is working well enough, we can release the feature to your entire development team. This will allow your team to "dog food" the feature. To do this, we'll add a rule that targets your team's subdomain, "devteam", and serves up the second variant (<span class="variant-2">true</span>):
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">
+
+		<p class="ui-readable-width">
+			When the feature flags client evaluates a feature flag for a given user in a given environment, it iterates over these rules in a top-down manner. Whichever rule matches first, wins.
+		</p>
 
 		<form method="get">
 			<input type="hidden" name="event" value="playground.walkthrough.step5" />
 
 			<button type="submit">
-				Enable for Your Development Team &rarr;
+				Enable for Your Development Team (devteam) &rarr;
 			</button>
 		</form>
 

@@ -10,13 +10,17 @@
 		</p>
 
 		<p class="ui-readable-width">
-			Since feature flags allow us to decouple the concept of "deployment" from the concept of "release", we <em>don't</em> have to modify any code and we <em>don't</em> have to deploy anything to production. All we have to do is revert the changes we made to the feature configuration:
+			Since feature flags <strong>decouple the concept of "deployment" from the concept of "release"</strong>, we <em>don't</em> have to modify any code and we <em>don't</em> have to deploy anything to production. All we have to do is revert the changes we made to the feature configuration.
+		</p>
+
+		<p class="ui-readable-width">
+			Let's remove the rule that targeted the company subdomain, "dayknight", and which served up the second variant (<span class="variant-2">true</span>):
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">
 
 		<p class="ui-readable-width">
-			When we make this change, the new feature will be <em>instantaneously</em> reverted in our beta-tester's subdomain. This means the old version of the feature will be rendered; and, no more data will be corrupted.
+			When we make this change, the feature flag evaluations will be <em>instantaneously</em> reverted in our beta-tester's subdomain. Users under the subdomain "dayknight" will start receiving the first variant (<span class="variant-1">false</span>). Which means the old version of the feature will be rendered; and, no more data will be corrupted.
 		</p>
 
 		<form method="get">

@@ -13,7 +13,7 @@
 						values: [ "#encodeForHtml( request.user.email )#" ],
 						resolution: {
 							type: "selection",
-							selection: 2
+							selection: <span class="variant-2">2</span>
 						}
 					},
 					{
@@ -22,7 +22,7 @@
 						values: [ <mark>"devteam"</mark> ],
 						resolution: {
 							type: "selection",
-							<mark>selection: 2</mark>
+							<mark>selection: <span class="variant-2">2</span></mark>
 						}
 					}
 				]

@@ -10,12 +10,64 @@
 	config = getConfig( request.user.email );
 	features = getFeatures( config );
 	users = getUsers( request.user.email );
+	companies = getCompanies( users );
 	title = request.template.title = "Staging Contexts";
 
 	include "./overview.view.cfm";
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
+
+	/**
+	* I get the users grouped by company. The authenticated user's company (devteam) is
+	* always first; and the rest of the companies are sorted alphabetically.
+	*/
+	private array function getCompanies( required array users ) {
+
+		var companyIndex = {};
+
+		for ( var user in users ) {
+
+			if ( ! companyIndex.keyExists( user.company.subdomain ) ) {
+
+				companyIndex[ user.company.subdomain ] = {
+					subdomain: user.company.subdomain,
+					users: []
+				};
+
+			}
+
+			companyIndex[ user.company.subdomain ].users.append( user );
+
+		}
+
+		var companies = utilities
+			.structValueArray( companyIndex )
+			.sort(
+				( a, b ) => {
+
+					if ( a.subdomain == "devteam" ) {
+
+						return -1;
+
+					}
+
+					if ( b.subdomain == "devteam" ) {
+
+						return 1;
+
+					}
+
+					return compare( a.subdomain, b.subdomain );
+
+				}
+			)
+		;
+
+		return companies;
+
+	}
+
 
 	/**
 	* I get the config data for the given authenticated user.

@@ -6,7 +6,7 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			As you can see on the right, the new feature is now enabled for all users in the production environment. Congratulations, you just progressively developed and deployed a new feature with unparalleled safety. At this point, we can let the feature "soak" in production for some period of time, leaving the feature flag in case of emergency.
+			As you can see on the right, the new feature is now enabled for all users in the production environment. Congratulations, you just progressively developed and deployed a new feature with unparalleled safety and intoxicating confidence. At this point, we can let the feature "soak" in production for some period of time, leaving the feature flag in the code for case of emergency.
 		</p>
 
 		<p class="ui-readable-width">

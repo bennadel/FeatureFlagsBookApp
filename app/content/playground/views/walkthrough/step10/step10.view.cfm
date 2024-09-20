@@ -6,7 +6,11 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			Your new feaure has been running in production for some period of time with no issues. It seems that the customers are happy and the coast is clear. It's time to clean-up after yourself (reducing complexity in the code). Remove the feature-gating logic from the code and then delete the feature flag configuration:
+			Your new feaure has been running in production for some period of time with no issues. It seems that the customers are happy and the coast is clear. It's time to clean-up after yourself (reducing complexity in the code).
+		</p>
+
+		<p class="ui-readable-width">
+			Remove the feature-gating logic from the code and then delete the feature flag configuration:
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">

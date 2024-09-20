@@ -7,7 +7,7 @@
 			<mark>production:</mark> {
 				<mark>resolution:</mark> {
 					type: <mark>"selection"</mark>,
-					<mark>selection: 2</mark>
+					<mark>selection: <span class="variant-2">2</span></mark>
 				},
 				rulesEnabled: false,
 				rules: []

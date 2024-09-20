@@ -1,10 +1,11 @@
 <style type="text/css">
 
 	.feature-json {
-		opacity: 0.3 ;
+		opacity: 0.2 ;
 	}
 	.feature-json:hover {
 		opacity: 1.0 ;
+		transition: opacity 300ms ease-out ;
 	}
 
 	.json-rule {
@@ -34,7 +35,7 @@
 		<template x-if="isShowingJson">
 			<div>
 				<p class="ui-readable-width">
-					This is the "#encodeForHtml( request.featureKey )#" feature configuration that is being used to render the state on the right.
+					This is the "#encodeForHtml( request.featureKey )#" feature configuration that is being used to render the state on the right.&nbsp;&rarr;
 				</p>
 
 				<pre class="ui-snippet ui-readable-width"><code x-text="json"></code></pre>

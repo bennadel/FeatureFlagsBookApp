@@ -6,7 +6,7 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			As you can see on the right, the new feature is enabled for roughly 25% of all users in the production environment. This may surface new bugs. Or, things might continue on smoothly. And, if they do, we can continue "releasing" the new feature to a wider audience. Let's update the distribution allocation to 50%:
+			As you can see on the right, the new feature is now enabled for roughly 25% of all users in the production environment. This may surface new bugs. Or, things might continue on smoothly. And, if they do, we can continue "releasing" the new feature to a wider audience. Let's update the distribution allocation to 50%:
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">

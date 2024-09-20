@@ -3,11 +3,11 @@
 
 if ( <mark>features[ "#request.featureKey#" ]</mark> ) {
 
-	// ... <mark>render new rich-text editor</mark> ...
+	// ... <span class="variant-2">render new rich-text editor</span> ...
 
 } else {
 	
-	// ... render old plain-text editor ...
+	// ... <span class="variant-1">render old plain-text editor</span> ...
 
 }
 

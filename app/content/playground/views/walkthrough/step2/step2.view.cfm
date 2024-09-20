@@ -6,7 +6,11 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			We just created our new Boolean feature flag. It has two variants: <span class="variant-1">false</span> and <span class="variant-2">true</span>. By default, every user in every environment will receive the first variant (<span class="variant-1">false</span>). You can see this variant allocation over to the right.
+			We just created our new Boolean feature flag. It has two variants: <span class="variant-1">false</span> and <span class="variant-2">true</span>. By default, every user in every environment will receive the first variant (<span class="variant-1">false</span>). You can see this variant allocation over to the right&nbsp;&rarr;
+		</p>
+
+		<p class="ui-readable-width">
+			While feature flags are shared across environments (development, staging, QA, integration, production, etc), each environment can be configured independently. This playground provides two environments: development and production.
 		</p>
 
 		<p class="ui-readable-width">

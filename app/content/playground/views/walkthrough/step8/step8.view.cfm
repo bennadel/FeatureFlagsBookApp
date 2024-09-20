@@ -6,11 +6,11 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			As you can see on the right, the new feature is enabled for roughly 50% of all users in the production environment. How exciting is this?! How much safer do you feel releasing a new feature gradually instead of all at once?
+			As you can see on the right, the new feature is now enabled for roughly 50% of all users in the production environment. How exciting is this?! How much safer do you feel releasing a new feature gradually instead of all at once?
 		</p>
 
 		<p class="ui-readable-width">
-			It's time to release the new feature to the entire user-base. To do this, we'll update the distribution allocation to 100%:
+			It's time to release the new feature to the entire user-base. To do this, we'll update the production resolution to distribute the <span class="variant-2">true</span> variant to 100% of users:
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">
