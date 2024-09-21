@@ -10,7 +10,7 @@
 		</p>
 
 		<p class="ui-readable-width">
-			It's time to release the new feature to the entire user-base. To do this, we'll update the production resolution to distribute the <span class="variant-2">true</span> variant to 100% of users:
+			It's time to release the new feature to the entire user-base. To do this, we'll update the production resolution to distribute the <span class="u-variant-2">true</span> variant to 100% of users:
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">

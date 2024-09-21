@@ -211,7 +211,7 @@
 												#ui.attrChecked( form.resolutionSelection == entry.index )#
 												class="choggle__control"
 											/>
-											<span class="choggle__label tag variant-#entry.index#">
+											<span class="choggle__label tag u-variant-#entry.index#">
 												#encodeForHtml( serializeJson( entry.value ) )#
 											</span>
 										</label>
@@ -245,7 +245,7 @@
 											</select>
 											<span class="choggle__label">
 												&rarr;
-												<span class="tag variant-#entry.index#">
+												<span class="tag u-variant-#entry.index#">
 													#encodeForHtml( serializeJson( entry.value ) )#
 												</span>
 											</span>

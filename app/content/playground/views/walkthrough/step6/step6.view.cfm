@@ -18,7 +18,7 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			As you can see on the right, the feature has been enabled for the "dayknight" subdomain. Now, in addition to using the new feature internally on your development team, you have real customers consuming it. This will almost certainly surface new bugs and usability issues. But, no worries&mdash;the vast majority of production users are still receiving the first variant (<span class="variant-1">false</span>) and are still consuming the old version of the feature.
+			As you can see on the right, the feature has been enabled for the "dayknight" subdomain. Now, in addition to using the new feature internally on your development team, you have real customers consuming it. This will almost certainly surface new bugs and usability issues. But, no worries&mdash;the vast majority of production users are still receiving the first variant (<span class="u-variant-1">false</span>) and are still consuming the old version of the feature.
 		</p>
 
 		<p class="ui-readable-width">
@@ -26,7 +26,7 @@
 		</p>
 
 		<p class="ui-readable-width">
-			To do this, we'll change the default resolution of the production environment to be a "distribution" that allocates the <span class="variant-2">true</span> variant to 25% of users:
+			To do this, we'll change the default resolution of the production environment to be a "distribution" that allocates the <span class="u-variant-2">true</span> variant to 25% of users:
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">

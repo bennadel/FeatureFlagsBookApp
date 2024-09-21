@@ -58,7 +58,7 @@
 						<cfswitch expression="#rule.resolution.type#">
 							<cfcase value="selection">
 								Selection &rarr;
-								<span class="tag variant-#rule.resolution.selection#">
+								<span class="tag u-variant-#rule.resolution.selection#">
 									#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 								</span>
 							</cfcase>
@@ -71,7 +71,7 @@
 										<cfif entry.value>
 											<li>
 												#encodeForHtml( entry.value )#% &rarr;
-												<span class="tag variant-#entry.index#">
+												<span class="tag u-variant-#entry.index#">
 													#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
 												</span>
 											</li>
@@ -81,7 +81,7 @@
 							</cfcase>
 							<cfcase value="variant">
 								Variant &rarr;
-								<span class="tag variant-0">
+								<span class="tag u-variant-0">
 									#encodeForHtml( serializeJson( rule.resolution.variant ) )#
 								</span>
 							</cfcase>

@@ -10,7 +10,7 @@
 		</p>
 
 		<p class="ui-readable-width">
-			We could leave the distribution allocation at 100% while the feature soaks. But, for the sake of experience, let's delete the rules and update the default resolution in the production environment to serve up the second variant (<span class="variant-2">true</span>):
+			We could leave the distribution allocation at 100% while the feature soaks. But, for the sake of experience, let's delete the rules and update the default resolution in the production environment to serve up the second variant (<span class="u-variant-2">true</span>):
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">

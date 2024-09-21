@@ -6,7 +6,7 @@
 		</h1>
 
 		<p class="ui-readable-width">
-			We just created our new Boolean feature flag. It has two variants: <span class="variant-1">false</span> and <span class="variant-2">true</span>. By default, every user in every environment will receive the first variant (<span class="variant-1">false</span>). You can see this variant allocation over to the right&nbsp;&rarr;
+			We just created our new Boolean feature flag. It has two variants: <span class="u-variant-1">false</span> and <span class="u-variant-2">true</span>. By default, every user in every environment will receive the first variant (<span class="u-variant-1">false</span>). You can see this variant allocation over to the right&nbsp;&rarr;
 		</p>
 
 		<p class="ui-readable-width">
@@ -14,7 +14,7 @@
 		</p>
 
 		<p class="ui-readable-width">
-			To start developing our new feature, let's enable the feature flag in our development environment. To do this, we'll change the default <code>resolution</code> in our development environment to serve the second variant (<span class="variant-2">true</span>):
+			To start developing our new feature, let's enable the feature flag in our development environment. To do this, we'll change the default <code>resolution</code> in our development environment to serve the second variant (<span class="u-variant-2">true</span>):
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">

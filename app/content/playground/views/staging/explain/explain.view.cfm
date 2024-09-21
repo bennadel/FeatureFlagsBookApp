@@ -41,7 +41,7 @@
 						<strong>Variant:</strong>
 					</dt>
 					<dd>
-						<span class="tag variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+						<span class="tag u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
 
 						<cfif ! result.variantIndex>
 							<cfif ( result.reason == "Error" )>
@@ -189,7 +189,7 @@
 								<dd>
 									#encodeForHtml( result.resolution.selection )#
 									&rarr;
-									<span class="tag variant variant-#result.variantIndex#">#encodeForHtml( serializeJson( feature.variants[ result.resolution.selection ] ) )#</span>
+									<span class="tag variant u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( feature.variants[ result.resolution.selection ] ) )#</span>
 								</dd>
 							</div>
 
@@ -206,7 +206,7 @@
 											<li>
 												#encodeForHtml( entry.value )#%
 												&rarr;
-												<span class="tag variant variant-#entry.index#">#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#</span>
+												<span class="tag variant u-variant-#entry.index#">#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#</span>
 
 												<cfif ( result.variantIndex == entry.index )>
 													&larr; allocated to user
@@ -225,7 +225,7 @@
 									<strong>Variant:</strong>
 								</dt>
 								<dd>
-									<span class="tag variant variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+									<span class="tag variant u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
 								</dd>
 							</div>
 
@@ -345,7 +345,7 @@
 											<dd>
 												#encodeForHtml( rule.resolution.selection )#
 												&rarr;
-												<span class="tag variant variant-#result.variantIndex#">#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#</span>
+												<span class="tag variant u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#</span>
 											</dd>
 										</div>
 
@@ -362,7 +362,7 @@
 														<li>
 															#encodeForHtml( entry.value )#%
 															&rarr;
-															<span class="tag variant variant-#entry.index#">#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#</span>
+															<span class="tag variant u-variant-#entry.index#">#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#</span>
 														</li>
 													</cfloop>
 												</ul>
@@ -377,7 +377,7 @@
 												<strong>Variant:</strong>
 											</dt>
 											<dd>
-												<span class="tag variant variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+												<span class="tag variant u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
 											</dd>
 										</div>
 

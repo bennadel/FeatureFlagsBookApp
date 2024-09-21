@@ -212,7 +212,7 @@
 							<ol class="breathing-room">
 								<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
 									<li>
-										<span class="tag variant-#variantEntry.index#">
+										<span class="tag u-variant-#variantEntry.index#">
 											#encodeForHtml( serializeJson( variantEntry.value ) )#
 										</span>
 									</li>
@@ -257,7 +257,7 @@
 												<p>
 													Selection
 													&rarr;
-													<span class="tag variant-#settings.resolution.selection#">
+													<span class="tag u-variant-#settings.resolution.selection#">
 														#encodeForHtml( serializeJson( feature.variants[ settings.resolution.selection ] ) )#
 													</span>
 												</p>
@@ -272,7 +272,7 @@
 															<li>
 																#distributionEntry.value#%
 																&rarr;
-																<span class="tag variant-#distributionEntry.index#">
+																<span class="tag u-variant-#distributionEntry.index#">
 																	#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																</span>
 															</li>
@@ -284,7 +284,7 @@
 												<p>
 													Variant
 													&rarr;
-													<span class="tag variant-0">
+													<span class="tag u-variant-0">
 														#encodeForHtml( serializeJson( settings.resolution.variant ) )#
 													</span>
 												</p>
@@ -369,7 +369,7 @@
 															<cfcase value="selection">
 																<p>
 																	Selection &rarr;
-																	<span class="tag variant-#rule.resolution.selection#">
+																	<span class="tag u-variant-#rule.resolution.selection#">
 																		#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 																	</span>
 																</p>
@@ -384,7 +384,7 @@
 																			<li>
 																				#distributionEntry.value#%
 																				&rarr;
-																				<span class="tag variant-#distributionEntry.index#">
+																				<span class="tag u-variant-#distributionEntry.index#">
 																					#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																				</span>
 																			</li>
@@ -395,7 +395,7 @@
 															<cfcase value="variant">
 																<p>
 																	Variant &rarr;
-																	<span class="tag variant-0">
+																	<span class="tag u-variant-0">
 																		#encodeForHtml( serializeJson( rule.resolution.variant ) )#
 																	</span>
 																</p>
@@ -441,7 +441,7 @@
 								@mouseleave="unflash()"
 								data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 								data-flash-rule="#encodeForHtmlAttribute( result.ruleIndex )#"
-								class="state__variant variant-#result.variantIndex# flasher-distal">
+								class="state__variant u-variant-#result.variantIndex# flasher-distal">
 							</a>
 						</cfloop>
 					</cfloop>

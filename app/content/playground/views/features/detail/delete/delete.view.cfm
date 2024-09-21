@@ -42,7 +42,7 @@
 						<ol class="breathing-room">
 							<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
 								<li>
-									<span class="tag variant-#entry.index#">
+									<span class="tag u-variant-#entry.index#">
 										#encodeForHtml( serializeJson( entry.value ) )#
 									</span>
 								</li>

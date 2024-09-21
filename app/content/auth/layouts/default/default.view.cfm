@@ -14,7 +14,7 @@
 	</head>
 	<body>
 
-		<main class="m3-main content-wrapper u-collapse-margin">
+		<main class="m3-main content-wrapper">
 			#request.template.primaryContent#
 		</main>
 

@@ -114,7 +114,7 @@
 
 							<div class="dots">
 								<cfloop index="i" from="1" to="#feature.variants.len()#">
-									<span class="dots__dot variant-#i#"></span>
+									<span class="dots__dot u-variant-#i#"></span>
 								</cfloop>
 							</div>
 
@@ -137,7 +137,7 @@
 									<span class="disabled">Disabled</span>
 								</cfif>
 							</td>
-							<td class="env-right variant variant-#result.variantIndex#">
+							<td class="env-right variant u-variant-#result.variantIndex#">
 								<a href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=user">#encodeForHtml( serializeJson( result.variant ) )#</a>
 							</td>
 						</cfloop>

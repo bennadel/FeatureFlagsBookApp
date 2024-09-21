@@ -46,7 +46,7 @@
 					<ul class="breathing-room">
 						<cfloop array="#utilities.toEntries( request.feature.variants )#" index="entry">
 							<li>
-								<span class="tag variant variant-#entry.index#">
+								<span class="tag u-variant-#entry.index#">
 									#encodeForHtml( serializeJson( entry.value ) )#
 								</span>
 							</li>

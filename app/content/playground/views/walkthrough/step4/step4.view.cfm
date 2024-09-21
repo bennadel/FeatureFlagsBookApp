@@ -10,7 +10,7 @@
 		</p>
 
 		<p class="ui-readable-width">
-			Once you're satisfied that the feature is working well enough, we can release the feature to your entire development team. This will allow your team to "dog food" the feature. To do this, we'll add a rule that targets your team's subdomain, "devteam", and serves up the second variant (<span class="variant-2">true</span>):
+			Once you're satisfied that the feature is working well enough, we can release the feature to your entire development team. This will allow your team to "dog food" the feature. To do this, we'll add a rule that targets your team's subdomain, "devteam", and serves up the second variant (<span class="u-variant-2">true</span>):
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">

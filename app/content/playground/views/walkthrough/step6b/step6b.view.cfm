@@ -14,13 +14,13 @@
 		</p>
 
 		<p class="ui-readable-width">
-			Let's remove the rule that targeted the company subdomain, "dayknight", and which served up the second variant (<span class="variant-2">true</span>):
+			Let's remove the rule that targeted the company subdomain, "dayknight", and which served up the second variant (<span class="u-variant-2">true</span>):
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">
 
 		<p class="ui-readable-width">
-			When we make this change, the feature flag evaluations will be <em>instantaneously</em> reverted in our beta-tester's subdomain. Users under the subdomain "dayknight" will start receiving the first variant (<span class="variant-1">false</span>). Which means the old version of the feature will be rendered; and, no more data will be corrupted.
+			When we make this change, the feature flag evaluations will be <em>instantaneously</em> reverted in our beta-tester's subdomain. Users under the subdomain "dayknight" will start receiving the first variant (<span class="u-variant-1">false</span>). Which means the old version of the feature will be rendered; and, no more data will be corrupted.
 		</p>
 
 		<form method="get">

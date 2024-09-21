@@ -1,7 +1,7 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<h1>
+		<h1 class="u-no-margin-top">
 			Feature Flags Playground
 		</h1>
 
@@ -19,7 +19,7 @@
 			</p>
 		</cfif>
 
-		<form method="post">
+		<form method="post" class="u-no-margin-bottom">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="redirectTo" value="#encodeForHtmlAttribute( request.context.redirectTo )#" />
 			<input type="hidden" name="submitted" value="true" />

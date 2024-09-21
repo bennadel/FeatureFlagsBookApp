@@ -10,7 +10,7 @@
 		</p>
 
 		<p class="ui-readable-width">
-			But, before we start releasing the feature to everyone, let's work with a customer who's signed-up to beta test new features. To do this, we'll add a new rule that targets the customer's subdomain, "dayknight", and serves up the second variant (<span class="variant-2">true</span>):
+			But, before we start releasing the feature to everyone, let's work with a customer who's signed-up to beta test new features. To do this, we'll add a new rule that targets the customer's subdomain, "dayknight", and serves up the second variant (<span class="u-variant-2">true</span>):
 		</p>
 
 		<cfmodule template="./snippet-1.cfm">
