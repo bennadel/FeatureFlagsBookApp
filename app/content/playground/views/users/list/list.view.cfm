@@ -72,7 +72,7 @@
 				<ul class="u-breathing-room">
 					<cfloop array="#authUsers#" index="user">
 						<li>
-							<div class="u-flex-row is-center">
+							<div class="u-flex-row">
 								<span class="ui-tag is-role">
 									#encodeForHtml( user.role )#
 								</span>

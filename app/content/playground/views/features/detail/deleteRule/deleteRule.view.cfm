@@ -94,7 +94,7 @@
 										<cfif entry.value>
 											<li>
 
-												<div class="u-flex-row is-center">
+												<div class="u-flex-row">
 													<span>
 														#encodeForHtml( entry.value )#%
 													</span>

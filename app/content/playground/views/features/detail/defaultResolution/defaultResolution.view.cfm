@@ -138,7 +138,7 @@
 													</option>
 												</cfloop>
 											</select>
-											<span class="choggle__label u-flex-row is-center">
+											<span class="choggle__label u-flex-row">
 												&rarr;
 												<span class="ui-tag u-variant-#entry.index#">
 													#encodeForHtml( serializeJson( entry.value ) )#

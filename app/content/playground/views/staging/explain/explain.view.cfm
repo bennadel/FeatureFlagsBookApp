@@ -42,7 +42,7 @@
 						<dt>
 							Variant:
 						</dt>
-						<dd class="u-flex-row is-center">
+						<dd class="u-flex-row">
 							<span class="ui-tag u-variant-#result.variantIndex#">
 								#encodeForHtml( serializeJson( result.variant ) )#
 							</span>
@@ -198,7 +198,7 @@
 									<dt>
 										<strong>Selection:</strong>
 									</dt>
-									<dd class="u-flex-row is-center">
+									<dd class="u-flex-row">
 										<span>
 											#encodeForHtml( result.resolution.selection )#
 										</span>
@@ -220,7 +220,7 @@
 
 										<ul class="u-no-marker u-breathing-room">
 											<cfloop array="#utilities.toEntries( result.resolution.distribution )#" index="entry">
-												<li class="u-flex-row is-center">
+												<li class="u-flex-row">
 													<span>
 														#encodeForHtml( entry.value )#%
 													</span>
@@ -369,6 +369,14 @@
 											</cfloop>
 										</dd>
 									</div>
+									<div>
+										<dt>
+											Resolution:
+										</dt>
+										<dd>
+											#encodeForHtml( rule.resolution.type )#
+										</dd>
+									</div>
 
 									<cfswitch expression="#rule.resolution.type#">
 										<cfcase value="selection">
@@ -377,7 +385,7 @@
 												<dt>
 													Selection:
 												</dt>
-												<dd class="u-flex-row is-center">
+												<dd class="u-flex-row">
 													<span>
 														#encodeForHtml( rule.resolution.selection )#
 													</span>
@@ -398,7 +406,7 @@
 												<dd>
 													<ul class="u-no-marker u-breathing-room">
 														<cfloop array="#utilities.toEntries( rule.resolution.distribution )#" index="entry">
-															<li class="u-flex-row is-center">
+															<li class="u-flex-row">
 																<span>
 																	#encodeForHtml( entry.value )#%
 																</span>

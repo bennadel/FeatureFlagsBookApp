@@ -229,7 +229,7 @@
 									<dd>
 										<cfswitch expression="#settings.resolution.type#">
 											<cfcase value="selection">
-												<div class="u-flex-row is-center">
+												<div class="u-flex-row">
 													<span>
 														Selection
 													</span>
@@ -247,7 +247,7 @@
 													<cfloop index="distributionEntry" array="#utilities.toEntries( settings.resolution.distribution )#">
 														<cfif distributionEntry.value>
 															<li>
-																<div class="u-flex-row is-center">
+																<div class="u-flex-row">
 																	<span>
 																		#distributionEntry.value#%
 																	</span>
@@ -262,7 +262,7 @@
 												</ul>
 											</cfcase>
 											<cfcase value="variant">
-												<p class="u-flex-row is-center">
+												<p class="u-flex-row">
 													<span>
 														Variant
 													</span>
@@ -348,7 +348,7 @@
 													<dd>
 														<cfswitch expression="#rule.resolution.type#">
 															<cfcase value="selection">
-																<p class="u-flex-row is-center">
+																<p class="u-flex-row">
 																	<span>
 																		Selection
 																	</span>
@@ -366,7 +366,7 @@
 																	<cfloop index="distributionEntry" array="#utilities.toEntries( rule.resolution.distribution )#">
 																		<cfif distributionEntry.value>
 																			<li>
-																				<div class="u-flex-row is-center">
+																				<div class="u-flex-row">
 																					<span>
 																						#distributionEntry.value#%
 																					</span>
@@ -381,7 +381,7 @@
 																</ul>
 															</cfcase>
 															<cfcase value="variant">
-																<p class="u-flex-row is-center">
+																<p class="u-flex-row">
 																	<span>
 																		Variant
 																	</span>
