@@ -1,11 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		.hidden {
-			display: none ;
-		}
-
-	</style>
 	<cfoutput>
 
 		<section class="content-wrapper">
@@ -96,7 +89,7 @@
 					</div>
 
 					<!--- Start: Selection. --->
-					<div :class="{ hidden: ( resolutionType !== 'selection' ) }">
+					<div :class="{ 'u-hidden': ( resolutionType !== 'selection' ) }">
 						<dt>
 							Selection:
 						</dt>
@@ -126,7 +119,7 @@
 					<!--- End: Selection. --->
 
 					<!--- Start: Distribution. --->
-					<div :class="{ hidden: ( resolutionType !== 'distribution' ) }">
+					<div :class="{ 'u-hidden': ( resolutionType !== 'distribution' ) }">
 						<dt>
 							Distribution:
 						</dt>
@@ -145,7 +138,7 @@
 													</option>
 												</cfloop>
 											</select>
-											<span class="choggle__label">
+											<span class="choggle__label u-flex-row is-center">
 												&rarr;
 												<span class="ui-tag u-variant-#entry.index#">
 													#encodeForHtml( serializeJson( entry.value ) )#
@@ -171,7 +164,7 @@
 					<!--- End: Distribution. --->
 
 					<!--- Start: Variant. --->
-					<div :class="{ hidden: ( resolutionType !== 'variant' ) }">
+					<div :class="{ 'u-hidden': ( resolutionType !== 'variant' ) }">
 						<dt>
 							Variant:
 						</dt>

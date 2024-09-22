@@ -295,7 +295,37 @@ ol.u-breathing-room {
 	> li {
 		margin-bottom: 5px ;
 		margin-top: 5px ;
+
+		&:last-child {
+			margin-bottom: 0 ;
+		}
 	}
+
+	&.is-large > li {
+		margin-bottom: 1rem ;
+		margin-top: 1rem ;
+
+		&:last-child {
+			margin-bottom: 0 ;
+		}
+	}
+}
+
+.u-flex-row {
+	display: flex ;
+	gap: 12px ;
+
+	&.is-center {
+		align-items: center ;
+	}
+
+	&.is-wrap {
+		flex-wrap: wrap ;
+	}
+}
+
+.u-hidden {
+	display: none ;
 }
 
 // ---
@@ -348,13 +378,31 @@ ol.u-breathing-room {
 }
 
 .ui-tag {
-	border-radius: 3px ;
-	display: inline-block ;
+	border-radius: 0.2rem ;
+	display: block ;
 	padding: 0.2rem 0.5rem ;
 
-	&.with-border {
+	&.is-inline {
+		display: inline-block ;
+	}
+
+	&.is-stroked {
 		border: 1px solid #cccccc ;
 	}
+
+	&.is-value {
+		border: 1px solid #f55dff ;
+	}
+
+	&.is-role {
+		border: 1px solid #cccccc ;
+	}
+}
+
+.ui-tag-list {
+	display: flex ;
+	flex-wrap: wrap ;
+	gap: 0.8rem ;
 }
 
 // ---
@@ -365,9 +413,6 @@ ol.u-breathing-room {
 	align-items: center ;
 	display: flex ;
 	gap: 10px ;
-}
-.choggle--inline {
-	display: inline-flex ;
 }
 .choggle__control {}
 .choggle__label {}

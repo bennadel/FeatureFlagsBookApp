@@ -27,7 +27,7 @@
 				<cfif feature.description.len()>
 					<div>
 						<dt>
-							<strong>Description:</strong>
+							Description:
 						</dt>
 						<dd>
 							#encodeForHtml( feature.description )#
@@ -39,15 +39,21 @@
 						Variants:
 					</dt>
 					<dd>
+
 						<ol class="u-breathing-room">
 							<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
 								<li>
-									<span class="ui-tag u-variant-#entry.index#">
-										#encodeForHtml( serializeJson( entry.value ) )#
-									</span>
+
+									<div class="u-flex-row">
+										<span class="ui-tag u-variant-#entry.index#">
+											#encodeForHtml( serializeJson( entry.value ) )#
+										</span>
+									</div>
+
 								</li>
 							</cfloop>
 						</ol>
+
 					</dd>
 				</div>
 			</dl>

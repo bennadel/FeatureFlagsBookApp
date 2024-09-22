@@ -42,8 +42,10 @@
 						<dt>
 							Variant:
 						</dt>
-						<dd>
-							<span class="ui-tag u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+						<dd class="u-flex-row is-center">
+							<span class="ui-tag u-variant-#result.variantIndex#">
+								#encodeForHtml( serializeJson( result.variant ) )#
+							</span>
 
 							<cfif ! result.variantIndex>
 								<cfif ( result.reason == "Error" )>
@@ -196,10 +198,14 @@
 									<dt>
 										<strong>Selection:</strong>
 									</dt>
-									<dd>
-										#encodeForHtml( result.resolution.selection )#
+									<dd class="u-flex-row is-center">
+										<span>
+											#encodeForHtml( result.resolution.selection )#
+										</span>
 										&rarr;
-										<span class="ui-tag u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( feature.variants[ result.resolution.selection ] ) )#</span>
+										<span class="ui-tag u-variant-#result.variantIndex#">
+											#encodeForHtml( serializeJson( feature.variants[ result.resolution.selection ] ) )#
+										</span>
 									</dd>
 								</div>
 
@@ -208,22 +214,31 @@
 
 								<div>
 									<dt>
-										<strong>Distribution:</strong>
+										Distribution:
 									</dt>
 									<dd>
-										<ul class="u-breathing-room">
+
+										<ul class="u-no-marker u-breathing-room">
 											<cfloop array="#utilities.toEntries( result.resolution.distribution )#" index="entry">
-												<li>
-													#encodeForHtml( entry.value )#%
+												<li class="u-flex-row is-center">
+													<span>
+														#encodeForHtml( entry.value )#%
+													</span>
 													&rarr;
-													<span class="ui-tag u-variant-#entry.index#">#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#</span>
+													<span class="ui-tag u-variant-#entry.index#">
+														#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
+													</span>
 
 													<cfif ( result.variantIndex == entry.index )>
-														&larr; allocated to user
+														&larr;
+														<span>
+															allocated to user
+														</span>
 													</cfif>
 												</li>
 											</cfloop>
 										</ul>
+
 									</dd>
 								</div>
 
@@ -232,10 +247,16 @@
 
 								<div>
 									<dt>
-										<strong>Variant:</strong>
+										Variant:
 									</dt>
 									<dd>
-										<span class="ui-tag u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+
+										<div class="u-flex-row">
+											<span class="ui-tag u-variant-#result.variantIndex#">
+												#encodeForHtml( serializeJson( result.variant ) )#
+											</span>
+										</div>
+
 									</dd>
 								</div>
 
@@ -279,9 +300,11 @@
 							<dt>
 								Values:
 							</dt>
-							<dd>
+							<dd class="ui-tag-list">
 								<cfloop array="#rule.values#" index="value">
-									<span class="ui-tag">#encodeForHtml( serializeJson( value ) )#</span>
+									<span class="ui-tag is-value">
+										#encodeForHtml( serializeJson( value ) )#
+									</span>
 								</cfloop>
 							</dd>
 						</div>
@@ -298,7 +321,7 @@
 				</cfif>
 
 
-				<cfif isArray( result.evaluatedRules )>
+				<cfif ( isArray( result.evaluatedRules ) && result.evaluatedRules.len() )>
 
 					<h3>
 						All Evaluated Rules
@@ -314,7 +337,7 @@
 						</cfif>
 					</p>
 
-					<ol>
+					<ol class="u-breathing-room is-large">
 						<cfloop array="#result.evaluatedRules#" index="rule">
 							<li>
 								<dl>
@@ -338,9 +361,11 @@
 										<dt>
 											Values:
 										</dt>
-										<dd>
+										<dd class="ui-tag-list">
 											<cfloop array="#rule.values#" index="value">
-												<span class="ui-tag">#encodeForHtml( serializeJson( value ) )#</span>
+												<span class="ui-tag is-value">
+													#encodeForHtml( serializeJson( value ) )#
+												</span>
 											</cfloop>
 										</dd>
 									</div>
@@ -352,10 +377,14 @@
 												<dt>
 													Selection:
 												</dt>
-												<dd>
-													#encodeForHtml( rule.resolution.selection )#
+												<dd class="u-flex-row is-center">
+													<span>
+														#encodeForHtml( rule.resolution.selection )#
+													</span>
 													&rarr;
-													<span class="ui-tag u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#</span>
+													<span class="ui-tag u-variant-#result.variantIndex#">
+														#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
+													</span>
 												</dd>
 											</div>
 
@@ -367,12 +396,16 @@
 													Distribution:
 												</dt>
 												<dd>
-													<ul class="u-breathing-room">
+													<ul class="u-no-marker u-breathing-room">
 														<cfloop array="#utilities.toEntries( rule.resolution.distribution )#" index="entry">
-															<li>
-																#encodeForHtml( entry.value )#%
+															<li class="u-flex-row is-center">
+																<span>
+																	#encodeForHtml( entry.value )#%
+																</span>
 																&rarr;
-																<span class="ui-tag u-variant-#entry.index#">#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#</span>
+																<span class="ui-tag u-variant-#entry.index#">
+																	#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
+																</span>
 															</li>
 														</cfloop>
 													</ul>
@@ -386,8 +419,10 @@
 												<dt>
 													Variant:
 												</dt>
-												<dd>
-													<span class="ui-tag u-variant-#result.variantIndex#">#encodeForHtml( serializeJson( result.variant ) )#</span>
+												<dd class="u-flex-row">
+													<span class="ui-tag u-variant-#result.variantIndex#">
+														#encodeForHtml( serializeJson( result.variant ) )#
+													</span>
 												</dd>
 											</div>
 

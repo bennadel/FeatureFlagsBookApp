@@ -45,9 +45,15 @@
 						Values:
 					</dt>
 					<dd>
-						<cfloop array="#rule.values#" index="value">
-							[#encodeForHtml( serializeJson( value ) )#]
-						</cfloop>
+
+						<div class="ui-tag-list">
+							<cfloop array="#rule.values#" index="value">
+								<span class="ui-tag is-value">
+									#encodeForHtml( serializeJson( value ) )#
+								</span>
+							</cfloop>
+						</div>
+
 					</dd>
 				</div>
 				<div>
@@ -55,38 +61,74 @@
 						Resolution:
 					</dt>
 					<dd>
-						<cfswitch expression="#rule.resolution.type#">
-							<cfcase value="selection">
-								Selection &rarr;
-								<span class="ui-tag u-variant-#rule.resolution.selection#">
-									#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
-								</span>
-							</cfcase>
-							<cfcase value="distribution">
-								<p>
-									Distribution
-								</p>
-								<ul class="u-breathing-room">
+						#encodeForHtml( rule.resolution.type )#
+					</dd>
+				</div>
+				<div>
+					<cfswitch expression="#rule.resolution.type#">
+						<cfcase value="selection">
+
+							<dt>
+								Selection:
+							</dt>
+							<dd>
+
+								<div class="u-flex-row">
+									<span class="ui-tag u-variant-#rule.resolution.selection#">
+										#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
+									</span>
+								</div>
+
+							</dd>
+
+						</cfcase>
+						<cfcase value="distribution">
+
+							<dt>
+								Distribution:
+							</dt>
+							<dd>
+
+								<ul class="u-no-marker u-breathing-room">
 									<cfloop index="entry" array="#utilities.toEntries( rule.resolution.distribution )#">
 										<cfif entry.value>
 											<li>
-												#encodeForHtml( entry.value )#% &rarr;
-												<span class="ui-tag u-variant-#entry.index#">
-													#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
-												</span>
+
+												<div class="u-flex-row is-center">
+													<span>
+														#encodeForHtml( entry.value )#%
+													</span>
+													&rarr;
+													<span class="ui-tag u-variant-#entry.index#">
+														#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
+													</span>
+												</div>
+
 											</li>
 										</cfif>
 									</cfloop>
 								</ul>
-							</cfcase>
-							<cfcase value="variant">
-								Variant &rarr;
-								<span class="ui-tag u-variant-0">
-									#encodeForHtml( serializeJson( rule.resolution.variant ) )#
-								</span>
-							</cfcase>
-						</cfswitch>
-					</dd>
+
+							</dd>
+
+						</cfcase>
+						<cfcase value="variant">
+
+							<dt>
+								Variant:
+							</dt>
+							<dd>
+
+								<div class="u-flex-row">
+									<span class="ui-tag u-variant-0">
+										#encodeForHtml( serializeJson( rule.resolution.variant ) )#
+									</span>
+								</div>
+
+							</dd>
+
+						</cfcase>
+					</cfswitch>
 				</div>
 			</dl>
 

@@ -36,10 +36,8 @@
 					<dt>
 						Description:
 					</dt>
-					<dd class="u-no-inner-margin-y">
-						<p>
-							#encodeForHtml( request.feature.description )#
-						</p>
+					<dd>
+						#encodeForHtml( request.feature.description )#
 					</dd>
 				</div>
 				<div>
@@ -47,15 +45,21 @@
 						Variants:
 					</dt>
 					<dd class="u-no-inner-margin-y">
+
 						<ul class="u-breathing-room">
 							<cfloop array="#utilities.toEntries( request.feature.variants )#" index="entry">
 								<li>
-									<span class="ui-tag u-variant-#entry.index#">
-										#encodeForHtml( serializeJson( entry.value ) )#
-									</span>
+
+									<div class="u-flex-row">
+										<span class="ui-tag u-variant-#entry.index#">
+											#encodeForHtml( serializeJson( entry.value ) )#
+										</span>
+									</div>
+
 								</li>
 							</cfloop>
 						</ul>
+
 					</dd>
 				</div>
 			</dl>

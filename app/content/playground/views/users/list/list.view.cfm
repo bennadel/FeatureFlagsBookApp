@@ -72,9 +72,15 @@
 				<ul class="u-breathing-room">
 					<cfloop array="#authUsers#" index="user">
 						<li>
-							<span class="ui-tag">#encodeForHtml( user.role )#</span>
-							&rarr;
-							<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
+							<div class="u-flex-row is-center">
+								<span class="ui-tag is-role">
+									#encodeForHtml( user.role )#
+								</span>
+								&rarr;
+								<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">
+									#encodeForHtml( user.email )#
+								</a>
+							</div>
 						</li>
 					</cfloop>
 				</ul>
