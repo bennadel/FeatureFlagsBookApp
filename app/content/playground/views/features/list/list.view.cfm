@@ -57,45 +57,53 @@
 	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
+			<div class="ui-readable-width">
 
-			<p class="ui-readable-width">
-				This application is here to help you learn about
-				<span class="emoji">&##x2764;&##xfe0f;</span>
-				<a href="https://featureflagsbook.com/" target="_blank">Feature Flags</a>
-				<span class="emoji">&##x2764;&##xfe0f;</span>
-				Click around and edit the feature flag settings to see how changes to the targeting affect variant allocation against the <a href="/index.cfm?event=playground.users">demo users</a>.
-			</p>
+				<h1>
+					#encodeForHtml( title )#
+				</h1>
 
-			<h2>
-				Start With a Feature Development Walk-Through
-			</h2>
+				<p>
+					This application is here to help you learn about
+					<span class="emoji">&##x2764;&##xfe0f;</span>
+					<a href="https://featureflagsbook.com/" target="_blank">Feature Flags</a>
+					<span class="emoji">&##x2764;&##xfe0f;</span>
+					Click around and edit the feature flag settings to see how changes to the targeting affect variant allocation against the <a href="/index.cfm?event=playground.users">demo users</a>.
+				</p>
 
-			<p class="ui-readable-width">
-				Feature flags will completely change the way you think about product development. But, integrating feature flags into your feature development life-cycle is a learning process. If you're new to feature flags, let's walk-through a small feature journey together.
-			</p>
+				<h2>
+					Start With a Feature Development Walk-Through
+				</h2>
 
-			<p class="ui-readable-width">
-				<a href="/index.cfm?event=playground.walkthrough"><mark>Start feature development walk-through</mark></a> &rarr;
-			</p>
+				<p>
+					Feature flags will completely change the way you think about product development. But, integrating feature flags into your feature development life-cycle is a learning process. If you're new to feature flags, let's walk-through a small feature journey together.
+				</p>
+
+				<p>
+					<a href="/index.cfm?event=playground.walkthrough"><mark>Start feature development walk-through</mark></a> &rarr;
+				</p>
+
+			</div>
 
 			<hr class="ui-rule" />
 
-			<h2>
-				Your Feature Flag Dashboard
-			</h2>
+			<div class="ui-readable-width">
 
-			<p class="ui-readable-width">
-				You can:
-				<a href="/index.cfm?event=playground.features.create"><strong>add</strong> a feature flag</a>,
-				<a href="/index.cfm?event=playground.features.clear"><strong>remove</strong> all rules</a> or,
-				<a href="/index.cfm?event=playground.features.reset"><strong>reset</strong> your settings</a>.
-				<!--- (currently on version: #encodeForHtml( version )#). --->
-			</p>
+				<h2>
+					Your Feature Flag Dashboard
+				</h2>
+
+				<p>
+					You can:
+					<a href="/index.cfm?event=playground.features.create"><strong>add</strong> a feature flag</a>,
+					<a href="/index.cfm?event=playground.features.clear"><strong>remove</strong> all rules</a> or,
+					<a href="/index.cfm?event=playground.features.reset"><strong>reset</strong> your settings</a>.
+					<!--- (currently on version: #encodeForHtml( version )#). --->
+				</p>
+
+			</div>
 
 			<table class="grid">
 			<thead>
@@ -183,7 +191,7 @@
 			</tbody>
 			</table>
 
-			<p  class="ui-readable-width">
+			<p class="ui-readable-width">
 				<strong>GitHub:</strong> The code for this site is available in my <a href="https://github.com/bennadel/FeatureFlagsBookApp" target="_blank">application repository</a> on GitHub. Feel free to fork, download, modify, and run it, etc.
 			</p>
 

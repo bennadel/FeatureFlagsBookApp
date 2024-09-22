@@ -1,27 +1,39 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<h1>
-			#encodeForHtml( title )#
-		</h1>
+		<div class="ui-readable-width">
 
-		<p class="ui-readable-width">
-			Your new feaure has been running in production for some period of time with no issues. It seems that the customers are happy and the coast is clear. It's time to clean-up after yourself (reducing complexity in the code).
-		</p>
+			<h1>
+				#encodeForHtml( title )#
+			</h1>
 
-		<p class="ui-readable-width">
-			Remove the feature-gating logic from the code and then delete the feature flag configuration:
-		</p>
+			<p>
+				Your new feature has been running in production for some period of time with no issues. It seems that the customers are happy and the coast is clear. It's time to clean-up after yourself.
+			</p>
 
-		<cfmodule template="./snippet-1.cfm">
+			<p>
+				Leaving unnecessary feature flags in the code is a huge mistake. While feature flags are absolutely amazing, they do add complexity and increase the cost of maintenance. Feature flags should be removed from the code as soon as possible.
+			</p>
 
-		<form method="get">
-			<input type="hidden" name="event" value="playground.walkthrough.step11" />
+			<h2>
+				Next Step
+			</h2>
 
-			<button type="submit">
-				Delete Feature Flag &rarr;
-			</button>
-		</form>
+			<p>
+				Remove the feature-gating logic from the code and then delete the feature flag configuration:
+			</p>
+
+			<cfmodule template="./snippet-1.cfm">
+
+			<form method="get">
+				<input type="hidden" name="event" value="playground.walkthrough.step11" />
+
+				<button type="submit">
+					Delete Feature Flag &rarr;
+				</button>
+			</form>
+
+		</div>
 
 		<cfmodule template="../shared/raw.cfm">
 

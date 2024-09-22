@@ -61,7 +61,7 @@
 		config = config
 	);
 
-	title = request.template.title = "Beta Testing With Customer";
+	title = request.template.title = "Beta-Testing With Customer";
 
 	include "./step6.view.cfm";
 

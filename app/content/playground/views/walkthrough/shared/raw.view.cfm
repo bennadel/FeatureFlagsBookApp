@@ -27,18 +27,22 @@
 
 		<hr class="ui-rule json-rule" />
 
-		<button @click="toggleJson()" class="toggle-json">
-			<span x-text="( isShowingJson ? 'Hide' : 'Show' )"></span>
-			current feature configuration
-		</button>
+		<p>
+			<button @click="toggleJson()" class="toggle-json">
+				<span x-text="( isShowingJson ? 'Hide' : 'Show' )"></span>
+				current feature configuration
+			</button>
+		</p>
 
 		<template x-if="isShowingJson">
-			<div>
-				<p class="ui-readable-width">
+			<div class="ui-readable-width">
+
+				<p>
 					This is the "#encodeForHtml( request.featureKey )#" feature configuration that is being used to render the state on the right.&nbsp;&rarr;
 				</p>
 
-				<pre class="ui-snippet ui-readable-width"><code x-text="json"></code></pre>
+				<pre class="ui-snippet"><code x-text="json"></code></pre>
+
 			</div>
 		</template>
 

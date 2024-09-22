@@ -17,7 +17,7 @@ A feature flags system is really just a rules engine that takes application-prov
 
 ### Resolution Type
 
-The majority of feature flags that I use are Boolean types that conditionally enable new feature experiments and performance improvements. For these types of flags, a finite set of variants along with a percent-based distribution makes a lot of sense&mdash;it allows you to incrementally roll-out a new feature; and, to react quickly to any early signs of a problem.
+The majority of feature flags that I use are Boolean types that conditionally enable new feature experiments and performance improvements. For these types of flags, a finite set of variants along with a percent-based distribution makes a lot of sense &mdash; it allows you to incrementally roll-out a new feature; and, to react quickly to any early signs of a problem.
 
 For some types of _operational_ feature flags, however, dealing with a finite set of variants and a percent-based allocation feels unnatural. In those cases, a little more flexibility creates better developer ergonomics.
 
@@ -182,7 +182,7 @@ You may notice that the `environments`, `features`, and `targeting` properties a
 
 * **2024, June 27**: I've added all the configuration validation methods. At this point, I should be able to start creating the UI that allows a user to actually edit their config file.
 
-* **2024, June 10**: I starting working on the list of feature flags. The great thing about having a set of demo-users against which to evaluate the feature flags is that I can show a preview breakdown of the variant allocations. It's a bit of a brute-force&mdash;for each feature, for each environment, for all users, evaluate the variant result&mdash;but, since it's such a small number of users (in the grand scheme of things), it should be fine.
+* **2024, June 10**: I starting working on the list of feature flags. The great thing about having a set of demo-users against which to evaluate the feature flags is that I can show a preview breakdown of the variant allocations. It's a bit of a brute-force &mdash; for each feature, for each environment, for all users, evaluate the variant result &mdash; but, since it's such a small number of users (in the grand scheme of things), it should be fine.
 
 * **2024, June 9**: I collocated all of the demo targeting logic in a `DemoTargeting.cfc`. This includes both the demo rule injection and the user-context creation. This should make it a bit easier to update the demo experience in one place.
 

@@ -13,6 +13,10 @@
 			flex: 0 0 auto ;
 		}
 
+		.walkthrough-panels__main h1 {
+			margin-top: 0 ;
+		}
+
 		aside.content-wrapper {
 			position: sticky ;
 			top: 0 ;
@@ -24,7 +28,7 @@
 		<div class="walkthrough-panels">
 			<div class="walkthrough-panels__main">
 
-				<section class="content-wrapper u-collapse-margin">
+				<section class="content-wrapper">
 					#request.template.primaryContent#
 				</section>
 

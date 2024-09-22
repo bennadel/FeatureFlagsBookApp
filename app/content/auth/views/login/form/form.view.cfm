@@ -1,7 +1,7 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<h1 class="u-no-margin-top">
+		<h1>
 			Feature Flags Playground
 		</h1>
 
@@ -14,7 +14,7 @@
 		</p>
 
 		<cfif errorMessage.len()>
-			<p class="error-message">
+			<p class="ui-rror-message">
 				#encodeForHtml( errorMessage )#
 			</p>
 		</cfif>

@@ -17,9 +17,6 @@
 		case "list":
 			cfmodule( template = "./list/list.cfm" );
 		break;
-		case "raw":
-			cfmodule( template = "./raw/raw.cfm" );
-		break;
 		case "reset":
 			cfmodule( template = "./reset/reset.cfm" );
 		break;

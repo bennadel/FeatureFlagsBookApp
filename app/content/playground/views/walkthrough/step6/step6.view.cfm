@@ -13,48 +13,62 @@
 	</style>
 	<cfoutput>
 
-		<h1>
-			#encodeForHtml( title )#
-		</h1>
+		<div class="ui-readable-width">
 
-		<p class="ui-readable-width">
-			As you can see on the right, the feature has been enabled for the "dayknight" subdomain. Now, in addition to using the new feature internally on your development team, you have real customers consuming it. This will almost certainly surface new bugs and usability issues. But, no worries&mdash;the vast majority of production users are still receiving the first variant (<span class="u-variant-1">false</span>) and are still consuming the old version of the feature.
-		</p>
+			<h1>
+				#encodeForHtml( title )#
+			</h1>
 
-		<p class="ui-readable-width">
-			Once the beta testing period has concluded, we can start releasing this new feature to the general audience. But, we still want to be cautious. Instead of enabling the new feature for <em>everyone</em>, we're going to release is to 25% of the user-base.
-		</p>
+			<p>
+				As you can see on the right, the feature has been enabled for the "dayknight" subdomain. Now, in addition to using the new feature internally on your development team, you have real customers consuming it. This will almost certainly surface new bugs and usability issues.
+			</p>
 
-		<p class="ui-readable-width">
-			To do this, we'll change the default resolution of the production environment to be a "distribution" that allocates the <span class="u-variant-2">true</span> variant to 25% of users:
-		</p>
+			<p>
+				But, no worries &mdash; the vast majority of production users are still receiving the first variant (<span class="u-variant-1">false</span>) and are still consuming the old version of the feature. This gives you a safe and effective way in which to iterate on the feature right in the production environment.
+			</p>
 
-		<cfmodule template="./snippet-1.cfm">
-
-		<form method="get">
-			<input type="hidden" name="event" value="playground.walkthrough.step7" />
-
-			<button type="submit">
-				Enable for 25% of All Users &rarr;
-			</button>
-		</form>
-
-		<div class="uh-oh u-collapse-margin ui-readable-width">
 			<h2>
-				Side Quest: A Critical Bug Is Discovered!
+				Next Step
 			</h2>
 
 			<p>
-				As a thought experiment, let's imagine that your beta-testing customer uncovered a critical bug in your new feature's implementation. Perhaps the text values are being truncated and the data is being corrupted! We need to prevent more errors from taking place ASAP!
+				Once the beta-testing period has concluded, we can start releasing this new feature to the general audience. But, we still want to be cautious. Instead of enabling the new feature for <em>everyone</em>, we're going to release it to 25% of the user-base.
 			</p>
 
 			<p>
-				This is where feature flags are worth their weight in gold!
+				To do this, we'll change the default resolution of the production environment to be a "distribution" &mdash; instead of a "selection" &mdash; that allocates the <span class="u-variant-2">true</span> variant to 25% of users:
 			</p>
 
-			<p>
-				<a href="/index.cfm?event=playground.walkthrough.step6b">Let's see what we can do</a> &rarr;
-			</p>
+			<cfmodule template="./snippet-1.cfm">
+
+			<form method="get">
+				<input type="hidden" name="event" value="playground.walkthrough.step7" />
+
+				<button type="submit">
+					Enable for 25% of All Users &rarr;
+				</button>
+			</form>
+
+			<div class="uh-oh">
+
+				<h2 class="u-no-margin-top">
+					Side Quest: A Critical Bug Is Discovered!
+				</h2>
+
+				<p>
+					As a thought experiment, let's imagine that your beta-testing customer uncovered a critical bug in your new feature's implementation. Perhaps the text values are being truncated and the data is being corrupted! We need to prevent more errors from taking place ASAP!
+				</p>
+
+				<p>
+					This is where feature flags are worth their weight in gold!
+				</p>
+
+				<p class="u-no-margin-bottom">
+					<a href="/index.cfm?event=playground.walkthrough.step6b">Let's see what we can do</a> &rarr;
+				</p>
+
+			</div>
+
 		</div>
 
 		<cfmodule template="../shared/raw.cfm">

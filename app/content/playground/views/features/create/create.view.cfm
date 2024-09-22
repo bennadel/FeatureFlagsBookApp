@@ -1,14 +1,14 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#
 			</h1>
 
 			<cfif errorMessage.len()>
-				<p class="error-message">
+				<p class="ui-error-message">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
@@ -17,10 +17,10 @@
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="submitted" value="true" />
 
-				<dl class="key-values">
+				<dl>
 					<div>
 						<dt>
-							<strong>Key:</strong>
+							Key:
 						</dt>
 						<dd>
 							<input
@@ -33,7 +33,7 @@
 					</div>
 					<div>
 						<dt>
-							<strong>Type:</strong>
+							Type:
 						</dt>
 						<dd>
 							<cfloop index="featureType" array="#[ 'boolean', 'string', 'number' ]#">
@@ -60,7 +60,7 @@
 					</div>
 					<div>
 						<dt>
-							<strong>Description:</strong>
+							Description:
 						</dt>
 						<dd>
 							<textarea cols="50" rows="3">#encodeForHtml( form.description )#</textarea>
@@ -68,10 +68,10 @@
 					</div>
 					<div>
 						<dt>
-							<strong>Variants:</strong>
+							Variants:
 						</dt>
-						<dd>
-							<ol class="breathing-room">
+						<dd class="u-no-inner-margin-y">
+							<ol class="u-breathing-room">
 								<cfloop index="entry" array="#utilities.toEntries( form.variantsRaw )#">
 									<li>
 

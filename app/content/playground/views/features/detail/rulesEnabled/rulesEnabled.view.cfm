@@ -1,16 +1,16 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#
 			</h1>
 
-			<dl class="key-values">
+			<dl>
 				<div>
 					<dt>
-						<strong>Feature:</strong>
+						Feature:
 					</dt>
 					<dd>
 						#encodeForHtml( feature.key )#
@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Environment:</strong>
+						Environment:
 					</dt>
 					<dd>
 						#encodeForHtml( environment.key )#
@@ -29,7 +29,7 @@
 			<hr class="ui-rule is-soft" />
 
 			<cfif errorMessage.len()>
-				<p class="error-message">
+				<p class="ui-error-message">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
@@ -40,10 +40,10 @@
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
 				<input type="hidden" name="submitted" value="true" />
 
-				<dl class="key-values">
+				<dl>
 					<div>
 						<dt>
-							<strong>Evaluate Rules:</strong>
+							Evaluate Rules:
 						</dt>
 						<dd>
 							<label for="form--disabled" class="choggle">

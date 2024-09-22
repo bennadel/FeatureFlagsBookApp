@@ -1,27 +1,43 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<h1>
-			#encodeForHtml( title )#
-		</h1>
+		<div class="ui-readable-width">
 
-		<p class="ui-readable-width">
-			As you can see on the right, the new feature is now enabled for all users in the production environment. Congratulations, you just progressively developed and deployed a new feature with unparalleled safety and intoxicating confidence. At this point, we can let the feature "soak" in production for some period of time, leaving the feature flag in the code for case of emergency.
-		</p>
+			<h1>
+				#encodeForHtml( title )#
+			</h1>
 
-		<p class="ui-readable-width">
-			We could leave the distribution allocation at 100% while the feature soaks. But, for the sake of experience, let's delete the rules and update the default resolution in the production environment to serve up the second variant (<span class="u-variant-2">true</span>):
-		</p>
+			<p>
+				As you can see on the right, the new feature is now enabled for all users in the production environment. Congratulations, you just progressively developed and deployed a new feature with unparalleled safety and an intoxicating amount of confidence.
+			</p>
 
-		<cfmodule template="./snippet-1.cfm">
+			<h2>
+				Next Step
+			</h2>
 
-		<form method="get">
-			<input type="hidden" name="event" value="playground.walkthrough.step10" />
+			<p>
+				At this point, we should let the feature "soak" in production for some period of time, leaving the new feature code gated behind the feature flag in case an emergency revert needs to take place (albeit highly unlikely).
+			</p>
 
-			<button type="submit">
-				Let it Soak in Production &rarr;
-			</button>
-		</form>
+			<p>
+				We could leave the distribution allocation at 100% while the feature soaks. But, for the sake of the walk-through, let's delete the rules and update the default resolution in the production environment to serve up the second variant (<span class="u-variant-2">true</span>):
+			</p>
+
+			<cfmodule template="./snippet-1.cfm">
+
+			<p>
+				This change in the configuration makes no difference to the users &mdash; 100% of production users are still receiving the <span class="u-variant-2">true</span> variant. We've simply changed the underlying resolution mechanics from "distribution" to "selection".
+			</p>
+
+			<form method="get">
+				<input type="hidden" name="event" value="playground.walkthrough.step10" />
+
+				<button type="submit">
+					Let it Soak in Production &rarr;
+				</button>
+			</form>
+
+		</div>
 
 		<cfmodule template="../shared/raw.cfm">
 

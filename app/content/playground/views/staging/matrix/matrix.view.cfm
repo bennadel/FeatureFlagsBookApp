@@ -50,27 +50,31 @@
 	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
+			<div class="ui-readable-width">
 
-			<p class="ui-readable-width">
-				The feature matrix provides an overview of all the feature flag variant values being allocated to the demo users across the various environments. Each variant box below represents a user-variant allocation. You can click on any given box to view an explanation as to why that variant has been allocated for that user.
-			</p>
+				<h1>
+					#encodeForHtml( title )#
+				</h1>
 
-			<h2>
-				Feature Flags
-			</h2>
+				<p>
+					The feature matrix provides an overview of all the feature flag variant values being allocated to the demo users across the various environments. Each variant box below represents a user-variant allocation. You can click on any given box to view an explanation as to why that variant has been allocated for that user.
+				</p>
 
-			<ul>
-				<cfloop array="#features#" index="feature">
-					<li>
-						<a href="###encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
-					</li>
-				</cfloop>
-			</ul>
+				<h2>
+					Feature Flags
+				</h2>
+
+				<ul>
+					<cfloop array="#features#" index="feature">
+						<li>
+							<a href="###encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
+						</li>
+					</cfloop>
+				</ul>
+
+			</div>
 
 			<cfloop array="#features#" index="feature">
 
@@ -80,7 +84,7 @@
 						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#" class="feature__label">#encodeForHtml( feature.key )#</a>
 					</h2>
 
-					<div class="feature__body u-collapse-margin">
+					<div class="feature__body u-no-inner-margin-top">
 
 						<cfif feature.description.len()>
 							<p class="ui-readable-width">

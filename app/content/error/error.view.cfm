@@ -14,7 +14,7 @@
 	</head>
 	<body>
 
-		<main class="m4-main content-wrapper u-collapse-margin">
+		<main class="m4-main content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#

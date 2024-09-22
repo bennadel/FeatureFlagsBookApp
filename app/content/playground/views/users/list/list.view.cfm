@@ -53,29 +53,33 @@
 	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
+			<div class="ui-readable-width">
 
-			<p class="ui-readable-width">
-				The following users are here to demonstrate how feature flag targeting affects variant allocation. I've purposely generated 100 users so that every 1% of additional distribution will map (roughly) to 1 additional user.
-			</p>
+				<h1>
+					#encodeForHtml( title )#
+				</h1>
 
-			<p class="ui-readable-width">
-				I've also created #numberFormat( authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
-			</p>
+				<p>
+					The following users are here to demonstrate how feature flag targeting affects variant allocation. I've purposely generated 100 users so that every 1% of additional distribution will map (roughly) to 1 additional user.
+				</p>
 
-			<ul class="breathing-room">
-				<cfloop array="#authUsers#" index="user">
-					<li>
-						<span class="ui-tag">#encodeForHtml( user.role )#</span>
-						&rarr;
-						<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
-					</li>
-				</cfloop>
-			</ul>
+				<p>
+					I've also created #numberFormat( authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
+				</p>
+
+				<ul class="u-breathing-room">
+					<cfloop array="#authUsers#" index="user">
+						<li>
+							<span class="ui-tag">#encodeForHtml( user.role )#</span>
+							&rarr;
+							<a href="/index.cfm?event=playground.staging.user&userID=#encodeForUrl( user.id )#">#encodeForHtml( user.email )#</a>
+						</li>
+					</cfloop>
+				</ul>
+
+			</div>
 
 			<table id="grid" class="grid">
 			<thead>

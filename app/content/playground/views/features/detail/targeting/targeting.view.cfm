@@ -18,17 +18,6 @@
 			top: 0 ;
 		}
 
-		dl {
-			margin: 20px 0px ;
-		}
-
-		dl > div {
-			margin: 10px 0 10px 0 ;
-		}
-		dt {
-			margin: 10px 0 10px 0 ;
-		}
-
 		.env {}
 		.env__header {
 			background-color: #ffffff ;
@@ -49,12 +38,6 @@
 		.env__body {
 			border: 2px solid #333333 ;
 			padding: 20px ;
-		}
-		.env__body .key-values {
-			margin: 10px 0 ;
-		}
-		.env__body > .key-values {
-			margin: 0 ;
 		}
 
 		.rule {
@@ -111,6 +94,7 @@
 			background-color: #f0f0f0 ;
 		}
 		.editable__link {
+			font-weight: 400 ;
 			opacity: 0.7 ;
 		}
 		.editable__link:nth-of-type(1) {
@@ -165,62 +149,62 @@
 	<cfoutput>
 
 		<div x-data="FlashRoot" class="panels flash-root">
-			<section class="panels__main content-wrapper u-collapse-margin">
+			<section class="panels__main content-wrapper">
 
-				<h1>
-					#encodeForHtml( title )#
-				</h1>
+				<div class="ui-readable-width">
 
-				<dl class="key-values ui-readable-width">
-					<div>
-						<dt>
-							<strong>Key:</strong>
-						</dt>
-						<dd>
-							<p>
-								#encodeForHtml( feature.key )#
-							</p>
-						</dd>
-					</div>
-					<div>
-						<dt>
-							<strong>Type:</strong>
-						</dt>
-						<dd>
-							<p>
-								#encodeForHtml( feature.type )#
-							</p>
-						</dd>
-					</div>
-					<cfif feature.description.len()>
+					<h1>
+						#encodeForHtml( title )#
+					</h1>
+
+					<dl>
 						<div>
 							<dt>
-								<strong>Description:</strong>
+								Key:
 							</dt>
 							<dd>
-								<p>
-									#encodeForHtml( feature.description )#
-								</p>
+								#encodeForHtml( feature.key )#
 							</dd>
 						</div>
-					</cfif>
-					<div>
-						<dt>
-							<strong>Variants:</strong>
-						</dt>
-						<dd>
-							<ol class="breathing-room">
-								<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
-									<li>
-										<span class="tag u-variant-#variantEntry.index#">
-											#encodeForHtml( serializeJson( variantEntry.value ) )#
-										</span>
-									</li>
-								</cfloop>
-							</ol>
-						</dd>
-					</div>
-				</dl>
+						<div>
+							<dt>
+								Type:
+							</dt>
+							<dd>
+								#encodeForHtml( feature.type )#
+							</dd>
+						</div>
+						<cfif feature.description.len()>
+							<div>
+								<dt>
+									Description:
+								</dt>
+								<dd>
+									<p>
+										#encodeForHtml( feature.description )#
+									</p>
+								</dd>
+							</div>
+						</cfif>
+						<div>
+							<dt>
+								Variants:
+							</dt>
+							<dd>
+								<ol class="u-breathing-room">
+									<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
+										<li>
+											<span class="ui-tag u-variant-#variantEntry.index#">
+												#encodeForHtml( serializeJson( variantEntry.value ) )#
+											</span>
+										</li>
+									</cfloop>
+								</ol>
+							</dd>
+						</div>
+					</dl>
+
+				</div>
 
 				<cfloop array="#environments#" index="environment">
 
@@ -234,7 +218,7 @@
 						</h2>
 						<div class="env__body">
 
-							<dl class="key-values">
+							<dl class="u-no-margin-y">
 								<div
 									@mouseenter="flashProximal( '#encodeForJavaScript( environment.key )#' )"
 									@mouseleave="unflash()"
@@ -242,7 +226,7 @@
 									data-flash-rule="0"
 									class="flasher-proximal">
 									<dt x-data="Editable" @click="handleClick()" class="editable">
-										<strong>Default Resolution:</strong>
+										Default Resolution:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
@@ -257,7 +241,7 @@
 												<p>
 													Selection
 													&rarr;
-													<span class="tag u-variant-#settings.resolution.selection#">
+													<span class="ui-tag u-variant-#settings.resolution.selection#">
 														#encodeForHtml( serializeJson( feature.variants[ settings.resolution.selection ] ) )#
 													</span>
 												</p>
@@ -266,13 +250,13 @@
 												<p>
 													Distribution
 												</p>
-												<ul class="breathing-room">
+												<ul class="u-breathing-room">
 													<cfloop index="distributionEntry" array="#utilities.toEntries( settings.resolution.distribution )#">
 														<cfif distributionEntry.value>
 															<li>
 																#distributionEntry.value#%
 																&rarr;
-																<span class="tag u-variant-#distributionEntry.index#">
+																<span class="ui-tag u-variant-#distributionEntry.index#">
 																	#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																</span>
 															</li>
@@ -284,7 +268,7 @@
 												<p>
 													Variant
 													&rarr;
-													<span class="tag u-variant-0">
+													<span class="ui-tag u-variant-0">
 														#encodeForHtml( serializeJson( settings.resolution.variant ) )#
 													</span>
 												</p>
@@ -294,7 +278,7 @@
 								</div>
 								<div>
 									<dt x-data="Editable" @click="handleClick()" class="editable">
-										<strong>Rules Enabled:</strong>
+										Rules Enabled:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.rulesEnabled&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
@@ -311,7 +295,7 @@
 								</div>
 								<div>
 									<dt>
-										<strong>Rules:</strong>
+										Rules:
 									</dt>
 									<dd>
 										<cfloop index="ruleEntry" array="#utilities.toEntries( settings.rules )#">
@@ -323,7 +307,7 @@
 												@mouseleave="unflash()"
 												data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 												data-flash-rule="#encodeForHtmlAttribute( ruleEntry.index )#"
-												class="key-values rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher-proximal">
+												class="rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher-proximal">
 												<div>
 													<dt x-data="Editable" @click="handleClick()" class="editable">
 														<strong>IF</strong>
@@ -369,7 +353,7 @@
 															<cfcase value="selection">
 																<p>
 																	Selection &rarr;
-																	<span class="tag u-variant-#rule.resolution.selection#">
+																	<span class="ui-tag u-variant-#rule.resolution.selection#">
 																		#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 																	</span>
 																</p>
@@ -378,13 +362,13 @@
 																<p>
 																	Distribution
 																</p>
-																<ul class="breathing-room">
+																<ul class="u-breathing-room">
 																	<cfloop index="distributionEntry" array="#utilities.toEntries( rule.resolution.distribution )#">
 																		<cfif distributionEntry.value>
 																			<li>
 																				#distributionEntry.value#%
 																				&rarr;
-																				<span class="tag u-variant-#distributionEntry.index#">
+																				<span class="ui-tag u-variant-#distributionEntry.index#">
 																					#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																				</span>
 																			</li>
@@ -395,7 +379,7 @@
 															<cfcase value="variant">
 																<p>
 																	Variant &rarr;
-																	<span class="tag u-variant-0">
+																	<span class="ui-tag u-variant-0">
 																		#encodeForHtml( serializeJson( rule.resolution.variant ) )#
 																	</span>
 																</p>

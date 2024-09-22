@@ -1,14 +1,14 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#
 			</h1>
 
 			<cfif errorMessage.len()>
-				<p class="error-message">
+				<p class="ui-error-message">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>

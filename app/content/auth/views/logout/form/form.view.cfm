@@ -6,7 +6,7 @@
 		</h1>
 
 		<cfif errorMessage.len()>
-			<p class="error-message">
+			<p class="ui-error-message">
 				#encodeForHtml( errorMessage )#
 			</p>
 		</cfif>

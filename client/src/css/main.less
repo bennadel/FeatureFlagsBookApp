@@ -1,5 +1,19 @@
 
 // ---
+// LESS CSS Utilities.
+// ---
+
+.less-remove-inner-margins() {
+	> *:first-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl ) {
+		margin-top: 0 ;
+	}
+
+	> *:last-child:where( h2, h3, h4, h5, h6, p, ul, ol, dl ) {
+		margin-bottom: 0 ;
+	}
+}
+
+// ---
 // Base Styles.
 // ---
 
@@ -26,66 +40,102 @@ body {
 
 article,
 aside,
+figcaption,
+figure,
 footer,
 header,
 main,
+nav,
 section {
 	display: block ;
 }
 
 h1 {
 	font-size: 2rem ;
-	margin: 0.8em 0 ;
+	margin: 0 0 1.6rem ;
 }
 
 h2 {
 	font-size: 1.6rem ;
-	margin: 1em 0 0.8em ;
+	margin: 1.6rem 0 1.3rem ;
 }
 
 h3 {
 	font-size: 1.3rem ;
-	margin: 1.2em 0 0.8em ;
+	margin: 1.6rem 0 1.1rem ;
 }
 
 h4,
 h5,
 h6 {
 	font-size: 1rem ;
-	margin: 1em 0 ;
+	margin: 1rem 0 ;
 }
 
 p {
-	margin: 1em 0 ;
+	margin: 1rem 0 ;
 }
 
 ul,
 ol {
-	margin-bottom: 1.2em ;
-	margin-top: 1.2em ;
+	margin-bottom: 1.2rem ;
+	margin-top: 1.2rem ;
 }
 
 li {
-	margin-bottom: 0.1em ;
-	margin-top: 0.1em ;
+	.less-remove-inner-margins() ;
+
+	margin-bottom: 0.1rem ;
+	margin-top: 0 ;
+
+	&:last-child {
+		margin-bottom: 0 ;
+	}
+}
+
+dl {
+	margin: 1.2rem 0 ;
+}
+
+dl > div {
+	margin-bottom: 1rem ;
+
+	&:last-child {
+		margin-bottom: 0 ;
+	}
+}
+
+dt {
+	font-weight: bold ;
+	margin: 0 0 0.5rem ;
+}
+
+dd {
+	.less-remove-inner-margins() ;
+
+	margin: 0 0 0 2.2rem ;
 }
 
 table {
 	border-collapse: collapse ;
 	border-spacing: 0 ;
-	margin-bottom: 1.5em ;
-	margin-top: 1.5em ;
+	margin-bottom: 1.5rem ;
+	margin-top: 1.5rem ;
 }
 
 th {
+	.less-remove-inner-margins() ;
+
 	font-size: 1rem ;
 	font-weight: bold ;
-	padding: 0.3em 0.5em ;
+	padding: 0.3rem 0.5rem ;
 }
 
 td {
+	.less-remove-inner-margins() ;
+
 	font-size: 1rem ;
-	padding: 0.3em 0.5em ;
+	padding: 0.3rem 0.5rem ;
 }
 
 a {
@@ -112,11 +162,11 @@ svg {
 }
 
 figure {
-	margin: 1em 0 ;
+	margin: 1rem 0 ;
 }
 
 form {
-	margin: 1.4em 0 ;
+	margin: 1.4rem 0 ;
 	padding: 0 ;
 }
 
@@ -133,14 +183,14 @@ input,
 button,
 select,
 textarea {
-	padding: 7px 13px ;
+	padding: 0.4rem 0.7rem ;
 	margin: 0 ;
 }
 button {
-	padding: 7px 16px ;
+	padding: 0.4rem 0.9rem ;
 }
 select {
-	padding: 8px 10px ;
+	padding: 0.5rem 0.7rem ;
 }
 
 button {
@@ -207,96 +257,65 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 	margin-top: 0 ;
 }
 
-// ---
-// Common Styles.
-// ---
-
-dl.key-values {
-	margin: 20px 0 30px ;
-}
-dl.key-values dt {
-	margin: 0 0 5px ;
-}
-dl.key-values > div {
-	margin: 10px 0 15px ;
-}
-dl.key-values > div:first-child,
-dl.key-values > div > dt > *:first-child,
-dl.key-values > div > dd > *:first-child {
-	margin-top: 0 ;
-}
-dl.key-values > div:last-child,
-dl.key-values > div > dt > *:last-child,
-dl.key-values > div > dd > *:last-child {
-	margin-bottom: 0 ;
+.u-no-margin-y {
+	.u-no-margin-top() ;
+	.u-no-margin-bottom() ;
 }
 
-.choggle {
-	align-items: center ;
-	display: flex ;
-	gap: 10px ;
-}
-.choggle--inline {
-	display: inline-flex ;
-}
-.choggle__control {}
-.choggle__label {}
-
-.tag {
-	border-radius: 3px ;
-	display: inline-block ;
-	padding: 2px 7px ;
-}
-
-ul.breathing-room li,
-ol.breathing-room li {
-	margin-bottom: 5px ;
-	margin-top: 5px ;
-}
-
-ul.no-marker,
-ol.no-marker {
-	list-style-type: none ;
-	margin-left: 0 ;
-	margin-right: 0 ;
-	padding: 0 ;
-}
-
-ul.no-marker li,
-ol.no-marker li {
-	padding: 0 ;
-}
-
-.error-message {
-	background-color: #ffe8eb ;
-	border: 1px solid #ff0000 ;
-	border-left-width: 5px;
-	padding: 14px 18px ;
-}
-
-.content-wrapper {
-	padding: 30px 35px ;
-}
-
-.u-collapse-margin {
-	> *:first-child {
-		margin-top: 0 ;
-	}
-
+.u-no-inner-margin-bottom {
 	> *:last-child {
 		margin-bottom: 0 ;
 	}
+}
+
+.u-no-inner-margin-top {
+	> *:first-child {
+		margin-top: 0 ;
+	}
+}
+
+.u-no-inner-margin-y {
+	.u-no-inner-margin-top() ;
+	.u-no-inner-margin-bottom() ;
+}
+
+ul.u-no-marker,
+ol.u-no-marker {
+	list-style-type: none ;
+	margin-left: 0 ;
+	padding: 0 ;
+
+	> li {
+		padding: 0 ;
+	}
+}
+
+ul.u-breathing-room,
+ol.u-breathing-room {
+	> li {
+		margin-bottom: 5px ;
+		margin-top: 5px ;
+	}
+}
+
+// ---
+// Core Styles.
+// ---
+
+.ui-error-message {
+	background-color: #ffe8eb ;
+	border: 1px solid #ff0000 ;
+	border-left-width: 5px;
+	padding: 0.8rem 1rem ;
 }
 
 .ui-readable-width {
 	max-width: 1000px ;
 }
 
-.ui-tag {
-	border: 1px solid #cccccc ;
-	border-radius: 3px ;
-	display: inline-block ;
-	padding: 2px 9px ;
+.ui-revert {
+	background-color: #ff294e ;
+	color: #ffffff ;
 }
 
 .ui-rule {
@@ -314,6 +333,7 @@ ol.no-marker li {
 	background-color: #fafafa ;
 	border: 1px solid #cccccc ;
 	border-radius: 4px ;
+	color: #000000 ;
 	display: block ;
 	font-size: 90% ;
 	line-height: 1.6 ;
@@ -327,12 +347,34 @@ ol.no-marker li {
 	}
 }
 
-.ui-revert {
-	background-color: #ff294e ;
-	color: #ffffff ;
+.ui-tag {
+	border-radius: 3px ;
+	display: inline-block ;
+	padding: 0.2rem 0.5rem ;
+
+	&.with-border {
+		border: 1px solid #cccccc ;
+	}
 }
 
+// ---
+// Components.
+// ---
 
+.choggle {
+	align-items: center ;
+	display: flex ;
+	gap: 10px ;
+}
+.choggle--inline {
+	display: inline-flex ;
+}
+.choggle__control {}
+.choggle__label {}
+
+.content-wrapper {
+	padding: 1.6rem 2rem 0.6rem ;
+}
 
 .m0-sprites {
 	display: none ;

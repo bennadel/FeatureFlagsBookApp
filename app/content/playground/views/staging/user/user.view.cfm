@@ -41,36 +41,40 @@
 	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
+			<div class="ui-readable-width">
 
-			<p class="ui-readable-width">
-				The following properties are used to define the "context" object during feature flag evaluation. Each one of these properties can be used within a rule to target a specific user or subset of users.
-			</p>
+				<h1>
+					#encodeForHtml( title )#
+				</h1>
 
-			<dl class="key-values">
-				<cfloop array="#utilities.toEntries( context )#" index="entry">
-					<div>
-						<dt>
-							<strong>"#encodeForHtml( entry.key )#"</strong>
-						</dt>
-						<dd>
-							#encodeForHtml( entry.value )#
-						</dd>
-					</div>
-				</cfloop>
-			</dl>
+				<p>
+					The following properties are used to define the "context" object during feature flag evaluation. Each one of these properties can be used within a rule to target a specific user or subset of users.
+				</p>
 
-			<h2>
-				Feature Flag Evaluations
-			</h2>
+				<dl>
+					<cfloop array="#utilities.toEntries( context )#" index="entry">
+						<div>
+							<dt>
+								"#encodeForHtml( entry.key )#"
+							</dt>
+							<dd>
+								#encodeForHtml( entry.value )#
+							</dd>
+						</div>
+					</cfloop>
+				</dl>
 
-			<p class="ui-readable-width">
-				Using your current feature flag configuration, the following variants are being assigned to this user (using the context object above). Click on one of the following variants to see an explanation of the assignment. Or, click on the feature flag key to view and modify the targeting rules.
-			</p>
+				<h2>
+					Feature Flag Evaluations
+				</h2>
+
+				<p>
+					Using your current feature flag configuration, the following variants are being assigned to this user (using the context object above). Click on one of the following variants to see an explanation of the assignment. Or, click on the feature flag key to view and modify the targeting rules.
+				</p>
+
+			</div>
 
 			<table class="grid">
 			<thead>

@@ -67,7 +67,7 @@
 			},
 			"user.groups.betaTester": {
 				getFacet: ( user ) => user.groups.betaTester,
-				getLabel: ( facet ) => "Beta tester: #facet#"
+				getLabel: ( facet ) => "Beta-tester: #facet#"
 			},
 			"user.groups.influencer": {
 				getFacet: ( user ) => user.groups.influencer,

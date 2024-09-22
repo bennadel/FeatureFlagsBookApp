@@ -130,7 +130,7 @@
 			"3": "Enable in Development Environment",
 			"4": "Solo Testing in Production",
 			"5": "Internal Testing in Production",
-			"6": "Beta Testing With Customer",
+			"6": "Beta-Testing With Customer",
 			"7": "Cautious Roll-Out to 25% of Users",
 			"8": "Cautious Roll-Out to 50% of Users",
 			"9": "Enable Feature For All Users",

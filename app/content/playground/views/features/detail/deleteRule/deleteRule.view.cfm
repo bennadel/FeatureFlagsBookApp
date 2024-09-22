@@ -1,16 +1,16 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#
 			</h1>
 
-			<dl class="key-values">
+			<dl>
 				<div>
 					<dt>
-						<strong>Feature:</strong>
+						Feature:
 					</dt>
 					<dd>
 						#encodeForHtml( feature.key )#
@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Environment:</strong>
+						Environment:
 					</dt>
 					<dd>
 						#encodeForHtml( environment.key )#
@@ -26,7 +26,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Input:</strong>
+						Input:
 					</dt>
 					<dd>
 						"#encodeForHtml( rule.input )#"
@@ -34,7 +34,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Operator:</strong>
+						Operator:
 					</dt>
 					<dd>
 						#encodeForHtml( rule.operator )#
@@ -42,7 +42,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Values:</strong>
+						Values:
 					</dt>
 					<dd>
 						<cfloop array="#rule.values#" index="value">
@@ -52,13 +52,13 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Resolution:</strong>
+						Resolution:
 					</dt>
 					<dd>
 						<cfswitch expression="#rule.resolution.type#">
 							<cfcase value="selection">
 								Selection &rarr;
-								<span class="tag u-variant-#rule.resolution.selection#">
+								<span class="ui-tag u-variant-#rule.resolution.selection#">
 									#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 								</span>
 							</cfcase>
@@ -66,12 +66,12 @@
 								<p>
 									Distribution
 								</p>
-								<ul class="breathing-room">
+								<ul class="u-breathing-room">
 									<cfloop index="entry" array="#utilities.toEntries( rule.resolution.distribution )#">
 										<cfif entry.value>
 											<li>
 												#encodeForHtml( entry.value )#% &rarr;
-												<span class="tag u-variant-#entry.index#">
+												<span class="ui-tag u-variant-#entry.index#">
 													#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
 												</span>
 											</li>
@@ -81,7 +81,7 @@
 							</cfcase>
 							<cfcase value="variant">
 								Variant &rarr;
-								<span class="tag u-variant-0">
+								<span class="ui-tag u-variant-0">
 									#encodeForHtml( serializeJson( rule.resolution.variant ) )#
 								</span>
 							</cfcase>
@@ -91,7 +91,7 @@
 			</dl>
 
 			<cfif errorMessage.len()>
-				<p class="error-message">
+				<p class="ui-error-message">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>

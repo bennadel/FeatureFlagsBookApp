@@ -8,16 +8,16 @@
 	</style>
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#
 			</h1>
 
-			<dl class="key-values">
+			<dl>
 				<div>
 					<dt>
-						<strong>Feature:</strong>
+						Feature:
 					</dt>
 					<dd>
 						#encodeForHtml( feature.key )#
@@ -25,7 +25,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Environment:</strong>
+						Environment:
 					</dt>
 					<dd>
 						#encodeForHtml( environment.key )#
@@ -36,7 +36,7 @@
 			<hr class="ui-rule is-soft" />
 
 			<cfif errorMessage.len()>
-				<p class="error-message">
+				<p class="ui-error-message">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
@@ -47,10 +47,10 @@
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
 				<input type="hidden" name="submitted" value="true" />
 
-				<dl class="key-values">
+				<dl>
 					<div>
 						<dt>
-							<strong>Type:</strong>
+							Type:
 						</dt>
 						<dd>
 							<label class="choggle">
@@ -98,10 +98,10 @@
 					<!--- Start: Selection. --->
 					<div :class="{ hidden: ( resolutionType !== 'selection' ) }">
 						<dt>
-							<strong>Selection:</strong>
+							Selection:
 						</dt>
 						<dd>
-							<ul class="no-marker breathing-room">
+							<ul class="u-no-marker u-breathing-room">
 								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
 
 									<li>
@@ -113,7 +113,7 @@
 												#ui.attrChecked( form.resolutionSelection == entry.index )#
 												class="choggle__control"
 											/>
-											<span class="choggle__label tag u-variant-#entry.index#">
+											<span class="choggle__label ui-tag u-variant-#entry.index#">
 												#encodeForHtml( serializeJson( entry.value ) )#
 											</span>
 										</label>
@@ -128,10 +128,10 @@
 					<!--- Start: Distribution. --->
 					<div :class="{ hidden: ( resolutionType !== 'distribution' ) }">
 						<dt>
-							<strong>Distribution:</strong>
+							Distribution:
 						</dt>
 						<dd>
-							<ul class="no-marker breathing-room">
+							<ul class="u-no-marker u-breathing-room">
 								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
 
 									<li>
@@ -147,7 +147,7 @@
 											</select>
 											<span class="choggle__label">
 												&rarr;
-												<span class="tag u-variant-#entry.index#">
+												<span class="ui-tag u-variant-#entry.index#">
 													#encodeForHtml( serializeJson( entry.value ) )#
 												</span>
 											</span>
@@ -173,7 +173,7 @@
 					<!--- Start: Variant. --->
 					<div :class="{ hidden: ( resolutionType !== 'variant' ) }">
 						<dt>
-							<strong>Variant:</strong>
+							Variant:
 						</dt>
 						<dd>
 							<input

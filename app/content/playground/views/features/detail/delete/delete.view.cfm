@@ -1,16 +1,16 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<section class="content-wrapper u-collapse-margin">
+		<section class="content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#
 			</h1>
 
-			<dl class="key-values">
+			<dl>
 				<div>
 					<dt>
-						<strong>Feature:</strong>
+						Feature:
 					</dt>
 					<dd>
 						#encodeForHtml( feature.key )#
@@ -18,7 +18,7 @@
 				</div>
 				<div>
 					<dt>
-						<strong>Type:</strong>
+						Type:
 					</dt>
 					<dd>
 						#encodeForHtml( feature.type )#
@@ -36,13 +36,13 @@
 				</cfif>
 				<div>
 					<dt>
-						<strong>Variants:</strong>
+						Variants:
 					</dt>
 					<dd>
-						<ol class="breathing-room">
+						<ol class="u-breathing-room">
 							<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
 								<li>
-									<span class="tag u-variant-#entry.index#">
+									<span class="ui-tag u-variant-#entry.index#">
 										#encodeForHtml( serializeJson( entry.value ) )#
 									</span>
 								</li>
@@ -53,7 +53,7 @@
 			</dl>
 
 			<cfif errorMessage.len()>
-				<p class="error-message">
+				<p class="ui-error-message">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>

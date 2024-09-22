@@ -190,7 +190,7 @@ component
 				selection: 2
 			]
 		]);
-		// Enabled in production for all beta testers.
+		// Enabled in production for all beta-testers.
 		config.features[ "product-TICKET-333-themes" ].targeting.production.rules.append([
 			operator: "IsOneOf",
 			input: "user.groups.betaTester",
