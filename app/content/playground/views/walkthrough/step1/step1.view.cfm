@@ -46,7 +46,7 @@
 					</dt>
 					<dd class="u-no-inner-margin-y">
 
-						<ul class="u-breathing-room">
+						<ol class="u-breathing-room">
 							<cfloop array="#utilities.toEntries( request.feature.variants )#" index="entry">
 								<li>
 
@@ -58,7 +58,7 @@
 
 								</li>
 							</cfloop>
-						</ul>
+						</ol>
 
 					</dd>
 				</div>
