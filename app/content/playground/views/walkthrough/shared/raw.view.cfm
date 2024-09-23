@@ -1,34 +1,11 @@
-<style type="text/css">
-
-	.feature-json {
-		opacity: 0.2 ;
-	}
-	.feature-json:hover {
-		opacity: 1.0 ;
-		transition: opacity 300ms ease-out ;
-	}
-
-	.json-rule {
-		margin: 3rem 0 1.5rem ;
-	}
-
-	.toggle-json {
-		background-color: transparent ;
-		border: none ;
-		margin: 0 ;
-		padding: 0 ;
-		text-decoration: underline ;
-	}
-
-</style>
 <cfoutput>
 
-	<article x-data="FeatureJson" class="feature-json">
+	<article x-data="FeatureJson" class="m8-json">
 
-		<hr class="ui-rule json-rule" />
+		<hr class="ui-rule m8-json__rule" />
 
 		<p>
-			<button @click="toggleJson()" class="toggle-json">
+			<button @click="toggleJson()" class="ui-text-button">
 				<span x-text="( isShowingJson ? 'Hide' : 'Show' )"></span>
 				current feature configuration
 			</button>
@@ -36,6 +13,10 @@
 
 		<template x-if="isShowingJson">
 			<div class="ui-readable-width">
+
+				<h2>
+					Current Configuration
+				</h2>
 
 				<p>
 					This is the "#encodeForHtml( request.featureKey )#" feature configuration that is being used to render the state on the right.&nbsp;&rarr;
@@ -52,6 +33,7 @@
 
 		function FeatureJson() {
 
+			var el = this.$el;
 			var feature = JSON.parse( "#encodeForJavaScript( serializeJson( request.feature ) )#" );
 
 			return {
@@ -67,6 +49,18 @@
 					? JSON.stringify( feature, null, "\t" )
 					: ""
 				;
+
+				if ( this.isShowingJson ) {
+
+					setTimeout(
+						() => el.scrollIntoView({
+							behavior: "smooth",
+							block: "start"
+						}),
+						200
+					);
+
+				}
 
 			}
 

@@ -1,100 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		.panels {
-			align-items: flex-start ;
-			display: flex ;
-		}
-		.panels__main {
-			flex: 1 1 auto ;
-		}
-		.panels__aside {
-			box-shadow: -1px 0 #d0d0d0 ;
-			display: flex ;
-			flex: 0 0 auto ;
-			min-height: 100vh ;
-			padding: 15px 20px 20px 20px ;
-			position: sticky ;
-			top: 0 ;
-		}
-
-		.env {}
-		.env__header {
-			background-color: #ffffff ;
-			border-bottom: 2px solid #333333 ;
-			display: flex ;
-			font-weight: 400 ;
-			margin: 40px 0 0 0 ;
-			position: sticky ;
-			top: 0px ;
-			z-index: 2 ;
-		}
-		.env__label {
-			background-color: #333333 ;
-			border-top-right-radius: 3px ;
-			color: #ffffff ;
-			padding: 10px 30px 4px 22px ;
-		}
-		.env__body {
-			border: 2px solid #333333 ;
-			padding: 20px ;
-		}
-
-		.rule {
-			border: 1px dashed #999999 ;
-			border-radius: 3px ;
-			padding: 20px ;
-		}
-		.rule:hover {
-			border-style: solid ;
-		}
-		.rule--disabled {
-			opacity: 0.3 ;
-		}
-
-		.state {
-			display: grid ;
-			column-gap: 1px ;
-			grid-template-columns: 1fr 1fr ;
-			min-width: 400px ;
-		}
-		.state__header {
-			font-weight: bold ;
-			padding: 0 15px 10px ;
-			text-align: center ;
-		}
-		.state__variant {
-			border-bottom: 0.5px solid #ffffff ;
-			min-height: 4px ;
-		}
-		.state__variant:hover {
-			outline: 3px solid #ffffff ;
-			outline-offset: 0px ;
-			z-index: 2 ;
-		}
-
-		.editable {
-			cursor: pointer ;
-			display: flex ;
-		}
-		.editable:hover {
-			background-color: #f0f0f0 ;
-		}
-		.editable__link {
-			font-weight: 400 ;
-			opacity: 0.7 ;
-		}
-		.editable__link:nth-of-type(1) {
-			margin-left: auto ;
-		}
-		.editable__link:nth-of-type(2) {
-			margin-left: 15px ;
-		}
-		.editable__link:hover {
-			opacity: 1.0 ;
-		}
-
-	</style>
 	<cfoutput>
 		<!--- These power the mouseenter/mouseleave highlights of the evaluations. --->
 		<style type="text/css">
@@ -103,7 +7,7 @@
 			}
 
 			<cfloop array="#environments#" index="environment">
-				<cfloop index="i" from="0" to="20">
+				<cfloop from="0" to="20" index="i">
 
 					.flash-root[data-flash-environment="#environment.key#"][data-flash-rule="#i#"]
 						.flasher-proximal[data-flash-environment="#environment.key#"][data-flash-rule="#i#"] {
@@ -114,7 +18,7 @@
 
 					.flash-root[data-flash-source="distal"][data-flash-environment="#environment.key#"][data-flash-rule="#i#"]
 						.flasher-proximal[data-flash-environment="#environment.key#"][data-flash-rule="#i#"] {
-							animation: 500ms infinite proximal-animated ;
+							animation: 500ms infinite m14-proximal-animated ;
 							outline: 2px solid deeppink ;
 						}
 
@@ -125,18 +29,12 @@
 
 				</cfloop>
 			</cfloop>
-
-			@keyframes proximal-animated {
-				50% {
-					outline-offset: 6px ;
-				}
-			}
 		</style>
 	</cfoutput>
 	<cfoutput>
 
-		<div x-data="FlashRoot" class="panels flash-root">
-			<section class="panels__main content-wrapper">
+		<div x-data="FlashRoot" class="m14-panels flash-root">
+			<section class="m14-panels__main content-wrapper">
 
 				<div class="ui-readable-width">
 
@@ -201,28 +99,28 @@
 
 					<cfset settings = feature.targeting[ environment.key ] />
 
-					<div id="environment-#encodeForHtmlAttribute( environment.key )#" class="env">
-						<h2 class="env__header">
-							<span class="env__label">
+					<div id="environment-#encodeForHtmlAttribute( environment.key )#" class="ui-folder">
+						<h2 class="ui-folder__header">
+							<span class="ui-folder__tab">
 								#encodeForHtml( environment.name )# Environment
 							</span>
 						</h2>
-						<div class="env__body">
+						<div class="ui-folder__main">
 
-							<dl class="u-no-margin-y">
+							<dl>
 								<div
 									@mouseenter="flashProximal( '#encodeForJavaScript( environment.key )#' )"
 									@mouseleave="unflash()"
 									data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 									data-flash-rule="0"
 									class="flasher-proximal">
-									<dt x-data="Editable" @click="handleClick()" class="editable">
+									<dt x-data="Editable" @click="handleClick()" class="m14-editable">
 										Default Resolution:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
-											class="editable__link">
+											class="m14-editable__link">
 											Edit
 										</a>
 									</dt>
@@ -276,13 +174,13 @@
 									</dd>
 								</div>
 								<div>
-									<dt x-data="Editable" @click="handleClick()" class="editable">
+									<dt x-data="Editable" @click="handleClick()" class="m14-editable">
 										Rules Enabled:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.rulesEnabled&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
-											class="editable__link">
+											class="m14-editable__link">
 											Edit
 										</a>
 									</dt>
@@ -306,20 +204,20 @@
 												@mouseleave="unflash()"
 												data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 												data-flash-rule="#encodeForHtmlAttribute( ruleEntry.index )#"
-												class="rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher-proximal">
+												class="m14-rule <cfif ! settings.rulesEnabled>m14-rule--disabled</cfif> flasher-proximal">
 												<div>
-													<dt x-data="Editable" @click="handleClick()" class="editable">
+													<dt x-data="Editable" @click="handleClick()" class="m14-editable">
 														IF:
 
 														<a
 															href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
 															x-ref="edit"
-															class="editable__link">
+															class="m14-editable__link">
 															Edit
 														</a>
 														<a
 															href="/index.cfm?event=playground.features.detail.deleteRule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
-															class="editable__link">
+															class="m14-editable__link">
 															Delete
 														</a>
 													</dt>
@@ -415,11 +313,11 @@
 				</p>
 
 			</section>
-			<aside class="panels__aside">
+			<aside class="m14-panels__aside">
 
-				<div class="state">
+				<div class="m14-state">
 					<cfloop array="#environments#" index="environment">
-						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#" class="state__header">#encodeForHtml( environment.name )#</a>
+						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#" class="m14-state__header">#encodeForHtml( environment.name )#</a>
 					</cfloop>
 					<cfloop array="#users#" index="user">
 						<cfloop array="#environments#" index="environment">
@@ -432,7 +330,7 @@
 								@mouseleave="unflash()"
 								data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 								data-flash-rule="#encodeForHtmlAttribute( result.ruleIndex )#"
-								class="state__variant u-variant-#result.variantIndex# flasher-distal">
+								class="m14-state__variant u-variant-#result.variantIndex# flasher-distal">
 							</a>
 						</cfloop>
 					</cfloop>

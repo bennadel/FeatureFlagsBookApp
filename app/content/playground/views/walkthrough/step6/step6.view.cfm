@@ -1,16 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		.uh-oh {
-			border: 4px solid red ;
-			padding: 21px 24px ;
-			margin-top: 2rem ;
-		}
-		.uh-oh h2 {
-			font-size: 1.3rem ;
-		}
-
-	</style>
 	<cfoutput>
 
 		<div class="ui-readable-width">
@@ -49,9 +37,9 @@
 				</button>
 			</form>
 
-			<div class="uh-oh">
+			<div class="m9-uh-oh u-no-inner-margin-y">
 
-				<h2 class="u-no-margin-top">
+				<h2>
 					Side Quest: A Critical Bug Is Discovered!
 				</h2>
 
@@ -63,7 +51,7 @@
 					This is where feature flags are worth their weight in gold!
 				</p>
 
-				<p class="u-no-margin-bottom">
+				<p>
 					<a href="/index.cfm?event=playground.walkthrough.step6b">Let's see what we can do</a> &rarr;
 				</p>
 

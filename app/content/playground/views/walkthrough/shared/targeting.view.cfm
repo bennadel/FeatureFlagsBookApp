@@ -1,89 +1,25 @@
-<style type="text/css">
-
-	.grid thead th {
-		padding: 0 5px 5px 5px ;
-		text-align: left ;
-	}
-	.grid thead th:first-child {
-		padding-left: 0 ;
-	}
-	.grid tbody th {
-		padding: 5px 20px 5px 0 ;
-		text-align: left ;
-	}
-	.grid td {
-		padding: 5px 20px 5px 0 ;
-	}
-	.grid td:last-child {
-		padding-right: 0 ;
-	}
-
-	.states {
-		display: flex ;
-		gap: 3px ;
-	}
-	.states span {
-		border-radius: 3px ;
-		flex: 0 0 auto ;
-		height: 1vw ;
-		height: clamp( 13px, 1vw, 23px ) ;
-		width: 1vw ;
-		width: clamp( 13px, 1vw, 23px ) ;
-	}
-
-	.table-legend {
-		display: flex ;
-		gap: 13px ;
-		list-style-type: none ;
-		margin: 0 ;
-		padding: 0 ;
-	}
-	.table-legend li {
-		margin: 0 ;
-		padding: 0 ;
-	}
-	.table-legend span {
-		border-radius: 3px ;
-		display: block ;
-		padding: 3px 10px ;
-	}
-
-	.journey {}
-	.journey .step {}
-	.journey .current {
-		background-color: #f0f0f0 ;
-		font-weight: bold ;
-	}
-
-</style>
 <cfif attributes.highlightAssociation.len()>
 	<cfoutput>
 		<style type="text/css">
 
-			.states span {
+			.m7-states span {
 				opacity: 0.3 ;
 			}
-			.states span[ data-association = "#attributes.highlightAssociation#" ] {
-				animation: pulsate 2.2s infinite ease-in-out ;
+			.m7-states span[ data-association = "#attributes.highlightAssociation#" ] {
+				animation: m7-pulsate 2.2s infinite ease-in-out ;
 				opacity: 1.0 ;
 			}
 
-			@keyframes pulsate {
-				50% {
-					border-radius: 10px ;
-					transform: scale( 0.3 ) ;
-				}
-			}
 		</style>
 	</cfoutput>
 </cfif>
 <cfoutput>
 
-	<h2 style="margin-top: 0 ;">
+	<h2 class="u-no-margin-top">
 		Targeting State
 	</h2>
 
-	<table class="grid">
+	<table class="m7-grid">
 	<thead>
 		<tr>
 			<th>
@@ -104,7 +40,8 @@
 				</th>
 				<cfloop array="#environments#" index="environment">
 					<td>
-						<div class="states">
+
+						<div class="m7-states">
 							<cfloop array="#company.users#" index="user">
 								<cfset result = results[ environment.key ][ user.id ] />
 
@@ -114,6 +51,7 @@
 								</span>
 							</cfloop>
 						</div>
+
 					</td>
 				</cfloop>
 			</tr>
@@ -121,7 +59,7 @@
 	</tbody>
 	</table>
 
-	<ul class="table-legend">
+	<ul class="m7-legend">
 		<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
 			<li>
 				<span class="u-variant-#entry.key#">
@@ -135,7 +73,7 @@
 		Development Journey
 	</h3>
 
-	<ul class="journey">
+	<ul class="m7-journey">
 		<cfloop array="#utilities.toEntries( journey )#" index="entry">
 			<li>
 				<a

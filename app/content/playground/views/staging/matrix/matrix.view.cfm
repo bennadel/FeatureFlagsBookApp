@@ -1,53 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		.feature {}
-
-		.feature__header {
-			background-color: #ffffff ;
-			border-bottom: 2px solid #333333 ;
-			display: flex ;
-			font-weight: 400 ;
-			margin: 40px 0 0 0 ;
-			position: sticky ;
-			top: 0px ;
-			z-index: 2 ;
-		}
-		.feature__label {
-			background-color: #333333 ;
-			border-top-right-radius: 3px ;
-			color: #ffffff ;
-			padding: 10px 30px 4px 22px ;
-		}
-		.feature__body {
-			border: 2px solid #333333 ;
-			padding: 20px ;
-		}
-
-		.environment-key {
-			margin-top: 30px ;
-		}
-
-		.state {
-			display: flex ;
-			flex-wrap: wrap ;
-			gap: 1px ;
-		}
-		.state a {
-			padding: 9px 15px 8px ;
-			text-decoration: none ;
-		}
-		.state a:first-child {
-			border-top-left-radius: 3px ;
-		}
-		.state a:last-child {
-			border-bottom-right-radius: 3px ;
-		}
-		.state a:hover {
-			text-decoration: underline ;
-		}
-
-	</style>
 	<cfoutput>
 
 		<section class="content-wrapper">
@@ -78,13 +29,15 @@
 
 			<cfloop array="#features#" index="feature">
 
-				<article id="#encodeForHtmlAttribute( feature.key )#" class="feature">
+				<article id="#encodeForHtmlAttribute( feature.key )#" class="ui-folder">
 
-					<h2 class="feature__header">
-						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#" class="feature__label">#encodeForHtml( feature.key )#</a>
+					<h2 class="ui-folder__header">
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#" class="ui-folder__tab">
+							#encodeForHtml( feature.key )#
+						</a>
 					</h2>
 
-					<div class="feature__body u-no-inner-margin-top">
+					<div class="ui-folder__main">
 
 						<cfif feature.description.len()>
 							<p class="ui-readable-width">
@@ -94,11 +47,11 @@
 
 						<cfloop array="#environments#" index="environment">
 
-							<h3 class="environment-key">
+							<h3>
 								<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#">#encodeForHtml( environment.name )#</a>
 							</h3>
 
-							<div class="state">
+							<div class="m11-state">
 								<cfloop array="#users#" index="user">
 
 									<cfset result = results[ feature.key ][ environment.key ][ user.id ] />

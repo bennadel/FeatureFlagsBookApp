@@ -1,60 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		.grid {
-			border-collapse: collapse ;
-			border-spacing: 0 ;
-			margin-bottom: 2.5rem ;
-			width: 100% ;
-		}
-		.grid th,
-		.grid td {
-			border-bottom: 1px solid #cccccc ;
-			padding: 7px 10px ;
-		}
-		.grid thead th {
-			border-bottom-width: 2px ;
-		}
-		.grid tbody tr:hover th,
-		.grid tbody tr:hover td {
-			background-color: #f0f0f0 ;
-		}
-		.grid .env-left {
-			border-left: 1px solid #cccccc ;
-		}
-		.grid .env-right {
-			border-right: 1px solid #cccccc ;
-		}
-		.grid .disabled {
-			color: #cccccc ;
-		}
-
-		.dots {
-			display: flex ;
-			gap: 5px ;
-			justify-content: center ;
-		}
-		.dots__dot {
-			border-radius: 10px ;
-			height: 10px ;
-			width: 10px ;
-		}
-
-		.breakdown {
-			display: flex ;
-			gap: 2px ;
-		}
-		.breakdown__item {
-			border-radius: 2px ;
-			height: 24px ;
-			min-width: 2px ;
-		}
-
-		.emoji {
-			font-family: arial, verdana, sans-serif ;
-		}
-
-	</style>
 	<cfoutput>
 
 		<section class="content-wrapper">
@@ -67,9 +11,9 @@
 
 				<p>
 					This application is here to help you learn about
-					<span class="emoji">&##x2764;&##xfe0f;</span>
+					<span class="ui-emoji">&##x2764;&##xfe0f;</span>
 					<a href="https://featureflagsbook.com/" target="_blank">Feature Flags</a>
-					<span class="emoji">&##x2764;&##xfe0f;</span>
+					<span class="ui-emoji">&##x2764;&##xfe0f;</span>
 					Click around and edit the feature flag settings to see how changes to the targeting affect variant allocation against the <a href="/index.cfm?event=playground.users">demo users</a>.
 				</p>
 
@@ -105,7 +49,7 @@
 
 			</div>
 
-			<table class="grid">
+			<table class="m5-grid">
 			<thead>
 				<tr>
 					<th rowspan="2" valign="bottom" align="left">
@@ -145,9 +89,9 @@
 						</td>
 						<td align="center">
 
-							<div class="dots">
-								<cfloop index="i" from="1" to="#feature.variants.len()#">
-									<span class="dots__dot u-variant-#i#"></span>
+							<div class="ui-dots">
+								<cfloop from="1" to="#feature.variants.len()#" index="i">
+									<span class="ui-dots__dot u-variant-#i#"></span>
 								</cfloop>
 							</div>
 
@@ -169,7 +113,7 @@
 
 								<a
 									href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#"
-									class="breakdown">
+									class="ui-breakdown-bar">
 									<cfloop collection="#breakdown#" item="i">
 										<cfif breakdown[ i ]>
 											<!---
@@ -178,7 +122,7 @@
 												that will/would receive this variant.
 											--->
 											<span
-												class="breakdown__item u-variant-#i#"
+												class="ui-breakdown-bar__item u-variant-#i#"
 												style="flex-grow: #breakdown[ i ]# ;">
 											</span>
 										</cfif>

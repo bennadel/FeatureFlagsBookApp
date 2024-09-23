@@ -1,32 +1,4 @@
 <cfsavecontent variable="request.template.primaryContent">
-	<style type="text/css">
-
-		.tiles {
-			display: flex ;
-			flex-wrap: wrap ;
-			gap: 10px ;
-		}
-		.tiles__tile {}
-
-		.tile {
-			background-color: #fde6ff ;
-			border: 1px solid #f55dff ;
-			border-radius: 3px ;
-			display: flex ;
-		}
-		.tile__value {
-			align-self: center ;
-			padding: 5px 15px ;
-		}
-		.tile__remove {
-			background-color: #f55dff ;
-			border: none ;
-			cursor: pointer ;
-			margin: 0 ;
-			padding-inline: 12px ;
-		}
-
-	</style>
 	<cfoutput>
 
 		<section class="content-wrapper">
@@ -107,30 +79,36 @@
 							Values:
 						</dt>
 						<dd>
-							<div class="tiles">
+							<div class="u-flex-row m13-tile-form">
+								<input
+									type="text"
+									name="values[]"
+									x-ref="rawValueRef"
+									:list="datalist"
+									@keydown.enter.prevent="handleValue()"
+								/>
+								<button type="button" @click="handleValue()">
+									Add
+								</button>
+							</div>
+
+							<div class="m13-tiles">
+								<template x-if="! values.length">
+									<p class="u-no-margin-y">
+										<em>No values defined &mdash; use the form above to add at least one value.</em>
+									</p>
+								</template>
 								<template x-for="( value, i ) in values" :key="i">
 
-									<span class="tiles__tile tile">
+									<span class="m13-tiles__tile m13-tile">
 										<input type="hidden" name="values[]" :value="value" />
-										<span class="tile__value" x-text="value"></span>
-										<button type="button" @click="removeValue( i )" class="tile__remove">
+										<span class="m13-tile__value" x-text="value"></span>
+										<button type="button" @click="removeValue( i )" class="m13-tile__remove">
 											x
 										</button>
 									</span>
 
 								</template>
-								<div class="tiles__form">
-									<input
-										type="text"
-										name="values[]"
-										x-ref="rawValueRef"
-										:list="datalist"
-										@keydown.enter.prevent="handleValue()"
-									/>
-									<button type="button" @click="handleValue()">
-										Add
-									</button>
-								</div>
 							</div>
 
 							<cfloop array="#datalists#" index="entry">
