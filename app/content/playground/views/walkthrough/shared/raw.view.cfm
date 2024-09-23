@@ -22,7 +22,7 @@
 					This is the "#encodeForHtml( request.featureKey )#" feature configuration that is being used to render the state on the right.&nbsp;&rarr;
 				</p>
 
-				<pre class="ui-snippet"><code x-text="json"></code></pre>
+				<pre class="ui-snippet"><code x-data="PrettyPrint">#encodeForHtml( serializeJson( request.feature ) )#</code></pre>
 
 			</div>
 		</template>
@@ -31,24 +31,28 @@
 
 	<script type="text/javascript">
 
+		function PrettyPrint() {
+
+			this.$el.textContent = JSON.stringify(
+				JSON.parse( this.$el.textContent ),
+				null,
+				4
+			);
+
+		}
+
 		function FeatureJson() {
 
 			var el = this.$el;
-			var feature = JSON.parse( "#encodeForJavaScript( serializeJson( request.feature ) )#" );
 
 			return {
 				isShowingJson: false,
-				json: "",
 				toggleJson: toggleJson
 			};
 
 			function toggleJson() {
 
 				this.isShowingJson = ! this.isShowingJson;
-				this.json = ( this.isShowingJson )
-					? JSON.stringify( feature, null, "\t" )
-					: ""
-				;
 
 				if ( this.isShowingJson ) {
 

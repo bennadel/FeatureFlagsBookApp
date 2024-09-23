@@ -11,7 +11,7 @@
 				The following is the full JSON payload behind your feature flags playground data. You can <a href="/index.cfm?event=playground.features.reset&from=raw">reset this data</a> at any time.
 			</p>
 
-			<pre class="ui-snippet"><code x-data="PrettyPrint"></code></pre>
+			<pre class="ui-snippet"><code x-data="PrettyPrint">#encodeForHtml( serializeJson( config ) )#</code></pre>
 
 		</section>
 
@@ -20,9 +20,11 @@
 
 		function PrettyPrint() {
 
-			var config = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( config ) )#</cfoutput>" );
-
-			this.$el.textContent = JSON.stringify( config, null, 4 );
+			this.$el.textContent = JSON.stringify(
+				JSON.parse( this.$el.textContent ),
+				null,
+				4
+			);
 
 		}
 

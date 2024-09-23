@@ -13,8 +13,12 @@
 					The following users are here to demonstrate how feature flag targeting affects variant allocation. I've purposely generated 100 users so that every 1% of additional distribution will map (roughly) to 1 additional user.
 				</p>
 
+				<h2>
+					Your Team
+				</h2>
+
 				<p>
-					I've also created #numberFormat( authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>":
+					I've also created #numberFormat( authUsers.len() )# users <mark>based on <em>your</em> email address</mark> that are part of a company with the subdomain "<strong>devteam</strong>". I'm hoping that this makes it easier to play around with targeting rules.
 				</p>
 
 				<ul class="u-breathing-room">
@@ -32,6 +36,10 @@
 						</li>
 					</cfloop>
 				</ul>
+
+				<h2>
+					All Users
+				</h2>
 
 			</div>
 
