@@ -91,7 +91,7 @@
 
 							<div class="ui-dots">
 								<cfloop from="1" to="#feature.variants.len()#" index="i">
-									<span class="ui-dots__dot u-variant-#i#"></span>
+									<span class="ui-dots__dot ui-variant-#i#"></span>
 								</cfloop>
 							</div>
 
@@ -122,7 +122,7 @@
 												that will/would receive this variant.
 											--->
 											<span
-												class="ui-breakdown-bar__item u-variant-#i#"
+												class="ui-breakdown-bar__item ui-variant-#i#"
 												style="flex-grow: #breakdown[ i ]# ;">
 											</span>
 										</cfif>

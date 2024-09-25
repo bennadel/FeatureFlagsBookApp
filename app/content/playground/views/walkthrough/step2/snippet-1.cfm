@@ -7,7 +7,7 @@
 			<mark>development:</mark> {
 				resolution: {
 					type: "selection",
-					<mark>selection: <span class="u-variant-2">2</span></mark>
+					<mark>selection: <span class="ui-variant-2">2</span></mark>
 				}
 			}
 		}

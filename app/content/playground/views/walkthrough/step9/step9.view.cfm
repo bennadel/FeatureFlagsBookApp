@@ -20,13 +20,13 @@
 			</p>
 
 			<p>
-				We could leave the distribution allocation at 100% while the feature soaks. But, for the sake of the walk-through, let's delete the rules and update the default resolution in the production environment to serve up the second variant (<span class="u-variant-2">true</span>):
+				We could leave the distribution allocation at 100% while the feature soaks. But, for the sake of the walk-through, let's delete the rules and update the default resolution in the production environment to serve up the second variant (<span class="ui-variant-2">true</span>):
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">
 
 			<p>
-				This change in the configuration makes no difference to the users &mdash; 100% of production users are still receiving the <span class="u-variant-2">true</span> variant. We've simply changed the underlying resolution mechanics from "distribution" to "selection".
+				This change in the configuration makes no difference to the users &mdash; 100% of production users are still receiving the <span class="ui-variant-2">true</span> variant. We've simply changed the underlying resolution mechanics from "distribution" to "selection".
 			</p>
 
 			<form method="get">

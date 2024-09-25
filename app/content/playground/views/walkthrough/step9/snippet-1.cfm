@@ -7,7 +7,7 @@
 			<mark>production:</mark> {
 				<mark>resolution:</mark> {
 					type: <mark>"selection"</mark>,
-					<mark>selection: <span class="u-variant-2">2</span></mark>
+					<mark>selection: <span class="ui-variant-2">2</span></mark>
 				},
 				rulesEnabled: false,
 				rules: []

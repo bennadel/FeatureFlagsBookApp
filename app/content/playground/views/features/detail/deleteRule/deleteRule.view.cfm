@@ -74,7 +74,7 @@
 							<dd>
 
 								<div class="u-flex-row">
-									<span class="ui-tag u-variant-#rule.resolution.selection#">
+									<span class="ui-tag ui-variant-#rule.resolution.selection#">
 										#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 									</span>
 								</div>
@@ -99,7 +99,7 @@
 														#encodeForHtml( entry.value )#%
 													</span>
 													&rarr;
-													<span class="ui-tag u-variant-#entry.index#">
+													<span class="ui-tag ui-variant-#entry.index#">
 														#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
 													</span>
 												</div>
@@ -120,7 +120,7 @@
 							<dd>
 
 								<div class="u-flex-row">
-									<span class="ui-tag u-variant-0">
+									<span class="ui-tag ui-variant-0">
 										#encodeForHtml( serializeJson( rule.resolution.variant ) )#
 									</span>
 								</div>

@@ -80,7 +80,7 @@
 										<li>
 
 											<div class="u-flex-row">
-												<span class="ui-tag u-variant-#variantEntry.index#">
+												<span class="ui-tag ui-variant-#variantEntry.index#">
 													#encodeForHtml( serializeJson( variantEntry.value ) )#
 												</span>
 											</div>
@@ -133,7 +133,7 @@
 														Selection
 													</span>
 													&rarr;
-													<span class="ui-tag u-variant-#settings.resolution.selection#">
+													<span class="ui-tag ui-variant-#settings.resolution.selection#">
 														#encodeForHtml( serializeJson( feature.variants[ settings.resolution.selection ] ) )#
 													</span>
 												</div>
@@ -151,7 +151,7 @@
 																		#distributionEntry.value#%
 																	</span>
 																	&rarr;
-																	<span class="ui-tag u-variant-#distributionEntry.index#">
+																	<span class="ui-tag ui-variant-#distributionEntry.index#">
 																		#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																	</span>
 																</div>
@@ -166,7 +166,7 @@
 														Variant
 													</span>
 													&rarr;
-													<span class="ui-tag u-variant-0">
+													<span class="ui-tag ui-variant-0">
 														#encodeForHtml( serializeJson( settings.resolution.variant ) )#
 													</span>
 												</p>
@@ -256,7 +256,7 @@
 																		Selection
 																	</span>
 																	&rarr;
-																	<span class="ui-tag u-variant-#rule.resolution.selection#">
+																	<span class="ui-tag ui-variant-#rule.resolution.selection#">
 																		#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 																	</span>
 																</p>
@@ -274,7 +274,7 @@
 																						#distributionEntry.value#%
 																					</span>
 																					&rarr;
-																					<span class="ui-tag u-variant-#distributionEntry.index#">
+																					<span class="ui-tag ui-variant-#distributionEntry.index#">
 																						#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
 																					</span>
 																				</div>
@@ -289,7 +289,7 @@
 																		Variant
 																	</span>
 																	&rarr;
-																	<span class="ui-tag u-variant-0">
+																	<span class="ui-tag ui-variant-0">
 																		#encodeForHtml( serializeJson( rule.resolution.variant ) )#
 																	</span>
 																</p>
@@ -336,7 +336,7 @@
 								data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 								data-flash-rule="#encodeForHtmlAttribute( result.ruleIndex )#"
 								m-a0f59c
-								class="state__variant u-variant-#result.variantIndex# flasher-distal">
+								class="state__variant ui-variant-#result.variantIndex# flasher-distal">
 							</a>
 						</cfloop>
 					</cfloop>

@@ -57,7 +57,7 @@
 									<cfset result = results[ feature.key ][ environment.key ][ user.id ] />
 
 									<a href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=staging"
-										class="u-variant-#result.variantIndex#">
+										class="ui-variant-#result.variantIndex#">
 										#encodeForHtml( serializeJson( result.variant ) )#
 									</a>
 								</cfloop>

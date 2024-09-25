@@ -43,7 +43,7 @@
 							Variant:
 						</dt>
 						<dd class="u-flex-row">
-							<span class="ui-tag u-variant-#result.variantIndex#">
+							<span class="ui-tag ui-variant-#result.variantIndex#">
 								#encodeForHtml( serializeJson( result.variant ) )#
 							</span>
 
@@ -203,7 +203,7 @@
 											#encodeForHtml( result.resolution.selection )#
 										</span>
 										&rarr;
-										<span class="ui-tag u-variant-#result.variantIndex#">
+										<span class="ui-tag ui-variant-#result.variantIndex#">
 											#encodeForHtml( serializeJson( feature.variants[ result.resolution.selection ] ) )#
 										</span>
 									</dd>
@@ -225,7 +225,7 @@
 														#encodeForHtml( entry.value )#%
 													</span>
 													&rarr;
-													<span class="ui-tag u-variant-#entry.index#">
+													<span class="ui-tag ui-variant-#entry.index#">
 														#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
 													</span>
 
@@ -252,7 +252,7 @@
 									<dd>
 
 										<div class="u-flex-row">
-											<span class="ui-tag u-variant-#result.variantIndex#">
+											<span class="ui-tag ui-variant-#result.variantIndex#">
 												#encodeForHtml( serializeJson( result.variant ) )#
 											</span>
 										</div>
@@ -390,7 +390,7 @@
 														#encodeForHtml( rule.resolution.selection )#
 													</span>
 													&rarr;
-													<span class="ui-tag u-variant-#result.variantIndex#">
+													<span class="ui-tag ui-variant-#result.variantIndex#">
 														#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
 													</span>
 												</dd>
@@ -411,7 +411,7 @@
 																	#encodeForHtml( entry.value )#%
 																</span>
 																&rarr;
-																<span class="ui-tag u-variant-#entry.index#">
+																<span class="ui-tag ui-variant-#entry.index#">
 																	#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
 																</span>
 															</li>
@@ -428,7 +428,7 @@
 													Variant:
 												</dt>
 												<dd class="u-flex-row">
-													<span class="ui-tag u-variant-#result.variantIndex#">
+													<span class="ui-tag ui-variant-#result.variantIndex#">
 														#encodeForHtml( serializeJson( result.variant ) )#
 													</span>
 												</dd>

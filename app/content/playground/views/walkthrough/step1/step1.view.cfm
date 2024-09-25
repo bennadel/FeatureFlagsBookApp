@@ -51,7 +51,7 @@
 								<li>
 
 									<div class="u-flex-row">
-										<span class="ui-tag u-variant-#entry.index#">
+										<span class="ui-tag ui-variant-#entry.index#">
 											#encodeForHtml( serializeJson( entry.value ) )#
 										</span>
 									</div>

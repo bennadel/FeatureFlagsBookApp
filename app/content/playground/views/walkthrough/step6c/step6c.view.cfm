@@ -8,7 +8,7 @@
 			</h1>
 
 			<p>
-				With the recent feature flag configuration changes instantly reverted, your development team is now the only team receiving the <span class="u-variant-2">true</span> variant in production. This simple action prevented new bugs from occurring; and buys your development team time to debug and correct the feature behavior.
+				With the recent feature flag configuration changes instantly reverted, your development team is now the only team receiving the <span class="ui-variant-2">true</span> variant in production. This simple action prevented new bugs from occurring; and buys your development team time to debug and correct the feature behavior.
 			</p>
 
 			<p>

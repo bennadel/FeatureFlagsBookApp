@@ -12,7 +12,7 @@
 			</p>
 
 			<p>
-				But, no worries &mdash; the vast majority of production users are still receiving the first variant (<span class="u-variant-1">false</span>) and are still consuming the old version of the feature. This gives you a safe and effective way in which to iterate on the feature right in the production environment.
+				But, no worries &mdash; the vast majority of production users are still receiving the first variant (<span class="ui-variant-1">false</span>) and are still consuming the old version of the feature. This gives you a safe and effective way in which to iterate on the feature right in the production environment.
 			</p>
 
 			<h2>
@@ -24,7 +24,7 @@
 			</p>
 
 			<p>
-				To do this, we'll change the default resolution of the production environment to be a "distribution" &mdash; instead of a "selection" &mdash; that allocates the <span class="u-variant-2">true</span> variant to 25% of users:
+				To do this, we'll change the default resolution of the production environment to be a "distribution" &mdash; instead of a "selection" &mdash; that allocates the <span class="ui-variant-2">true</span> variant to 25% of users:
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">

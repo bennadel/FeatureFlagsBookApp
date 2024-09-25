@@ -13,7 +13,7 @@
 						values: [ "#encodeForHtml( request.user.email )#" ],
 						resolution: {
 							type: "selection",
-							selection: <span class="u-variant-2">2</span>
+							selection: <span class="ui-variant-2">2</span>
 						}
 					},
 					{
@@ -22,7 +22,7 @@
 						values: [ "devteam" ],
 						resolution: {
 							type: "selection",
-							selection: <span class="u-variant-2">2</span>
+							selection: <span class="ui-variant-2">2</span>
 						}
 					},
 					<mark class="ui-revert">{</mark>

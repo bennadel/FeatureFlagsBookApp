@@ -47,7 +47,7 @@
 
 								<span
 									data-association="#encodeForHtmlAttribute( environment.key )#:#result.matchingRuleIndex#:#result.variantIndex#"
-									class="u-variant-#result.variantIndex#">
+									class="ui-variant-#result.variantIndex#">
 								</span>
 							</cfloop>
 						</div>
@@ -62,7 +62,7 @@
 	<ul m-53e5df class="legend">
 		<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
 			<li>
-				<span class="u-variant-#entry.key#">
+				<span class="ui-variant-#entry.key#">
 					#encodeForHtml( serializeJson( entry.value ) )#
 				</span>
 			</li>

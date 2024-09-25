@@ -20,13 +20,13 @@
 			</h2>
 
 			<p>
-				Let's remove the rule that targets the company subdomain, "dayknight", and which serves up the second variant (<span class="u-variant-2">true</span>):
+				Let's remove the rule that targets the company subdomain, "dayknight", and which serves up the second variant (<span class="ui-variant-2">true</span>):
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">
 
 			<p>
-				When we make this change, the feature flag evaluations in the production environment will be <em>instantaneously</em> reverted in our beta-tester's subdomain. Users under the subdomain "dayknight" will start receiving the first variant (<span class="u-variant-1">false</span>). Which means the old version of the feature will be rendered; and, no more data will be corrupted.
+				When we make this change, the feature flag evaluations in the production environment will be <em>instantaneously</em> reverted in our beta-tester's subdomain. Users under the subdomain "dayknight" will start receiving the first variant (<span class="ui-variant-1">false</span>). Which means the old version of the feature will be rendered; and, no more data will be corrupted.
 			</p>
 
 			<form method="get">
