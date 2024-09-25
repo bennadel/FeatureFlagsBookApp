@@ -34,7 +34,7 @@
 				</p>
 			</cfif>
 
-			<form x-data="FormController" method="post">
+			<form x-data="m9367e7.FormController" method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
@@ -196,61 +196,4 @@
 		</section>
 
 	</cfoutput>
-	<script type="text/javascript">
-
-		function FormController() {
-
-			var form = this.$el;
-
-			// Return public API for proxy.
-			return {
-				init: $init,
-				resolutionType: "",
-				allocationTotal: 100,
-
-				handleAllocation: handleAllocation,
-				handleType: handleType,
-			};
-
-			// ---
-			// PUBLIC METHODS.
-			// ---
-
-			/**
-			* I initialize the Alpine component.
-			*/
-			function $init() {
-
-				this.handleType();
-				this.handleAllocation();
-
-			}
-
-			/**
-			* I update the allocation total after one of the distributions is changed.
-			*/
-			function handleAllocation() {
-
-				this.allocationTotal = 0;
-
-				for ( var element of form.elements[ "resolutionDistribution[]" ] ) {
-
-					this.allocationTotal += parseInt( element.value, 10 );
-
-				}
-
-			}
-
-			/**
-			* I update the resolution details after the type is changed.
-			*/
-			function handleType( event ) {
-
-				this.resolutionType = form.elements.resolutionType.value;
-
-			}
-
-		}
-
-	</script>
 </cfsavecontent>

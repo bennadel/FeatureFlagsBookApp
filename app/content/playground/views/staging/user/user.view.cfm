@@ -36,7 +36,7 @@
 
 			</div>
 
-			<table class="m12-grid">
+			<table m-b13612 class="grid">
 			<thead>
 				<tr>
 					<th rowspan="2" valign="bottom" align="left">

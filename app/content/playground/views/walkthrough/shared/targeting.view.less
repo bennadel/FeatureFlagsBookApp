@@ -1,0 +1,72 @@
+[m-53e5df] {
+	&.grid {
+		thead th {
+			padding: 0 5px 5px 5px ;
+			text-align: left ;
+		}
+
+		thead th:first-child {
+			padding-left: 0 ;
+		}
+
+		tbody th {
+			padding: 5px 20px 5px 0 ;
+			text-align: left ;
+		}
+
+		td {
+			padding: 5px 20px 5px 0 ;
+		}
+
+		td:last-child {
+			padding-right: 0 ;
+		}
+	}
+
+	&.legend {
+		display: flex ;
+		gap: 13px ;
+		list-style-type: none ;
+		margin: 0 ;
+		padding: 0 ;
+
+		li {
+			margin: 0 ;
+			padding: 0 ;
+		}
+		
+		span {
+			border-radius: 3px ;
+			display: block ;
+			padding: 3px 10px ;
+		}
+	}
+
+	&.states {
+		display: flex ;
+		gap: 3px ;
+
+		span {
+			border-radius: 3px ;
+			flex: 0 0 auto ;
+			height: 1vw ;
+			height: clamp( 13px, 1vw, 23px ) ;
+			width: 1vw ;
+			width: clamp( 13px, 1vw, 23px ) ;
+		}
+	}
+
+	@keyframes m-53e5df-pulsate {
+		50% {
+			border-radius: 10px ;
+			transform: scale( 0.3 ) ;
+		}
+	}
+
+	&.journey {
+		.current {
+			background-color: #f0f0f0 ;
+			font-weight: bold ;
+		}
+	}
+}

@@ -1,8 +1,8 @@
 <cfoutput>
 
-	<article x-data="FeatureJson" class="m8-json">
+	<article x-data="m7a3b63.FeatureJson" m-7a3b63 class="m-7a3b63">
 
-		<hr class="ui-rule m8-json__rule" />
+		<hr m-7a3b63 class="ui-rule rule" />
 
 		<p>
 			<button @click="toggleJson()" class="ui-text-button">
@@ -22,54 +22,11 @@
 					This is the "#encodeForHtml( request.featureKey )#" feature configuration that is being used to render the state on the right.&nbsp;&rarr;
 				</p>
 
-				<pre class="ui-snippet"><code x-data="PrettyPrint">#encodeForHtml( serializeJson( request.feature ) )#</code></pre>
+				<pre class="ui-snippet"><code x-data="m7a3b63.PrettyPrint">#encodeForHtml( serializeJson( request.feature ) )#</code></pre>
 
 			</div>
 		</template>
 
 	</article>
-
-	<script type="text/javascript">
-
-		function PrettyPrint() {
-
-			this.$el.textContent = JSON.stringify(
-				JSON.parse( this.$el.textContent ),
-				null,
-				4
-			);
-
-		}
-
-		function FeatureJson() {
-
-			var el = this.$el;
-
-			return {
-				isShowingJson: false,
-				toggleJson: toggleJson
-			};
-
-			function toggleJson() {
-
-				this.isShowingJson = ! this.isShowingJson;
-
-				if ( this.isShowingJson ) {
-
-					setTimeout(
-						() => el.scrollIntoView({
-							behavior: "smooth",
-							block: "start"
-						}),
-						200
-					);
-
-				}
-
-			}
-
-		}
-
-	</script>
 
 </cfoutput>

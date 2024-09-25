@@ -43,7 +43,7 @@
 
 			</div>
 
-			<table id="grid" class="m10-grid">
+			<table id="grid" m-2b2af7 class="grid">
 			<thead>
 				<tr>
 					<th colspan="3" class="col-group">

@@ -32,11 +32,7 @@
 			errors that might occur during the logout process.
 		--->
 		<cfif ! form.submitted>
-			<script type="text/javascript">
-
-				document.querySelector( ".logout-form" ).submit();
-
-			</script>
+			<template x-data="mb568e9.AutoSubmission"></template>
 		</cfif>
 
 	</cfoutput>

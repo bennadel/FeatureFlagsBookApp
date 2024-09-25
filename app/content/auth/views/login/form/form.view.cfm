@@ -19,7 +19,7 @@
 			</p>
 		</cfif>
 
-		<form method="post" class="u-no-margin-bottom">
+		<form x-data="me22b58.FormController" method="post" class="u-no-margin-bottom">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="redirectTo" value="#encodeForHtmlAttribute( request.context.redirectTo )#" />
 			<input type="hidden" name="submitted" value="true" />
@@ -42,8 +42,8 @@
 			<!--- Turnstile CAPTCHA challenge. --->
 			<div
 				data-sitekey="#encodeForHtmlAttribute( config.turnstile.client.apiKey )#"
-				class="cf-turnstile"
-				style="margin-top: 30px ;">
+				m-e22b58
+				class="cf-turnstile">
 				<!---
 					NOTE: This div must be inside the FORM as it will inject a hidden form
 					field as a child element (which must be submitted to the server).
@@ -54,15 +54,4 @@
 		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 	</cfoutput>
-	<script type="text/javascript">
-
-		if ( window.location.hash ) {
-
-			document.querySelector( "input[ name = 'redirectTo' ]" )
-				.value += window.location.hash
-			;
-
-		}
-
-	</script>
 </cfsavecontent>

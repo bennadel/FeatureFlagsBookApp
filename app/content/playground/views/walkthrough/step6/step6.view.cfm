@@ -37,7 +37,7 @@
 				</button>
 			</form>
 
-			<div class="m9-uh-oh u-no-inner-margin-y">
+			<div m-39f6bb class="uh-oh u-no-inner-margin-y">
 
 				<h2>
 					Side Quest: A Critical Bug Is Discovered!

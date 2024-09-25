@@ -34,7 +34,7 @@
 				</p>
 			</cfif>
 
-			<form x-data="FormController" method="post">
+			<form x-data="m9dac10.FormController( JSON.parse( '#encodeForJavaScript( serializeJson( form.values ) )#' ) )" method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
@@ -79,7 +79,7 @@
 							Values:
 						</dt>
 						<dd>
-							<div class="u-flex-row m13-tile-form">
+							<div m-9dac10 class="u-flex-row tile-form">
 								<input
 									type="text"
 									name="values[]"
@@ -92,7 +92,7 @@
 								</button>
 							</div>
 
-							<div class="m13-tiles">
+							<div m-9dac10 class="tiles">
 								<template x-if="! values.length">
 									<p class="u-no-margin-y">
 										<em>No values defined &mdash; use the form above to add at least one value.</em>
@@ -100,10 +100,10 @@
 								</template>
 								<template x-for="( value, i ) in values" :key="i">
 
-									<span class="m13-tiles__tile m13-tile">
+									<span m-9dac10 class="tiles__tile tile">
 										<input type="hidden" name="values[]" :value="value" />
-										<span class="m13-tile__value" x-text="value"></span>
-										<button type="button" @click="removeValue( i )" class="m13-tile__remove">
+										<span m-9dac10 class="tile__value" x-text="value"></span>
+										<button type="button" @click="removeValue( i )" m-9dac10 class="tile__remove">
 											x
 										</button>
 									</span>
@@ -275,137 +275,4 @@
 		</section>
 
 	</cfoutput>
-	<script type="text/javascript">
-
-		function FormController() {
-
-			var form = this.$el;
-			var values = JSON.parse( "<cfoutput>#encodeForJavaScript( serializeJson( form.values ) )#</cfoutput>" );
-
-			// Return public API for proxy.
-			return {
-				init: $init,
-				values: values,
-				datalist: "",
-
-				// Public methods.
-				handleAllocation: handleAllocation,
-				handleInput: handleInput,
-				handleOperator: handleOperator,
-				handleType: handleType,
-				handleValue: handleValue,
-				removeValue: removeValue,
-
-				// Private methods.
-				_setDatalist: setDatalist
-			};
-
-			// ---
-			// PUBLIC METHODS.
-			// ---
-
-			/**
-			* I initialize the Alpine component.
-			*/
-			function $init() {
-
-				this.handleInput()
-				this.handleType();
-				this.handleAllocation();
-
-			}
-
-			/**
-			* I update the allocation total after one of the distributions is changed.
-			*/
-			function handleAllocation() {
-
-				this.allocationTotal = 0;
-
-				for ( var element of form.elements[ "resolutionDistribution[]" ] ) {
-
-					this.allocationTotal += parseInt( element.value, 10 );
-
-				}
-
-			}
-
-			/**
-			* I update the datalist in response to the input change.
-			*/
-			function handleInput() {
-
-				this._setDatalist();
-
-			}
-
-			/**
-			* I update the datalist in response to the operator change.
-			*/
-			function handleOperator() {
-
-				this._setDatalist();
-
-			}
-
-			/**
-			* I update the resolution details after the type is changed.
-			*/
-			function handleType( event ) {
-
-				this.resolutionType = form.elements.resolutionType.value;
-
-			}
-
-			/**
-			* I add a new value to the 
-			*/
-			function handleValue() {
-
-				if ( ! this.$refs.rawValueRef.value ) {
-
-					return;
-
-				}
-
-				this.values.push( this.$refs.rawValueRef.value );
-				this.$refs.rawValueRef.value = "";
-				this.$refs.rawValueRef.focus();
-
-			}
-
-			function removeValue( i ) {
-
-				this.values.splice( i, 1 );
-
-			}
-
-			// ---
-			// PRIVATE METHODS.
-			// ---
-
-			function setDatalist() {
-
-				var input = form.elements.input.value;
-				var operator = form.elements.operator.value;
-
-				// Special case for email-domain based targeting.
-				if (
-					( input === "user.email" ) &&
-					( operator === "EndsWith" )
-					) {
-
-					this.datalist = "datalist.user.emailDomain";
-
-				} else {
-
-					this.datalist = `datalist.${ input }`;
-
-				}
-
-			}
-
-		}
-
-	</script>
 </cfsavecontent>

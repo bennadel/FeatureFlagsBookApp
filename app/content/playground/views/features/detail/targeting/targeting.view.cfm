@@ -18,7 +18,7 @@
 
 					.flash-root[data-flash-source="distal"][data-flash-environment="#environment.key#"][data-flash-rule="#i#"]
 						.flasher-proximal[data-flash-environment="#environment.key#"][data-flash-rule="#i#"] {
-							animation: 500ms infinite m14-proximal-animated ;
+							animation: 500ms infinite m-a0f59c-proximal-animated ;
 							outline: 2px solid deeppink ;
 						}
 
@@ -33,8 +33,8 @@
 	</cfoutput>
 	<cfoutput>
 
-		<div x-data="FlashRoot" class="m14-panels flash-root">
-			<section class="m14-panels__main content-wrapper">
+		<div x-data="ma0f59c.FlashRoot" m-a0f59c class="panels flash-root">
+			<section m-a0f59c class="panels__main content-wrapper">
 
 				<div class="ui-readable-width">
 
@@ -114,13 +114,14 @@
 									data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 									data-flash-rule="0"
 									class="flasher-proximal">
-									<dt x-data="Editable" @click="handleClick()" class="m14-editable">
+									<dt x-data="ma0f59c.Editable" @click="handleClick()" m-a0f59c class="editable">
 										Default Resolution:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
-											class="m14-editable__link">
+											m-a0f59c
+											class="editable__link">
 											Edit
 										</a>
 									</dt>
@@ -174,13 +175,14 @@
 									</dd>
 								</div>
 								<div>
-									<dt x-data="Editable" @click="handleClick()" class="m14-editable">
+									<dt x-data="ma0f59c.Editable" @click="handleClick()" m-a0f59c class="editable">
 										Rules Enabled:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.rulesEnabled&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
-											class="m14-editable__link">
+											m-a0f59c
+											class="editable__link">
 											Edit
 										</a>
 									</dt>
@@ -204,20 +206,23 @@
 												@mouseleave="unflash()"
 												data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 												data-flash-rule="#encodeForHtmlAttribute( ruleEntry.index )#"
-												class="m14-rule <cfif ! settings.rulesEnabled>m14-rule--disabled</cfif> flasher-proximal">
+												m-a0f59c
+												class="rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher-proximal">
 												<div>
-													<dt x-data="Editable" @click="handleClick()" class="m14-editable">
+													<dt x-data="ma0f59c.Editable" @click="handleClick()" m-a0f59c class="editable">
 														IF:
 
 														<a
 															href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
 															x-ref="edit"
-															class="m14-editable__link">
+															m-a0f59c
+															class="editable__link">
 															Edit
 														</a>
 														<a
 															href="/index.cfm?event=playground.features.detail.deleteRule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
-															class="m14-editable__link">
+															m-a0f59c
+															class="editable__link">
 															Delete
 														</a>
 													</dt>
@@ -313,11 +318,11 @@
 				</p>
 
 			</section>
-			<aside class="m14-panels__aside">
+			<aside m-a0f59c class="panels__aside">
 
-				<div class="m14-state">
+				<div m-a0f59c class="state">
 					<cfloop array="#environments#" index="environment">
-						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#" class="m14-state__header">#encodeForHtml( environment.name )#</a>
+						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#" m-a0f59c class="state__header">#encodeForHtml( environment.name )#</a>
 					</cfloop>
 					<cfloop array="#users#" index="user">
 						<cfloop array="#environments#" index="environment">
@@ -330,7 +335,8 @@
 								@mouseleave="unflash()"
 								data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 								data-flash-rule="#encodeForHtmlAttribute( result.ruleIndex )#"
-								class="m14-state__variant u-variant-#result.variantIndex# flasher-distal">
+								m-a0f59c
+								class="state__variant u-variant-#result.variantIndex# flasher-distal">
 							</a>
 						</cfloop>
 					</cfloop>
@@ -340,112 +346,4 @@
 		</div>
 
 	</cfoutput>
-	<script type="text/javascript">
-
-		function FlashRoot() {
-
-			var root = this.$el;
-			var unflashTimer = null;
-			var scrollTimer = null;
-
-			return {
-				flashDistal: flashDistal,
-				flashProximal: flashProximal,
-				unflash: unflash
-			};
-
-			/**
-			* I highlight the associations, sourced from the distal trigger.
-			*/
-			function flashDistal( environmentKey, ruleIndex ) {
-
-				clearTimeout( unflashTimer );
-				clearTimeout( scrollTimer );
-
-				root.dataset.flashSource = "distal";
-				root.dataset.flashEnvironment = environmentKey;
-				root.dataset.flashRule = ruleIndex;
-
-				scrollTimer = setTimeout(
-					() => {
-
-						root
-							.querySelector( `.flasher-proximal[data-flash-environment="${ environmentKey }"][data-flash-rule="${ ruleIndex }"]` )
-							.scrollIntoView({
-								behavior: "smooth",
-								block: "center"
-							})
-						;
-
-					},
-					500
-				);
-
-			}
-
-			/**
-			* I highlight the associations, sourced from the proximal trigger.
-			*/
-			function flashProximal( environmentKey, ruleIndex = 0, ignoreEvent = false ) {
-
-				if ( ignoreEvent ) {
-
-					return;
-
-				}
-
-				clearTimeout( unflashTimer );
-				clearTimeout( scrollTimer );
-
-				root.dataset.flashSource = "proximal";
-				root.dataset.flashEnvironment = environmentKey;
-				root.dataset.flashRule = ruleIndex;
-
-			}
-
-			/**
-			* I remove the association highlight.
-			*/
-			function unflash() {
-
-				clearTimeout( unflashTimer );
-				clearTimeout( scrollTimer );
-				unflashTimer = setTimeout(
-					() => {
-
-						delete root.dataset.flashSource;
-						delete root.dataset.flashEnvironment;
-						delete root.dataset.flashRule;
-
-					},
-					250
-				);
-
-			}
-
-		}
-
-		function Editable() {
-
-			return {
-				handleClick: handleClick
-			};
-
-			// ---
-			// PUBLIC METHODS.
-			// ---
-
-			function handleClick() {
-
-				if ( ! this.$refs.edit.contains( this.$event.target ) ) {
-
-					this.$refs.edit.click();
-
-				}
-
-			}
-
-		}
-
-	</script>
 </cfsavecontent>
