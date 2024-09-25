@@ -1,14 +1,19 @@
+/**
+* Note: I had originally designed the client to work without dependency injection (DI) so
+* that it would more closely mimic an external use-case (being more standalone). But, for
+* performance reasons, I'm going to cache the client in memory and allow the config object
+* to be passed-in on each feature flag evaluation.
+*/
 component
 	output = false
 	hint = "I evaluate resolve feature flag settings against a given context."
 	{
 
+	// Define properties for dependency-injection.
+	property name="logger" ioc:type="lib.Logger";
+
 	/**
 	* I initialize the feature flags client.
-	*
-	* Note: None of the component instantiation in the "client" area uses the Dependency
-	* Injection container (ioc). I wanted this to feel more "standalone", when compared to
-	* the rest of the playground application.
 	*/
 	public void function init() {
 
@@ -30,9 +35,6 @@ component
 			Variant: new lib.client.resolution.Variant()
 		};
 
-		variables.logger = new lib.client.util.Logger();
-		variables.config = {};
-
 	}
 
 	// ---
@@ -45,6 +47,7 @@ component
 	* about why the given variant was ultimately selected.
 	*/
 	public struct function debugEvaluation(
+		required struct config,
 		required string featureKey,
 		required string environmentKey,
 		required struct context,
@@ -219,6 +222,7 @@ component
 	* variant is returned anytime something goes "wrong" in the feature flag evaluation.
 	*/
 	public any function getVariant(
+		required struct config,
 		required string featureKey,
 		required string environmentKey,
 		required struct context,
@@ -232,30 +236,6 @@ component
 		var result = debugEvaluation( argumentCollection = arguments );
 
 		return result.variant;
-
-	}
-
-
-	/**
-	* I update the stored configuration for the feature flags targeting.
-	*/
-	public any function withConfig( required struct config ) {
-
-		variables.config = arguments.config;
-
-		return this;
-
-	}
-
-
-	/**
-	* I update the stored logger for reporting errors.
-	*/
-	public any function withLogger( required any logger ) {
-
-		variables.logger = arguments.logger;
-
-		return this;
 
 	}
 

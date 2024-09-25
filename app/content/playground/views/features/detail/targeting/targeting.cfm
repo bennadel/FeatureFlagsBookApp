@@ -4,8 +4,8 @@
 	configValidation = request.ioc.get( "lib.model.config.ConfigValidation" );
 	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
+	featureFlags = request.ioc.get( "lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
-	logger = request.ioc.get( "lib.Logger" );
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
@@ -79,10 +79,6 @@
 		required array users
 		) {
 
-		var featureFlags = new lib.client.FeatureFlags()
-			.withConfig( config )
-			.withLogger( logger )
-		;
 		var results = {};
 
 		for ( var user in users ) {
@@ -92,6 +88,7 @@
 			for ( var environment in environments ) {
 
 				var result = featureFlags.debugEvaluation(
+					config = config,
 					featureKey = feature.key,
 					environmentKey = environment.key,
 					context = demoTargeting.getContext( user ),

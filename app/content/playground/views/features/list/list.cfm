@@ -1,8 +1,8 @@
 <cfscript>
 
-	demoLogger = request.ioc.get( "lib.Logger" );
 	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
 	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
+	featureFlags = request.ioc.get( "lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
 	utilities = request.ioc.get( "lib.util.Utilities" );
 
@@ -62,10 +62,6 @@
 		required array users
 		) {
 
-		var featureFlags = new lib.client.FeatureFlags()
-			.withConfig( config )
-			.withLogger( demoLogger )
-		;
 		var results = {};
 
 		for ( var feature in features ) {
@@ -88,6 +84,7 @@
 				for ( var user in users ) {
 
 					var result = featureFlags.debugEvaluation(
+						config = config,
 						featureKey = feature.key,
 						environmentKey = environment.key,
 						context = demoTargeting.getContext( user ),
