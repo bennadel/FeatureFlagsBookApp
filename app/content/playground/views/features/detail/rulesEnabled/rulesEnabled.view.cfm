@@ -39,6 +39,7 @@
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
 				<input type="hidden" name="submitted" value="true" />
+				<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />
 
 				<dl>
 					<div>

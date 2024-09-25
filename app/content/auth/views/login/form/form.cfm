@@ -5,6 +5,7 @@
 	requestHelper = request.ioc.get( "lib.RequestHelper" );
 	requestMetadata = request.ioc.get( "lib.RequestMetadata" );
 	turnstile = request.ioc.get( "lib.turnstile.Turnstile" );
+	xsrfService = request.ioc.get( "lib.XsrfService" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -23,6 +24,7 @@
 
 			turnstile.testToken( form[ "cf-turnstile-response" ], requestMetadata.getIpAddress() );
 			authWorkflow.login( form.email.trim() );
+			xsrfService.cycleCookie();
 
 			requestHelper.redirect(
 				targetUrl = request.context.redirectTo,

@@ -13,7 +13,7 @@ component
 	public void function $init() {
 
 		variables.COOKIE_NAME = "XSRF-TOKEN";
-		variables.HEADER_NAME = "X-XSRF-TOKEN";
+		variables.CHALLENGE_NAME = "X-XSRF-TOKEN";
 
 	}
 
@@ -40,13 +40,15 @@ component
 	/**
 	* I ensure that the XSRF cookie exists. If it doesn't a new XSRF cookie is set.
 	*/
-	public void function ensureCookie() {
+	public string function ensureCookie() {
 
 		if ( ! cookieExists() ) {
 
-			cycleCookie();
+			return cycleCookie();
 
 		}
+
+		return getCookieValue();
 
 	}
 
@@ -60,19 +62,19 @@ component
 
 		return {
 			cookie: COOKIE_NAME,
-			header: HEADER_NAME
+			challenge: CHALLENGE_NAME
 		};
 
 	}
 
 
 	/**
-	* I test to make sure that the XSRF header matches the XSRF cookie.
+	* I test to make sure that the XSRF challenge value matches the XSRF cookie.
 	*/
-	public void function testHeader() {
+	public void function testRequest() {
 
-		var cookieValue = getCookie();
-		var headerValue = getHeader();
+		var cookieValue = getCookieValue();
+		var challengeValue = getChallengeValue();
 
 		if ( ! cookieValue.len() ) {
 
@@ -84,22 +86,22 @@ component
 
 		}
 
-		if ( ! headerValue.len() ) {
+		if ( ! challengeValue.len() ) {
 
 			throw(
-				type = "App.Xsrf.MissingHeader",
-				message = "The xsrf token header is missing or empty.",
-				detail = "Expected header: [#HEADER_NAME#]."
+				type = "App.Xsrf.MissingChallenge",
+				message = "The xsrf token challenge is missing or empty.",
+				detail = "Expected field: [#CHALLENGE_NAME#]."
 			);
 
 		}
 
-		if ( compare( cookieValue, headerValue ) ) {
+		if ( compare( cookieValue, challengeValue ) ) {
 
 			throw(
 				type = "App.Xsrf.Mismatch",
-				message = "The xsrf token header does not match the xsrf token cookie.",
-				detail = "Cookie: [#cookieValue#], Header: [#headerValue#]."
+				message = "The xsrf token challenge does not match the xsrf token cookie.",
+				detail = "Cookie: [#cookieValue#], Header: [#challengeValue#]."
 			);
 
 		}
@@ -123,7 +125,7 @@ component
 			domain: config.site.cookieDomain,
 			expires: "never",
 			encodeValue: false,
-			httpOnly: false, // Angular needs access to this cookie.
+			httpOnly: false, // AJAX requests need access to this cookie.
 			secure: config.isLive, // I only have an SSL certificate in production.
 			sameSite: "strict",
 			preserveCase: true
@@ -169,23 +171,27 @@ component
 
 
 	/**
-	* I get the current XSRF cookie. Returns the empty string if none exists.
+	* I get the current XSRF challenge value. Returns the empty string if none exists.
 	*/
-	private string function getCookie() {
+	private string function getChallengeValue() {
 
-		return ( cookie[ COOKIE_NAME ] ?: "" );
+		if ( form.keyExists( CHALLENGE_NAME ) ) {
+
+			return form[ CHALLENGE_NAME ];
+
+		}
+
+		return "";
 
 	}
 
 
 	/**
-	* I get the current XSRF header. Returns the empty string if none exists.
+	* I get the current XSRF cookie. Returns the empty string if none exists.
 	*/
-	private string function getHeader() {
+	private string function getCookieValue() {
 
-		var headers = requestMetadata.getHeaders();
-
-		return ( headers[ HEADER_NAME ] ?: "" );
+		return ( cookie[ COOKIE_NAME ] ?: "" );
 
 	}
 

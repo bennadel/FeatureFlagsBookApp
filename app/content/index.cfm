@@ -1,7 +1,7 @@
 <cfscript>
 
 	errorService = request.ioc.get( "lib.ErrorService" );
-	logger = request.ioc.get( "lib.Logger" );
+	xsrfService = request.ioc.get( "lib.XsrfService" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
@@ -9,6 +9,18 @@
 	try {
 
 		param name="request.event[ 1 ]" type="string" default="playground";
+		param name="form.submitted" type="boolean" default=false;
+
+		request.xsrfToken = xsrfService.ensureCookie();
+
+		// All form submissions must include a valid XSRF token.
+		if ( form.submitted ) {
+
+			// Todo: Replace the explicit <input hidden> with a UI helper? Right now,
+			// we're hard-coding the challenge token name, which I don't love.
+			xsrfService.testRequest();
+
+		}
 
 		switch ( request.event[ 1 ] ) {
 			case "auth":

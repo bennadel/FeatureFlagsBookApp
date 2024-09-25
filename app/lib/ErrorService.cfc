@@ -493,16 +493,16 @@ component
 					message: "Your XSRF token isn't valid."
 				});
 			break;
+			case "App.Xsrf.MissingChallenge":
+				return as400({
+					type: error.type,
+					message: "Your request must include the XSRF challenge (X-XSRF-TOKEN)."
+				});
+			break;
 			case "App.Xsrf.MissingCookie":
 				return as400({
 					type: error.type,
 					message: "Your request must include the XSRF cookie (XSRF-TOKEN)."
-				});
-			break;
-			case "App.Xsrf.MissingHeader":
-				return as400({
-					type: error.type,
-					message: "Your request must include the XSRF header (X-XSRF-TOKEN)."
 				});
 			break;
 			// Anything not handled by an explicit case becomes a generic 500 response.

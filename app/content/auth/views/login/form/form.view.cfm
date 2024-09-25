@@ -23,6 +23,7 @@
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="redirectTo" value="#encodeForHtmlAttribute( request.context.redirectTo )#" />
 			<input type="hidden" name="submitted" value="true" />
+			<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />
 
 			<p>
 				<strong>Email:</strong><br />
