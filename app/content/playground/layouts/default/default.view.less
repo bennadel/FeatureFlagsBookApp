@@ -3,6 +3,21 @@
 		margin: 0 ;
 	}
 
+	&.skip-to-main {
+		background-color: #121212 ;
+		border-radius: 3px ;
+		color: #f0f0f0 ;
+		left: 6px ;
+		padding: 1rem 2rem ;
+		position: fixed ;
+		top: -100px ;
+		z-index: 100 ;
+
+		&:focus {
+			top: 6px ;
+		}
+	}
+
 	&.shell {
 		align-items: flex-start ;
 		display: flex ;
@@ -20,6 +35,14 @@
 
 		&__main {
 			flex: 1 1 auto ;
+
+			// Since the main element touches the edges of the browser, the normal outline
+			// will be clipped by the browser viewport. As such, we're going to inset the
+			// programmatic focus on the main content.
+			&:focus-visible {
+				outline: 3px solid var( --accent-color ) ;
+				outline-offset: -6px ;
+			}
 		}
 	}
 

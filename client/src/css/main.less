@@ -17,18 +17,13 @@
 	border: 1px solid #111111 ;
 }
 
-.less-form-control-focus() {
-	&:focus {
-		outline: 2px solid blue ;
-		outline-offset: 2px ;
-	}
-}
-
 // ---
 // Base Styles.
 // ---
 
 html {
+	--accent-color: #ea0961 ;
+
 	box-sizing: border-box ;
 	font-family: monospace ;
 	font-size: 18px ;
@@ -211,6 +206,21 @@ select {
 
 button {
 	cursor: pointer ;
+}
+
+// Note: I originally tried to use "*:focus" but this was causing some HTML elements to
+// show the focus ring when the user clicked into the DOM tree (specifically the skip-to-
+// main link and the <main> area). I've reduced the scope here and am using :focus-within
+// for the <main> area.
+input,
+button,
+select,
+textarea,
+a {
+	&:focus {
+		outline: 2px solid var( --accent-color ) ;
+		outline-offset: 2px ;
+	}
 }
 
 // ---
@@ -478,7 +488,6 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 
 .ui-button {
 	.less-form-control-border() ;
-	.less-form-control-focus() ;
 
 	background-color: #efefef ;
 	border-radius: 2px ;
@@ -522,7 +531,6 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 
 .ui-input {
 	.less-form-control-border() ;
-	.less-form-control-focus() ;
 
 	border-radius: 2px ;
 	display: block ;
@@ -532,7 +540,6 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 
 .ui-radio {
 	.less-form-control-border() ;
-	.less-form-control-focus() ;
 
 		-webkit-appearance: none ;
 	appearance: none ;
@@ -544,7 +551,7 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 	width: 18px ;
 
 	&:checked::after {
-		background-color: blue ;
+		background-color: var( --accent-color ) ;
 		border-radius: 8px ;
 		content: "" ;
 		height: 8px ;
@@ -555,7 +562,6 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 
 .ui-select {
 	.less-form-control-border() ;
-	.less-form-control-focus() ;
 
 		-webkit-appearance: none ;
 	appearance: none ;
@@ -569,7 +575,6 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 
 .ui-textarea {
 	.less-form-control-border() ;
-	.less-form-control-focus() ;
 
 	border-radius: 2px ;
 	display: block ;
