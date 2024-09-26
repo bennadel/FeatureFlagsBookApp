@@ -32,7 +32,7 @@
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step6c" />
 
-				<button type="submit">
+				<button type="submit" class="ui-button is-submit">
 					Roll-Back the Changes &rarr;
 				</button>
 			</form>

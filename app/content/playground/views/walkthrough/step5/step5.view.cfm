@@ -28,7 +28,7 @@
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step6" />
 
-				<button type="submit">
+				<button type="submit" class="ui-button is-submit">
 					Enable for the Customer Team (dayknight) &rarr;
 				</button>
 			</form>

@@ -29,6 +29,7 @@
 								name="featureKey"
 								value="#encodeForHtmlAttribute( form.featureKey )#"
 								size="40"
+								class="ui-input"
 							/>
 						</dd>
 					</div>
@@ -39,15 +40,17 @@
 						<dd>
 							<cfloop index="featureType" array="#[ 'boolean', 'string', 'number' ]#">
 
-								<label class="choggle">
-									<input
-										type="radio"
-										name="type"
-										value="#encodeForHtmlAttribute( featureType )#"
-										#ui.attrChecked( form.type == featureType )#
-										class="choggle__control"
-									/>
-									<span class="choggle__label">
+								<label class="ui-row">
+									<span class="ui-row__item">
+										<input
+											type="radio"
+											name="type"
+											value="#encodeForHtmlAttribute( featureType )#"
+											#ui.attrChecked( form.type == featureType )#
+											class="ui-radio"
+										/>
+									</span>
+									<span class="ui-row__item">
 										#encodeForHtml( featureType )#
 									</span>
 								</label>
@@ -64,7 +67,7 @@
 							Description:
 						</dt>
 						<dd>
-							<textarea cols="50" rows="3">#encodeForHtml( form.description )#</textarea>
+							<textarea name="description" class="ui-textarea">#encodeForHtml( form.description )#</textarea>
 						</dd>
 					</div>
 					<div>
@@ -76,23 +79,27 @@
 								<cfloop index="entry" array="#utilities.toEntries( form.variantsRaw )#">
 									<li>
 
-										<div class="choggle">
-											<input
-												type="text"
-												name="variantsRaw[]"
-												value="#encodeForHtmlAttribute( entry.value )#"
-												size="30"
-												class="choggle__control"
-											/>
-											<label class="choggle__label choggle">
+										<div class="ui-row">
+											<span class="ui-row__item">
 												<input
-													type="radio"
-													name="defaultSelection"
-													value="#encodeForHtmlAttribute( entry.index )#"
-													#ui.attrChecked( form.defaultSelection == entry.index )#
-													class="choggle__control"
+													type="text"
+													name="variantsRaw[]"
+													value="#encodeForHtmlAttribute( entry.value )#"
+													size="30"
+													class="ui-input"
 												/>
-												<span class="choggle__label">
+											</span>
+											<label class="ui-row__item ui-row">
+												<span class="ui-row__item">
+													<input
+														type="radio"
+														name="defaultSelection"
+														value="#encodeForHtmlAttribute( entry.index )#"
+														#ui.attrChecked( form.defaultSelection == entry.index )#
+														class="ui-radio"
+													/>
+												</span>
+												<span class="ui-row__item">
 													Use as default.
 												</span>
 											</label>
@@ -105,13 +112,17 @@
 					</div>
 				</dl>
 
-				<p>
-					<button type="submit">
-						Create Feature
-					</button>
-					<a href="/index.cfm">
-						Cancel
-					</a>
+				<p class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Create Feature
+						</button>
+					</span>
+					<span class="ui-row__item">
+						<a href="/index.cfm" class="ui-button is-cancel">
+							Cancel
+						</a>
+					</span>
 				</p>
 
 			</form>

@@ -28,7 +28,7 @@
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step3" />
 
-				<button type="submit">
+				<button type="submit" class="ui-button is-submit">
 					Enable in Development Environment &rarr;
 				</button>
 			</form>

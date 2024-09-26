@@ -44,9 +44,11 @@
 							<cfloop index="entry" array="#utilities.toEntries( feature.variants )#">
 								<li>
 
-									<div class="u-flex-row">
-										<span class="ui-tag ui-variant-#entry.index#">
-											#encodeForHtml( serializeJson( entry.value ) )#
+									<div class="ui-row">
+										<span class="ui-row__item">
+											<span class="ui-tag ui-variant-#entry.index#">
+												#encodeForHtml( serializeJson( entry.value ) )#
+											</span>
 										</span>
 									</div>
 
@@ -70,13 +72,17 @@
 				<input type="hidden" name="submitted" value="true" />
 				<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />
 
-				<p>
-					<button type="submit">
-						Delete Feature Flag
-					</button>
-					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#">
-						Cancel
-					</a>
+				<p class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Delete Feature Flag
+						</button>
+					</span>
+					<span class="ui-row__item">
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#" class="ui-button is-cancel">
+							Cancel
+						</a>
+					</span>
 				</p>
 
 			</form>

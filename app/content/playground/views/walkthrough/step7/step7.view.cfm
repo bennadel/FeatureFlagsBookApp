@@ -25,7 +25,7 @@
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step8" />
 
-				<button type="submit">
+				<button type="submit" class="ui-button is-submit">
 					Enable for 50% of All Users &rarr;
 				</button>
 			</form>

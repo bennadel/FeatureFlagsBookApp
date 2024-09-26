@@ -46,43 +46,49 @@
 						<dt>
 							Type:
 						</dt>
-						<dd>
-							<label class="choggle">
-								<input
-									type="radio"
-									name="resolutionType"
-									value="selection"
-									#ui.attrChecked( form.resolutionType == "selection" )#
-									@change="handleType()"
-									class="choggle__control"
-								/>
-								<span class="choggle__label">
+						<dd class="u-breathing-room">
+							<label class="ui-row">
+								<span class="ui-row__item">
+									<input
+										type="radio"
+										name="resolutionType"
+										value="selection"
+										#ui.attrChecked( form.resolutionType == "selection" )#
+										@change="handleType()"
+										class="ui-radio"
+									/>
+								</span>
+								<span class="ui-row__item">
 									Selection
 								</span>
 							</label>
-							<label class="choggle">
-								<input
-									type="radio"
-									name="resolutionType"
-									value="distribution"
-									#ui.attrChecked( form.resolutionType == "distribution" )#
-									@change="handleType()"
-									class="choggle__control"
-								/>
-								<span class="choggle__label">
+							<label class="ui-row">
+								<span class="ui-row__item">
+									<input
+										type="radio"
+										name="resolutionType"
+										value="distribution"
+										#ui.attrChecked( form.resolutionType == "distribution" )#
+										@change="handleType()"
+										class="ui-radio"
+									/>
+								</span>
+								<span class="ui-row__item">
 									Distribution
 								</span>
 							</label>
-							<label class="choggle">
-								<input
-									type="radio"
-									name="resolutionType"
-									value="variant"
-									#ui.attrChecked( form.resolutionType == "variant" )#
-									@change="handleType()"
-									class="choggle__control"
-								/>
-								<span class="choggle__label">
+							<label class="ui-row">
+								<span class="ui-row__item">
+									<input
+										type="radio"
+										name="resolutionType"
+										value="variant"
+										#ui.attrChecked( form.resolutionType == "variant" )#
+										@change="handleType()"
+										class="ui-radio"
+									/>
+								</span>
+								<span class="ui-row__item">
 									Variant
 								</span>
 							</label>
@@ -99,16 +105,20 @@
 								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
 
 									<li>
-										<label class="choggle">
-											<input
-												type="radio"
-												name="resolutionSelection"
-												value="#encodeForHtmlAttribute( entry.index )#"
-												#ui.attrChecked( form.resolutionSelection == entry.index )#
-												class="choggle__control"
-											/>
-											<span class="choggle__label ui-tag ui-variant-#entry.index#">
-												#encodeForHtml( serializeJson( entry.value ) )#
+										<label class="ui-row">
+											<span class="ui-row__item">
+												<input
+													type="radio"
+													name="resolutionSelection"
+													value="#encodeForHtmlAttribute( entry.index )#"
+													#ui.attrChecked( form.resolutionSelection == entry.index )#
+													class="ui-radio"
+												/>
+											</span>
+											<span class="ui-row__item">
+												<span class="ui-tag ui-variant-#entry.index#">
+													#encodeForHtml( serializeJson( entry.value ) )#
+												</span>
 											</span>
 										</label>
 									</li>
@@ -129,18 +139,22 @@
 								<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
 
 									<li>
-										<label class="choggle">
-											<select name="resolutionDistribution[]" @change="handleAllocation()" class="choggle__control">
-												<cfloop from="0" to="100" index="i">
-													<option
-														value="#i#"
-														#ui.attrSelected( form.resolutionDistribution[ entry.index ] == i )#>
-														#i#
-													</option>
-												</cfloop>
-											</select>
-											<span class="choggle__label u-flex-row">
+										<label class="ui-row">
+											<span class="ui-row__item">
+												<select name="resolutionDistribution[]" @change="handleAllocation()" class="ui-select">
+													<cfloop from="0" to="100" index="i">
+														<option
+															value="#i#"
+															#ui.attrSelected( form.resolutionDistribution[ entry.index ] == i )#>
+															#i#
+														</option>
+													</cfloop>
+												</select>
+											</span>
+											<span class="ui-row__item">
 												&rarr;
+											</span>
+											<span class="ui-row__item">
 												<span class="ui-tag ui-variant-#entry.index#">
 													#encodeForHtml( serializeJson( entry.value ) )#
 												</span>
@@ -170,26 +184,36 @@
 							Variant:
 						</dt>
 						<dd>
-							<input
-								type="text"
-								name="resolutionVariant"
-								value="#encodeForHtmlAttribute( form.resolutionVariant )#"
-								size="30"
-							/>
-							-
-							must by of type #encodeForHtml( feature.type )#.
+							<div class="ui-row">
+								<span class="ui-row__item">
+									<input
+										type="text"
+										name="resolutionVariant"
+										value="#encodeForHtmlAttribute( form.resolutionVariant )#"
+										size="30"
+										class="ui-input"
+									/>
+								</span>
+								<span class="ui-row__item">
+									- must by of type #encodeForHtml( feature.type )#.
+								</span>
+							</div>
 						</dd>
 					</div>
 					<!--- End: Variant. --->
 				</dl>
 
-				<p>
-					<button type="submit">
-						Save
-					</button>
-					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#">
-						Cancel
-					</a>
+				<p class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Save
+						</button>
+					</span>
+					<span class="ui-row__item">
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#" class="ui-button is-cancel">
+							Cancel
+						</a>
+					</span>
 				</p>
 
 			</form>

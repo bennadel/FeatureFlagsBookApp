@@ -73,9 +73,11 @@
 							</dt>
 							<dd>
 
-								<div class="u-flex-row">
-									<span class="ui-tag ui-variant-#rule.resolution.selection#">
-										#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
+								<div class="ui-row">
+									<span class="ui-row__item">
+										<span class="ui-tag ui-variant-#rule.resolution.selection#">
+											#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
+										</span>
 									</span>
 								</div>
 
@@ -94,13 +96,17 @@
 										<cfif entry.value>
 											<li>
 
-												<div class="u-flex-row">
-													<span>
+												<div class="ui-row">
+													<span class="ui-row__item">
 														#encodeForHtml( entry.value )#%
 													</span>
-													&rarr;
-													<span class="ui-tag ui-variant-#entry.index#">
-														#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
+													<span class="ui-row__item">
+														&rarr;
+													</span>
+													<span class="ui-row__item">
+														<span class="ui-tag ui-variant-#entry.index#">
+															#encodeForHtml( serializeJson( feature.variants[ entry.index ] ) )#
+														</span>
 													</span>
 												</div>
 
@@ -119,9 +125,11 @@
 							</dt>
 							<dd>
 
-								<div class="u-flex-row">
-									<span class="ui-tag ui-variant-0">
-										#encodeForHtml( serializeJson( rule.resolution.variant ) )#
+								<div class="ui-row">
+									<span class="ui-row__item">
+										<span class="ui-tag ui-variant-0">
+											#encodeForHtml( serializeJson( rule.resolution.variant ) )#
+										</span>
 									</span>
 								</div>
 
@@ -146,13 +154,17 @@
 				<input type="hidden" name="submitted" value="true" />
 				<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />
 
-				<p>
-					<button type="submit">
-						Delete Rule
-					</button>
-					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#">
-						Cancel
-					</a>
+				<p class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Delete Rule
+						</button>
+					</span>
+					<span class="ui-row__item">
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#" class="ui-button is-cancel">
+							Cancel
+						</a>
+					</span>
 				</p>
 
 			</form>

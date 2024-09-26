@@ -32,7 +32,7 @@
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step10" />
 
-				<button type="submit">
+				<button type="submit" class="ui-button is-submit">
 					Let it Soak in Production &rarr;
 				</button>
 			</form>

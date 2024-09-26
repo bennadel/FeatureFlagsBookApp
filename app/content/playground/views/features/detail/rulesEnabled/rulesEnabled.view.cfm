@@ -46,30 +46,34 @@
 						<dt>
 							Evaluate Rules:
 						</dt>
-						<dd>
-							<label for="form--disabled" class="choggle">
-								<input
-									id="form--disabled"
-									type="radio"
-									name="rulesEnabled"
-									value="false"
-									#ui.attrChecked( ! form.rulesEnabled )#
-									class="choggle__control"
-								/>
-								<span class="choggle__label">
+						<dd class="u-breathing-room">
+							<label for="form--disabled" class="ui-row">
+								<span class="ui-row__item">
+									<input
+										id="form--disabled"
+										type="radio"
+										name="rulesEnabled"
+										value="false"
+										#ui.attrChecked( ! form.rulesEnabled )#
+										class="ui-radio"
+									/>
+								</span>
+								<span class="ui-row__item">
 									No &mdash; only the default resolution should be used.
 								</span>
 							</label>
-							<label for="form--enabled" class="choggle">
-								<input
-									id="form--enabled"
-									type="radio"
-									name="rulesEnabled"
-									value="true"
-									#ui.attrChecked( form.rulesEnabled )#
-									class="choggle__control"
-								/>
-								<span class="choggle__label">
+							<label for="form--enabled" class="ui-row">
+								<span class="ui-row__item">
+									<input
+										id="form--enabled"
+										type="radio"
+										name="rulesEnabled"
+										value="true"
+										#ui.attrChecked( form.rulesEnabled )#
+										class="ui-radio"
+									/>
+								</span>
+								<span class="ui-row__item">
 									Yes &mdash; allow default resolution to be overridden by matching rule.
 								</span>
 							</label>
@@ -77,13 +81,17 @@
 					</div>
 				</dl>
 
-				<p>
-					<button type="submit">
-						Save
-					</button>
-					<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#">
-						Cancel
-					</a>
+				<p class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Save
+						</button>
+					</span>
+					<span class="ui-row__item">
+						<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#" class="ui-button is-cancel">
+							Cancel
+						</a>
+					</span>
 				</p>
 
 			</form>

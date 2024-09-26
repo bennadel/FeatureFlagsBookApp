@@ -82,7 +82,7 @@
 						step: true,
 						current: ( attributes.step == entry.key )
 					})#>
-					Step #entry.key#: #encodeForHtml( entry.value )#
+					Step #encodeForHtml( entry.key )#: #encodeForHtml( entry.value )#
 				</a>
 			</li>
 		</cfloop>

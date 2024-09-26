@@ -14,30 +14,38 @@
 		</p>
 
 		<cfif errorMessage.len()>
-			<p class="ui-rror-message">
+			<p class="ui-error-message">
 				#encodeForHtml( errorMessage )#
 			</p>
 		</cfif>
 
-		<form x-data="me22b58.FormController" method="post" class="u-no-margin-bottom">
+		<form x-data="me22b58.FormController" method="post">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="redirectTo" value="#encodeForHtmlAttribute( request.context.redirectTo )#" />
 			<input type="hidden" name="submitted" value="true" />
 			<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />
 
 			<p>
-				<strong>Email:</strong><br />
-				<input
-					type="text"
-					name="email"
-					value=""
-					placeholder="Email address..."
-					size="30"
-					maxlength="75"
-				/>
-				<button type="submit">
-					Login
-				</button>
+				<strong>Login with email:</strong>
+			</p>
+
+			<p class="ui-row">
+				<span class="ui-row__item">
+					<input
+						type="text"
+						name="email"
+						value=""
+						placeholder="Email address..."
+						size="30"
+						maxlength="75"
+						class="ui-input"
+					/>
+				</span>
+				<span class="ui-row__item">
+					<button type="submit" class="ui-button is-submit">
+						Login
+					</button>
+				</span>
 			</p>
 
 			<!--- Turnstile CAPTCHA challenge. --->

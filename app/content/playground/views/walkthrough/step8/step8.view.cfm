@@ -24,7 +24,7 @@
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step9" />
 
-				<button type="submit">
+				<button type="submit" class="ui-button is-submit">
 					Enable for All Users &rarr;
 				</button>
 			</form>

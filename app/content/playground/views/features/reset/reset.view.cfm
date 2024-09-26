@@ -22,13 +22,17 @@
 					<strong>Caution:</strong> This will reset your feature flag data back to its original state.
 				</p>
 
-				<p>
-					<button type="submit">
-						Reset my data
-					</button>
-					<a href="/index.cfm">
-						Cancel
-					</a>
+				<p class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Reset my data
+						</button>
+					</span>
+					<span class="ui-row__item">
+						<a href="/index.cfm" class="ui-button is-cancel">
+							Cancel
+						</a>
+					</span>
 				</p>
 
 			</form>

@@ -50,9 +50,11 @@
 							<cfloop array="#utilities.toEntries( request.feature.variants )#" index="entry">
 								<li>
 
-									<div class="u-flex-row">
-										<span class="ui-tag ui-variant-#entry.index#">
-											#encodeForHtml( serializeJson( entry.value ) )#
+									<div class="ui-row">
+										<span class="ui-row__item">
+											<span class="ui-tag ui-variant-#entry.index#">
+												#encodeForHtml( serializeJson( entry.value ) )#
+											</span>
 										</span>
 									</div>
 
@@ -66,7 +68,8 @@
 
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step2" />
-				<button type="submit">
+
+				<button type="submit" class="ui-button is-submit">
 					Create Feature Flag
 				</button>
 			</form>

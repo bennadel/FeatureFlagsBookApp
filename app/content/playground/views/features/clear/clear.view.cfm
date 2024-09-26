@@ -22,13 +22,17 @@
 					<strong>Caution:</strong> This will delete all rules and apply a default resolution to select the first variant.
 				</p>
 
-				<p>
-					<button type="submit">
-						Remove all rules
-					</button>
-					<a href="/index.cfm">
-						Cancel
-					</a>
+				<p class="ui-form-buttons ui-row">
+					<span class="ui-row__item">
+						<button type="submit" class="ui-button is-submit">
+							Remove all rules
+						</button>
+					</span>
+					<span class="ui-row__item">
+						<a href="/index.cfm" class="ui-button is-cancel">
+							Cancel
+						</a>
+					</span>
 				</p>
 
 			</form>

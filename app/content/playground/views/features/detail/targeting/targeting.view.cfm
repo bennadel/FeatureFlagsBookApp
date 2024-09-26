@@ -79,9 +79,11 @@
 									<cfloop index="variantEntry" array="#utilities.toEntries( feature.variants )#">
 										<li>
 
-											<div class="u-flex-row">
-												<span class="ui-tag ui-variant-#variantEntry.index#">
-													#encodeForHtml( serializeJson( variantEntry.value ) )#
+											<div class="ui-row">
+												<span class="ui-row__item">
+													<span class="ui-tag ui-variant-#variantEntry.index#">
+														#encodeForHtml( serializeJson( variantEntry.value ) )#
+													</span>
 												</span>
 											</div>
 
@@ -128,13 +130,17 @@
 									<dd>
 										<cfswitch expression="#settings.resolution.type#">
 											<cfcase value="selection">
-												<div class="u-flex-row">
-													<span>
+												<div class="ui-row">
+													<span class="ui-row__item">
 														Selection
 													</span>
-													&rarr;
-													<span class="ui-tag ui-variant-#settings.resolution.selection#">
-														#encodeForHtml( serializeJson( feature.variants[ settings.resolution.selection ] ) )#
+													<span class="ui-row__item">
+														&rarr;
+													</span>
+													<span class="ui-row__item">
+														<span class="ui-tag ui-variant-#settings.resolution.selection#">
+															#encodeForHtml( serializeJson( feature.variants[ settings.resolution.selection ] ) )#
+														</span>
 													</span>
 												</div>
 											</cfcase>
@@ -146,13 +152,17 @@
 													<cfloop index="distributionEntry" array="#utilities.toEntries( settings.resolution.distribution )#">
 														<cfif distributionEntry.value>
 															<li>
-																<div class="u-flex-row">
-																	<span>
+																<div class="ui-row">
+																	<span class="ui-row__item">
 																		#distributionEntry.value#%
 																	</span>
-																	&rarr;
-																	<span class="ui-tag ui-variant-#distributionEntry.index#">
-																		#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																	<span class="ui-row__item">
+																		&rarr;
+																	</span>
+																	<span class="ui-row__item">
+																		<span class="ui-tag ui-variant-#distributionEntry.index#">
+																			#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																		</span>
 																	</span>
 																</div>
 															</li>
@@ -161,13 +171,17 @@
 												</ul>
 											</cfcase>
 											<cfcase value="variant">
-												<p class="u-flex-row">
-													<span>
+												<p class="ui-row">
+													<span class="ui-row__item">
 														Variant
 													</span>
-													&rarr;
-													<span class="ui-tag ui-variant-0">
-														#encodeForHtml( serializeJson( settings.resolution.variant ) )#
+													<span class="ui-row__item">
+														&rarr;
+													</span>
+													<span class="ui-row__item">
+														<span class="ui-tag ui-variant-0">
+															#encodeForHtml( serializeJson( settings.resolution.variant ) )#
+														</span>
 													</span>
 												</p>
 											</cfcase>
@@ -251,13 +265,17 @@
 													<dd>
 														<cfswitch expression="#rule.resolution.type#">
 															<cfcase value="selection">
-																<p class="u-flex-row">
-																	<span>
+																<p class="ui-row">
+																	<span clas="ui-row__item">
 																		Selection
 																	</span>
-																	&rarr;
-																	<span class="ui-tag ui-variant-#rule.resolution.selection#">
-																		#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
+																	<span clas="ui-row__item">
+																		&rarr;
+																	</span>
+																	<span clas="ui-row__item">
+																		<span class="ui-tag ui-variant-#rule.resolution.selection#">
+																			#encodeForHtml( serializeJson( feature.variants[ rule.resolution.selection ] ) )#
+																		</span>
 																	</span>
 																</p>
 															</cfcase>
@@ -269,13 +287,17 @@
 																	<cfloop index="distributionEntry" array="#utilities.toEntries( rule.resolution.distribution )#">
 																		<cfif distributionEntry.value>
 																			<li>
-																				<div class="u-flex-row">
-																					<span>
+																				<div class="ui-row">
+																					<span class="ui-row__item">
 																						#distributionEntry.value#%
 																					</span>
-																					&rarr;
-																					<span class="ui-tag ui-variant-#distributionEntry.index#">
-																						#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																					<span class="ui-row__item">
+																						&rarr;
+																					</span>
+																					<span class="ui-row__item">
+																						<span class="ui-tag ui-variant-#distributionEntry.index#">
+																							#encodeForHtml( serializeJson( feature.variants[ distributionEntry.index ] ) )#
+																						</span>
 																					</span>
 																				</div>
 																			</li>
@@ -284,13 +306,17 @@
 																</ul>
 															</cfcase>
 															<cfcase value="variant">
-																<p class="u-flex-row">
-																	<span>
+																<p class="ui-row">
+																	<span class="ui-row__item">
 																		Variant
 																	</span>
-																	&rarr;
-																	<span class="ui-tag ui-variant-0">
-																		#encodeForHtml( serializeJson( rule.resolution.variant ) )#
+																	<span class="ui-row__item">
+																		&rarr;
+																	</span>
+																	<span class="ui-row__item">
+																		<span class="ui-tag ui-variant-0">
+																			#encodeForHtml( serializeJson( rule.resolution.variant ) )#
+																		</span>
 																	</span>
 																</p>
 															</cfcase>

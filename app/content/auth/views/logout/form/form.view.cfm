@@ -5,6 +5,10 @@
 			#encodeForHtml( request.template.title )#
 		</h1>
 
+		<p>
+			Your logout request will be processed automatically. If it is not, please use the logout button below.
+		</p>
+
 		<cfif errorMessage.len()>
 			<p class="ui-error-message">
 				#encodeForHtml( errorMessage )#
@@ -16,14 +20,17 @@
 			<input type="hidden" name="submitted" value="true" />
 			<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />
 
-			<p>
-				<button type="submit">
-					Process Logout
-				</button>
-
-				<a href="/">
-					Cancel
-				</a>
+			<p class="ui-form-buttons ui-row">
+				<span class="ui-row__item">
+					<button type="submit" class="ui-button is-submit">
+						Process Logout
+					</button>
+				</span>
+				<span class="ui-row__item">
+					<a href="/index.cfm?event=playground.account" class="ui-button is-cancel">
+						Cancel
+					</a>
+				</span>
 			</p>
 		</form>
 
@@ -33,7 +40,7 @@
 			errors that might occur during the logout process.
 		--->
 		<cfif ! form.submitted>
-			<template x-data="mb568e9.AutoSubmission"></template>
+			<!--- <template x-data="mb568e9.AutoSubmission"></template> --->
 		</cfif>
 
 	</cfoutput>

@@ -26,7 +26,7 @@
 			<form method="get">
 				<input type="hidden" name="event" value="playground.walkthrough.step6" />
 
-				<button type="submit">
+				<button type="submit" class="ui-button is-submit">
 					Resume the Main Walk-Through &rarr;
 				</button>
 			</form>

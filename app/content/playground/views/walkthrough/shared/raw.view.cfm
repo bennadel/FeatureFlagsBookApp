@@ -2,10 +2,10 @@
 
 	<article x-data="m7a3b63.FeatureJson" m-7a3b63 class="m-7a3b63">
 
-		<hr m-7a3b63 class="ui-rule rule" />
+		<hr m-7a3b63 class="ui-rule" />
 
 		<p>
-			<button @click="toggleJson()" class="ui-text-button">
+			<button @click="toggleJson()" class="ui-button is-text">
 				<span x-text="( isShowingJson ? 'Hide' : 'Show' )"></span>
 				current feature configuration
 			</button>
