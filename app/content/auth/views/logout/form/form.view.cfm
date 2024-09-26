@@ -40,7 +40,7 @@
 			errors that might occur during the logout process.
 		--->
 		<cfif ! form.submitted>
-			<!--- <template x-data="mb568e9.AutoSubmission"></template> --->
+			<template x-data="mb568e9.AutoSubmission"></template>
 		</cfif>
 
 	</cfoutput>
