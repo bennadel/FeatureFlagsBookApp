@@ -25,7 +25,7 @@
 
 			<cfmodule template="./snippet-1.cfm">
 
-			<form method="get">
+			<form method="get" action="/index.cfm">
 				<input type="hidden" name="event" value="playground.walkthrough.step3" />
 
 				<button type="submit" class="ui-button is-submit">

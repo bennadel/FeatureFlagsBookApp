@@ -25,7 +25,7 @@
 				Note that I could have combined the two rules that target "user.company.subdomain" and serve up the same variant; however, by keeping them separate in this walk-through, it makes it easier to highlight the incremental feature release on the right.
 			</p>
 
-			<form method="get">
+			<form method="get" action="/index.cfm">
 				<input type="hidden" name="event" value="playground.walkthrough.step6" />
 
 				<button type="submit" class="ui-button is-submit">

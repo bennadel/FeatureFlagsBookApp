@@ -25,7 +25,7 @@
 				When the feature flags client evaluates a feature flag for a given user in a given environment, it iterates over these rules in a top-down manner. Whichever rule matches first, wins (and provides the variant identified by the associated resolution).
 			</p>
 
-			<form method="get">
+			<form method="get" action="/index.cfm">
 				<input type="hidden" name="event" value="playground.walkthrough.step5" />
 
 				<button type="submit" class="ui-button is-submit">

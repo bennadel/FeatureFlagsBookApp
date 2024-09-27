@@ -29,7 +29,7 @@
 				This change in the configuration makes no difference to the users &mdash; 100% of production users are still receiving the <span class="ui-variant-2">true</span> variant. We've simply changed the underlying resolution mechanics from "distribution" to "selection".
 			</p>
 
-			<form method="get">
+			<form method="get" action="/index.cfm">
 				<input type="hidden" name="event" value="playground.walkthrough.step10" />
 
 				<button type="submit" class="ui-button is-submit">

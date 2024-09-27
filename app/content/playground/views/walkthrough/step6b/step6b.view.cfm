@@ -29,7 +29,7 @@
 				When we make this change, the feature flag evaluations in the production environment will be <em>instantaneously</em> reverted in our beta-tester's subdomain. Users under the subdomain "dayknight" will start receiving the first variant (<span class="ui-variant-1">false</span>). Which means the old version of the feature will be rendered; and, no more data will be corrupted.
 			</p>
 
-			<form method="get">
+			<form method="get" action="/index.cfm">
 				<input type="hidden" name="event" value="playground.walkthrough.step6c" />
 
 				<button type="submit" class="ui-button is-submit">
