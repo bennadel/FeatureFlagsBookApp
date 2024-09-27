@@ -4,7 +4,7 @@
 		<div m-d71598 class="panels">
 			<div m-d71598 class="panels__main">
 
-				<section m-d71598 class="main-wrapper content-wrapper">
+				<section m-d71598 class="main-wrapper ui-content-wrapper">
 					#request.template.primaryContent#
 				</section>
 
@@ -12,7 +12,7 @@
 			<cfif request.template.asideContent.len()>
 
 				<div m-d71598 class="panels__aside">
-					<aside m-d71598 class="aside-wrapper content-wrapper">
+					<aside m-d71598 class="aside-wrapper ui-content-wrapper">
 						#request.template.asideContent#
 					</aside>
 				</div>

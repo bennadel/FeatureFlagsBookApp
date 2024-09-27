@@ -13,7 +13,7 @@
 	</head>
 	<body>
 
-		<main m-deac21 class="main content-wrapper">
+		<main m-deac21 class="main ui-content-wrapper">
 			#request.template.primaryContent#
 		</main>
 

@@ -1,7 +1,7 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<section class="content-wrapper">
+		<section class="ui-content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#

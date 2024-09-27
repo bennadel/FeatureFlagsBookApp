@@ -34,7 +34,7 @@
 	<cfoutput>
 
 		<div x-data="ma0f59c.FlashRoot" m-a0f59c class="panels flash-root">
-			<section m-a0f59c class="panels__main content-wrapper">
+			<section m-a0f59c class="panels__main ui-content-wrapper">
 
 				<div class="ui-readable-width">
 

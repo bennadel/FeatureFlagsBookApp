@@ -208,19 +208,9 @@ button {
 	cursor: pointer ;
 }
 
-// Note: I originally tried to use "*:focus" but this was causing some HTML elements to
-// show the focus ring when the user clicked into the DOM tree (specifically the skip-to-
-// main link and the <main> area). I've reduced the scope here and am using :focus-within
-// for the <main> area.
-input,
-button,
-select,
-textarea,
-a {
-	&:focus {
-		outline: 2px solid var( --accent-color ) ;
-		outline-offset: 2px ;
-	}
+*:focus-visible {
+	outline: 2px solid var( --accent-color ) ;
+	outline-offset: 2px ;
 }
 
 // ---
@@ -304,6 +294,10 @@ ol.u-no-marker {
 		height: 24px ;
 		min-width: 2px ;
 	}
+}
+
+.ui-content-wrapper {
+	padding: 1.6rem 2rem 0.6rem ;
 }
 
 .ui-dots {
@@ -581,12 +575,4 @@ https://bennadel.github.io/JavaScript-Demos/demos/color-palette/#(236,100,66.8),
 	height: 6rem ;
 	padding: 0.5rem 0.7rem 0.4rem ;
 	width: 600px ;
-}
-
-// ---
-// Components.
-// ---
-
-.content-wrapper {
-	padding: 1.6rem 2rem 0.6rem ;
 }
