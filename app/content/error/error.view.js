@@ -1,5 +1,5 @@
 
-// bebab2 <-- md5 -s "/app/content/error/error.view"
+// Slug: mlxsai
 
 // Import module styles.
 import "./error.view.less";

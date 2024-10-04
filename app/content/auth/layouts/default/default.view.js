@@ -1,5 +1,5 @@
 
-// deac21 <-- md5 -s "/app/content/auth/layouts/default/default.view"
+// Slug: 6k72nh
 
 // Import module styles.
 import "./default.view.less";

@@ -1,5 +1,5 @@
 
-// b13612 <-- md5 -s "/app/content/playground/views/staging/user/user.view"
+// Slug: bac8og
 
 // Import module styles.
 import "./user.view.less";

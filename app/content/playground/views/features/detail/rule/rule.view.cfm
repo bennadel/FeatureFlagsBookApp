@@ -34,7 +34,7 @@
 				</p>
 			</cfif>
 
-			<form x-data="m9dac10.FormController( JSON.parse( '#encodeForJavaScript( serializeJson( form.values ) )#' ) )" method="post">
+			<form x-data="mrp1ra0.FormController( JSON.parse( '#encodeForJavaScript( serializeJson( form.values ) )#' ) )" method="post">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
@@ -80,7 +80,7 @@
 							Values:
 						</dt>
 						<dd>
-							<div m-9dac10 class="ui-row tile-form">
+							<div m-rp1ra0 class="ui-row tile-form">
 								<div class="ui-row__item">
 									<input
 										type="text"
@@ -98,7 +98,7 @@
 								</div>
 							</div>
 
-							<div m-9dac10 class="tiles">
+							<div m-rp1ra0 class="tiles">
 								<template x-if="! values.length">
 									<p class="u-no-margin-y">
 										<em>No values defined &mdash; use the form above to add at least one value.</em>
@@ -106,10 +106,10 @@
 								</template>
 								<template x-for="( value, i ) in values" :key="i">
 
-									<span m-9dac10 class="tiles__tile tile">
+									<span m-rp1ra0 class="tiles__tile tile">
 										<input type="hidden" name="values[]" :value="value" />
-										<span m-9dac10 class="tile__value" x-text="value"></span>
-										<button type="button" @click="removeValue( i )" m-9dac10 class="tile__remove">
+										<span m-rp1ra0 class="tile__value" x-text="value"></span>
+										<button type="button" @click="removeValue( i )" m-rp1ra0 class="tile__remove">
 											x
 										</button>
 									</span>

@@ -1,5 +1,5 @@
 
-// 2b2af7 <-- md5 -s "/app/content/playground/views/users/list/list.view"
+// Slug: pt0qmv
 
 // Import module styles.
 import "./list.view.less";

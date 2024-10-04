@@ -1,5 +1,5 @@
 
-// ae7a24 <-- md5 -s "/app/content/playground/layouts/default/default.view"
+// Slug: 2f8ql7
 
 // Import module styles.
 import "./default.view.less";
@@ -7,7 +7,7 @@ import "./default.view.less";
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
-window.mae7a24 = {
+window.m2f8ql7 = {
 	AppShell
 };
 

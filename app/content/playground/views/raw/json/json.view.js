@@ -1,5 +1,5 @@
 
-// 5b9454 <-- md5 -s "/app/content/playground/views/raw/json/json.view"
+// Slug: au14j6
 
 // Import module styles.
 import "./json.view.less";
@@ -7,7 +7,7 @@ import "./json.view.less";
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
-window.m5b9454 = {
+window.mau14j6 = {
 	PrettyPrint
 };
 

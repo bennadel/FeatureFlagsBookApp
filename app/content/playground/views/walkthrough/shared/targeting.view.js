@@ -1,5 +1,5 @@
 
-// 53e5df <-- md5 -s "/app/content/playground/views/walkthrough/shared/targeting.view"
+// Slug: 23jyxr
 
 // Import module styles.
 import "./targeting.view.less";

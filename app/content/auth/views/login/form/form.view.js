@@ -1,5 +1,5 @@
 
-// e22b58 <-- md5 -s "/app/content/auth/views/login/form/form.view"
+// Slug: 2wod20
 
 // Import module styles.
 import "./form.view.less";
@@ -7,7 +7,7 @@ import "./form.view.less";
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
-window.me22b58 = {
+window.m2wod20 = {
 	FormController
 };
 

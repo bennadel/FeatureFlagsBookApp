@@ -1,5 +1,5 @@
 
-// 7a3b63 <-- md5 -s "/app/content/playground/views/walkthrough/shared/raw.view"
+// Slug: j3oyz3
 
 // Import module styles.
 import "./raw.view.less";
@@ -7,7 +7,7 @@ import "./raw.view.less";
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
-window.m7a3b63 = {
+window.mj3oyz3 = {
 	FeatureJson,
 	PrettyPrint
 };

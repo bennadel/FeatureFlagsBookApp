@@ -18,7 +18,7 @@
 
 					.flash-root[data-flash-source="distal"][data-flash-environment="#environment.key#"][data-flash-rule="#i#"]
 						.flasher-proximal[data-flash-environment="#environment.key#"][data-flash-rule="#i#"] {
-							animation: 500ms infinite m-a0f59c-proximal-animated ;
+							animation: 500ms infinite m-n1883l-proximal-animated ;
 							outline: 2px solid deeppink ;
 						}
 
@@ -33,8 +33,8 @@
 	</cfoutput>
 	<cfoutput>
 
-		<div x-data="ma0f59c.FlashRoot" m-a0f59c class="panels flash-root">
-			<section m-a0f59c class="panels__main ui-content-wrapper">
+		<div x-data="mn1883l.FlashRoot" m-n1883l class="panels flash-root">
+			<section m-n1883l class="panels__main ui-content-wrapper">
 
 				<div class="ui-readable-width">
 
@@ -116,13 +116,13 @@
 									data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 									data-flash-rule="0"
 									class="flasher-proximal">
-									<dt x-data="ma0f59c.Editable" @click="handleClick()" m-a0f59c class="editable">
+									<dt x-data="mn1883l.Editable" @click="handleClick()" m-n1883l class="editable">
 										Default Resolution:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.defaultResolution&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
-											m-a0f59c
+											m-n1883l
 											class="editable__link">
 											Edit
 										</a>
@@ -189,13 +189,13 @@
 									</dd>
 								</div>
 								<div>
-									<dt x-data="ma0f59c.Editable" @click="handleClick()" m-a0f59c class="editable">
+									<dt x-data="mn1883l.Editable" @click="handleClick()" m-n1883l class="editable">
 										Rules Enabled:
 
 										<a
 											href="/index.cfm?event=playground.features.detail.rulesEnabled&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#"
 											x-ref="edit"
-											m-a0f59c
+											m-n1883l
 											class="editable__link">
 											Edit
 										</a>
@@ -220,22 +220,22 @@
 												@mouseleave="unflash()"
 												data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 												data-flash-rule="#encodeForHtmlAttribute( ruleEntry.index )#"
-												m-a0f59c
+												m-n1883l
 												class="rule <cfif ! settings.rulesEnabled>rule--disabled</cfif> flasher-proximal">
 												<div>
-													<dt x-data="ma0f59c.Editable" @click="handleClick()" m-a0f59c class="editable">
+													<dt x-data="mn1883l.Editable" @click="handleClick()" m-n1883l class="editable">
 														IF:
 
 														<a
 															href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
 															x-ref="edit"
-															m-a0f59c
+															m-n1883l
 															class="editable__link">
 															Edit
 														</a>
 														<a
 															href="/index.cfm?event=playground.features.detail.deleteRule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( ruleEntry.index )#"
-															m-a0f59c
+															m-n1883l
 															class="editable__link">
 															Delete
 														</a>
@@ -344,11 +344,11 @@
 				</p>
 
 			</section>
-			<aside m-a0f59c class="panels__aside">
+			<aside m-n1883l class="panels__aside">
 
-				<div m-a0f59c class="state">
+				<div m-n1883l class="state">
 					<cfloop array="#environments#" index="environment">
-						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#" m-a0f59c class="state__header">#encodeForHtml( environment.name )#</a>
+						<a href="/index.cfm?event=playground.staging.matrix###encodeForUrl( feature.key )#" m-n1883l class="state__header">#encodeForHtml( environment.name )#</a>
 					</cfloop>
 					<cfloop array="#users#" index="user">
 						<cfloop array="#environments#" index="environment">
@@ -361,7 +361,7 @@
 								@mouseleave="unflash()"
 								data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
 								data-flash-rule="#encodeForHtmlAttribute( result.ruleIndex )#"
-								m-a0f59c
+								m-n1883l
 								class="state__variant ui-variant-#result.variantIndex# flasher-distal">
 							</a>
 						</cfloop>

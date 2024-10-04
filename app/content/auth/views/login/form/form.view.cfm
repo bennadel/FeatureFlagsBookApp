@@ -19,7 +19,7 @@
 			</p>
 		</cfif>
 
-		<form x-data="me22b58.FormController" method="post">
+		<form x-data="m2wod20.FormController" method="post">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="redirectTo" value="#encodeForHtmlAttribute( request.context.redirectTo )#" />
 			<input type="hidden" name="submitted" value="true" />
@@ -51,7 +51,7 @@
 			<!--- Turnstile CAPTCHA challenge. --->
 			<div
 				data-sitekey="#encodeForHtmlAttribute( config.turnstile.client.apiKey )#"
-				m-e22b58
+				m-2wod20
 				class="cf-turnstile">
 				<!---
 					NOTE: This div must be inside the FORM as it will inject a hidden form

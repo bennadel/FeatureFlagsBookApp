@@ -51,7 +51,7 @@
 								<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )###environment-#encodeForUrl( environment.key )#">#encodeForHtml( environment.name )#</a>
 							</h3>
 
-							<div m-a349b4 class="state">
+							<div m-8404d9 class="state">
 								<cfloop array="#users#" index="user">
 
 									<cfset result = results[ feature.key ][ environment.key ][ user.id ] />

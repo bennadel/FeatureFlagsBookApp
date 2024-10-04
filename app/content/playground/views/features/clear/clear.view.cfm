@@ -24,7 +24,7 @@
 
 				<p class="ui-form-buttons ui-row">
 					<span class="ui-row__item">
-						<button type="submit" class="ui-button is-submit">
+						<button type="submit" class="ui-button is-submit is-destructive">
 							Remove all rules
 						</button>
 					</span>

@@ -1,8 +1,8 @@
 <cfoutput>
 
-	<article x-data="m7a3b63.FeatureJson" m-7a3b63 class="m-7a3b63">
+	<article x-data="mj3oyz3.FeatureJson" m-j3oyz3 class="m-j3oyz3">
 
-		<hr m-7a3b63 class="ui-rule" />
+		<hr m-j3oyz3 class="ui-rule" />
 
 		<p>
 			<button @click="toggleJson()" class="ui-button is-text">
@@ -22,7 +22,7 @@
 					This is the "#encodeForHtml( request.featureKey )#" feature configuration that is being used to render the state on the right.&nbsp;&rarr;
 				</p>
 
-				<pre class="ui-snippet"><code x-data="m7a3b63.PrettyPrint">#encodeForHtml( serializeJson( request.feature ) )#</code></pre>
+				<pre class="ui-snippet"><code x-data="mj3oyz3.PrettyPrint">#encodeForHtml( serializeJson( request.feature ) )#</code></pre>
 
 			</div>
 		</template>

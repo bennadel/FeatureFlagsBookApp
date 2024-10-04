@@ -1,5 +1,5 @@
 
-// a0f59c <-- md5 -s "/app/content/playground/views/features/detail/targeting/targeting.view"
+// Slug: n1883l
 
 // Import module styles.
 import "./targeting.view.less";
@@ -7,7 +7,7 @@ import "./targeting.view.less";
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
-window.ma0f59c = {
+window.mn1883l = {
 	Editable,
 	FlashRoot	
 };

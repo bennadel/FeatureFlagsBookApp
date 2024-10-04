@@ -2,11 +2,11 @@
 	<cfoutput>
 		<style type="text/css">
 
-			[m-53e5df].states span {
+			[m-23jyxr].states span {
 				opacity: 0.3 ;
 			}
-			[m-53e5df].states span[ data-association = "#attributes.highlightAssociation#" ] {
-				animation: m-53e5df-pulsate 2.2s infinite ease-in-out ;
+			[m-23jyxr].states span[ data-association = "#attributes.highlightAssociation#" ] {
+				animation: m-23jyxr-pulsate 2.2s infinite ease-in-out ;
 				opacity: 1.0 ;
 			}
 
@@ -19,7 +19,7 @@
 		Targeting State
 	</h2>
 
-	<table m-53e5df class="grid">
+	<table m-23jyxr class="grid">
 	<thead>
 		<tr>
 			<th>
@@ -41,7 +41,7 @@
 				<cfloop array="#environments#" index="environment">
 					<td>
 
-						<div m-53e5df class="states">
+						<div m-23jyxr class="states">
 							<cfloop array="#company.users#" index="user">
 								<cfset result = results[ environment.key ][ user.id ] />
 
@@ -59,7 +59,7 @@
 	</tbody>
 	</table>
 
-	<ul m-53e5df class="legend">
+	<ul m-23jyxr class="legend">
 		<cfloop array="#utilities.toEntries( feature.variants )#" index="entry">
 			<li>
 				<span class="ui-variant-#entry.key#">
@@ -73,7 +73,7 @@
 		Development Journey
 	</h3>
 
-	<ul m-53e5df class="journey">
+	<ul m-23jyxr class="journey">
 		<cfloop array="#utilities.toEntries( journey )#" index="entry">
 			<li>
 				<a

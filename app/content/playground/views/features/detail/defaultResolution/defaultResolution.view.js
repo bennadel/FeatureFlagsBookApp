@@ -1,10 +1,10 @@
 
-// 9367e7 <-- md5 -s "/app/content/playground/views/features/detail/defaultResolution/defaultResolution.view"
+// Slug: kkey9a
 
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
-window.m9367e7 = {
+window.mkkey9a = {
 	FormController
 };
 

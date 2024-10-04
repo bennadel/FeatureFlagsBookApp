@@ -1,4 +1,4 @@
-<svg m-391633 class="sprite-sheet">
+<svg m-1owobl class="sprite-sheet">
 
 	<symbol id="svg-sprite--logo" viewBox="0 0 24 24">
 		<rect stroke="currentColor" fill-rule="evenodd" stroke-width="2" fill="#ffffff" x="1" y="1" width="22" height="22"></rect>

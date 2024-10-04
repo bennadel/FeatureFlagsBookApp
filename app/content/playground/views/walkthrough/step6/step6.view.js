@@ -1,5 +1,5 @@
 
-// 39f6bb <-- md5 -s "/app/content/playground/views/walkthrough/step6/step6.view"
+// Slug: 9vuzo9
 
 // Import module styles.
 import "./step6.view.less";

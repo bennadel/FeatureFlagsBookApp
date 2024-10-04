@@ -1,18 +1,18 @@
 <cfsavecontent variable="request.template.primaryContent">
 	<cfoutput>
 
-		<div m-d71598 class="panels">
-			<div m-d71598 class="panels__main">
+		<div m-xemm6a class="panels">
+			<div m-xemm6a class="panels__main">
 
-				<section m-d71598 class="main-wrapper ui-content-wrapper">
+				<section m-xemm6a class="main-wrapper ui-content-wrapper">
 					#request.template.primaryContent#
 				</section>
 
 			</div>
 			<cfif request.template.asideContent.len()>
 
-				<div m-d71598 class="panels__aside">
-					<aside m-d71598 class="aside-wrapper ui-content-wrapper">
+				<div m-xemm6a class="panels__aside">
+					<aside m-xemm6a class="aside-wrapper ui-content-wrapper">
 						#request.template.asideContent#
 					</aside>
 				</div>

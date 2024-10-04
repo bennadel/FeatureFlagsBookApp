@@ -1,5 +1,5 @@
 
-// 61f3d3 <-- md5 -s "/app/content/playground/views/features/list/list.view"
+// Slug: 500ud5
 
 // Import module styles.
 import "./list.view.less";

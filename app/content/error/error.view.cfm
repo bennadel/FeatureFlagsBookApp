@@ -13,7 +13,7 @@
 	</head>
 	<body>
 
-		<main m-bebab2 class="main ui-content-wrapper">
+		<main m-mlxsai class="main ui-content-wrapper">
 
 			<h1>
 				#encodeForHtml( title )#

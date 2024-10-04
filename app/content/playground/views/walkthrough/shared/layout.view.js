@@ -1,5 +1,5 @@
 
-// d71598 <-- md5 -s "/app/content/playground/views/walkthrough/shared/layout.view"
+// Slug: xemm6a
 
 // Import module styles.
 import "./layout.view.less";

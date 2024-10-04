@@ -1,5 +1,5 @@
 
-// 9dac10 <-- md5 -s "/app/content/playground/views/features/detail/rule/rule.view"
+// Slug: rp1ra0
 
 // Import module styles.
 import "./rule.view.less";
@@ -7,7 +7,7 @@ import "./rule.view.less";
 // ----------------------------------------------------------------------------------- //
 // ----------------------------------------------------------------------------------- //
 
-window.m9dac10 = {
+window.mrp1ra0 = {
 	FormController
 };
 
