@@ -13,7 +13,7 @@
 	</head>
 	<body x-data="m2f8ql7.AppShell" m-2f8ql7 class="body">
 
-		<cfmodule template="./includes/svgSprite.cfm">
+		<cfmodule template="./tags/svgSprite.cfm">
 
 		<a href="##main-content-anchor" @click="focusMain()" m-2f8ql7 class="skip-to-main">
 			Skip to main content
@@ -30,7 +30,10 @@
 						class="nav__item is-logo">
 
 						<span m-2f8ql7 aria-hidden="true" class="nav__icon">
-							<svg>#ui.useIcon( "logo" )#</svg>
+							<cfmodule
+								template="./tags/icon.cfm"
+								type="logo">
+							</cfmodule>
 						</span>
 						<span m-2f8ql7 class="nav__label">
 							<u>Read Book</u> &rarr;
@@ -45,7 +48,10 @@
 						})#>
 
 						<span aria-hidden="true" m-2f8ql7 class="nav__icon">
-							<svg>#ui.useIcon( "feature-flags" )#</svg>
+							<cfmodule
+								template="./tags/icon.cfm"
+								type="feature-flags">
+							</cfmodule>
 						</span>
 						<span m-2f8ql7 class="nav__label">
 							<u>Feature Flags</u>
@@ -60,7 +66,10 @@
 						})#>
 
 						<span aria-hidden="true" m-2f8ql7 class="nav__icon">
-							<svg>#ui.useIcon( "staging" )#</svg>
+							<cfmodule
+								template="./tags/icon.cfm"
+								type="staging">
+							</cfmodule>
 						</span>
 						<span m-2f8ql7 class="nav__label">
 							<u>Staging</u>
@@ -75,7 +84,10 @@
 						})#>
 
 						<span aria-hidden="true" m-2f8ql7 class="nav__icon">
-							<svg>#ui.useIcon( "users" )#</svg>
+							<cfmodule
+								template="./tags/icon.cfm"
+								type="users">
+							</cfmodule>
 						</span>
 						<span m-2f8ql7 class="nav__label">
 							<u>Users</u>
@@ -90,7 +102,10 @@
 						})#>
 
 						<span aria-hidden="true" m-2f8ql7 class="nav__icon">
-							<svg>#ui.useIcon( "raw-json" )#</svg>
+							<cfmodule
+								template="./tags/icon.cfm"
+								type="raw-json">
+							</cfmodule>
 						</span>
 						<span m-2f8ql7 class="nav__label">
 							<u>Raw JSON</u>
@@ -105,7 +120,10 @@
 						})#>
 
 						<span aria-hidden="true" m-2f8ql7 class="nav__icon">
-							<svg>#ui.useIcon( "account" )#</svg>
+							<cfmodule
+								template="./tags/icon.cfm"
+								type="account">
+							</cfmodule>
 						</span>
 						<span m-2f8ql7 class="nav__label">
 							<u>Account</u>
