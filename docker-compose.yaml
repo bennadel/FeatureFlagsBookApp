@@ -4,7 +4,9 @@ services:
 
   # Administrator: http://127.0.0.1:8080/CFIDE/administrator/index.cfm
   cfml:
-    image: "ortussolutions/commandbox:latest"
+    build:
+      context: "./app/docker/"
+      dockerfile: "Dockerfile"
     ports:
       - "80:8080"
       - "8080:8080"
