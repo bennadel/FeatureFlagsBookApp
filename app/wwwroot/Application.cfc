@@ -17,6 +17,7 @@ component
 	// Define the per-application path mappings. This is used for component paths and
 	// expandPath() resolution.
 	this.mappings = {
+		"/client": "#this.wwwroot#../client",
 		"/content": "#this.wwwroot#../content",
 		"/core": "#this.wwwroot#../core",
 		"/data": "#this.wwwroot#data",

@@ -1,7 +1,7 @@
 <cfscript>
 
 	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
-	ui = request.ioc.get( "core.lib.util.ViewHelper" );
+	ui = request.ioc.get( "client.common.lib.ViewHelper" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

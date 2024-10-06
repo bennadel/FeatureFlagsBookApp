@@ -4,7 +4,7 @@
 	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
 	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
-	ui = request.ioc.get( "core.lib.util.ViewHelper" );
+	ui = request.ioc.get( "client.common.lib.ViewHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //

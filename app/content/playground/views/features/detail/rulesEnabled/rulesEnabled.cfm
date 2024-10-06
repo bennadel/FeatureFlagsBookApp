@@ -3,7 +3,7 @@
 	configValidation = request.ioc.get( "core.lib.model.config.ConfigValidation" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
 	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
-	ui = request.ioc.get( "core.lib.util.ViewHelper" );
+	ui = request.ioc.get( "client.common.lib.ViewHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
