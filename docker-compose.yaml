@@ -27,7 +27,7 @@ services:
     volumes:
       - "./client:/app"
       # Mount the ColdFusion app for collocation of client files with the CFML views.
-      - "./app/content:/app/src/cfml"
+      - "./app/client:/app/src/cfml"
       # Save dist files into CFML volume where they can be consumed by the app.
       - "./app/wwwroot/client:/app/dist"
       # Makes sure we don't overwrite the node_modules in the build container.

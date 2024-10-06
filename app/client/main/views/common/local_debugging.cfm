@@ -53,7 +53,7 @@
 <div id="local-debugging">
 
 	<h2>
-		Last Processed Error
+		Last Processed Error (<mark>Local Development Only</mark>)
 	</h2>
 
 	<cfdump var="#request.lastProcessedError#" />

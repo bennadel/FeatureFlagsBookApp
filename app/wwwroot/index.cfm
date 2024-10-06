@@ -1,3 +1,3 @@
 
 <!--- All managed requests route through non-public code. --->
-<cfmodule template="/content/index.cfm">
+<cfmodule template="/client/main/views/index.cfm">
