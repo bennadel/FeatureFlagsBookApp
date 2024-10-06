@@ -15,7 +15,7 @@
 			</p>
 		</cfif>
 
-		<form method="post" class="logout-form">
+		<form method="post" action="/index.cfm" class="logout-form">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="submitted" value="true" />
 			<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />

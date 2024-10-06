@@ -66,7 +66,7 @@
 				</p>
 			</cfif>
 
-			<form method="post">
+			<form method="post" action="/index.cfm">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="submitted" value="true" />
