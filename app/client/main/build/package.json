@@ -13,7 +13,7 @@
 				"./src/main.html"
 			],
 			"distDir": "./dist/",
-			"publicUrl": "/client"
+			"publicUrl": "/client/main"
 		}
 	},
 	"browserslist": "defaults",
