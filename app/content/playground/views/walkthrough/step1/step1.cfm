@@ -1,6 +1,6 @@
 <cfscript>
 
-	utilities = request.ioc.get( "lib.util.Utilities" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

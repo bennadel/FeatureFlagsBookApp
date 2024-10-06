@@ -1,7 +1,7 @@
 <cfscript>
 
-	errorService = request.ioc.get( "lib.ErrorService" );
-	xsrfService = request.ioc.get( "lib.XsrfService" );
+	errorService = request.ioc.get( "core.lib.ErrorService" );
+	xsrfService = request.ioc.get( "core.lib.XsrfService" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

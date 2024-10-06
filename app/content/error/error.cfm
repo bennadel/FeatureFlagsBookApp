@@ -1,7 +1,7 @@
 <cfscript>
 
-	errorService = request.ioc.get( "lib.ErrorService" );
-	logger = request.ioc.get( "lib.Logger" );
+	errorService = request.ioc.get( "core.lib.ErrorService" );
+	logger = request.ioc.get( "core.lib.Logger" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

@@ -1,10 +1,10 @@
 <cfscript>
 
-	configValidation = request.ioc.get( "lib.model.config.ConfigValidation" );
-	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
-	requestHelper = request.ioc.get( "lib.RequestHelper" );
-	ui = request.ioc.get( "lib.util.ViewHelper" );
-	utilities = request.ioc.get( "lib.util.Utilities" );
+	configValidation = request.ioc.get( "core.lib.model.config.ConfigValidation" );
+	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
+	ui = request.ioc.get( "core.lib.util.ViewHelper" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

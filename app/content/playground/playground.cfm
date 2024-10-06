@@ -1,6 +1,6 @@
 <cfscript>
 
-	requestHelper = request.ioc.get( "lib.RequestHelper" );
+	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

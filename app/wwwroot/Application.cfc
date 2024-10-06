@@ -18,8 +18,8 @@ component
 	// expandPath() resolution.
 	this.mappings = {
 		"/content": "#this.wwwroot#../content",
+		"/core": "#this.wwwroot#../core",
 		"/data": "#this.wwwroot#data",
-		"/lib": "#this.wwwroot#../lib",
 		"/wwwroot": this.wwwroot
 	};
 
@@ -58,7 +58,7 @@ component
 
 		var ioc
 			= application.ioc
-				= new lib.Injector()
+				= new core.lib.Injector()
 		;
 		var config
 			= this.config
@@ -66,7 +66,7 @@ component
 					= ioc.provide( "config", getConfigSettings( useCachedConfig = false ) )
 		;
 
-		request.logger = ioc.get( "lib.Logger" );
+		request.logger = ioc.get( "core.lib.Logger" );
 
 		// This is used to cache-bust some of the static assets.
 		ioc.provide( "staticAssetVersion", "2024.07.30.06.39" );

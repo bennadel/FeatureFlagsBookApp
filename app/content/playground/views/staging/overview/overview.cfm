@@ -1,8 +1,8 @@
 <cfscript>
 
-	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
-	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
-	utilities = request.ioc.get( "lib.util.Utilities" );
+	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
+	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

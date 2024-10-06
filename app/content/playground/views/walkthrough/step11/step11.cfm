@@ -1,7 +1,7 @@
 <cfscript>
 
-	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
-	utilities = request.ioc.get( "lib.util.Utilities" );
+	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

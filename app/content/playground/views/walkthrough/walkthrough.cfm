@@ -1,6 +1,6 @@
 <cfscript>
 
-	demoConfig = request.ioc.get( "lib.demo.DemoConfig" );
+	demoConfig = request.ioc.get( "core.lib.demo.DemoConfig" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

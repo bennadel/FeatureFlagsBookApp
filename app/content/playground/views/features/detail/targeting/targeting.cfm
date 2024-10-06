@@ -1,13 +1,13 @@
 <cfscript>
 
-	configSerializer = request.ioc.get( "lib.model.config.ConfigSerializer" );
-	configValidation = request.ioc.get( "lib.model.config.ConfigValidation" );
-	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
-	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
-	featureFlags = request.ioc.get( "lib.client.FeatureFlags" );
-	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
-	requestHelper = request.ioc.get( "lib.RequestHelper" );
-	utilities = request.ioc.get( "lib.util.Utilities" );
+	configSerializer = request.ioc.get( "core.lib.model.config.ConfigSerializer" );
+	configValidation = request.ioc.get( "core.lib.model.config.ConfigValidation" );
+	demoTargeting = request.ioc.get( "core.lib.demo.DemoTargeting" );
+	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
+	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
+	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

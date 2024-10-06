@@ -1,11 +1,11 @@
 <cfscript>
 
-	demoTargeting = request.ioc.get( "lib.demo.DemoTargeting" );
-	demoUsers = request.ioc.get( "lib.demo.DemoUsers" );
-	featureFlags = request.ioc.get( "lib.client.FeatureFlags" );
-	featureWorkflow = request.ioc.get( "lib.workflow.FeatureWorkflow" );
-	ui = request.ioc.get( "lib.util.ViewHelper" );
-	utilities = request.ioc.get( "lib.util.Utilities" );
+	demoTargeting = request.ioc.get( "core.lib.demo.DemoTargeting" );
+	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
+	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
+	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	ui = request.ioc.get( "core.lib.util.ViewHelper" );
+	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
