@@ -20,7 +20,7 @@ component
 		"/client": "#this.wwwroot#../client",
 		"/content": "#this.wwwroot#../content",
 		"/core": "#this.wwwroot#../core",
-		"/data": "#this.wwwroot#data",
+		"/data": "#this.wwwroot#../data",
 		"/wwwroot": this.wwwroot
 	};
 
