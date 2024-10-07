@@ -135,6 +135,28 @@
 			</tbody>
 			</table>
 
+			<cfif uniformFeatures.len()>
+
+				<h3>
+					Suggested Feature Clean-Up
+				</h3>
+
+				<p class="ui-readable-width">
+					The following feature flags are serving up the same variant in all environments. This might mean that the associated features are fully released; and that the feature flags are ready to be removed from your code.
+				</p>
+
+				<ul>
+					<cfloop array="#uniformFeatures#" index="feature">
+						<li>
+							<a href="/index.cfm?event=playground.features.detail.targeting&featureKey=#encodeForUrl( feature.key )#">#encodeForHtml( feature.key )#</a>
+						</li>
+					</cfloop>
+				</ul>
+
+			</cfif>
+
+			<hr class="ui-rule" />
+
 			<p class="ui-readable-width">
 				<strong>GitHub:</strong> The code for this site is available in my <a href="https://github.com/bennadel/FeatureFlagsBookApp" target="_blank">application repository</a> on GitHub. Feel free to fork, download, modify, and run it, etc.
 			</p>

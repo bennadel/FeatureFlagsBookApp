@@ -169,6 +169,7 @@ component
 			"product-TICKET-555-discount-pricing",
 			"product-TICKET-666-request-proxy",
 			"product-TICKET-777-max-team-size",
+			"product-TICKET-888-branding-refresh",
 			"operations-request-rate-limit",
 			"operations-user-rate-limit",
 			"operations-min-log-level"

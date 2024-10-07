@@ -290,6 +290,17 @@ component
 			]
 		]);
 
+		// We want this feature to appear "uniform" in all environments so that it is
+		// suggested as a feature to remove.
+		config.features[ "product-TICKET-888-branding-refresh" ].targeting.development.resolution = [
+			type: "selection",
+			selection: 2
+		];
+		config.features[ "product-TICKET-888-branding-refresh" ].targeting.production.resolution = [
+			type: "selection",
+			selection: 2
+		];
+
 		// Default to unlimited in development.
 		// Default to a reasonable measure in production.
 		config.features[ "operations-request-rate-limit" ].targeting.production.resolution = [

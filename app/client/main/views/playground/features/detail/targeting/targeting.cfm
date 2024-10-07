@@ -19,6 +19,7 @@
 	environments = getEnvironments( config );
 	users = getUsers( request.user.email );
 	results = getResults( config, feature, environments, users );
+	isUniform = getIsUniform( feature, environments, users, results );
 	title = request.template.title = "Feature Flag Targeting";
 
 	include "./targeting.view.cfm";
@@ -65,6 +66,50 @@
 		}
 
 		return featureIndex[ featureKey ];
+
+	}
+
+
+	/**
+	* I determine if the feature is serving the same variant to all users.
+	*/
+	private boolean function getIsUniform(
+		required struct feature,
+		required array environments,
+		required array users,
+		required struct results
+		) {
+
+		var engagedIndex = "";
+
+		for ( var environment in environments ) {
+
+			for ( var user in users ) {
+
+				if ( ! engagedIndex.len() ) {
+
+					engagedIndex = results[ user.id ][ environment.key ].variantIndex;
+					continue;
+
+				}
+
+				if ( engagedIndex != results[ user.id ][ environment.key ].variantIndex ) {
+
+					return false;
+
+				}
+
+			}
+
+		}
+
+		// If we made it this far, it means that every user is receiving the same variant
+		// index in every environment. As such, we're going to consider this feature to be
+		// in a uniform state.
+		// --
+		// Note: this papers-over the notion that custom variant resolutions all show up
+		// in the same index (0). But, this is an edge-case.
+		return true;
 
 	}
 

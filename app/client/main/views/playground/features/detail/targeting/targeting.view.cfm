@@ -93,6 +93,17 @@
 
 							</dd>
 						</div>
+
+						<cfif isUniform>
+							<div>
+								<dt>
+									Suggested Clean-Up:
+								</dt>
+								<dd>
+									This feature flag is serving up the same variant in all environments. This might mean that the associated feature is fully released; and that the feature flag is ready to be removed from your code. <a href="/index.cfm?event=playground.features.detail.delete&featureKey=#encodeForUrl( feature.key )#">Delete</a> this feature flag.
+								</dd>
+							</div>
+						</cfif>
 					</dl>
 
 				</div>

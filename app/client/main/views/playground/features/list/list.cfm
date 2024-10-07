@@ -15,6 +15,7 @@
 	environments = getEnvironments( config );
 	users = getUsers( request.user.email );
 	results = getResults( config, features, environments, users );
+	uniformFeatures = getUniformFeatures( features, environments, results );
 	title = request.template.title = "Feature Flags Playground";
 
 	include "./list.view.cfm";
@@ -72,6 +73,7 @@
 
 				var breakdown = results[ feature.key ][ environment.key ] = [:];
 
+				// Default the variant index counts.
 				for ( var variantIndex = 1 ; variantIndex <= feature.variants.len() ; variantIndex++ ) {
 
 					breakdown[ variantIndex ] = 0;
@@ -100,6 +102,70 @@
 		}
 
 		return results;
+
+	}
+
+
+	/**
+	* I get the uniform features - the features in which the same variant is being
+	* allocated in all environments.
+	*/
+	private array function getUniformFeatures(
+		required array features,
+		required array environments,
+		required struct results
+		) {
+
+		return features.filter(
+			( feature ) => {
+
+				var fullyEngagedKey = "";
+
+				for ( var environment in environments ) {
+
+					for ( var entry in utilities.toEntries( results[ feature.key ][ environment.key ] ) ) {
+
+						if ( ! entry.value ) {
+
+							continue;
+
+						}
+
+						// If any variant in any environment is being served at a sub-100
+						// allocation, then then feature is not uniform.
+						if ( entry.value < 100 ) {
+
+							return false;
+
+						}
+
+						if ( ! fullyEngagedKey.len() ) {
+
+							fullyEngagedKey = entry.key;
+							continue;
+
+						}
+
+						if ( fullyEngagedKey != entry.key ) {
+
+							return false;
+
+						}
+
+					}
+
+				}
+
+				// If we made it this far, it means that every environment had the same
+				// fully-engaged variant index. As such, we're going to consider this
+				// feature to be in a uniform state.
+				// --
+				// Note: this papers-over the notion that custom variant resolutions all
+				// show up in the same index (0). But, this is an edge-case.
+				return true;
+
+			}
+		);
 
 	}
 

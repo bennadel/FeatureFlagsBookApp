@@ -109,6 +109,11 @@ component
 					description = "I determine the max number of users that can be added to a team (0 means unlimited).",
 					variants = [ 0, 10, 50, 100, 1000, 10000 ]
 				),
+				"product-TICKET-888-branding-refresh": buildFeature(
+					type = "boolean",
+					description = "I determine if the new branding refresh (CSS file) is being rendered.",
+					variants = [ false, true ]
+				),
 				"operations-request-rate-limit": buildFeature(
 					type = "number",
 					description = "I determine rate-limiting at the request-level (0 means unlimited).",
