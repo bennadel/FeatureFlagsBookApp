@@ -20,22 +20,22 @@
 
 	switch ( request.event[ 2 ] ) {
 		case "account":
-			cfmodule( template = "./views/account/account.cfm" );
+			cfmodule( template = "./account/account.cfm" );
 		break;
 		case "features":
-			cfmodule( template = "./views/features/features.cfm" );
+			cfmodule( template = "./features/features.cfm" );
 		break;
 		case "raw":
-			cfmodule( template = "./views/raw/raw.cfm" );
+			cfmodule( template = "./raw/raw.cfm" );
 		break;
 		case "staging":
-			cfmodule( template = "./views/staging/staging.cfm" );
+			cfmodule( template = "./staging/staging.cfm" );
 		break;
 		case "users":
-			cfmodule( template = "./views/users/users.cfm" );
+			cfmodule( template = "./users/users.cfm" );
 		break;
 		case "walkthrough":
-			cfmodule( template = "./views/walkthrough/walkthrough.cfm" );
+			cfmodule( template = "./walkthrough/walkthrough.cfm" );
 		break;
 		default:
 			throw(
@@ -45,6 +45,6 @@
 		break;
 	}
 
-	cfmodule( template = "./layouts/default/default.cfm" );
+	cfmodule( template = "./common/layout.cfm" );
 
 </cfscript>

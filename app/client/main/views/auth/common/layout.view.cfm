@@ -13,22 +13,8 @@
 	</head>
 	<body>
 
-		<main m-mlxsai class="main ui-content-wrapper">
-
-			<h1>
-				#encodeForHtml( title )#
-			</h1>
-
-			<p>
-				#encodeForHtml( message )#
-			</p>
-
-			<hr class="ui-rule" />
-
-			<p>
-				In the meantime, you can <a href="/index.cfm">return to the homepage</a>.
-			</p>
-
+		<main m-6k72nh class="main ui-content-wrapper">
+			#request.template.primaryContent#
 		</main>
 
 		<cfmodule template="/client/main/views/common/tags/localDebugging.cfm">

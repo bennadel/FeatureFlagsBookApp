@@ -9,10 +9,10 @@
 
 	switch ( request.event[ 2 ] ) {
 		case "login":
-			cfmodule( template = "./views/login/login.cfm" );
+			cfmodule( template = "./login/login.cfm" );
 		break;
 		case "logout":
-			cfmodule( template = "./views/logout/logout.cfm" );
+			cfmodule( template = "./logout/logout.cfm" );
 		break;
 		default:
 			throw(
@@ -22,6 +22,6 @@
 		break;
 	}
 
-	cfmodule( template = "./layouts/default/default.cfm" );
+	cfmodule( template = "./common/layout.cfm" );
 
 </cfscript>
