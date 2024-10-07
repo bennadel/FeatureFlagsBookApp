@@ -350,8 +350,11 @@
 
 				</cfloop>
 
+				<hr class="ui-rule" />
+
 				<p>
-					<a href="/index.cfm?event=playground.features.detail.delete&featureKey=#encodeForUrl( feature.key )#">Delete</a> this feature flag.
+					You can:
+					<a href="/index.cfm?event=playground.features.detail.delete&featureKey=#encodeForUrl( feature.key )#"><strong>remove</strong> this feature flag</a>.
 				</p>
 
 			</section>
