@@ -18,7 +18,6 @@ component
 	// expandPath() resolution.
 	this.mappings = {
 		"/client": "#this.wwwroot#../client",
-		"/content": "#this.wwwroot#../content",
 		"/core": "#this.wwwroot#../core",
 		"/data": "#this.wwwroot#../data",
 		"/wwwroot": this.wwwroot

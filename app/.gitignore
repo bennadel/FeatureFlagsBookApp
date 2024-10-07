@@ -3,4 +3,4 @@ data/*.json
 wwwroot/.cfconfig.json
 wwwroot/client
 wwwroot/ng
-wwwroot/scribble.cfm
+wwwroot/dev/scribble.cfm
