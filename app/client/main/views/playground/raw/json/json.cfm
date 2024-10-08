@@ -6,7 +6,9 @@
 	// ------------------------------------------------------------------------------- //
 
 	config = getConfig( request.user.email );
-	title = request.template.title = "Raw JSON Data";
+	title = "Raw JSON Data";
+
+	request.template.title = title;
 
 	include "./json.view.cfm";
 

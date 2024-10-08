@@ -9,8 +9,11 @@
 	param name="form.submitted" type="boolean" default=false;
 
 	config = getConfig( request.user.email );
-	title = request.template.title = "Remove Feature Flag Rules";
+	title = "Remove Feature Flag Rules";
 	errorMessage = "";
+
+	request.template.title = title;
+	request.template.video = "features-clear";
 
 	if ( form.submitted ) {
 

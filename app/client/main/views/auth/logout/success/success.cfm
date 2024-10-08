@@ -1,6 +1,6 @@
 <cfscript>
 
-	request.template.title = "Logged Out";
+	title = request.template.title = "Logged Out";
 
 	include "./success.view.cfm";
 

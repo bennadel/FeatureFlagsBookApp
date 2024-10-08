@@ -16,7 +16,10 @@
 	users = getUsers( request.user.email );
 	results = getResults( config, features, environments, users );
 	uniformFeatures = getUniformFeatures( features, environments, results );
-	title = request.template.title = "Feature Flags Playground";
+	title = "Feature Flags Playground";
+
+	request.template.title = title;
+	request.template.video = "features-list";
 
 	include "./list.view.cfm";
 

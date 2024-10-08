@@ -11,7 +11,10 @@
 	users = getUsers( request.user.email );
 	authUsers = getAuthUsers( request.user.email );
 	groups = getGroups( users, url.sortOn );
-	title = request.template.title = "Demo Users For Targeting";
+	title = "Demo Users For Targeting";
+
+	request.template.title = title;
+	request.template.video = "users";
 
 	include "./list.view.cfm";
 

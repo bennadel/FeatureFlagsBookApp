@@ -10,6 +10,7 @@
 	param name="request.template.title" type="string" default="";
 	param name="request.template.activeNavItem" type="string" default="";
 	param name="request.template.primaryContent" type="string" default="";
+	param name="request.template.video" type="string" default="";
 
 	// Override the response status code.
 	cfheader(

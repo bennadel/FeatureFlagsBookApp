@@ -8,8 +8,10 @@
 
 	param name="form.submitted" type="boolean" default=false;
 
-	request.template.title = "Log Out";
+	title = "Log Out";
 	errorMessage = "";
+
+	request.template.title = title;
 
 	try {
 

@@ -14,8 +14,11 @@
 	config = getConfig( request.user.email );
 	feature = getFeature( config, request.context.featureKey );
 	environments = getEnvironments( config );
-	title = request.template.title = "Clear Feature Flag Rules";
+	title = "Clear Feature Flag Rules";
 	errorMessage = "";
+
+	request.template.title = title;
+	request.template.video = "feature-clear";
 
 	if ( form.submitted ) {
 

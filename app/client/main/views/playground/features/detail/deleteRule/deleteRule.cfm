@@ -18,8 +18,11 @@
 	environment = getEnvironment( config, request.context.environmentKey );
 	ruleIndex = val( request.context.ruleIndex );
 	rule = getRule( feature, environment, ruleIndex );
-	title = request.template.title = "Delete Rule";
+	title = "Delete Rule";
 	errorMessage = "";
+
+	request.template.title = title;
+	request.template.video = "feature-delete-rule";
 
 	if ( form.submitted ) {
 

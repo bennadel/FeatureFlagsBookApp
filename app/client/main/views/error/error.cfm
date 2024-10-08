@@ -10,9 +10,10 @@
 
 	logger.logException( attributes.error );
 	errorResponse = errorService.getResponse( attributes.error );
-	title = request.template.title = errorResponse.title;
+	title = errorResponse.title;
 	message = errorResponse.message;
 
+	request.template.title = title;
 	// Used to render the error in local development debugging.
 	request.lastProcessedError = attributes.error;
 

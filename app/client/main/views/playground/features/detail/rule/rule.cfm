@@ -31,7 +31,7 @@
 	datalists = getDatalists( request.user.email );
 	operators = getOperators();
 	inputs = getInputs();
-	title = request.template.title = ( ruleIndex )
+	title = ( ruleIndex )
 		? "Edit Rule"
 		: "Add Rule"
 	;
@@ -42,6 +42,9 @@
 		configValidation.throwRuleNotFoundError();
 
 	}
+
+	request.template.title = title;
+	request.template.video = "feature-rule";
 
 	if ( form.submitted ) {
 

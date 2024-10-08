@@ -21,7 +21,10 @@
 	feature = getFeature( config, url.featureKey );
 	environment = getEnvironment( config, url.environmentKey );
 	result = getResult( config, user, feature, environment );
-	title = request.template.title = "Variant Allocation Explanation";
+	title = "Variant Allocation Explanation";
+
+	request.template.title = title;
+	request.template.video = "staging-explain";
 
 	include "./explain.view.cfm";
 

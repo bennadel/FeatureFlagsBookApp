@@ -13,8 +13,10 @@
 
 	config = getConfig( request.user.email );
 	feature = getFeature( config, request.context.featureKey );
-	title = request.template.title = "Delete Feature Flag";
+	title = "Delete Feature Flag";
 	errorMessage = "";
+
+	request.template.title = title;
 
 	if ( form.submitted ) {
 

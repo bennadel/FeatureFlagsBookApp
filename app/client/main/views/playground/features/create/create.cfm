@@ -16,8 +16,11 @@
 	param name="form.submitted" type="boolean" default=false;
 
 	config = getConfig( request.user.email );
-	title = request.template.title = "Create New Feature Flag";
+	title = "Create New Feature Flag";
 	errorMessage = "";
+
+	request.template.title = title;
+	request.template.video = "features-create";
 
 	if ( form.submitted ) {
 

@@ -11,7 +11,9 @@
 	features = getFeatures( config );
 	users = getUsers( request.user.email );
 	companies = getCompanies( users );
-	title = request.template.title = "Staging Contexts";
+	title = "Staging Contexts";
+
+	request.template.title = title;
 
 	include "./overview.view.cfm";
 

@@ -15,8 +15,10 @@
 	param name="form[ 'cf-turnstile-response' ]" type="string" default="";
 	param name="request.context.redirectTo" type="string" default="";
 
-	request.template.title = "Login";
+	title = "Login";
 	errorMessage = "";
+
+	request.template.title = title;
 
 	if ( form.submitted && form.email.trim().len() ) {
 

@@ -18,7 +18,10 @@
 	features = getFeatures( config );
 	environments = getEnvironments( config );
 	breakdown = getBreakdown( config, user, features, environments );
-	title = request.template.title = user.name;
+	title = user.name;
+
+	request.template.title = title;
+	request.template.video = "staging-user";
 
 	include "./user.view.cfm";
 

@@ -19,6 +19,7 @@
 	);
 
 	request.template.activeNavItem = "features";
+	request.template.video = "walk-through";
 
 	switch ( request.event[ 3 ] ) {
 		case "step1":

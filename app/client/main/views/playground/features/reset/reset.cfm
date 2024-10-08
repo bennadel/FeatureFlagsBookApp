@@ -9,8 +9,11 @@
 	param name="form.submitted" type="boolean" default=false;
 
 	config = getConfig( request.user.email );
-	title = request.template.title = "Reset Feature Flag Configuration";
+	title = "Reset Feature Flag Configuration";
 	errorMessage = "";
+
+	request.template.title = title;
+	request.template.video = "features-reset";
 
 	if ( form.submitted ) {
 

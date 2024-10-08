@@ -131,9 +131,15 @@
 					</a>
 				</nav>
 
-				<div m-2f8ql7 class="video-link">
-					Video TBD
-				</div>
+				<cfif request.template.video.len()>
+					<div m-2f8ql7 class="video-link">
+						Video TBD
+
+						<span m-2f8ql7 class="video-link__temp">
+							(#encodeForHtml( request.template.video )#)
+						</span>
+					</div>
+				</cfif>
 
 			</header>
 			<main id="main-content-anchor" x-ref="main" tabindex="-1" m-2f8ql7 class="shell__main">

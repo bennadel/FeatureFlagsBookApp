@@ -15,7 +15,10 @@
 	environments = getEnvironments( config );
 	users = getUsers( request.user.email );
 	results = getResults( config, features, environments, users );
-	title = request.template.title = "Feature Matrix";
+	title = "Feature Matrix";
+
+	request.template.title = title;
+	request.template.video = "staging-matrix";
 
 	include "./matrix.view.cfm";
 

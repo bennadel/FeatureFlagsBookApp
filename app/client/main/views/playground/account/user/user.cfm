@@ -1,7 +1,9 @@
 <cfscript>
 
 	user = request.user;
-	title = request.template.title = "Account";
+	title = "Account";
+
+	request.template.title = title;
 
 	include "./user.view.cfm";
 

@@ -21,8 +21,11 @@
 	feature = getFeature( config, request.context.featureKey );
 	environment = getEnvironment( config, request.context.environmentKey );
 	resolution = feature.targeting[ environment.key ].resolution;
-	title = request.template.title = "Default Resolution";
+	title = "Default Resolution";
 	errorMessage = "";
+
+	request.template.title = title;
+	request.template.video = "feature-default-resolution";
 
 	if ( form.submitted ) {
 

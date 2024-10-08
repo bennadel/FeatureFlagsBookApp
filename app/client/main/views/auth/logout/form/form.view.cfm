@@ -2,7 +2,7 @@
 	<cfoutput>
 
 		<h1>
-			#encodeForHtml( request.template.title )#
+			#encodeForHtml( title )#
 		</h1>
 
 		<p>

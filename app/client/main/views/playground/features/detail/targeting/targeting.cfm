@@ -20,7 +20,10 @@
 	users = getUsers( request.user.email );
 	results = getResults( config, feature, environments, users );
 	isUniform = getIsUniform( feature, environments, users, results );
-	title = request.template.title = "Feature Flag Targeting";
+	title = "Feature Flag Targeting";
+
+	request.template.title = title;
+	request.template.video = "feature-targeting";
 
 	include "./targeting.view.cfm";
 

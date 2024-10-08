@@ -18,8 +18,11 @@
 	config = getConfig( request.user.email );
 	feature = getFeature( config, request.context.featureKey );
 	environment = getEnvironment( config, request.context.environmentKey );
-	title = request.template.title = "Rules Enabled";
+	title = "Rules Enabled";
 	errorMessage = "";
+
+	request.template.title = title;
+	request.template.video = "feature-rules-enabled";
 
 	if ( form.submitted ) {
 
