@@ -354,6 +354,7 @@
 
 				<p>
 					You can:
+					<a href="/index.cfm?event=playground.features.detail.clear&featureKey=#encodeForUrl( feature.key )#"><strong>clear</strong> all rules</a>, or
 					<a href="/index.cfm?event=playground.features.detail.delete&featureKey=#encodeForUrl( feature.key )#"><strong>remove</strong> this feature flag</a>.
 				</p>
 

@@ -3,6 +3,9 @@
 	param name="request.event[ 4 ]" type="string" default="targeting";
 
 	switch ( request.event[ 4 ] ) {
+		case "clear":
+			cfmodule( template = "./clear/clear.cfm" );
+		break;
 		case "defaultResolution":
 			cfmodule( template = "./defaultResolution/defaultResolution.cfm" );
 		break;
