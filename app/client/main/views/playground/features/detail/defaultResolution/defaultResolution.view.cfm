@@ -38,8 +38,7 @@
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
-				<input type="hidden" name="submitted" value="true" />
-				<input type="hidden" name="x-xsrf-token" value="#encodeForHtmlAttribute( request.xsrfToken  )#" />
+				<cfmodule template="/client/main/views/common/tags/xsrf.cfm">
 
 				<dl>
 					<div>

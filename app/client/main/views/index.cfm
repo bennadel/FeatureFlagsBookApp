@@ -16,8 +16,6 @@
 		// All form submissions must include a valid XSRF token.
 		if ( form.submitted ) {
 
-			// Todo: Replace the explicit <input hidden> with a UI helper? Right now,
-			// we're hard-coding the challenge token name, which I don't love.
 			xsrfService.testRequest();
 
 		}

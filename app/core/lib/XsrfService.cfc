@@ -55,8 +55,6 @@ component
 
 	/**
 	* I return the XSRF token names used for the various mechanics.
-	* 
-	* Todo: I might use this to explicitly define the Angular XSRF provider.
 	*/
 	public struct function getTokenNames() {
 
