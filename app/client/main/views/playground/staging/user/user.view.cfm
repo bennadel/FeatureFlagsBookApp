@@ -87,12 +87,10 @@
 
 							<cfset result = breakdown[ feature.key ][ environment.key ] />
 
-							<td
-								align="center"
-								class="env-left"
-								<cfif result.matchingRuleIndex>style="font-weight: bold ;"</cfif>
-								>
-								<cfif feature.targeting[ environment.key ].rulesEnabled>
+							<td align="center" class="env-left">
+								<cfif result.matchingRuleIndex>
+									<a href="/index.cfm?event=playground.features.detail.rule&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&ruleIndex=#encodeForUrl( result.matchingRuleIndex )#"><mark><strong>Enabled &rarr; #encodeForHtml( result.matchingRuleIndex )#</strong></mark></a>
+								<cfelseif feature.targeting[ environment.key ].rulesEnabled>
 									Enabled
 									<cfif feature.targeting[ environment.key ].rules.len()>
 										(#feature.targeting[ environment.key ].rules.len()#)
