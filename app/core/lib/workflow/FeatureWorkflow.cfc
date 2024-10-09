@@ -348,6 +348,39 @@ component
 
 	}
 
+
+	/**
+	* I update the rules enabled setting in the given targeting environment.
+	*/
+	public void function updateRulesEnabled(
+		required string email,
+		required string featureKey,
+		required string environmentKey,
+		required boolean rulesEnabled
+		) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		if ( ! config.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		var targeting = config.features[ featureKey ].targeting;
+
+		if ( ! targeting.keyExists( environmentKey ) ) {
+
+			configValidation.throwTargetingNotFoundError();
+
+		}
+
+		targeting[ environmentKey ].rulesEnabled = rulesEnabled;
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
 	// ---
 	// PRIVATE METHODS.
 	// ---

@@ -28,15 +28,11 @@
 
 		try {
 
-			config
-				.features[ feature.key ]
-					.targeting[ environment.key ]
-						.rulesEnabled = !! form.rulesEnabled
-			;
-
-			featureWorkflow.updateConfig(
+			featureWorkflow.updateRulesEnabled(
 				email = request.user.email,
-				config = config
+				featureKey = feature.key,
+				environmentKey = environment.key,
+				rulesEnabled = !! form.rulesEnabled
 			);
 
 			requestHelper.goto(
