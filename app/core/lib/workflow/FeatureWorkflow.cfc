@@ -56,7 +56,6 @@ component
 				}
 			)
 		];
-		config.version++;
 
 		config = configValidation.testConfig( config );
 		configService.saveConfig( user.dataFilename, config );
@@ -123,7 +122,6 @@ component
 
 		}
 
-		config.version++;
 		config = configValidation.testConfig( config );
 		configService.saveConfig( user.dataFilename, config );
 
