@@ -240,6 +240,39 @@ component
 
 
 	/**
+	* I update the default resolution in the given targeting environment.
+	*/
+	public void function updateDefaultResolution(
+		required string email,
+		required string featureKey,
+		required string environmentKey,
+		required struct resolution
+		) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		if ( ! config.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		var targeting = config.features[ featureKey ].targeting;
+
+		if ( ! targeting.keyExists( environmentKey ) ) {
+
+			configValidation.throwTargetingNotFoundError();
+
+		}
+
+		targeting[ environmentKey ].resolution = resolution;
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
+
+	/**
 	* I update the feature settings for the given user.
 	*/
 	public void function updateFeature(

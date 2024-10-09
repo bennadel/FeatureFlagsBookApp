@@ -27,27 +27,24 @@
 	request.template.title = title;
 	request.template.video = "feature-default-resolution";
 
+	// Process form data.
 	if ( form.submitted ) {
 
 		try {
 
-			// Note: We can store dirty data into the resolution configuration - the
-			// validation process will skip-over anything that isn't relevant to the
-			// given resolution type.
-			config
-				.features[ feature.key ]
-					.targeting[ environment.key ]
-						.resolution = [
-							type: form.resolutionType,
-							selection: form.resolutionSelection,
-							distribution: form.resolutionDistribution,
-							variant: form.resolutionVariant
-						]
-			;
-
-			featureWorkflow.updateConfig(
+			featureWorkflow.updateDefaultResolution(
 				email = request.user.email,
-				config = config
+				featureKey = feature.key,
+				environmentKey = environment.key,
+				// Note: We can store dirty data into the resolution configuration - the
+				// underlying validation process will skip-over anything that isn't
+				// relevant to the given resolution type.
+				resolution = [
+					type: form.resolutionType,
+					selection: form.resolutionSelection,
+					distribution: form.resolutionDistribution,
+					variant: form.resolutionVariant
+				]
 			);
 
 			requestHelper.goto(
@@ -64,6 +61,7 @@
 
 		}
 
+	// Initialize form data.
 	} else {
 
 		form.resolutionType = resolution.type;
