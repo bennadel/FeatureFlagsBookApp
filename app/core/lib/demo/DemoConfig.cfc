@@ -51,16 +51,12 @@ component
 	/**
 	* I provide a default configuration for the given user.
 	*/
-	public struct function getConfig(
-		required string email,
-		numeric version = 1
-		) {
+	public struct function getConfig( required string email ) {
 
 		var createdAt = clock.utcNow();
 
 		return [
 			email: email,
-			version: version,
 			createdAt: createdAt,
 			updatedAt: createdAt,
 			environments: [

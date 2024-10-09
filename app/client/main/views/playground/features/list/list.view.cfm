@@ -44,7 +44,6 @@
 					<a href="/index.cfm?event=playground.features.create"><strong>add</strong> a feature flag</a>,
 					<a href="/index.cfm?event=playground.features.clear"><strong>remove</strong> all rules</a> or,
 					<a href="/index.cfm?event=playground.features.reset"><strong>reset</strong> your settings</a>.
-					<!--- (currently on version: #encodeForHtml( version )#). --->
 				</p>
 
 			</div>

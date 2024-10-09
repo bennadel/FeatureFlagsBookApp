@@ -23,7 +23,6 @@ component
 		var user = userService.getUser( email );
 		var config = getConfigForUser( user );
 
-		config.version = 2;
 		config.features.each(
 			( featureKey, featureSettings ) => {
 
@@ -67,7 +66,6 @@ component
 		}
 
 		config.features.delete( featureKey );
-		config.version++;
 		configService.saveConfig( user.dataFilename, config );
 
 	}
@@ -118,19 +116,7 @@ component
 
 		}
 
-		if ( config.version != existingConfig.version ) {
-
-			configValidation.throwVersionConflictError();
-
-		}
-
-		// We only wanted to update the version if something has actually changed.
-		if ( configService.compareConfigs( config, existingConfig ) ) {
-
-			config.version++;
-			configService.saveConfig( user.dataFilename, config );
-
-		}
+		configService.saveConfig( user.dataFilename, config );
 
 	}
 
@@ -156,14 +142,7 @@ component
 		var config = duplicate( existingConfig );
 		config.features[ featureKey ] = feature;
 		config = configValidation.testConfig( config );
-
-		// We only wanted to update the version if something has actually changed.
-		if ( configService.compareConfigs( config, existingConfig ) ) {
-
-			config.version++;
-			configService.saveConfig( user.dataFilename, config );
-
-		}
+		configService.saveConfig( user.dataFilename, config );
 
 	}
 

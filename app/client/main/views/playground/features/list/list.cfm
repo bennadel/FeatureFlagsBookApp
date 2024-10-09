@@ -10,7 +10,6 @@
 	// ------------------------------------------------------------------------------- //
 
 	config = getConfig( request.user.email );
-	version = config.version;
 	features = getFeatures( config );
 	environments = getEnvironments( config );
 	users = getUsers( request.user.email );

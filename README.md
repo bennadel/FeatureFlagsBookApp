@@ -94,7 +94,6 @@ Note: This is a **work in progress**:
 ```js
 {
     email: "ben@bennadel.com",
-    version: 13,
 
     // The set of feature flags is shared across all environments. However,
     // each feature will have its own unique set of targeting rules.

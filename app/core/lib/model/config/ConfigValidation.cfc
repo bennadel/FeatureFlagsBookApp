@@ -45,10 +45,6 @@ component
 			validationPath = "#validationPath#.email",
 			email = config?.email
 		);
-		var version = testConfigVersion(
-			validationPath = "#validationPath#.version",
-			version = config?.version
-		);
 		var createdAt = testConfigCreatedAt(
 			validationPath = "#validationPath#.createdAt",
 			createdAt = config?.createdAt
@@ -70,7 +66,6 @@ component
 
 		return [
 			email: email,
-			version: version,
 			createdAt: createdAt,
 			updatedAt: updatedAt,
 			environments: environments,
@@ -142,16 +137,6 @@ component
 			type = "App.Model.Config.SerializationFailure",
 			extendedInfo = validationUtilities.serializeRootCauseError( rootCause )
 		);
-
-	}
-
-
-	/**
-	* I throw an version conflict error.
-	*/
-	public void function throwVersionConflictError() {
-
-		throw( type = "App.Model.Config.Version.Conflict" );
 
 	}
 
@@ -351,30 +336,6 @@ component
 		updatedAt = dateAdd( "d", 0, updatedAt );
 
 		return updatedAt;
-
-	}
-
-
-	/**
-	* I test the top-level version.
-	*/
-	private numeric function testConfigVersion(
-		required string validationPath,
-		any version = 1
-		) {
-
-		if ( ! isValid( "integer", version ) ) {
-
-			throw(
-				type = "App.Model.Config.Version.Invalid",
-				extendedInfo = serializeJson({
-					validationPath: validationPath
-				})
-			);
-
-		}
-
-		return normalizeNumeric( version );
 
 	}
 
