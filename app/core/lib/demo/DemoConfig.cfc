@@ -57,6 +57,7 @@ component
 
 		return [
 			email: email,
+			version: 1,
 			createdAt: createdAt,
 			updatedAt: createdAt,
 			environments: [

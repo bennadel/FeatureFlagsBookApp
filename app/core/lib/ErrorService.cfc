@@ -410,6 +410,12 @@ component
 					message: "Your variant must match the designated feature type (#metadata.featureType#). Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Version.Invalid":
+				return as422({
+					type: error.type,
+					message: "Your version must be provided as an integer. Validating property: [#metadata.validationPath#]."
+				});
+			break;
 			case "App.Model.User.Email.Empty":
 				return as422({
 					type: error.type,
