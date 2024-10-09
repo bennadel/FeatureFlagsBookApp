@@ -297,6 +297,57 @@ component
 
 	}
 
+
+	/**
+	* I update the rule in the given targeting environment.
+	*/
+	public void function updateRule(
+		required string email,
+		required string featureKey,
+		required string environmentKey,
+		required numeric ruleIndex,
+		required struct rule
+		) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		if ( ! config.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		var targeting = config.features[ featureKey ].targeting;
+
+		if ( ! targeting.keyExists( environmentKey ) ) {
+
+			configValidation.throwTargetingNotFoundError();
+
+		}
+
+		var environment = targeting[ environmentKey ];
+
+		if ( ruleIndex && ! environment.rules.isDefined( ruleIndex ) ) {
+
+			configValidation.throwRuleNotFoundError();
+
+		}
+
+		if ( ruleIndex ) {
+
+			environment.rules[ ruleIndex ] = rule;
+
+		} else {
+
+			environment.rules.append( rule );
+
+		}
+
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
 	// ---
 	// PRIVATE METHODS.
 	// ---

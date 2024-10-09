@@ -46,14 +46,15 @@
 	request.template.title = title;
 	request.template.video = "feature-rule";
 
+	// Process form data.
 	if ( form.submitted ) {
 
 		try {
 
 			// Clean-up the form values a bit. All the values are submitted as strings;
-			// but we can remove empty ones and cast certain patterns based on the
-			// selected input. Ultimately, we could store everything as a string; but, for
-			// a better UI experience, it's nicer when things are cast.
+			// but we can remove empty ones and cast certain values based on the selected
+			// input. Ultimately, we could store everything as a string; but, for a better
+			// UI experience, it's nicer when things are type-cast.
 			form.values = form.values
 				.filter(
 					( value ) => {
@@ -109,43 +110,25 @@
 				)
 			;
 
-			// Note: We can store dirty data into the resolution configuration - the
-			// validation process will skip-over anything that isn't relevant to the
-			// given resolution type.
-			rule = [
-				operator: form.operator,
-				input: form.input,
-				values: form.values,
-				resolution: [
-					type: form.resolutionType,
-					selection: form.resolutionSelection,
-					distribution: form.resolutionDistribution,
-					variant: form.resolutionVariant
-				]
-			];
-
-			if ( ruleIndex ) {
-
-				config
-					.features[ feature.key ]
-						.targeting[ environment.key ]
-							.rules[ ruleIndex ] = rule
-				;
-
-			} else {
-
-				config
-					.features[ feature.key ]
-						.targeting[ environment.key ]
-							.rules
-								.append( rule )
-				;
-
-			}
-
-			featureWorkflow.updateConfig(
+			featureWorkflow.updateRule(
 				email = request.user.email,
-				config = config
+				featureKey = feature.key,
+				environmentKey = environment.key,
+				ruleIndex = ruleIndex,
+				// Note: We can store dirty data into the resolution configuration - the
+				// underlying validation process will skip-over anything that isn't
+				// relevant to the given resolution type.
+				rule = [
+					operator: form.operator,
+					input: form.input,
+					values: form.values,
+					resolution: [
+						type: form.resolutionType,
+						selection: form.resolutionSelection,
+						distribution: form.resolutionDistribution,
+						variant: form.resolutionVariant
+					]
+				]
 			);
 
 			requestHelper.goto(
@@ -162,6 +145,7 @@
 
 		}
 
+	// Initialize form data.
 	} else {
 
 		if ( ruleIndex ) {
