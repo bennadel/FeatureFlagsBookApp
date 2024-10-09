@@ -1,11 +1,8 @@
 <cfscript>
 
-	configSerializer = request.ioc.get( "core.lib.model.config.ConfigSerializer" );
-	configValidation = request.ioc.get( "core.lib.model.config.ConfigValidation" );
-	demoTargeting = request.ioc.get( "core.lib.demo.DemoTargeting" );
-	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
 	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
 	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
@@ -14,10 +11,10 @@
 
 	param name="url.featureKey" type="string";
 
-	config = getConfig( request.user.email );
-	feature = getFeature( config, url.featureKey );
-	environments = getEnvironments( config );
-	users = getUsers( request.user.email );
+	config = partialHelper.getConfig( request.user.email );
+	feature = partialHelper.getFeature( config, url.featureKey );
+	environments = partialHelper.getEnvironments( config );
+	users = partialHelper.getUsers( request.user.email );
 	results = getResults( config, feature, environments, users );
 	isUniform = getIsUniform( feature, environments, users, results );
 	title = "Feature Flag Targeting";
@@ -30,48 +27,6 @@
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the config data for the given authenticated user.
-	*/
-	private struct function getConfig( required string email ) {
-
-		return featureWorkflow.getConfig( email );
-
-	}
-
-
-	/**
-	* I get the environments for the given config.
-	*/
-	private array function getEnvironments( required struct config ) {
-
-		return utilities.toEnvironmentsArray( config.environments );
-
-	}
-
-
-	/**
-	* I get the feature for the given key.
-	*/
-	private struct function getFeature(
-		required struct config,
-		required string featureKey
-		) {
-
-		var features = utilities.toFeaturesArray( config.features );
-		var featureIndex = utilities.indexBy( features, "key" );
-
-		if ( ! featureIndex.keyExists( featureKey ) ) {
-
-			configValidation.throwFeatureNotFoundError();
-
-		}
-
-		return featureIndex[ featureKey ];
-
-	}
-
 
 	/**
 	* I determine if the feature is serving the same variant to all users.
@@ -139,7 +94,7 @@
 					config = config,
 					featureKey = feature.key,
 					environmentKey = environment.key,
-					context = demoTargeting.getContext( user ),
+					context = partialHelper.getContext( user ),
 					fallbackVariant = "FALLBACK"
 				);
 
@@ -153,16 +108,6 @@
 		}
 
 		return results;
-
-	}
-
-
-	/**
-	* I get the users for the given authenticated user.
-	*/
-	private array function getUsers( required string email ) {
-
-		return demoUsers.getUsers( email );
 
 	}
 

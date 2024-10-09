@@ -1,11 +1,12 @@
 <cfscript>
 
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	config = getConfig( request.user.email );
+	config = partialHelper.getConfig( request.user.email );
 	// Reset the feature settings to the expected state for this step.
 	feature = config.features[ request.featureKey ] = request.feature;
 	feature.targeting.development = [
@@ -64,17 +65,5 @@
 	title = request.template.title = "Enable Feature For All Users";
 
 	include "./step9.view.cfm";
-
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the config data for the given authenticated user.
-	*/
-	private struct function getConfig( required string email ) {
-
-		return featureWorkflow.getConfig( email );
-
-	}
 
 </cfscript>

@@ -1,18 +1,17 @@
 <cfscript>
 
-	demoTargeting = request.ioc.get( "core.lib.demo.DemoTargeting" );
-	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
 	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	config = getConfig( request.user.email );
-	features = getFeatures( config );
-	environments = getEnvironments( config );
-	users = getUsers( request.user.email );
+	config = partialHelper.getConfig( request.user.email );
+	features = partialHelper.getFeatures( config );
+	environments = partialHelper.getEnvironments( config );
+	users = partialHelper.getUsers( request.user.email );
 	results = getResults( config, features, environments, users );
 	uniformFeatures = getUniformFeatures( features, environments, results );
 	title = "Feature Flags Playground";
@@ -24,36 +23,6 @@
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the config data for the given authenticated user.
-	*/
-	private struct function getConfig( required string email ) {
-
-		return featureWorkflow.getConfig( email );
-
-	}
-
-
-	/**
-	* I get the environments for the given config.
-	*/
-	private array function getEnvironments( required struct config ) {
-
-		return utilities.toEnvironmentsArray( config.environments );
-
-	}
-
-
-	/**
-	* I get the features for the given config.
-	*/
-	private array function getFeatures( required struct config ) {
-
-		return utilities.toFeaturesArray( config.features );
-
-	}
-
 
 	/**
 	* I get the results matrix of the features x environments breakdown.
@@ -91,7 +60,7 @@
 						config = config,
 						featureKey = feature.key,
 						environmentKey = environment.key,
-						context = demoTargeting.getContext( user ),
+						context = partialHelper.getContext( user ),
 						fallbackVariant = "FALLBACK"
 					);
 
@@ -168,16 +137,6 @@
 
 			}
 		);
-
-	}
-
-
-	/**
-	* I get the users for the given authenticated user.
-	*/
-	private array function getUsers( required string email ) {
-
-		return demoUsers.getUsers( email );
 
 	}
 

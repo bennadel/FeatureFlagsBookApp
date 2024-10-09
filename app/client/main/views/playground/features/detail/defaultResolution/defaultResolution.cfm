@@ -1,7 +1,7 @@
 <cfscript>
 
-	configValidation = request.ioc.get( "core.lib.model.config.ConfigValidation" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
 	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
 	ui = request.ioc.get( "client.common.lib.ViewHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
@@ -17,9 +17,9 @@
 	param name="form.resolutionVariant" type="any" default="";
 	param name="form.submitted" type="boolean" default=false;
 
-	config = getConfig( request.user.email );
-	feature = getFeature( config, request.context.featureKey );
-	environment = getEnvironment( config, request.context.environmentKey );
+	config = partialHelper.getConfig( request.user.email );
+	feature = partialHelper.getFeature( config, request.context.featureKey );
+	environment = partialHelper.getEnvironment( config, request.context.environmentKey );
 	resolution = feature.targeting[ environment.key ].resolution;
 	title = "Default Resolution";
 	errorMessage = "";
@@ -122,61 +122,5 @@
 	}
 
 	include "./defaultResolution.view.cfm";
-
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the config data for the given authenticated user.
-	*/
-	private struct function getConfig( required string email ) {
-
-		return featureWorkflow.getConfig( email );
-
-	}
-
-
-	/**
-	* I get the environment for the given key.
-	*/
-	private struct function getEnvironment(
-		required struct config,
-		required string environmentKey
-		) {
-
-		var environments = utilities.toEnvironmentsArray( config.environments );
-		var environmentIndex = utilities.indexBy( environments, "key" );
-
-		if ( ! environmentIndex.keyExists( environmentKey ) ) {
-
-			configValidation.throwTargetingNotFoundError();
-
-		}
-
-		return environmentIndex[ environmentKey ];
-
-	}
-
-
-	/**
-	* I get the feature for the given key.
-	*/
-	private struct function getFeature(
-		required struct config,
-		required string featureKey
-		) {
-
-		var features = utilities.toFeaturesArray( config.features );
-		var featureIndex = utilities.indexBy( features, "key" );
-
-		if ( ! featureIndex.keyExists( featureKey ) ) {
-
-			configValidation.throwFeatureNotFoundError();
-
-		}
-
-		return featureIndex[ featureKey ];
-
-	}
 
 </cfscript>

@@ -1,10 +1,8 @@
 <cfscript>
 
-	configValidation = request.ioc.get( "core.lib.model.config.ConfigValidation" );
-	demoTargeting = request.ioc.get( "core.lib.demo.DemoTargeting" );
-	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
 	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
+	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
 	ui = request.ioc.get( "client.common.lib.ViewHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
@@ -14,11 +12,11 @@
 	param name="attributes.step" type="numeric";
 	param name="attributes.highlightAssociation" type="string" default="";
 
-	config = getConfig( request.user.email );
-	feature = getFeature( config, request.featureKey );
-	environments = getEnvironments( config );
-	users = getUsers( request.user.email );
-	companies = getCompanies( users );
+	config = partialHelper.getConfig( request.user.email );
+	feature = partialHelper.getFeature( config, request.featureKey );
+	environments = partialHelper.getEnvironments( config );
+	users = partialHelper.getUsers( request.user.email );
+	companies = partialHelper.getCompanies( users );
 	results = getResults( config, feature, environments, users );
 	journey = getJourney();
 
@@ -26,99 +24,6 @@
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the users grouped by company. The authenticated user's company (devteam) is
-	* always first; and the rest of the companies are sorted alphabetically.
-	*/
-	private array function getCompanies( required array users ) {
-
-		var companyIndex = {};
-
-		for ( var user in users ) {
-
-			if ( ! companyIndex.keyExists( user.company.subdomain ) ) {
-
-				companyIndex[ user.company.subdomain ] = {
-					subdomain: user.company.subdomain,
-					users: []
-				};
-
-			}
-
-			companyIndex[ user.company.subdomain ].users.append( user );
-
-		}
-
-		var companies = utilities
-			.structValueArray( companyIndex )
-			.sort(
-				( a, b ) => {
-
-					if ( a.subdomain == "devteam" ) {
-
-						return -1;
-
-					}
-
-					if ( b.subdomain == "devteam" ) {
-
-						return 1;
-
-					}
-
-					return compare( a.subdomain, b.subdomain );
-
-				}
-			)
-		;
-
-		return companies;
-
-	}
-
-
-	/**
-	* I get the config data for the given authenticated user.
-	*/
-	private struct function getConfig( required string email ) {
-
-		return featureWorkflow.getConfig( email );
-
-	}
-
-
-	/**
-	* I get the environments for the given config.
-	*/
-	private array function getEnvironments( required struct config ) {
-
-		return utilities.toEnvironmentsArray( config.environments );
-
-	}
-
-
-	/**
-	* I get the feature for the given key.
-	*/
-	private struct function getFeature(
-		required struct config,
-		required string featureKey
-		) {
-
-		var features = utilities.toFeaturesArray( config.features );
-		var featureIndex = utilities.indexBy( features, "key" );
-
-		if ( ! featureIndex.keyExists( featureKey ) ) {
-
-			configValidation.throwFeatureNotFoundError();
-
-		}
-
-		return featureIndex[ featureKey ];
-
-	}
-
 
 	/**
 	* I get the journey steps for the walk-through.
@@ -163,7 +68,7 @@
 					config = config,
 					featureKey = feature.key,
 					environmentKey = environment.key,
-					context = demoTargeting.getContext( user ),
+					context = partialHelper.getContext( user ),
 					fallbackVariant = "FALLBACK"
 				);
 
@@ -172,16 +77,6 @@
 		}
 
 		return results;
-
-	}
-
-
-	/**
-	* I get the users for the given authenticated user.
-	*/
-	private array function getUsers( required string email ) {
-
-		return demoUsers.getUsers( email );
 
 	}
 

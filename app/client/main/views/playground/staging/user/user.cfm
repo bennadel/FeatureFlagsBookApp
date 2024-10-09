@@ -1,10 +1,8 @@
 <cfscript>
 
-	demoTargeting = request.ioc.get( "core.lib.demo.DemoTargeting" );
-	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
 	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
-	userValidation = request.ioc.get( "core.lib.model.user.UserValidation" );
+	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //
@@ -12,11 +10,11 @@
 
 	param name="url.userID" type="numeric";
 
-	config = getConfig( request.user.email );
-	user = getUser( request.user.email, val( url.userID ) );
-	context = getContext( user );
-	features = getFeatures( config );
-	environments = getEnvironments( config );
+	config = partialHelper.getConfig( request.user.email );
+	user = partialHelper.getUser( request.user.email, val( url.userID ) );
+	context = partialHelper.getContext( user );
+	features = partialHelper.getFeatures( config );
+	environments = partialHelper.getEnvironments( config );
 	breakdown = getBreakdown( config, user, features, environments );
 	title = user.name;
 
@@ -51,7 +49,7 @@
 					config = config,
 					featureKey = feature.key,
 					environmentKey = environment.key,
-					context = demoTargeting.getContext( user ),
+					context = partialHelper.getContext( user ),
 					fallbackVariant = fallbackVariant
 				);
 
@@ -66,68 +64,6 @@
 		}
 
 		return breakdown;
-
-	}
-
-
-	/**
-	* I get the config data for the given authenticated user.
-	*/
-	private struct function getConfig( required string email ) {
-
-		return featureWorkflow.getConfig( email );
-
-	}
-
-
-	/**
-	* I get the environments for the given config.
-	*/
-	private array function getEnvironments( required struct config ) {
-
-		return utilities.toEnvironmentsArray( config.environments );
-
-	}
-
-
-	/**
-	* I get the targeting context for the given user.
-	*/
-	private struct function getContext( required struct user ) {
-
-		return demoTargeting.getContext( user );
-
-	}
-
-
-	/**
-	* I get the features for the given config.
-	*/
-	private array function getFeatures( required struct config ) {
-
-		return utilities.toFeaturesArray( config.features );
-
-	}
-
-
-	/**
-	* I get the user for the given authenticated user.
-	*/
-	private struct function getUser(
-		required string email,
-		required numeric userID
-		) {
-
-		var users = demoUsers.getUsers( email );
-		var userIndex = utilities.indexBy( users, "id" );
-
-		if ( ! userIndex.keyExists( userID ) ) {
-
-			userValidation.throwUserNotFoundError();
-
-		}
-
-		return userIndex[ userID ];
 
 	}
 
