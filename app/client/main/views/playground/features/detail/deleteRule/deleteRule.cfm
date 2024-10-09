@@ -28,16 +28,11 @@
 
 		try {
 
-			config
-				.features[ feature.key ]
-					.targeting[ environment.key ]
-						.rules
-							.deleteAt( ruleIndex )
-			;
-
-			featureWorkflow.updateConfig(
+			featureWorkflow.deleteRule(
 				email = request.user.email,
-				config = config
+				featureKey = feature.key,
+				environmentKey = environment.key,
+				ruleIndex = ruleIndex
 			);
 
 			requestHelper.goto(

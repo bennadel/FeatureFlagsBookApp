@@ -57,7 +57,6 @@ component
 			)
 		];
 
-		config = configValidation.testConfig( config );
 		configService.saveConfig( user.dataFilename, config );
 
 	}
@@ -90,7 +89,6 @@ component
 			}
 		);
 
-		config = configValidation.testConfig( config );
 		configService.saveConfig( user.dataFilename, config );
 
 	}
@@ -122,7 +120,6 @@ component
 
 		}
 
-		config = configValidation.testConfig( config );
 		configService.saveConfig( user.dataFilename, config );
 
 	}
@@ -146,6 +143,47 @@ component
 		}
 
 		config.features.delete( featureKey );
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
+
+	/**
+	* I delete the feature rule at the given index.
+	*/
+	public void function deleteRule(
+		required string email,
+		required string featureKey,
+		required string environmentKey,
+		required numeric ruleIndex
+		) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		if ( ! config.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		var targeting = config.features[ featureKey ].targeting;
+
+		if ( ! targeting.keyExists( environmentKey ) ) {
+
+			configValidation.throwTargetingNotFoundError();
+
+		}
+
+		var environment = targeting[ environmentKey ];
+
+		if ( ! environment.rules.isDefined( ruleIndex ) ) {
+
+			configValidation.throwRuleNotFoundError();
+
+		}
+
+		environment.rules.deleteAt( ruleIndex );
 		configService.saveConfig( user.dataFilename, config );
 
 	}
