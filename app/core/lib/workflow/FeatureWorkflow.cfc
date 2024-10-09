@@ -98,6 +98,39 @@ component
 
 
 	/**
+	* I clear all the rules in the given feature.
+	*/
+	public void function clearFeature(
+		required string email,
+		required string featureKey
+		) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		if ( ! config.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureNotFoundError();
+
+		}
+
+		var targeting = config.features[ featureKey ].targeting;
+
+		for ( var environmentKey in targeting ) {
+
+			targeting[ environmentKey ].rulesEnabled = false;
+			targeting[ environmentKey ].rules = [];
+
+		}
+
+		config.version++;
+		config = configValidation.testConfig( config );
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
+
+	/**
 	* I delete the feature with the given key.
 	*/
 	public void function deleteFeature(

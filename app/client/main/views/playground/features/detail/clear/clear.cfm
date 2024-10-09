@@ -24,24 +24,9 @@
 
 		try {
 
-			for ( environment in environments ) {
-
-				config
-					.features[ feature.key ]
-						.targeting[ environment.key ]
-							.rulesEnabled = false
-				;
-				config
-					.features[ feature.key ]
-						.targeting[ environment.key ]
-							.rules = []
-				;
-
-			}
-
-			featureWorkflow.updateConfig(
+			featureWorkflow.clearFeature(
 				email = request.user.email,
-				config = config
+				featureKey = feature.key
 			);
 
 			requestHelper.goto([
