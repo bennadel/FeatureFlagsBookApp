@@ -22,11 +22,9 @@
 
 		try {
 
-			config.features.delete( feature.key );
-
-			featureWorkflow.updateConfig(
+			featureWorkflow.deleteFeature(
 				email = request.user.email,
-				config = config
+				featureKey = feature.key
 			);
 
 			requestHelper.goto();
