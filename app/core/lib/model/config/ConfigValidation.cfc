@@ -99,11 +99,11 @@ component
 
 
 	/**
-	* I throw a targeting not found error.
+	* I throw a feature conflict error.
 	*/
-	public void function throwTargetingNotFoundError() {
+	public void function throwFeatureConflictError() {
 
-		throw( type = "App.Model.Config.Targeting.NotFound" );
+		throw( type = "App.Model.Config.Feature.Conflict" );
 
 	}
 
@@ -137,6 +137,16 @@ component
 			type = "App.Model.Config.SerializationFailure",
 			extendedInfo = validationUtilities.serializeRootCauseError( rootCause )
 		);
+
+	}
+
+
+	/**
+	* I throw a targeting not found error.
+	*/
+	public void function throwTargetingNotFoundError() {
+
+		throw( type = "App.Model.Config.Targeting.NotFound" );
 
 	}
 

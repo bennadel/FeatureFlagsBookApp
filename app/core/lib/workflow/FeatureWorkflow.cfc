@@ -16,6 +16,55 @@ component
 	// ---
 
 	/**
+	* I add a new feature with the given settings.
+	*/
+	public void function addFeature(
+		required string email,
+		required string featureKey,
+		required string type,
+		required string description,
+		required array variants,
+		required numeric defaultSelection
+		) {
+
+		var user = userService.getUser( email );
+		var config = getConfigForUser( user );
+
+		if ( config.features.keyExists( featureKey ) ) {
+
+			configValidation.throwFeatureConflictError();
+
+		}
+
+		config.features[ featureKey ] = [
+			type: type,
+			description: description,
+			variants: variants,
+			defaultSelection: defaultSelection,
+			targeting: config.environments.map(
+				( environmentKey ) => {
+
+					return {
+						resolution: [
+							type: "selection",
+							selection: defaultSelection
+						],
+						rulesEnabled: false,
+						rules: []
+					};
+
+				}
+			)
+		];
+		config.version++;
+
+		config = configValidation.testConfig( config );
+		configService.saveConfig( user.dataFilename, config );
+
+	}
+
+
+	/**
 	* I remove all the rules and apply a default resolution using selection.
 	*/
 	public void function clearConfig( required string email ) {

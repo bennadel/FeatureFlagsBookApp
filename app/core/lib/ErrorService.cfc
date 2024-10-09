@@ -127,6 +127,12 @@ component
 					message: "Your environments must be provided as a struct. Validating property: [#metadata.validationPath#]."
 				});
 			break;
+			case "App.Model.Config.Feature.Conflict":
+				return as422({
+					type: error.type,
+					message: "Your feature key must be unique. The key you chose is already being used by another feature flag."
+				});
+			break;
 			case "App.Model.Config.Feature.DefaultSelection.Invalid":
 			case "App.Model.Config.Feature.DefaultSelection.OutOfBounds":
 				return as422({

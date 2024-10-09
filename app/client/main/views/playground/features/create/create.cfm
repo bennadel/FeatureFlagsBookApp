@@ -15,7 +15,6 @@
 	param name="form.variantsRaw" type="array" default=[];
 	param name="form.submitted" type="boolean" default=false;
 
-	config = getConfig( request.user.email );
 	title = "Create New Feature Flag";
 	errorMessage = "";
 
@@ -46,31 +45,15 @@
 
 			form.defaultSelection = min( variants.len(), form.defaultSelection );
 
-			config.features[ form.featureKey ] = [
-				type: form.type,
-				description: form.description,
-				variants: variants,
-				defaultSelection: form.defaultSelection,
-				targeting: config.environments.map(
-					( environmentKey ) => {
-
-						return {
-							resolution: [
-								type: "selection",
-								selection: form.defaultSelection
-							],
-							rulesEnabled: false,
-							rules: []
-						};
-
-					}
-				)
-			];
-
-			featureWorkflow.updateConfig(
+			featureWorkflow.addFeature(
 				email = request.user.email,
-				config = config
+				featureKey = form.featureKey,
+				type = form.type,
+				description = form.description,
+				variants = variants,
+				defaultSelection = form.defaultSelection
 			);
+
 			requestHelper.goto([
 				event: "playground.features.detail.targeting",
 				featureKey: form.featureKey
@@ -84,6 +67,9 @@
 
 	} else {
 
+		// For the sake of UI simplicity, we're not going to allow the user to add an
+		// open-ended number of variants. Instead, we'll provide a large, fixed number of
+		// inputs for them to consume.
 		form.variantsRaw = [
 			"false",
 			"true",
@@ -100,17 +86,5 @@
 	}
 
 	include "./create.view.cfm";
-
-	// ------------------------------------------------------------------------------- //
-	// ------------------------------------------------------------------------------- //
-
-	/**
-	* I get the config data for the given authenticated user.
-	*/
-	private struct function getConfig( required string email ) {
-
-		return featureWorkflow.getConfig( email );
-
-	}
 
 </cfscript>
