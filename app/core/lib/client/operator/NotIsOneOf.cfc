@@ -3,14 +3,8 @@ component
 	hint = "I implement the NotIsOneOf operator."
 	{
 
-	/**
-	* I initialize the operator.
-	*/
-	public void function init() {
-
-		isOneOfOperator = new core.lib.client.operator.IsOneOf();
-
-	}
+	// Define properties for dependency-injection.
+	property name="isOneOfOperator" ioc:type="core.lib.client.operator.IsOneOf";
 
 	// ---
 	// PUBLIC METHODS.

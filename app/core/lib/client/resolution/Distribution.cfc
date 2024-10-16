@@ -3,14 +3,8 @@ component
 	hint = "I implement the distribution resolution strategy."
 	{
 
-	/**
-	* I initialize the resolution.
-	*/
-	public void function init() {
-
-		keyConverter = new core.lib.client.util.KeyConverter();
-
-	}
+	// Define properties for dependency-injection.
+	property name="keyConverter" ioc:type="core.lib.client.util.KeyConverter";
 
 	// ---
 	// PUBLIC METHODS.

@@ -60,6 +60,10 @@ component
 			= application.ioc
 				= new core.lib.Injector()
 		;
+		// Provide the IoC container back to itself. This allows the Injector to be
+		// injected into other services which may call for more manual orchestration.
+		ioc.provide( "core.lib.Injector", ioc );
+
 		var config
 			= this.config
 				= application.config

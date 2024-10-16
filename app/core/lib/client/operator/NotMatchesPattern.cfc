@@ -3,14 +3,8 @@ component
 	hint = "I implement the NotMatchesPattern operator."
 	{
 
-	/**
-	* I initialize the operator.
-	*/
-	public void function init() {
-
-		matchesPatternOperator = new core.lib.client.operator.MatchesPattern();
-
-	}
+	// Define properties for dependency-injection.
+	property name="matchesPatternOperator" ioc:type="core.lib.client.operator.MatchesPattern";
 
 	// ---
 	// PUBLIC METHODS.

@@ -3,14 +3,8 @@ component
 	hint = "I implement the NotStartsWith operator."
 	{
 
-	/**
-	* I initialize the operator.
-	*/
-	public void function init() {
-
-		startsWithOperator = new core.lib.client.operator.StartsWith();
-
-	}
+	// Define properties for dependency-injection.
+	property name="startsWithOperator" ioc:type="core.lib.client.operator.StartsWith";
 
 	// ---
 	// PUBLIC METHODS.

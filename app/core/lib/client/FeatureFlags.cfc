@@ -10,29 +10,30 @@ component
 	{
 
 	// Define properties for dependency-injection.
+	property name="ioc" ioc:type="core.lib.Injector";
 	property name="logger" ioc:type="core.lib.Logger";
 
 	/**
 	* I initialize the feature flags client.
 	*/
-	public void function init() {
+	public void function $init() {
 
 		variables.operatorStrategies = {
-			Contains: new core.lib.client.operator.Contains(),
-			EndsWith: new core.lib.client.operator.EndsWith(),
-			IsOneOf: new core.lib.client.operator.IsOneOf(),
-			MatchesPattern: new core.lib.client.operator.MatchesPattern(),
-			NotContains: new core.lib.client.operator.NotContains(),
-			NotEndsWith: new core.lib.client.operator.NotEndsWith(),
-			NotIsOneOf: new core.lib.client.operator.NotIsOneOf(),
-			NotMatchesPattern: new core.lib.client.operator.NotMatchesPattern(),
-			NotStartsWith: new core.lib.client.operator.NotStartsWith(),
-			StartsWith: new core.lib.client.operator.StartsWith()
+			Contains: ioc.get( "core.lib.client.operator.Contains" ),
+			EndsWith: ioc.get( "core.lib.client.operator.EndsWith" ),
+			IsOneOf: ioc.get( "core.lib.client.operator.IsOneOf" ),
+			MatchesPattern: ioc.get( "core.lib.client.operator.MatchesPattern" ),
+			NotContains: ioc.get( "core.lib.client.operator.NotContains" ),
+			NotEndsWith: ioc.get( "core.lib.client.operator.NotEndsWith" ),
+			NotIsOneOf: ioc.get( "core.lib.client.operator.NotIsOneOf" ),
+			NotMatchesPattern: ioc.get( "core.lib.client.operator.NotMatchesPattern" ),
+			NotStartsWith: ioc.get( "core.lib.client.operator.NotStartsWith" ),
+			StartsWith: ioc.get( "core.lib.client.operator.StartsWith" )
 		};
 		variables.resolutionStrategies = {
-			Distribution: new core.lib.client.resolution.Distribution(),
-			Selection: new core.lib.client.resolution.Selection(),
-			Variant: new core.lib.client.resolution.Variant()
+			Distribution: ioc.get( "core.lib.client.resolution.Distribution" ),
+			Selection: ioc.get( "core.lib.client.resolution.Selection" ),
+			Variant: ioc.get( "core.lib.client.resolution.Variant" )
 		};
 
 	}

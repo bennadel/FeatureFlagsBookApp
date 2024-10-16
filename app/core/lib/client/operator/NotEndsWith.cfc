@@ -3,14 +3,8 @@ component
 	hint = "I implement the NotEndsWith operator."
 	{
 
-	/**
-	* I initialize the operator.
-	*/
-	public void function init() {
-
-		endsWithOperator = new core.lib.client.operator.EndsWith();
-
-	}
+	// Define properties for dependency-injection.
+	property name="endsWithOperator" ioc:type="core.lib.client.operator.EndsWith";
 
 	// ---
 	// PUBLIC METHODS.

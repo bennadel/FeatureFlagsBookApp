@@ -3,14 +3,8 @@ component
 	hint = "I implement the NotContains operator."
 	{
 
-	/**
-	* I initialize the operator.
-	*/
-	public void function init() {
-
-		containsOperator = new core.lib.client.operator.Contains();
-
-	}
+	// Define properties for dependency-injection.
+	property name="containsOperator" ioc:type="core.lib.client.operator.Contains";
 
 	// ---
 	// PUBLIC METHODS.
