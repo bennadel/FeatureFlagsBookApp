@@ -5,6 +5,7 @@ component
 
 	// Define properties for dependency-injection.
 	property name="config" ioc:type="config";
+	property name="cookieName" ioc:skip;
 	property name="logger" ioc:type="core.lib.Logger";
 
 	/**
@@ -12,7 +13,7 @@ component
 	*/
 	public void function $init() {
 
-		variables.SESSION_COOKIE_NAME = "ffb_playground";
+		variables.cookieName = "ffb_playground";
 
 	}
 
@@ -25,7 +26,7 @@ component
 	*/
 	public void function deleteCookie() {
 
-		cookie[ SESSION_COOKIE_NAME ] = buildCookieSettings({
+		cookie[ cookieName ] = buildCookieSettings({
 			value: "",
 			expires: "now"
 		});
@@ -38,7 +39,7 @@ component
 	*/
 	public string function getCookie() {
 
-		var hexEncoded = ( cookie[ SESSION_COOKIE_NAME ] ?: "" );
+		var hexEncoded = ( cookie[ cookieName ] ?: "" );
 
 		if ( ! hexEncoded.len() ) {
 
@@ -107,7 +108,7 @@ component
 		var bytes = charsetDecode( sessionToken, "utf-8" );
 		var hexEncoded = binaryEncode( bytes, "hex" ).lcase();
 
-		cookie[ SESSION_COOKIE_NAME ] = buildCookieSettings({
+		cookie[ cookieName ] = buildCookieSettings({
 			value: hexEncoded,
 			expires: "never"
 		});
@@ -129,7 +130,7 @@ component
 		// restrictions. If we ever want to start sending out mail-based links, we'll have
 		// to lower this to "lax" so that cross-NAVIGATION cookies will be included.
 		var settings = [
-			name: SESSION_COOKIE_NAME,
+			name: cookieName,
 			domain: config.site.cookieDomain,
 			encodeValue: false,
 			httpOnly: true,

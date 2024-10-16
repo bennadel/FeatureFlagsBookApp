@@ -3,6 +3,10 @@ component
 	hint = "I provide a simple cache that only stores a fixed number of elements. The data stored within the cache is duplicated upon both READ and WRITE in order to make sure that referential integrity is maintained."
 	{
 
+	// Define properties for dependency-injection.
+	property name="data" ioc:skip;
+	property name="maxSize" ioc:skip;
+
 	/**
 	* I initialize the cache with the given max size.
 	*/

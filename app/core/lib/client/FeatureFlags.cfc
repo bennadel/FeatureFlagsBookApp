@@ -12,6 +12,8 @@ component
 	// Define properties for dependency-injection.
 	property name="ioc" ioc:type="core.lib.Injector";
 	property name="logger" ioc:type="core.lib.Logger";
+	property name="operatorStrategies" ioc:skip;
+	property name="resolutionStrategies" ioc:skip;
 
 	/**
 	* I initialize the feature flags client.

@@ -3,6 +3,9 @@ component
 	hint = "I help convert user keys (strings) into distribution indexes (1...100)."
 	{
 
+	// Define properties for dependency-injection.
+	property name="BigIntegerClass" ioc:skip;
+
 	/**
 	* I initialize the converter.
 	*/

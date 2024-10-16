@@ -4,6 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
+	property name="cache" ioc:skip;
 	property name="serializer" ioc:type="core.lib.model.config.ConfigSerializer";
 
 	// ---

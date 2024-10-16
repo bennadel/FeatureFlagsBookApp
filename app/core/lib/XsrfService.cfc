@@ -4,7 +4,9 @@ component
 	{
 
 	// Define properties for dependency-injection.
+	property name="challengeName" ioc:skip;
 	property name="config" ioc:type="config";
+	property name="cookieName" ioc:skip;
 	property name="requestMetadata" ioc:type="core.lib.RequestMetadata";
 
 	/**
@@ -12,8 +14,8 @@ component
 	*/
 	public void function $init() {
 
-		variables.COOKIE_NAME = "XSRF-TOKEN";
-		variables.CHALLENGE_NAME = "X-XSRF-TOKEN";
+		variables.cookieName = "XSRF-TOKEN";
+		variables.challengeName = "X-XSRF-TOKEN";
 
 	}
 
@@ -28,7 +30,7 @@ component
 
 		var token = buildToken();
 
-		cookie[ COOKIE_NAME ] = buildCookieSettings({
+		cookie[ cookieName ] = buildCookieSettings({
 			value: token
 		});
 
@@ -59,8 +61,8 @@ component
 	public struct function getTokenNames() {
 
 		return {
-			cookie: COOKIE_NAME,
-			challenge: CHALLENGE_NAME
+			cookie: cookieName,
+			challenge: challengeName
 		};
 
 	}
@@ -79,7 +81,7 @@ component
 			throw(
 				type = "App.Xsrf.MissingCookie",
 				message = "The xsrf token cookie is missing or empty.",
-				detail = "Expected cookie: [#COOKIE_NAME#]."
+				detail = "Expected cookie: [#cookieName#]."
 			);
 
 		}
@@ -89,7 +91,7 @@ component
 			throw(
 				type = "App.Xsrf.MissingChallenge",
 				message = "The xsrf token challenge is missing or empty.",
-				detail = "Expected field: [#CHALLENGE_NAME#]."
+				detail = "Expected field: [#challengeName#]."
 			);
 
 		}
@@ -119,7 +121,7 @@ component
 		// request originates from the same site. Since the goal of the XSRF token is to
 		// prevent cross-site scripting attacks, this is exactly what we want.
 		var settings = [
-			name: COOKIE_NAME,
+			name: cookieName,
 			domain: config.site.cookieDomain,
 			expires: "never",
 			encodeValue: false,
@@ -163,7 +165,7 @@ component
 	*/
 	private boolean function cookieExists() {
 
-		return cookie.keyExists( COOKIE_NAME );
+		return cookie.keyExists( cookieName );
 
 	}
 
@@ -173,9 +175,9 @@ component
 	*/
 	private string function getChallengeValue() {
 
-		if ( form.keyExists( CHALLENGE_NAME ) ) {
+		if ( form.keyExists( challengeName ) ) {
 
-			return form[ CHALLENGE_NAME ];
+			return form[ challengeName ];
 
 		}
 
@@ -189,7 +191,7 @@ component
 	*/
 	private string function getCookieValue() {
 
-		return ( cookie[ COOKIE_NAME ] ?: "" );
+		return ( cookie[ cookieName ] ?: "" );
 
 	}
 

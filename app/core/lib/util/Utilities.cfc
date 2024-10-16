@@ -25,6 +25,35 @@ component
 
 
 	/**
+	* I determine if the given value is a ColdFusion component instance.
+	*/
+	public boolean function isComponent( required any value ) {
+
+		if ( ! isObject( value ) ) {
+
+			return false;
+
+		}
+
+		// The isObject() function will return true for both components and Java objects.
+		// As such, we need to go one step further to see if we can get at the component
+		// metadata before we can truly determine if the value is a ColdFusion component.
+		try {
+
+			var metadata = getMetadata( value );
+
+			return ( metadata?.type == "component" );
+
+		} catch ( any error ) {
+
+			return false;
+
+		}
+
+	}
+
+
+	/**
 	* SHIM: I'm hoping this can be removed in future versions of ColdFusion.
 	*/
 	public array function structValueArray( required struct input ) {

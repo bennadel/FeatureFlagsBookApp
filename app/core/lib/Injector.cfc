@@ -3,6 +3,10 @@ component
 	hint = "I provide an Inversion of Control (IoC) container."
 	{
 
+	// Define properties for dependency-injection.
+	property name="services" ioc:skip;
+	property name="typeMappings" ioc:skip;
+
 	/**
 	* I initialize the IoC container with no services.
 	*/
@@ -40,6 +44,16 @@ component
 			return ( services[ serviceToken ] ?: buildService( serviceToken ) );
 
 		}
+
+	}
+
+
+	/**
+	* I return all of the cached services.
+	*/
+	public struct function getAll() {
+
+		return services.copy();
 
 	}
 

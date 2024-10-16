@@ -133,6 +133,28 @@ component
 
 
 	/**
+	* I get called once to finalize the request.
+	*/
+	public void function onRequestEnd() {
+
+		if ( this.config.isLive ) {
+
+			return;
+
+		}
+
+		// Since the memory leak detection only runs in the development environment, I'm
+		// not going to put any safe-guards around it. The memory leak detector both reads
+		// from and writes to shared memory, which can be inherently unsafe. However, the
+		// risks here are minimal.
+		request.ioc.get( "core.lib.MemoryLeakDetector" )
+			.inspect()
+		;
+
+	}
+
+
+	/**
 	* I handle uncaught errors within the application.
 	*/
 	public void function onError(
