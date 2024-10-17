@@ -2,7 +2,7 @@
 
 	authWorkflow = request.ioc.get( "core.lib.workflow.AuthWorkflow" );
 	config = request.ioc.get( "config" );
-	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
+	requestHelper = request.ioc.get( "client.common.lib.RequestHelper" );
 	requestMetadata = request.ioc.get( "core.lib.RequestMetadata" );
 	turnstile = request.ioc.get( "core.lib.turnstile.Turnstile" );
 	xsrfService = request.ioc.get( "core.lib.XsrfService" );

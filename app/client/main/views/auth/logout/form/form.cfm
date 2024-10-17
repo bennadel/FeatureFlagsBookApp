@@ -1,7 +1,7 @@
 <cfscript>
 
 	authWorkflow = request.ioc.get( "core.lib.workflow.AuthWorkflow" );
-	requestHelper = request.ioc.get( "core.lib.RequestHelper" );
+	requestHelper = request.ioc.get( "client.common.lib.RequestHelper" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
