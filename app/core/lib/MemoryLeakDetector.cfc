@@ -44,9 +44,13 @@ component
 
 			}
 
-			// If this target has already been inspected, skip it. Since memory leaks may
-			// develop over time based on the user's interaction, we need to check the
-			// version number (of the inspection).
+			// If this target has already been inspected, skip it. However, since memory
+			// leaks may develop over time based on the user's interaction, we need to
+			// check the version number (of the current inspection). Only skip if we're
+			// in the same inspection workflow and we're revisiting this component.
+			// --
+			// Note: In Adobe ColdFusion, CFC's don't have a .keyExists() member method.
+			// As such, in this case, I have to use the built-in function.
 			if ( structKeyExists( target, magicTokenName ) && ( target[ magicTokenName ] == version ) ) {
 
 				continue;
@@ -79,7 +83,7 @@ component
 				}
 
 				// Treat top-level null values as suspicious.
-				if ( ! structKeyExists( targetScope, key ) ) {
+				if ( ! targetScope.keyExists( key ) ) {
 
 					logMessage( "Possible memory leak in [#targetName#]: [null]." );
 					continue;
@@ -87,8 +91,8 @@ component
 				}
 
 				if (
-					! structKeyExists( propertyIndex, key ) &&
-					! structKeyExists( functionIndex, key )
+					! propertyIndex.keyExists( key ) &&
+					! functionIndex.keyExists( key )
 					) {
 
 					logMessage( "Possible memory leak in [#targetName#]: [#key#]." );
