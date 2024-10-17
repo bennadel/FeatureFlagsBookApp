@@ -1,7 +1,7 @@
 <cfscript>
 
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
-	requestHelper = request.ioc.get( "client.common.lib.RequestHelper" );
+	requestHelper = request.ioc.get( "client.main.lib.RequestHelper" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

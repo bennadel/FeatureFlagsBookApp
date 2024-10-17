@@ -1,6 +1,6 @@
 <cfscript>
 
-	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
+	partialHelper = request.ioc.get( "client.main.lib.PartialHelper" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

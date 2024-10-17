@@ -1,6 +1,6 @@
 <cfscript>
 
-	xsrfService = request.ioc.get( "client.common.lib.XsrfService" );
+	xsrfService = request.ioc.get( "client.main.lib.XsrfService" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //

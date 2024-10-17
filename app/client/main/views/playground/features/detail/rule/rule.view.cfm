@@ -39,7 +39,7 @@
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
 				<input type="hidden" name="ruleIndex" value="#encodeForHtmlAttribute( ruleIndex )#" />
-				<cfmodule template="/client/main/views/common/tags/xsrf.cfm">
+				<cfmodule template="/client/main/tags/xsrf.cfm">
 
 				<dl>
 					<div>

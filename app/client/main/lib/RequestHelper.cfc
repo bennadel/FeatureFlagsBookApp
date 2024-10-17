@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="authWorkflow" ioc:type="client.common.lib.workflow.AuthWorkflow";
+	property name="authWorkflow" ioc:type="client.main.lib.workflow.AuthWorkflow";
 	property name="errorService" ioc:type="core.lib.ErrorService";
 	property name="logger" ioc:type="core.lib.Logger";
 	property name="requestMetadata" ioc:type="core.lib.RequestMetadata";

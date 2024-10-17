@@ -15,7 +15,7 @@
 
 			<form method="post" action="/index.cfm">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
-				<cfmodule template="/client/main/views/common/tags/xsrf.cfm">
+				<cfmodule template="/client/main/tags/xsrf.cfm">
 
 				<p>
 					<strong>Caution:</strong> This will reset your feature flag data back to its original state.

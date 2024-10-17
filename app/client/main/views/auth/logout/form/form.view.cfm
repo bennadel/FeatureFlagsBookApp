@@ -17,7 +17,7 @@
 
 		<form method="post" action="/index.cfm" class="logout-form">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
-			<cfmodule template="/client/main/views/common/tags/xsrf.cfm">
+			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<p class="ui-form-buttons ui-row">
 				<span class="ui-row__item">

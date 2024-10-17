@@ -5,7 +5,7 @@ component
 
 	// Define properties for dependency-injection.
 	property name="logger" ioc:type="core.lib.Logger";
-	property name="sessionCookies" ioc:type="client.common.lib.SessionCookies";
+	property name="sessionCookies" ioc:type="client.main.lib.SessionCookies";
 	property name="userService" ioc:type="core.lib.model.user.UserService";
 
 	// ---

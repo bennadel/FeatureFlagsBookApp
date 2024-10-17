@@ -2,7 +2,7 @@
 
 	featureFlags = request.ioc.get( "core.lib.client.FeatureFlags" );
 	featureWorkflow = request.ioc.get( "core.lib.workflow.FeatureWorkflow" );
-	partialHelper = request.ioc.get( "client.main.views.common.lib.PartialHelper" );
+	partialHelper = request.ioc.get( "client.main.lib.PartialHelper" );
 	utilities = request.ioc.get( "core.lib.util.Utilities" );
 
 	// ------------------------------------------------------------------------------- //

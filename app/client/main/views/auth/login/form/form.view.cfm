@@ -22,7 +22,7 @@
 		<form x-data="m2wod20.FormController" method="post">
 			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 			<input type="hidden" name="redirectTo" value="#encodeForHtmlAttribute( request.context.redirectTo )#" />
-			<cfmodule template="/client/main/views/common/tags/xsrf.cfm">
+			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<p>
 				<strong>Login with email:</strong>

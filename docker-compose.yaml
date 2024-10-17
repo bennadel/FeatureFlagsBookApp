@@ -20,14 +20,14 @@ services:
 
   client:
     build:
-      context: "./app/client/main/build/docker/"
+      context: "./app/client/main/build/"
       dockerfile: "Dockerfile"
     image: "app.featureflagsbook.com/client:latest"
     command: [ "npm", "run", "build" ]
     volumes:
       - "./app/client/main/build:/app"
       # Mount the ColdFusion app for collocation of client files with the CFML views.
-      - "./app/client/common:/app/src/cfml-common"
+      # - "./app/client/common:/app/src/cfml-common"
       - "./app/client/main:/app/src/cfml-main"
       # Save dist files into CFML volume where they can be consumed by the app.
       - "./app/wwwroot/client/main:/app/dist"

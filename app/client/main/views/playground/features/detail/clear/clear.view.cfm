@@ -65,7 +65,7 @@
 			<form method="post" action="/index.cfm">
 				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
-				<cfmodule template="/client/main/views/common/tags/xsrf.cfm">
+				<cfmodule template="/client/main/tags/xsrf.cfm">
 
 				<p class="ui-form-buttons ui-row">
 					<span class="ui-row__item">
