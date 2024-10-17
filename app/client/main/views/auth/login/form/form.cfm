@@ -1,11 +1,11 @@
 <cfscript>
 
-	authWorkflow = request.ioc.get( "core.lib.workflow.AuthWorkflow" );
+	authWorkflow = request.ioc.get( "client.common.lib.workflow.AuthWorkflow" );
 	config = request.ioc.get( "config" );
 	requestHelper = request.ioc.get( "client.common.lib.RequestHelper" );
 	requestMetadata = request.ioc.get( "core.lib.RequestMetadata" );
 	turnstile = request.ioc.get( "core.lib.turnstile.Turnstile" );
-	xsrfService = request.ioc.get( "core.lib.XsrfService" );
+	xsrfService = request.ioc.get( "client.common.lib.XsrfService" );
 
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
