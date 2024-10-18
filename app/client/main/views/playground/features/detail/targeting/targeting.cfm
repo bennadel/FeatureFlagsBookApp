@@ -90,18 +90,13 @@
 
 			for ( var environment in environments ) {
 
-				var result = featureFlags.debugEvaluation(
+				results[ user.id ][ environment.key ] = featureFlags.debugEvaluation(
 					config = config,
 					featureKey = feature.key,
 					environmentKey = environment.key,
 					context = partialHelper.getContext( user ),
 					fallbackVariant = "FALLBACK"
 				);
-
-				results[ user.id ][ environment.key ] = {
-					variantIndex: result.variantIndex,
-					ruleIndex: result.matchingRuleIndex
-				};
 
 			}
 

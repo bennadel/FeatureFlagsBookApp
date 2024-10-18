@@ -1713,15 +1713,15 @@ component
 
 		}
 
-		var operator = testRuleOperator(
-			validationPath = "#validationPath#.operator",
-			feature = feature,
-			operator = rule?.operator
-		);
 		var input = testRuleInput(
 			validationPath = "#validationPath#.input",
 			feature = feature,
 			input = rule?.input
+		);
+		var operator = testRuleOperator(
+			validationPath = "#validationPath#.operator",
+			feature = feature,
+			operator = rule?.operator
 		);
 		var values = testRuleValues(
 			validationPath = "#validationPath#.values",
@@ -1736,8 +1736,8 @@ component
 		);
 
 		return [
-			operator: operator,
 			input: input,
+			operator: operator,
 			values: values,
 			resolution: resolution
 		];

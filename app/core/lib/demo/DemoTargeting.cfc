@@ -137,8 +137,8 @@ component
 		config.features[ "product-TICKET-111-reporting" ].targeting.production.rulesEnabled = true;
 		// Enabled in production for selected companies.
 		config.features[ "product-TICKET-111-reporting" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.subdomain",
+			operator: "IsOneOf",
 			values: [ "fusionworks", "techgenius", "primetech" ],
 			resolution: [
 				type: "selection",
@@ -147,8 +147,8 @@ component
 		]);
 		// Enabled in production for all tech-media influencers.
 		config.features[ "product-TICKET-111-reporting" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.groups.influencer",
+			operator: "IsOneOf",
 			values: [ true ],
 			resolution: [
 				type: "selection",
@@ -165,8 +165,8 @@ component
 		// Disable selectively for a few companies.
 		config.features[ "product-TICKET-222-2fa" ].targeting.production.rulesEnabled = true;
 		config.features[ "product-TICKET-222-2fa" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.subdomain",
+			operator: "IsOneOf",
 			values: [ "techgenius" ],
 			resolution: [
 				type: "selection",
@@ -182,8 +182,8 @@ component
 		config.features[ "product-TICKET-333-themes" ].targeting.production.rulesEnabled = true;
 		// Enabled in production for all tech-media influencers.
 		config.features[ "product-TICKET-333-themes" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.groups.influencer",
+			operator: "IsOneOf",
 			values: [ true ],
 			resolution: [
 				type: "selection",
@@ -192,8 +192,8 @@ component
 		]);
 		// Enabled in production for all beta-testers.
 		config.features[ "product-TICKET-333-themes" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.groups.betaTester",
+			operator: "IsOneOf",
 			values: [ true ],
 			resolution: [
 				type: "selection",
@@ -202,8 +202,8 @@ component
 		]);
 		// Enabled in production for selected companies.
 		config.features[ "product-TICKET-333-themes" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.subdomain",
+			operator: "IsOneOf",
 			values: [ "futuretech", "innovaplex", "quantumsoft", "starcorp", "ultralink" ],
 			resolution: [
 				type: "selection",
@@ -226,8 +226,8 @@ component
 		config.features[ "product-TICKET-555-discount-pricing" ].targeting.production.rulesEnabled = true;
 		// In production, selectively enable for tech-media influencers.
 		config.features[ "product-TICKET-555-discount-pricing" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.groups.influencer",
+			operator: "IsOneOf",
 			values: [ true ],
 			resolution: [
 				type: "selection",
@@ -236,8 +236,8 @@ component
 		]);
 		// In production, selectively enable for a few email domains.
 		config.features[ "product-TICKET-555-discount-pricing" ].targeting.production.rules.append([
-			operator: "EndsWith",
 			input: "user.email",
+			operator: "EndsWith",
 			values: [ "@nexsol.example.com" ],
 			resolution: [
 				type: "selection",
@@ -249,8 +249,8 @@ component
 		config.features[ "product-TICKET-666-request-proxy" ].targeting.production.rulesEnabled = true;
 		// In production, selectively enable for a few companies.
 		config.features[ "product-TICKET-666-request-proxy" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.subdomain",
+			operator: "IsOneOf",
 			values: [ "megacorp" ],
 			resolution: [
 				type: "selection",
@@ -271,8 +271,8 @@ component
 		config.features[ "product-TICKET-777-max-team-size" ].targeting.production.rulesEnabled = true;
 		// For fortune 500 companies, make it really high.
 		config.features[ "product-TICKET-777-max-team-size" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.fortune500",
+			operator: "IsOneOf",
 			values: [ true ],
 			resolution: [
 				type: "selection",
@@ -281,8 +281,8 @@ component
 		]);
 		// For fortune 100 companies, make it (essentially) unlimited.
 		config.features[ "product-TICKET-777-max-team-size" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.fortune100",
+			operator: "IsOneOf",
 			values: [ true ],
 			resolution: [
 				type: "variant",
@@ -311,8 +311,8 @@ component
 		// a single IP-address.
 		config.features[ "operations-request-rate-limit" ].targeting.production.rulesEnabled = true;
 		config.features[ "operations-request-rate-limit" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.subdomain",
+			operator: "IsOneOf",
 			values: [ "quantumsoft" ],
 			resolution: [
 				type: "variant",
@@ -320,8 +320,8 @@ component
 			]
 		]);
 		config.features[ "operations-request-rate-limit" ].targeting.production.rules.append([
-			operator: "IsOneOf",
 			input: "user.company.subdomain",
+			operator: "IsOneOf",
 			values: [ "ultralink" ],
 			resolution: [
 				type: "variant",

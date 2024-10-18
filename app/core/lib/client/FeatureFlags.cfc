@@ -196,7 +196,7 @@ component
 				variants = variants,
 				resolution = resolution
 			);
-			result.variantIndex = ( resolution.type == "Variant" )
+			result.variantIndex = ( resolution.type == "variant" )
 				? 0
 				: arrayFind( variants, result.variant )
 			;

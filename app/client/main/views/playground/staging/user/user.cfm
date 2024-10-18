@@ -45,19 +45,13 @@
 			
 			for ( var environment in environments ) {
 
-				var result = featureFlags.debugEvaluation(
+				breakdown[ feature.key ][ environment.key ] = featureFlags.debugEvaluation(
 					config = config,
 					featureKey = feature.key,
 					environmentKey = environment.key,
 					context = partialHelper.getContext( user ),
 					fallbackVariant = fallbackVariant
 				);
-
-				breakdown[ feature.key ][ environment.key ] = [
-					variantIndex: result.variantIndex,
-					variant: result.variant,
-					matchingRuleIndex: result.matchingRuleIndex
-				];
 
 			}
 

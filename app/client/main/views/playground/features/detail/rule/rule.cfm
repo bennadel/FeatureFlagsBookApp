@@ -120,8 +120,8 @@
 				// underlying validation process will skip-over anything that isn't
 				// relevant to the given resolution type.
 				rule = [
-					operator: form.operator,
 					input: form.input,
+					operator: form.operator,
 					values: form.values,
 					resolution: [
 						type: form.resolutionType,
@@ -156,8 +156,8 @@
 		} else {
 
 			rule = [
-				operator: "IsOneOf",
 				input: "user.email",
+				operator: "IsOneOf",
 				values: [],
 				resolution: [
 					type: "selection",

@@ -372,10 +372,10 @@
 
 							<a
 								href="/index.cfm?event=playground.staging.explain&userID=#encodeForUrl( user.id )#&featureKey=#encodeForUrl( feature.key )#&environmentKey=#encodeForUrl( environment.key )#&from=targeting"
-								@mouseenter="flashDistal( '#encodeForJavaScript( environment.key )#', '#result.ruleIndex#' )"
+								@mouseenter="flashDistal( '#encodeForJavaScript( environment.key )#', '#result.matchingRuleIndex#' )"
 								@mouseleave="unflash()"
 								data-flash-environment="#encodeForHtmlAttribute( environment.key )#"
-								data-flash-rule="#encodeForHtmlAttribute( result.ruleIndex )#"
+								data-flash-rule="#encodeForHtmlAttribute( result.matchingRuleIndex )#"
 								m-n1883l
 								class="state__variant ui-variant-#result.variantIndex# flasher-distal">
 							</a>
