@@ -9,7 +9,7 @@
 	param name="url.sortOn" type="string" default="user.id";
 
 	users = getUsers( request.user.email );
-	authUsers = getAuthUsers( request.user.email );
+	authUsers = getAuthUsers( users );
 	groups = getGroups( users, url.sortOn );
 	title = "Demo Users For Targeting";
 
@@ -24,9 +24,9 @@
 	/**
 	* I get the users that are built to represent the authenticated user's team.
 	*/
-	private array function getAuthUsers( required string email ) {
+	private array function getAuthUsers( required array users ) {
 
-		return demoUsers.buildAuthenticatedUsers( email );
+		return users.filter( ( user ) => ! user.isShared );
 
 	}
 

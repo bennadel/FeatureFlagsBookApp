@@ -3,10 +3,49 @@ component
 	hint = "I provide user data for the demo (for the feature flag evaluation experience)."
 	{
 
+	// Define properties for dependency-injection.
+	property name="coreUsers" ioc:skip;
+
+	/**
+	* I initialize the demo users.
+	*/
+	public void function init() {
+
+		variables.sharedUsers = buildSharedUsers();
+
+	}
+
+	// ---
+	// PUBLIC METHODS.
+	// ---
+
+	/**
+	* I provide a set of users against which to evaluate feature flags. In order to make
+	* the experience a little easier to consume, several users are added on-the-fly based
+	* on the given authenticated email address. This way, the user can search for their
+	* own email domain.
+	*/
+	public array function getUsers( required string authenticatedEmail ) {
+
+		return [
+			// Since this collection is static (ie, never add or remove elemets), it is
+			// thread-safe and can be iterated over via concurrent requests.
+			...sharedUsers,
+
+			// Unique users based on the logged-in user's email address.
+			...buildAuthenticatedUsers( authenticatedEmail )
+		];
+
+	}
+
+	// ---
+	// PRIVATE METHODS.
+	// ---
+
 	/**
 	* I generate several demo users based on the email address of the authenticated user.
 	*/
-	public array function buildAuthenticatedUsers( required string authenticatedEmail ) {
+	private array function buildAuthenticatedUsers( required string authenticatedEmail ) {
 
 		var emailDomain = listRest( authenticatedEmail, "@" ).lcase();
 		var emailUser = listFirst( authenticatedEmail, "@" );
@@ -27,7 +66,8 @@ component
 			"groups": {
 				"betaTester": true,
 				"influencer": true
-			}
+			},
+			"isShared": false
 		};
 		var genericUsers = names.map(
 			( name ) => {
@@ -46,7 +86,8 @@ component
 					"groups": {
 						"betaTester": true,
 						"influencer": false
-					}
+					},
+					"isShared": false
 				};
 
 			}
@@ -58,15 +99,12 @@ component
 
 
 	/**
-	* I provide a set of users against which to evaluate feature flags. In order to make
-	* the experience a little easier to consume, several users are added on-the-fly based
-	* on the given authenticated email address. This way, the user can search for their
-	* own email domain.
+	* I build the core users. These users are status and arer shared across the demo.
 	* 
 	* Note: These user names and company subdomains were randomly generated via ChatGPT.
 	* They aren't intended to match any real people or companies.
 	*/
-	public array function getUsers( string authenticatedEmail = "" ) {
+	private array function buildSharedUsers() {
 
 		return [
 			{
@@ -83,7 +121,8 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 2,
@@ -99,7 +138,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 3,
@@ -115,7 +155,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 4,
@@ -131,7 +172,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 5,
@@ -147,7 +189,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 6,
@@ -163,7 +206,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 7,
@@ -179,7 +223,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 8,
@@ -195,7 +240,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 9,
@@ -211,7 +257,8 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 10,
@@ -227,7 +274,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 11,
@@ -243,7 +291,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 12,
@@ -259,7 +308,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 13,
@@ -275,7 +325,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 14,
@@ -291,7 +342,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 15,
@@ -307,7 +359,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 16,
@@ -323,7 +376,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 17,
@@ -339,7 +393,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 18,
@@ -355,7 +410,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 19,
@@ -371,7 +427,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 20,
@@ -387,7 +444,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 21,
@@ -403,7 +461,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 22,
@@ -419,7 +478,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 23,
@@ -435,7 +495,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 24,
@@ -451,7 +512,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 25,
@@ -467,7 +529,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 26,
@@ -483,7 +546,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 27,
@@ -499,7 +563,8 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 28,
@@ -515,7 +580,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 29,
@@ -531,7 +597,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 30,
@@ -547,7 +614,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 31,
@@ -563,7 +631,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 32,
@@ -579,7 +648,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 33,
@@ -595,7 +665,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 34,
@@ -611,7 +682,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": true
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 35,
@@ -627,7 +699,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 36,
@@ -643,7 +716,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 37,
@@ -659,7 +733,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 38,
@@ -675,7 +750,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 39,
@@ -691,7 +767,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 40,
@@ -707,7 +784,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 41,
@@ -723,7 +801,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 42,
@@ -739,7 +818,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": true
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 43,
@@ -755,7 +835,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": true
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 44,
@@ -771,7 +852,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 45,
@@ -787,7 +869,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 46,
@@ -803,7 +886,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 47,
@@ -819,7 +903,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 48,
@@ -835,7 +920,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 49,
@@ -851,7 +937,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 50,
@@ -867,7 +954,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 51,
@@ -883,7 +971,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 52,
@@ -899,7 +988,8 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 53,
@@ -915,7 +1005,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 54,
@@ -931,7 +1022,8 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 55,
@@ -947,7 +1039,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 56,
@@ -963,7 +1056,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 57,
@@ -979,7 +1073,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 58,
@@ -995,7 +1090,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 59,
@@ -1011,7 +1107,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 60,
@@ -1027,7 +1124,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 61,
@@ -1043,7 +1141,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 62,
@@ -1059,7 +1158,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 63,
@@ -1075,7 +1175,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 64,
@@ -1091,7 +1192,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 65,
@@ -1107,7 +1209,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 66,
@@ -1123,7 +1226,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 67,
@@ -1139,7 +1243,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 68,
@@ -1155,7 +1260,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 69,
@@ -1171,7 +1277,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 70,
@@ -1187,7 +1294,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 71,
@@ -1203,7 +1311,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 72,
@@ -1219,7 +1328,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 73,
@@ -1235,7 +1345,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 74,
@@ -1251,7 +1362,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 75,
@@ -1267,7 +1379,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": true
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 76,
@@ -1283,7 +1396,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 77,
@@ -1299,7 +1413,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 78,
@@ -1315,7 +1430,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 79,
@@ -1331,7 +1447,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 80,
@@ -1347,7 +1464,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 81,
@@ -1363,7 +1481,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 82,
@@ -1379,7 +1498,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 83,
@@ -1395,7 +1515,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 84,
@@ -1411,7 +1532,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 85,
@@ -1427,7 +1549,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 86,
@@ -1443,7 +1566,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 87,
@@ -1459,7 +1583,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 88,
@@ -1475,7 +1600,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 89,
@@ -1491,7 +1617,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 90,
@@ -1507,7 +1634,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 91,
@@ -1523,7 +1651,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 92,
@@ -1539,7 +1668,8 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 93,
@@ -1555,7 +1685,8 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": true
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 94,
@@ -1571,7 +1702,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 95,
@@ -1587,7 +1719,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 96,
@@ -1603,7 +1736,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 97,
@@ -1619,7 +1753,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 98,
@@ -1635,7 +1770,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 99,
@@ -1651,7 +1787,8 @@ component
 				"groups": {
 					"betaTester": false,
 					"influencer": false
-				}
+				},
+				"isShared": true
 			},
 			{
 				"id": 100,
@@ -1667,11 +1804,9 @@ component
 				"groups": {
 					"betaTester": true,
 					"influencer": false
-				}
-			},
-
-			// 0+ users based on the logged-in user's email address.
-			...buildAuthenticatedUsers( authenticatedEmail )
+				},
+				"isShared": true
+			}
 		];
 
 	}
