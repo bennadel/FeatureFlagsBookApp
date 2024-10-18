@@ -43,9 +43,6 @@
 		case "step6b":
 			cfmodule( template = "./step6b/step6b.cfm" );
 		break;
-		case "step6c":
-			cfmodule( template = "./step6c/step6c.cfm" );
-		break;
 		case "step7":
 			cfmodule( template = "./step7/step7.cfm" );
 		break;

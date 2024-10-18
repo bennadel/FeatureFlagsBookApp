@@ -20,7 +20,11 @@
 			</h2>
 
 			<p>
-				To start developing our new feature, let's enable the feature flag in our development environment. To do this, we'll change the default <code>resolution</code> in our development environment to serve the second variant (<span class="ui-variant-2">true</span>):
+				To start developing our new feature, let's enable the feature flag in our development environment. To do this, we'll change the default <code>resolution</code> in our development environment to serve the second variant (<span class="ui-variant-2">true</span>).
+			</p>
+
+			<p>
+				<strong>Note:</strong> When consuming feature flags, you won't have to touch the underlying configuration data. However, in order to better illustrate the incremental changes that we're making to the feature flag in this walk-through, I'm showing you the underlying configuration data:
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">

@@ -17,7 +17,7 @@
 			</h2>
 
 			<p>
-				When you feel confidence in the stability of the new feature, we can continue "releasing" the new feature to a wider audience. Let's update the distribution allocation to 50%:
+				When you feel confidence in the stability of the new feature, we can continue "releasing" the new feature to a wider audience. Let's update the distribution allocation to <mark>50%</mark>:
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">

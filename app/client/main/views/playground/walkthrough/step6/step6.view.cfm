@@ -16,46 +16,42 @@
 			</p>
 
 			<h2>
+				Oh No! <mark>A Critical Bug Is Discovered!</mark>
+			</h2>
+
+			<p>
+				Your beta-testing customer has uncovered a critical bug in your new feature's implementation. In certain edge-cases, the text values are being truncated and the data is being corrupted! We need to prevent more errors from taking place ASAP!
+			</p>
+
+			<p>
+				This is where feature flags are worth their weight in gold!
+			</p>
+
+			<p>
+				Since feature flags <strong>decouple the concept of "deployment" from the concept of "release"</strong>, we <em>don't</em> have to modify any code and we <em>don't</em> have to deploy anything to production. All we have to do is revert the changes we made to the feature configuration.
+			</p>
+
+			<h2>
 				Next Step
 			</h2>
 
 			<p>
-				Once the beta-testing period has concluded, we can start releasing this new feature to the general audience. But, we still want to be cautious. Instead of enabling the new feature for <em>everyone</em>, we're going to release it to 25% of the user-base.
-			</p>
-
-			<p>
-				To do this, we'll change the default resolution of the production environment to be a "distribution" &mdash; instead of a "selection" &mdash; that allocates the <span class="ui-variant-2">true</span> variant to 25% of users:
+				Let's remove the rule that targets the company subdomain, "<mark>dayknight</mark>", and which serves up the second variant (<span class="ui-variant-2">true</span>):
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">
 
+			<p>
+				When we make this change, the feature flag evaluations in the production environment will be <em>instantaneously</em> reverted in our beta-tester's subdomain. Users under the subdomain "<mark>dayknight</mark>" will, once again, start receiving the first variant (<span class="ui-variant-1">false</span>). Which means the old plain-text version of the feature will be rendered; and, no more data will be corrupted.
+			</p>
+
 			<form method="get" action="/index.cfm">
-				<input type="hidden" name="event" value="playground.walkthrough.step7" />
+				<input type="hidden" name="event" value="playground.walkthrough.step6b" />
 
 				<button type="submit" class="ui-button is-submit">
-					Enable for 25% of All Users &rarr;
+					Roll-Back the Configuration Changes &rarr;
 				</button>
 			</form>
-
-			<div m-9vuzo9 class="uh-oh u-no-inner-margin-y">
-
-				<h2>
-					Side Quest: A Critical Bug Is Discovered!
-				</h2>
-
-				<p>
-					As a thought experiment, let's imagine that your beta-testing customer uncovered a critical bug in your new feature's implementation. Perhaps the text values are being truncated and the data is being corrupted! We need to prevent more errors from taking place ASAP!
-				</p>
-
-				<p>
-					This is where feature flags are worth their weight in gold!
-				</p>
-
-				<p>
-					<a href="/index.cfm?event=playground.walkthrough.step6b">Let's see what we can do</a> &rarr;
-				</p>
-
-			</div>
 
 		</div>
 

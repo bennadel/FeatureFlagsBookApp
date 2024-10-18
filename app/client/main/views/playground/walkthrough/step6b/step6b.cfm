@@ -41,17 +41,6 @@
 					type: "selection",
 					selection: 2
 				]
-			],
-			// Note: This rule could be combined with the above rule. However, in order to
-			// make the highlighting of changes easier, I'm leaving it as its own rule.
-			[
-				input: "user.company.subdomain",
-				operator: "IsOneOf",
-				values: [ "dayknight" ],
-				resolution: [
-					type: "selection",
-					selection: 2
-				]
 			]
 		]
 	];
@@ -62,7 +51,7 @@
 		config = config
 	);
 
-	title = request.template.title = "Instantaneous Roll-Back";
+	title = request.template.title = "The Errors Have Stopped";
 
 	include "./step6b.view.cfm";
 

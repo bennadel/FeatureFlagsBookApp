@@ -11,11 +11,15 @@
 				Feature flags completely transform the way you think about and approach product development. Instead of occasionally deploying large features to an entire user-base, you can incrementally build and gradually release a feature to an increasing number of users. To get a better sense of what this means, let's create and release a feature together.
 			</p>
 
-			<p>
-				Our feature will replace plain-text inputs with rich-text components. Feature flag keys often include a ticket number that relates the work back to your company's product management software. In this case, we'll use, "TICKET-919".
-			</p>
-
 			<dl>
+				<div>
+					<dt>
+						Our Goal:
+					</dt>
+					<dd>
+						Our feature will replace plain-text inputs with rich-text components. Feature flag keys often include a ticket number that relates the work back to your company's product management software. In this case, we'll use, "TICKET-919".
+					</dd>
+				</div>
 				<div>
 					<dt>
 						Feature:
@@ -56,6 +60,15 @@
 												#encodeForHtml( serializeJson( entry.value ) )#
 											</span>
 										</span>
+
+										<cfif ( entry.value == false )>
+											<span class="ui-row__item">
+												&larr;
+											</span>
+											<span class="ui-row__item">
+												Default selection.
+											</span>
+										</cfif>
 									</div>
 
 								</li>

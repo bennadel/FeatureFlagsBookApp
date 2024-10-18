@@ -8,7 +8,7 @@
 			</h1>
 
 			<p>
-				As you can see on the right, every user in the development environment is now receiving the <span class="ui-variant-2">true</span> variant. We can now start the development of our new feature in the development environment by wrapping our new code in a conditional check:
+				As you can see on the right (the throbbing green squares), every user in the development environment is now receiving the <span class="ui-variant-2">true</span> variant. We can now start the development of our new feature in the development environment by wrapping our new code in a conditional check:
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">
@@ -22,7 +22,7 @@
 			</h2>
 
 			<p>
-				Once the new feature has been developed, we can start to incrementally release it to our production users. Let's start by releasing the feature to <em>your user</em> only. To do this, we'll add a rule that targets your email address (#encodeForHtml( request.user.email )#):
+				Once the new feature has been developed, we can start to incrementally release it to our production users. Let's start by releasing the feature to <em>your user</em> only. To do this, we'll add a rule that targets your email address (<mark>#encodeForHtml( request.user.email )#</mark>):
 			</p>
 
 			<cfmodule template="./snippet-2.cfm">

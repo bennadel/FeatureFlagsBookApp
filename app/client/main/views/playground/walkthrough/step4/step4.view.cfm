@@ -16,7 +16,7 @@
 			</h2>
 
 			<p>
-				Once you're satisfied that the feature is working well enough, we can release the feature to your entire development team. This will allow your team to <a href="https://en.wikipedia.org/wiki/Eating_your_own_dog_food" target="_blank">"dog food" the feature</a>. To do this, we'll add a rule that targets your team's subdomain, "devteam", and serves up the second variant (<span class="ui-variant-2">true</span>):
+				Once you're satisfied that the feature is working well enough (for your user), we can release the feature to your entire development team. This will allow your team to <a href="https://en.wikipedia.org/wiki/Eating_your_own_dog_food" target="_blank">"dog food" the feature</a>. To do this, we'll add a rule that targets your team's subdomain, "<mark>devteam</mark>", and serves up the second variant (<span class="ui-variant-2">true</span>):
 			</p>
 
 			<cfmodule template="./snippet-1.cfm">

@@ -5,35 +5,13 @@
 	"#request.featureKey#": {
 		targeting: {
 			<mark>production:</mark> {
+				<mark>resolution:</mark> {
+					type: "distribution",
+					<mark>distribution:</mark> [ <span class="ui-variant-1">75</span>, <span class="ui-variant-2">25</span> ]
+				},
 				rulesEnabled: true,
 				rules: [
-					{
-						input: "user.email",
-						operator: "IsOneOf",
-						values: [ "#encodeForHtml( request.user.email )#" ],
-						resolution: {
-							type: "selection",
-							selection: <span class="ui-variant-2">2</span>
-						}
-					},
-					{
-						input: "user.company.subdomain",
-						operator: "IsOneOf",
-						values: [ "devteam" ],
-						resolution: {
-							type: "selection",
-							selection: <span class="ui-variant-2">2</span>
-						}
-					},
-					<mark class="ui-revert">{</mark>
-						<mark class="ui-revert">input: "user.company.subdomain",</mark>
-						<mark class="ui-revert">operator: "IsOneOf",</mark>
-						<mark class="ui-revert">values: [ "dayknight" ],</mark>
-						<mark class="ui-revert">resolution: {</mark>
-							<mark class="ui-revert">type: "selection",</mark>
-							<mark class="ui-revert">selection: 2</mark>
-						<mark class="ui-revert">}</mark>
-					<mark class="ui-revert">}</mark>
+					// ... other rules are still in place ...
 				]
 			}
 		}
