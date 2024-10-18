@@ -40,6 +40,7 @@ component
 
 		if (
 			email.find( "@example.com" ) ||
+			email.find( "@featureflagsbook.com" ) ||
 			email.find( "@test.com" )
 			) {
 
