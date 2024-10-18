@@ -4,7 +4,7 @@ component
 	{
 
 	// Define properties for dependency-injection.
-	property name="coreUsers" ioc:skip;
+	property name="sharedUsers" ioc:skip;
 
 	/**
 	* I initialize the demo users.
