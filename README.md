@@ -130,8 +130,8 @@ Note: This is a **work in progress**:
                     rulesEnabled: true,
                     rules: [
                         {
-                            operator: "IsOneOf",
                             input: "group",
+                            operator: "IsOneOf",
                             values: [ "beta-testers" ],
                             // When a rule matches, it will override the above
                             // resolution.
@@ -141,8 +141,8 @@ Note: This is a **work in progress**:
                             }
                         },
                         {
-                            operator: "IsOneOf",
                             input: "companySubdomain",
+                            operator: "IsOneOf",
                             values: [ "example", "acme" ],
                             // Or, a rule can override the actual variant (as
                             // long as the value is of the same type).
