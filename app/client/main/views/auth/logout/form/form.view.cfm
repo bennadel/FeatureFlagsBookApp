@@ -9,11 +9,10 @@
 			Your logout request will be processed automatically. If it is not, please use the logout button below.
 		</p>
 
-		<cfif errorMessage.len()>
-			<p class="ui-error-message">
-				#encodeForHtml( errorMessage )#
-			</p>
-		</cfif>
+		<cfmodule
+			template="/client/main/tags/errorMessage.cfm"
+			message="#errorMessage#"
+		/>
 
 		<form method="post" action="/index.cfm" class="logout-form">
 			<cfmodule template="/client/main/tags/event.cfm">

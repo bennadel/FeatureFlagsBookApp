@@ -60,11 +60,11 @@
 				</div>
 			</dl>
 
-			<cfif errorMessage.len()>
-				<p class="ui-error-message ui-readable-width">
-					#encodeForHtml( errorMessage )#
-				</p>
-			</cfif>
+			<cfmodule
+				template="/client/main/tags/errorMessage.cfm"
+				message="#errorMessage#"
+				class="ui-readable-width"
+			/>
 
 			<form method="post" action="/index.cfm">
 				<cfmodule template="/client/main/tags/event.cfm">

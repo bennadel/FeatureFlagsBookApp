@@ -13,11 +13,10 @@
 			You can login with your email address. Sample data will be provisioned automatically.
 		</p>
 
-		<cfif errorMessage.len()>
-			<p class="ui-error-message">
-				#encodeForHtml( errorMessage )#
-			</p>
-		</cfif>
+		<cfmodule
+			template="/client/main/tags/errorMessage.cfm"
+			message="#errorMessage#"
+		/>
 
 		<form x-data="m2wod20.FormController" method="post">
 			<cfmodule template="/client/main/tags/event.cfm">

@@ -32,11 +32,11 @@
 
 			<hr class="ui-rule is-soft" />
 
-			<cfif errorMessage.len()>
-				<p class="ui-error-message ui-readable-width">
-					#encodeForHtml( errorMessage )#
-				</p>
-			</cfif>
+			<cfmodule
+				template="/client/main/tags/errorMessage.cfm"
+				message="#errorMessage#"
+				class="ui-readable-width"
+			/>
 
 			<form x-data="mrp1ra0.FormController( JSON.parse( '#encodeForJavaScript( serializeJson( form.values ) )#' ) )" method="post">
 				<cfmodule template="/client/main/tags/event.cfm">
