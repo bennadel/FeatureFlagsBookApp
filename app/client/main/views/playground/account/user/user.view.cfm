@@ -15,6 +15,10 @@
 				<a href="/index.cfm?event=auth.logout">Logout</a> &rarr;
 			</p>
 
+			<p>
+				<a href="/index.cfm?event=playground.account.delete">Delete account (demo data)</a> &rarr;
+			</p>
+
 		</section>
 
 	</cfoutput>

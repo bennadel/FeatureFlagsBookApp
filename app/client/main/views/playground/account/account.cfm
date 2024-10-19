@@ -5,6 +5,9 @@
 	request.template.activeNavItem = "account";
 
 	switch ( request.event[ 3 ] ) {
+		case "delete":
+			cfmodule( template = "./delete/delete.cfm" );
+		break;
 		case "user":
 			cfmodule( template = "./user/user.cfm" );
 		break;
