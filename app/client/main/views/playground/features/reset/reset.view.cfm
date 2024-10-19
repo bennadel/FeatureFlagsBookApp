@@ -8,7 +8,7 @@
 			</h1>
 
 			<cfif errorMessage.len()>
-				<p class="ui-error-message">
+				<p class="ui-error-message ui-readable-width">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
@@ -24,7 +24,7 @@
 				<p class="ui-form-buttons ui-row">
 					<span class="ui-row__item">
 						<button type="submit" class="ui-button is-submit is-destructive">
-							Reset my data
+							Reset My Data
 						</button>
 					</span>
 					<span class="ui-row__item">

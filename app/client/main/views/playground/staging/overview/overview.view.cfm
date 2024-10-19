@@ -27,6 +27,10 @@
 				Users by Company Subdomain
 			</h2>
 
+			<p class="ui-readable-width">
+				I've grouped the users by company subdomain because this is a very common way to identify users within targeting rules. Team ID, subdomain, email domain &mdash; after individual users, this level of granularity provides a great way to incrementally enable features.
+			</p>
+
 			<cfloop array="#companies#" index="company">
 
 				<h3>

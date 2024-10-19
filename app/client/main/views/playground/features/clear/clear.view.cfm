@@ -8,7 +8,7 @@
 			</h1>
 
 			<cfif errorMessage.len()>
-				<p class="ui-error-message">
+				<p class="ui-error-message ui-readable-width">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
@@ -18,13 +18,17 @@
 				<cfmodule template="/client/main/tags/xsrf.cfm">
 
 				<p>
-					<strong>Caution:</strong> This will delete all rules and apply a default resolution to select the first variant.
+					<strong>Caution:</strong> This will delete all rules and apply the default resolution to select the first variant.
+				</p>
+
+				<p>
+					Don't worry - you can always reset your demo data at any time.
 				</p>
 
 				<p class="ui-form-buttons ui-row">
 					<span class="ui-row__item">
 						<button type="submit" class="ui-button is-submit is-destructive">
-							Remove all rules
+							Remove All Rules
 						</button>
 					</span>
 					<span class="ui-row__item">

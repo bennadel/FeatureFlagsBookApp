@@ -31,7 +31,7 @@
 				<input type="hidden" name="event" value="playground.walkthrough.step4" />
 
 				<button type="submit" class="ui-button is-submit">
-					Enable for Your User in Production &rarr;
+					Enable Feature for Your User in Production &rarr;
 				</button>
 			</form>
 

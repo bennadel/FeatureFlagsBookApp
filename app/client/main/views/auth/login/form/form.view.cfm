@@ -47,6 +47,10 @@
 				</span>
 			</p>
 
+			<p>
+				<strong>Note:</strong> I only <mark>use your email address to generate the demo data</mark> for your experience. I will never email you or give away your data.
+			</p>
+
 			<!--- Turnstile CAPTCHA challenge. --->
 			<div
 				data-sitekey="#encodeForHtmlAttribute( config.turnstile.client.apiKey )#"

@@ -7,7 +7,11 @@
 				#encodeForHtml( title )#
 			</h1>
 
-			<dl>
+			<p class="ui-readable-width">
+				The default resolution determines how feature flag variants are allocated in a given environment if no rules match against a given user context.
+			</p>
+
+			<dl class="ui-readable-width">
 				<div>
 					<dt>
 						Feature:
@@ -29,7 +33,7 @@
 			<hr class="ui-rule is-soft" />
 
 			<cfif errorMessage.len()>
-				<p class="ui-error-message">
+				<p class="ui-error-message ui-readable-width">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>

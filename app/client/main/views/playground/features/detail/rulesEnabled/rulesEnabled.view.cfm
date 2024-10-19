@@ -7,6 +7,10 @@
 				#encodeForHtml( title )#
 			</h1>
 
+			<p class="ui-readable-width">
+				Rules provide a way to override the default resolution in a given environment. If rules are disabled, only the default resolution will be taken into account during targeting.
+			</p>
+
 			<dl>
 				<div>
 					<dt>
@@ -29,7 +33,7 @@
 			<hr class="ui-rule is-soft" />
 
 			<cfif errorMessage.len()>
-				<p class="ui-error-message">
+				<p class="ui-error-message ui-readable-width">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
@@ -43,7 +47,7 @@
 				<dl>
 					<div>
 						<dt>
-							Evaluate Rules:
+							Enable Rules:
 						</dt>
 						<dd class="u-breathing-room">
 							<label for="form--disabled" class="ui-row">
@@ -73,7 +77,7 @@
 									/>
 								</span>
 								<span class="ui-row__item">
-									Yes &mdash; allow default resolution to be overridden by matching rule.
+									Yes &mdash; allow default resolution to be overridden by a matching rule.
 								</span>
 							</label>
 						</dd>

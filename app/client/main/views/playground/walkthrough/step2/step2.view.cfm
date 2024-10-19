@@ -33,7 +33,7 @@
 				<input type="hidden" name="event" value="playground.walkthrough.step3" />
 
 				<button type="submit" class="ui-button is-submit">
-					Enable in Development Environment &rarr;
+					Enable Feature in Development Environment &rarr;
 				</button>
 			</form>
 

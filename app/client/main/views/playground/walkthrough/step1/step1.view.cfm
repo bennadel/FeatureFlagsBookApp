@@ -83,7 +83,7 @@
 				<input type="hidden" name="event" value="playground.walkthrough.step2" />
 
 				<button type="submit" class="ui-button is-submit">
-					Create Feature Flag
+					Create the Feature Flag &rarr;
 				</button>
 			</form>
 

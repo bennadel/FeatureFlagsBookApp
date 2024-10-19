@@ -45,6 +45,12 @@
 							</p>
 						</cfif>
 
+						<cfif isUniform[ feature.key ]>
+							<p class="ui-readable-width">
+								<mark>Suggested feature clean-up</mark>: This feature flag is serving up the same variant in all environments. This might mean that the associated feature is fully released; and that this feature flag is ready to be removed from your code.
+							</p>
+						</cfif>
+
 						<cfloop array="#environments#" index="environment">
 
 							<h3>

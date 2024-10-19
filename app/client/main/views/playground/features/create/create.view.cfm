@@ -8,7 +8,7 @@
 			</h1>
 
 			<cfif errorMessage.len()>
-				<p class="ui-error-message">
+				<p class="ui-error-message ui-readable-width">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
@@ -30,6 +30,10 @@
 								size="40"
 								class="ui-input"
 							/>
+
+							<p>
+								The key can only contain letters, numbers, dashes, and underscores.
+							</p>
 						</dd>
 					</div>
 					<div>

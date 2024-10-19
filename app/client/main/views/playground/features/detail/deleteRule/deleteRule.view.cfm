@@ -7,7 +7,7 @@
 				#encodeForHtml( title )#
 			</h1>
 
-			<dl>
+			<dl class="ui-readable-width">
 				<div>
 					<dt>
 						Feature:
@@ -141,7 +141,7 @@
 			</dl>
 
 			<cfif errorMessage.len()>
-				<p class="ui-error-message">
+				<p class="ui-error-message ui-readable-width">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>

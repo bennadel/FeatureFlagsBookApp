@@ -7,6 +7,10 @@
 				#encodeForHtml( title )#
 			</h1>
 
+			<p class="ui-readable-width">
+				A rule provides a way to override the default resolution in a given environment. Rules are evaluated in a top-down manner. And, the first rule to match a given user context is the one that's used to override the default resolution.
+			</p>
+
 			<dl>
 				<div>
 					<dt>
@@ -29,7 +33,7 @@
 			<hr class="ui-rule is-soft" />
 
 			<cfif errorMessage.len()>
-				<p class="ui-error-message">
+				<p class="ui-error-message ui-readable-width">
 					#encodeForHtml( errorMessage )#
 				</p>
 			</cfif>
