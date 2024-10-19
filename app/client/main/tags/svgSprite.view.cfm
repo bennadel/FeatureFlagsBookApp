@@ -51,4 +51,12 @@
 		<path d="M13.5 8.253h0.75a1.408 1.408 0 0 1 1.5 1.294v1.247a1.256 1.256 0 0 0 0.668 1.076l1.582 0.91 -1.582 0.909a1.258 1.258 0 0 0 -0.668 1.076v1.248a1.408 1.408 0 0 1 -1.5 1.293h-0.75" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
 	</symbol>
 
+	<!--- https://www.streamlinehq.com/icons/download/messages-bubble-square-add--18397 --->
+	<svg id="svg-sprite--messages-bubble-square-add--18397" viewBox="0 0 24 24">
+		<path d="M11.25 17.25a6 6 0 1 0 12 0 6 6 0 1 0 -12 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+		<path d="m17.25 14.25 0 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+		<path d="m14.25 17.25 6 0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+		<path d="M8.223 19.9 3.75 23.25v-4.5h-1.5a1.5 1.5 0 0 1 -1.5 -1.5v-15a1.5 1.5 0 0 1 1.5 -1.5h19.5a1.5 1.5 0 0 1 1.5 1.5v7.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+	</svg>
+
 </svg>

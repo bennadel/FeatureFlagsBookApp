@@ -22,6 +22,9 @@
 		case "account":
 			cfmodule( template = "./account/account.cfm" );
 		break;
+		case "ask":
+			cfmodule( template = "./ask/ask.cfm" );
+		break;
 		case "features":
 			cfmodule( template = "./features/features.cfm" );
 		break;

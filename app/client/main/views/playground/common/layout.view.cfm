@@ -112,6 +112,24 @@
 						</span>
 					</a>
 					<a
+						href="index.cfm?event=playground.ask"
+						m-2f8ql7
+						#ui.attrClass({
+							"nav__item": true,
+							"is-on": ( request.template.activeNavItem == 'ask' )
+						})#>
+
+						<span aria-hidden="true" m-2f8ql7 class="nav__icon">
+							<cfmodule
+								template="/client/main/tags/icon.cfm"
+								type="ask">
+							</cfmodule>
+						</span>
+						<span m-2f8ql7 class="nav__label">
+							<u>Ask Question</u>
+						</span>
+					</a>
+					<a
 						href="index.cfm?event=playground.account"
 						m-2f8ql7
 						#ui.attrClass({

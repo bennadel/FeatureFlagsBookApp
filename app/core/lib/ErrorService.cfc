@@ -465,6 +465,7 @@ component
 			case "App.Routing.Auth.InvalidEvent":
 			case "App.Routing.Playground.InvalidEvent":
 			case "App.Routing.Playground.Account.InvalidEvent":
+			case "App.Routing.Playground.Ask.InvalidEvent":
 			case "App.Routing.Playground.Features.InvalidEvent":
 			case "App.Routing.Playground.Features.Detail.InvalidEvent":
 			case "App.Routing.Playground.Raw.InvalidEvent":

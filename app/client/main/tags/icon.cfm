@@ -8,7 +8,8 @@
 		"staging": "svg-sprite--legacy-streamline-regular--interface-essential--layouts--layout-module",
 		"users": "svg-sprite--legacy-streamline-regular--users--geometric-full-body-multiple-users--multiple-users-1",
 		"raw-json": "svg-sprite--legacy-streamline-regular--programming-apps-websites--coding-files--file-code-1",
-		"account": "svg-sprite--legacy-streamline-regular--users--geometric-close-up-single-users-neutral--single-neutraleutral"
+		"account": "svg-sprite--legacy-streamline-regular--users--geometric-close-up-single-users-neutral--single-neutraleutral",
+		"ask": "svg-sprite--messages-bubble-square-add--18397"
 	};
 
 	href = icons[ attributes.type ];
