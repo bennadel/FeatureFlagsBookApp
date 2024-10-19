@@ -16,7 +16,7 @@
 		</cfif>
 
 		<form method="post" action="/index.cfm" class="logout-form">
-			<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
+			<cfmodule template="/client/main/tags/event.cfm">
 			<cfmodule template="/client/main/tags/xsrf.cfm">
 
 			<p class="ui-form-buttons ui-row">

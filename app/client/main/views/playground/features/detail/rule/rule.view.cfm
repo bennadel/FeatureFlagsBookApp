@@ -39,11 +39,11 @@
 			</cfif>
 
 			<form x-data="mrp1ra0.FormController( JSON.parse( '#encodeForJavaScript( serializeJson( form.values ) )#' ) )" method="post">
-				<input type="hidden" name="event" value="#encodeForHtmlAttribute( request.context.event )#" />
+				<cfmodule template="/client/main/tags/event.cfm">
+				<cfmodule template="/client/main/tags/xsrf.cfm">
 				<input type="hidden" name="featureKey" value="#encodeForHtmlAttribute( feature.key )#" />
 				<input type="hidden" name="environmentKey" value="#encodeForHtmlAttribute( environment.key )#" />
 				<input type="hidden" name="ruleIndex" value="#encodeForHtmlAttribute( ruleIndex )#" />
-				<cfmodule template="/client/main/tags/xsrf.cfm">
 
 				<dl>
 					<div>
