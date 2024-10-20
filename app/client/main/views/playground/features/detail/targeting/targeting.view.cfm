@@ -42,6 +42,10 @@
 						#encodeForHtml( title )#
 					</h1>
 
+					<p>
+						The targeting determines which feature flag variant is served-up to a given user context. Targeting is environment-specific. In each environment, targeting starts with the default resolution and is then optionally overridden by a matching rule.
+					</p>
+
 					<dl>
 						<div>
 							<dt>
