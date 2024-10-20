@@ -27,8 +27,8 @@
 								type="text"
 								name="featureKey"
 								value="#encodeForHtmlAttribute( form.featureKey )#"
-								size="40"
-								class="ui-input"
+								maxlength="50"
+								class="ui-input is-large"
 							/>
 
 							<p>
@@ -70,7 +70,11 @@
 							Description:
 						</dt>
 						<dd>
-							<textarea name="description" class="ui-textarea">#encodeForHtml( form.description )#</textarea>
+							<textarea
+								name="description"
+								maxlength="255"
+								class="ui-textarea"
+								>#encodeForHtml( form.description )#</textarea>
 						</dd>
 					</div>
 					<div>
