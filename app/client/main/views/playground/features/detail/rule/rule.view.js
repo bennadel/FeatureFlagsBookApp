@@ -104,11 +104,15 @@ function FormController( values ) {
 		}
 
 		this.values.push( this.$refs.rawValueRef.value );
+		this.values.sort();
 		this.$refs.rawValueRef.value = "";
 		this.$refs.rawValueRef.focus();
 
 	}
 
+	/**
+	* I remove the value at the given index.
+	*/
 	function removeValue( i ) {
 
 		this.values.splice( i, 1 );
@@ -119,6 +123,9 @@ function FormController( values ) {
 	// PRIVATE METHODS.
 	// ---
 
+	/**
+	* I associate the correct datalist with the value input.
+	*/
 	function setDatalist() {
 
 		var input = form.elements.input.value;

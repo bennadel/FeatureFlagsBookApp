@@ -113,7 +113,7 @@
 										<input type="hidden" name="values[]" :value="value" />
 										<span m-rp1ra0 class="tile__value" x-text="value"></span>
 										<button type="button" @click="removeValue( i )" m-rp1ra0 class="tile__remove">
-											x
+											Remove
 										</button>
 									</span>
 
