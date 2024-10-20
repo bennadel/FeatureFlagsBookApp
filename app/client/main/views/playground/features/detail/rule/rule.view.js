@@ -27,6 +27,7 @@ function FormController( values ) {
 		handleOperator: handleOperator,
 		handleType: handleType,
 		handleValue: handleValue,
+		rebalanceDistribution: rebalanceDistribution,
 		removeValue: removeValue,
 
 		// Private methods.
@@ -107,6 +108,30 @@ function FormController( values ) {
 		this.values.sort();
 		this.$refs.rawValueRef.value = "";
 		this.$refs.rawValueRef.focus();
+
+	}
+
+	/**
+	* If there are only 2 variants (the most common use-case), I ensure that they add up
+	* to 100, adjusting the other allocation as needed. This way, the user only has to
+	* adjust one field.
+	*/
+	function rebalanceDistribution( event ) {
+
+		var allocations = form.elements[ "resolutionDistribution[]" ];
+
+		if ( allocations.length !== 2 ) {
+
+			return;
+
+		}
+
+		var target = event.currentTarget;
+		var otherTarget = ( allocations[ 0 ] === target )
+			? allocations[ 1 ]
+			: allocations[ 0 ]
+		;
+		otherTarget.value = ( 100 - target.value );
 
 	}
 

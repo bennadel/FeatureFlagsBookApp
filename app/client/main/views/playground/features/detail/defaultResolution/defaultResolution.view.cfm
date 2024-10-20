@@ -144,7 +144,7 @@
 									<li>
 										<label class="ui-row">
 											<span class="ui-row__item">
-												<select name="resolutionDistribution[]" @change="handleAllocation()" class="ui-select">
+												<select name="resolutionDistribution[]" @change="rebalanceDistribution( event ); handleAllocation()" class="ui-select">
 													<cfloop from="0" to="100" index="i">
 														<option
 															value="#i#"
