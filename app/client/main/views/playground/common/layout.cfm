@@ -1,5 +1,6 @@
 <cfscript>
 
+	requestMetadata = request.ioc.get( "core.lib.RequestMetadata" );
 	ui = request.ioc.get( "client.main.lib.ViewHelper" );
 
 	// ------------------------------------------------------------------------------- //
@@ -11,6 +12,8 @@
 	param name="request.template.activeNavItem" type="string" default="";
 	param name="request.template.primaryContent" type="string" default="";
 	param name="request.template.video" type="string" default="";
+
+	internalUrl = requestMetadata.getInternalUrl();
 
 	// Override the response status code.
 	cfheader(

@@ -150,13 +150,13 @@
 				</nav>
 
 				<cfif request.template.video.len()>
-					<div m-2f8ql7 class="video-link">
+					<a href="/index.cfm?event=playground.videos&videoID=#encodeForUrl( request.template.video )#&returnTo=#encodeForUrl( internalUrl )####encodeForUrl( request.template.video )#" m-2f8ql7 class="video-link">
 						Video TBD
 
 						<span m-2f8ql7 class="video-link__temp">
 							(#encodeForHtml( request.template.video )#)
 						</span>
-					</div>
+					</a>
 				</cfif>
 
 			</header>

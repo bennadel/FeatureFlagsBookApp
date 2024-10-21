@@ -17,6 +17,10 @@ function AppShell() {
 		focusMain: focusMain
 	};
 
+	// ---
+	// PUBLIC METHODS.
+	// ---
+
 	/**
 	* I programmatically focus the main content area.
 	*/

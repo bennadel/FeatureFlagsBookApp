@@ -37,6 +37,9 @@
 		case "users":
 			cfmodule( template = "./users/users.cfm" );
 		break;
+		case "videos":
+			cfmodule( template = "./videos/videos.cfm" );
+		break;
 		case "walkthrough":
 			cfmodule( template = "./walkthrough/walkthrough.cfm" );
 		break;
