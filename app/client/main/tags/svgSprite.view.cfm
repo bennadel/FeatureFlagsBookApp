@@ -59,4 +59,9 @@
 		<path d="M8.223 19.9 3.75 23.25v-4.5h-1.5a1.5 1.5 0 0 1 -1.5 -1.5v-15a1.5 1.5 0 0 1 1.5 -1.5h19.5a1.5 1.5 0 0 1 1.5 1.5v7.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
 	</svg>
 
+	<!--- https://www.streamlinehq.com/icons/download/controls-play--18328 --->
+	<svg id="svg-sprite--controls-play--18328" viewBox="0 0 24 24">
+		<path d="M2.338 3.255v17.49a1.5 1.5 0 0 0 2.209 1.322l16.323 -8.745a1.5 1.5 0 0 0 0 -2.644L4.547 1.933a1.5 1.5 0 0 0 -2.209 1.322Z" fill="#ffffff" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+	</svg>
+
 </svg>

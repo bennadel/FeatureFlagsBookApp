@@ -43,7 +43,7 @@
 					</div>
 
 					<cfif ( returnToUrl.len() && ( video.id == request.context.videoID ) )>
-						<p>
+						<p g7tzc2 class="return">
 							<a href="#returnToUrl#"><mark>Return to previous page</mark></a> &rarr;
 						</p>
 					</cfif>
