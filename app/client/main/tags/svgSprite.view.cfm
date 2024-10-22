@@ -61,7 +61,7 @@
 
 	<!--- https://www.streamlinehq.com/icons/download/controls-play--18328 --->
 	<svg id="svg-sprite--controls-play--18328" viewBox="0 0 24 24">
-		<path d="M2.338 3.255v17.49a1.5 1.5 0 0 0 2.209 1.322l16.323 -8.745a1.5 1.5 0 0 0 0 -2.644L4.547 1.933a1.5 1.5 0 0 0 -2.209 1.322Z" fill="#ffffff" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+		<path d="M2.338 3.255v17.49a1.5 1.5 0 0 0 2.209 1.322l16.323 -8.745a1.5 1.5 0 0 0 0 -2.644L4.547 1.933a1.5 1.5 0 0 0 -2.209 1.322Z" fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
 	</svg>
 
 </svg>
