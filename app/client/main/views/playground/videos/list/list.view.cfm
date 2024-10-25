@@ -38,9 +38,29 @@
 						#encodeForHtml( video.description )#
 					</p>
 
-					<div g7tzc2 class="video-placeholder">
-						<br />
-					</div>
+
+					<cfif video.src.len()>
+
+						<iframe
+							width="560"
+							height="315"
+							src="#encodeForHtmlAttribute( video.src )#"
+							title="Video: #encodeForHtmlAttribute( video.title )#"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							referrerpolicy="strict-origin-when-cross-origin"
+							allowfullscreen
+							g7tzc2
+							class="video-frame">
+						</iframe>
+
+					<cfelse>
+
+						<div g7tzc2 class="video-placeholder">
+							<br />
+						</div>
+
+					</cfif>
 
 					<cfif ( returnToUrl.len() && ( video.id == request.context.videoID ) )>
 						<p g7tzc2 class="return">

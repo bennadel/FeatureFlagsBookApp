@@ -43,13 +43,13 @@
 				id: "walk-through",
 				title: "Features: Product Development Walk-Through",
 				description: "This page illustrates the way in which feature flags can be woven into a team's product development workflow. By separating the concept of deployment from the concept of release, it gives the engineering, product, and design teams a way to safely iterate on a feature in production. And then, gradually release the feature to an increasingly wider audience.",
-				src: ""
+				src: "https://www.youtube.com/embed/IZehOBHjslw?si=0KCl9mNn24o2LwkW"
 			},
 			{
 				id: "features-list",
 				title: "Features: List",
 				description: "This page provides a high-level overview of the current feature flags, including the relative distribution of each feature flag variant across the demo users and environments. Additionally, any feature flags that are serving the same variant in all environments are highlighted for removal.",
-				src: ""
+				src: "https://www.youtube.com/embed/lFQ2U5Hirfw?si=fozJxTqLECUkMMXi"
 			},
 			{
 				id: "features-create",
