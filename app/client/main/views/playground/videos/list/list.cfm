@@ -73,7 +73,7 @@
 				id: "feature-targeting",
 				title: "Feature: Targeting",
 				description: "This page showcases the current configuration for the given feature flag across all environments. It also provides a high-level view into how the current configuration affects the variant allocation across the demo users.",
-				src: ""
+				src: "https://www.youtube.com/embed/GdVLP2y4Olc?si=Ca3TEObfZ6SCzzvV"
 			},
 			{
 				id: "feature-default-resolution",
@@ -103,31 +103,31 @@
 				id: "feature-delete-rule",
 				title: "Feature: Delete Rule",
 				description: "This page provides a way to delete the given rule from the given feature flag's evaluation pipeline.",
-				src: ""
+				src: "https://www.youtube.com/embed/A_AGOCMRlAY?si=aYTTwqhsdiTNvhDm"
 			},
 			{
 				id: "staging-matrix",
 				title: "Staging: Feature Matrix",
 				description: "This page provides a high-level overview of the feature flag variant allocation across all features, environments, and demo users.",
-				src: ""
+				src: "https://www.youtube.com/embed/RSToBjQ79Ws?si=xtY85l6lw3luzm1e"
 			},
 			{
 				id: "staging-user",
 				title: "Staging: User",
 				description: "This page provides a high-level overview of the feature flag variant allocation for the given demo users.",
-				src: ""
+				src: "https://www.youtube.com/embed/EL9yqMshjC0?si=lsh2Uw3QXwJTWNVC"
 			},
 			{
 				id: "staging-explain",
 				title: "Staging: Variant Explanation",
 				description: "This page provides a detailed explanation as to why a given variant was ultimately selected for the given feature flag, environment, and demo user.",
-				src: ""
+				src: "https://www.youtube.com/embed/rxk1RAws07s?si=P-TYxWisCrRQEIZN"
 			},
 			{
 				id: "users",
 				title: "Demo Users",
 				description: "This page lists all of the demo users that can be targeted in the feature flags playground. In addition to the core set of demo users, the authenticated user is also given a team consisting of several users that all share the same email address domain.",
-				src: ""
+				src: "https://www.youtube.com/embed/k8s_wLhxheg?si=wLabm0KfDzkbUyeo"
 			}
 		];
 
