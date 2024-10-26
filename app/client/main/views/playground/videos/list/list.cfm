@@ -55,19 +55,19 @@
 				id: "features-create",
 				title: "Features: Create New Feature Flag",
 				description: "This page provides a way to create a new feature flag with a default selection resolution. Any additional targeting can be defined after the feature flag is created.",
-				src: ""
+				src: "https://www.youtube.com/embed/a9tgsQAicZI?si=aLJL-WI4z67wFqDg"
 			},
 			{
 				id: "features-clear",
 				title: "Features: Remove All Rules",
 				description: "This page provides a way to remove all of the rules from all of the feature flags; and resets each feature flag back to using its default selection resolution.",
-				src: ""
+				src: "https://www.youtube.com/embed/QmFD4bPXTXk?si=XWRzdaEo9wiIE8r8"
 			},
 			{
 				id: "features-reset",
 				title: "Features: Reset Demo Configuration",
-				description: "This page allows provides a way to reset all of their feature flags playground data. This, essentially, deletes and then re-creates your demo data.",
-				src: ""
+				description: "This page provides a way to reset all of their feature flags playground data. This, essentially, deletes and then re-creates your demo data.",
+				src: "https://www.youtube.com/embed/BouJS8BckjA?si=g7FNpSe7LWkp2499"
 			},
 			{
 				id: "feature-targeting",
@@ -79,13 +79,13 @@
 				id: "feature-default-resolution",
 				title: "Feature: Default Resolution",
 				description: "This page provides a way to change the default resolution for the given feature flag in the given environment. The default resolution determines how feature variants are allocated before any subsequent rules are evaluated.",
-				src: ""
+				src: "https://www.youtube.com/embed/aM1zQYcXP7o?si=XHtjHoSn_p43pTeL"
 			},
 			{
 				id: "feature-rules-enabled",
 				title: "Feature: Rules Enabled",
 				description: "This page provides a way to enable or disable the rules for the given feature flag in the given environment. When rules are disabled, only the default resolution will be used when allocating feature flag variants.",
-				src: ""
+				src: "https://www.youtube.com/embed/rp81PcyUq2c?si=JnqV-GF4eKFUliNp"
 			},
 			{
 				id: "feature-rule",
