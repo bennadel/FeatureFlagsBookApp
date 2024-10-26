@@ -91,13 +91,13 @@
 				id: "feature-rule",
 				title: "Feature: Rule",
 				description: "This page provides a way to configure a rule for the given feature flag in the given environment. The rule will only be evaluated during feature flag variant allocation if rules are enabled in the given environment.",
-				src: ""
+				src: "https://www.youtube.com/embed/1akwfPJnRWA?si=YOEIOjGpSf7GXIv7"
 			},
 			{
 				id: "feature-clear",
 				title: "Feature: Clear Rules",
 				description: "This page provides a way to remove all the rules from a given feature flag; and reset the feature back to using the default selection resolution.",
-				src: ""
+				src: "https://www.youtube.com/embed/ET7nQEMHi6U?si=dn7dYHooyftuo-t7"
 			},
 			{
 				id: "feature-delete-rule",
