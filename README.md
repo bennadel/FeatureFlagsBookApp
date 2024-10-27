@@ -3,13 +3,11 @@
 
 by [Ben Nadel][ben-nadel]
 
-**STATUS: Work in Progress**
-
 As a fun experiment, I wanted to build a small playground companion to my [Feature Flags Book][book]. This is a place where readers can log into a system and try creating feature flags and updating targeting rules to get a sense of how a feature flags / feature toggles system can be used.
 
 [Log into the playground][app] &rarr;
 
-[![Screenshot of Feature Flags Playground video player](./assets/demo-thumbnail@2x.jpg)](https://www.youtube.com/watch?v=5h-ozYaN8Qs)
+[![Screenshot of Feature Flags Playground video player](./assets/demo-thumbnail@2x.jpg)](https://www.youtube.com/watch?v=rXN3mqm2l7A&list=PLMptQ3mXeP80TBnkvnuyX7XHId4Q0rFBf)
 
 ## Feature Flags Data Structure
 
@@ -19,7 +17,7 @@ A feature flags system is really just a rules engine that takes application-prov
 
 The majority of feature flags that I use are Boolean types that conditionally enable new feature experiments and performance improvements. For these types of flags, a finite set of variants along with a percent-based distribution makes a lot of sense &mdash; it allows you to incrementally roll-out a new feature; and, to react quickly to any early signs of a problem.
 
-For some types of _operational_ feature flags, however, dealing with a finite set of variants and a percent-based allocation feels unnatural. In those cases, a little more flexibility creates better developer ergonomics.
+For some types of _operational_ feature flags, however, dealing with a finite set of variants and a percent-based allocation feels unnatural. In those cases, a little more flexibility creates for better developer ergonomics.
 
 To enable this kind of flexibility, each feature flag (and rule) will have a `resolution` type. This `resolution` type can be one of three flavors:
 
@@ -41,7 +39,11 @@ In a production environment, we might want all users to receive the `error` vari
 
 ```js
 {
-    variants: [ "error", "warn", "info" ],
+    variants: [
+        "error", // 1st variant.
+        "warn",  // 2nd variant.
+        "info"   // 3rd variant.
+    ],
     targeting: {
         production: {
             resolution: {
@@ -88,8 +90,6 @@ Now, imagine that the defined log-level aren't enough to give us the information
 ### JSON Data Structure
 
 When you log into [the feature flags playground][app], your user will be allocated a unique collection of feature flags to be persisted in a JSON file. The following JavaScript represents the structure of said file.
-
-Note: This is a **work in progress**:
 
 ```js
 {
@@ -170,49 +170,11 @@ Note: This is a **work in progress**:
 }
 ```
 
-You may notice that the `environments`, `features`, and `targeting` properties all reference structs. I've chosen to use structs here, instead of arrays, because they make look-ups _much easier_. For example, when checking to see if a given environment or feature exists, it's comparatively simple to perform a `keyExists(featureKey)` check rather than looping over an array and comparing element properties.
-
-## Change Log
-
-* **2024, July 31**: I've added a demo video link. In the longer term, I'd like to perhaps have a separate demo video on each page with "what to look for" content.
-
-* **2024, July 29**: I've added the ability to create new feature flags, delete existing feature flags, and reset the configuration data back to the original default values.
-
-* **2024, July 28**: I've added basic workflows for editing the core configuration data. At this point, there's still no way to add or delete a feature flag; however, you can edit all the targeting information for the existing feature flag. This should give people a better sense of how feature flags can be progressively rolled out.
-
-* **2024, June 27**: I've added all the configuration validation methods. At this point, I should be able to start creating the UI that allows a user to actually edit their config file.
-
-* **2024, June 10**: I starting working on the list of feature flags. The great thing about having a set of demo-users against which to evaluate the feature flags is that I can show a preview breakdown of the variant allocations. It's a bit of a brute-force &mdash; for each feature, for each environment, for all users, evaluate the variant result &mdash; but, since it's such a small number of users (in the grand scheme of things), it should be fine.
-
-* **2024, June 9**: I collocated all of the demo targeting logic in a `DemoTargeting.cfc`. This includes both the demo rule injection and the user-context creation. This should make it a bit easier to update the demo experience in one place.
-
-* **2024, June 8**: The evaluation grid values now link to a View that provides detailed information about why a given variant has been returned by the evaluation process.
-
-* **2024, June 8**: I removed the `Staging` environment in the config. First, I think it's unnecessary given that there's still a `Development` and `Production` environment (having a 3rd environment just dilutes the experience). And second, I moved the "evaluator" to its own subsystem called "staging"; and, I didn't like having two different concepts in the same app with the same name.
-
-* **2024, June 8**: I created a `debugEvaluation()` method in the client feature flag evaluation. This way, I'll be able to report to the user _why_ a given variant was selected (this is not yet implemented). I'm also continuing to iterate on the evaluation UI / experience. I think I will need to bring in [Alpine.js][alpine] to drive the event-bindings; and, possibly [Turbo CFML][turbo-cfml] to create some frame-based loading.
-
-* **2024, June 6**: I was trying to get ChatGPT to generate demo data for me. But, it ended up being an uphill battle. In the end, I had it given me lists of first/last names. And then, I [created a script](./app/wwwroot/fake-users.cfm) to generate a large set of demo data using `randRange()`.
-
-* **2024, June 5**: I've started working on [the client / consumer / evaluator](./app/lib/client/) portion of the playground. This would normally be an external project (in your language of choice); but, in this case, it's all part of the playground.
-
-* **2024, June 4**: Defining some [demo data](./app/lib/demo/) that will be used to create a default experience. This includes a set of sample users against which the feature flags can be evaluated.
-
-* **2024, June 2**: Considering the use of a `resolutionMode` in the data structure to create flexibility in which variants are returned to the user.
-
-* **2024, May 27**: Starting to consider data-structure of feature flag.
-
-* **2024, May 27**: Added a light-weight authentication workflow.
-
-* **2024, May 23**: Created repository.
+You may notice that the `environments`, `features`, and `targeting` properties all reference structs. I've chosen to use structs here, instead of arrays, because they make look-ups much easier. For example, when checking to see if a given environment or feature exists, it's comparatively simple to perform a `keyExists(featureKey)` check rather than looping over an array and comparing element properties.
 
 
 [app]: https://app.featureflagsbook.com/
 
-[alpine]: https://alpinejs.dev/
-
 [ben-nadel]: https://www.bennadel.com/
 
 [book]: https://featureflagsbook.com/
-
-[turbo-cfml]: https://github.com/bennadel/turbo-cfml
