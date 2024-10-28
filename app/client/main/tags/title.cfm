@@ -5,7 +5,6 @@
 	// ------------------------------------------------------------------------------- //
 	// ------------------------------------------------------------------------------- //
 
-	param name="request.template" type="struct";
 	param name="request.template.title" type="string";
 
 	siteName = config.site.name;

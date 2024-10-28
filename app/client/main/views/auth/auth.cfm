@@ -2,11 +2,6 @@
 
 	param name="request.event[ 2 ]" type="string" default="login";
 
-	request.template = {
-		statusCode: 200,
-		statusText: "OK"
-	};
-
 	switch ( request.event[ 2 ] ) {
 		case "login":
 			cfmodule( template = "./login/login.cfm" );

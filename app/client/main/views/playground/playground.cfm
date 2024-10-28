@@ -13,11 +13,6 @@
 
 	param name="request.event[ 2 ]" type="string" default="features";
 
-	request.template = {
-		statusCode: 200,
-		statusText: "OK"
-	};
-
 	switch ( request.event[ 2 ] ) {
 		case "account":
 			cfmodule( template = "./account/account.cfm" );
