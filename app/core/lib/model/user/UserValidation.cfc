@@ -41,7 +41,8 @@ component
 		if (
 			email.find( "@example.com" ) ||
 			email.find( "@featureflagsbook.com" ) ||
-			email.find( "@test.com" )
+			email.find( "@test.com" ) ||
+			email.find( "@test.test" )
 			) {
 
 			throw(
