@@ -33,7 +33,7 @@ component
 			"key": [:],
 			"user.id": [:],
 			"user.email": [:],
-			"user.emailDomain": [:], // Special case.
+			"user.emailDomain": [:],
 			"user.role": [:],
 			"user.company.id": [:],
 			"user.company.subdomain": [:],
@@ -48,7 +48,7 @@ component
 			datalists[ "key" ][ user.id ] = true;
 			datalists[ "user.id" ][ user.id ] = true;
 			datalists[ "user.email" ][ user.email ] = true;
-			datalists[ "user.emailDomain" ][ "@" & user.email.listRest( "@" ) ] = true;
+			datalists[ "user.emailDomain" ][ user.emailDomain ] = true;
 			datalists[ "user.role" ][ user.role ] = true;
 			datalists[ "user.company.id" ][ user.company.id ] = true;
 			datalists[ "user.company.subdomain" ][ user.company.subdomain ] = true;

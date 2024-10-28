@@ -1,6 +1,7 @@
 <cfscript>
 
 	demoUsers = request.ioc.get( "core.lib.demo.DemoUsers" );
+	partialHelper = request.ioc.get( "client.main.lib.PartialHelper" );
 	ui = request.ioc.get( "client.main.lib.ViewHelper" );
 
 	// ------------------------------------------------------------------------------- //
@@ -8,7 +9,7 @@
 
 	param name="url.sortOn" type="string" default="user.id";
 
-	users = getUsers( request.user.email );
+	users = partialHelper.getUsers( request.user.email );
 	authUsers = getAuthUsers( users );
 	groups = getGroups( users, url.sortOn );
 	title = "Demo Users For Targeting";
@@ -107,26 +108,6 @@
 		}
 
 		return groups;
-
-	}
-
-
-	/**
-	* I get the users for the given authenticated user.
-	*/
-	private array function getUsers( required string email ) {
-
-		var users = demoUsers.getUsers( email );
-
-		// For sorting and rendering purposes, we want to break apart the email address.
-		for ( var user in users ) {
-
-			user.emailUser = user.email.listFirst( "@" );
-			user.emailDomain = ( "@" & user.email.listRest( "@" ) );
-
-		}
-
-		return users;
 
 	}
 
